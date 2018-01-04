@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnector{
+public class OracleConnection implements DBConnection{
 	
-	public static void initConnect() {
+	public void initConnect() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("Driver Loading Success!!");
@@ -16,7 +16,7 @@ public class DBConnector{
 		}
 	}
 	
-	public static Connection makeConnection() {
+	public Connection makeConnection() {
 		Connection conn = null;
 		
 		try {
