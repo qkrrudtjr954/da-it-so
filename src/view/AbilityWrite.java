@@ -19,16 +19,19 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
-public class writeView extends JFrame implements ActionListener{
+public class AbilityWrite extends JFrame implements ActionListener{
 
 	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, writeBtn;
 	private JTextField searchTextF, nameTextF, img1TextF, img2TextF, img3TextF, keywTextF;
 	private JTextPane contentTextPn;
 	private JPanel headerLogo;
 	
+	
 	private JFileChooser jfc = new JFileChooser();
 	
-	public writeView() {
+	public AbilityWrite() {
+	
+		String icomImgimgUrl = "C:\\icon\\";
 		
 		JLabel cateLb, nameLb, imgLb1, imgLb2, imgLb3, keywLb, abilityLb, contentLb;
 		JComboBox cateCombo;
@@ -37,7 +40,7 @@ public class writeView extends JFrame implements ActionListener{
 		
 		//header 
 		headerLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon("D:\\project\\icon\\headerlogo.png");
+			ImageIcon headerimage = new ImageIcon(icomImgimgUrl+"headerlogo.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(headerimage.getImage(), 0, 0, null);
@@ -48,7 +51,7 @@ public class writeView extends JFrame implements ActionListener{
 		
 		//logo
 		logoPn = new JPanel() {
-			ImageIcon image = new ImageIcon("D:\\project\\icon\\logo.png");
+			ImageIcon image = new ImageIcon(icomImgimgUrl+"logo.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(image.getImage(), 0, 0, null);
@@ -58,7 +61,7 @@ public class writeView extends JFrame implements ActionListener{
 		};
 		//category 1
 		cate1 = new JPanel() {
-			ImageIcon cate1Image = new ImageIcon("D:\\project\\icon\\1.png");
+			ImageIcon cate1Image = new ImageIcon(icomImgimgUrl+"1.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate1Image.getImage(), 0, 0, null);
@@ -68,7 +71,7 @@ public class writeView extends JFrame implements ActionListener{
 		};
 		//category 2
 		cate2 = new JPanel() {
-			ImageIcon cate2Image = new ImageIcon("D:\\project\\icon\\2.png");
+			ImageIcon cate2Image = new ImageIcon(icomImgimgUrl+"2.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate2Image.getImage(), 0, 0, null);
@@ -78,7 +81,7 @@ public class writeView extends JFrame implements ActionListener{
 		};
 		//category 3
 		cate3 = new JPanel() {
-			ImageIcon cate3Image = new ImageIcon("D:\\project\\icon\\3.png");
+			ImageIcon cate3Image = new ImageIcon(icomImgimgUrl+"3.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate3Image.getImage(), 0, 0, null);
@@ -88,7 +91,7 @@ public class writeView extends JFrame implements ActionListener{
 		};
 		//category 4
 		cate4 = new JPanel() {
-			ImageIcon cate4Image = new ImageIcon("D:\\project\\icon\\4.png");
+			ImageIcon cate4Image = new ImageIcon(icomImgimgUrl+"4.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate4Image.getImage(), 0, 0, null);
@@ -98,7 +101,7 @@ public class writeView extends JFrame implements ActionListener{
 		};
 		//category 5
 		cate5 = new JPanel() {
-			ImageIcon cate5Image = new ImageIcon("D:\\project\\icon\\5.png");
+			ImageIcon cate5Image = new ImageIcon(icomImgimgUrl+"5.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate5Image.getImage(), 0, 0, null);
@@ -108,7 +111,7 @@ public class writeView extends JFrame implements ActionListener{
 		};
 		//category 6
 		cate6 = new JPanel() {
-			ImageIcon cate6Image = new ImageIcon("D:\\project\\icon\\6.png");
+			ImageIcon cate6Image = new ImageIcon(icomImgimgUrl+"6.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate6Image.getImage(), 0, 0, null);
@@ -118,7 +121,7 @@ public class writeView extends JFrame implements ActionListener{
 		};
 		//category 7
 		cate7 = new JPanel() {
-			ImageIcon cate7Image = new ImageIcon("D:\\project\\icon\\7.png");
+			ImageIcon cate7Image = new ImageIcon(icomImgimgUrl+"7.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate7Image.getImage(), 0, 0, null);
@@ -128,7 +131,7 @@ public class writeView extends JFrame implements ActionListener{
 		};
 		//category 8
 		cate8 = new JPanel() {
-			ImageIcon cate8Image = new ImageIcon("D:\\project\\icon\\8.png");
+			ImageIcon cate8Image = new ImageIcon(icomImgimgUrl+"8.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate8Image.getImage(), 0, 0, null);
@@ -138,7 +141,7 @@ public class writeView extends JFrame implements ActionListener{
 		};
 		//category 9
 		cate9 = new JPanel() {
-			ImageIcon cate9Image = new ImageIcon("D:\\project\\icon\\9.png");
+			ImageIcon cate9Image = new ImageIcon(icomImgimgUrl+"9.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate9Image.getImage(), 0, 0, null);
@@ -216,7 +219,7 @@ public class writeView extends JFrame implements ActionListener{
 		sidePn.add(searchTextF);
 
 		// searchBtn
-		searchBtn = new JButton(new ImageIcon("D:\\project\\icon\\search.png"));
+		searchBtn = new JButton(new ImageIcon(icomImgimgUrl+"search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
@@ -317,10 +320,10 @@ public class writeView extends JFrame implements ActionListener{
 		imgAdd3.addActionListener(this);
 		writePn.add(imgAdd3);
 		
-		//key
-		keywLb = new JLabel("키워드");
-		keywLb.setBounds(100, 310, 100, 30);
-		writePn.add(keywLb);
+		//abilityLb
+		abilityLb = new JLabel("보유능력");
+		abilityLb.setBounds(100, 310, 100, 30);
+		writePn.add(abilityLb);
 		
 		keywTextF = new JTextField();
 		keywTextF.setBounds(210, 310, 300, 30);
