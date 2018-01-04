@@ -1,5 +1,5 @@
 package dao;
 
-public class PersonDao {
+public class PersonDao implements PersonDaoImpl{
 
 }

@@ -1,5 +1,5 @@
 package service;
 
-public class ItemBbsService {
+public class ItemBbsService implements ItemBbsServiceImpl{
 
 }

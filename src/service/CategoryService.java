@@ -1,5 +1,5 @@
 package service;
 
-public class CategoryService {
+public class CategoryService implements CategoryServiceImpl{
 
 }

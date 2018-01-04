@@ -1,5 +1,5 @@
 package dao;
 
-public class RoomDao {
+public class RoomDao implements RoomDaoImpl{
 
 }

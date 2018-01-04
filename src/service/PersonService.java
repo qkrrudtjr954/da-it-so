@@ -1,5 +1,5 @@
 package service;
 
-public class PersonService {
+public class PersonService implements PersonServiceImpl{
 
 }

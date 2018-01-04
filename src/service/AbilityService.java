@@ -1,5 +1,5 @@
 package service;
 
-public class AbilityService {
+public class AbilityService implements AbilityServiceImpl {
 
 }
