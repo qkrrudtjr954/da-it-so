@@ -1,5 +1,5 @@
 package dao;
 
-public class ChatDao {
+public class ChatDao implements ChatDaoImpl{
 
 }

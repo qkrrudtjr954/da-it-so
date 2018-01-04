@@ -1,5 +1,5 @@
 package service;
 
-public class RoomService {
+public class RoomService implements RoomServiceImpl{
 
 }

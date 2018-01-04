@@ -1,5 +1,5 @@
 package dao;
 
-public class CategoryDao {
+public class CategoryDao implements CategoryDaoImpl{
 
 }

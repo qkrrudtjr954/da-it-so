@@ -1,6 +1,6 @@
 package dao;
 
 
-public class AbilityDao {
+public class AbilityDao implements AbilityDaoImpl{
 	
 }

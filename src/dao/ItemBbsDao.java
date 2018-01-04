@@ -1,5 +1,5 @@
 package dao;
 
-public class ItemBbsDao {
+public class ItemBbsDao implements ItemBbsDaoImpl{
 
 }
