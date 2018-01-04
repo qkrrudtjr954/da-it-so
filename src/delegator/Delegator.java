@@ -3,7 +3,7 @@ package delegator;
 public class Delegator {
 	private static Delegator instance = null;
 	
-	private Delegator() {
+	private Delegator() {  
 	}
 	
 	public static Delegator getInstance() {
