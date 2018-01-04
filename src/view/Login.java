@@ -2,26 +2,27 @@ package view;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
+import dto.Person;
 
 public class Login extends JFrame implements ActionListener {
 
@@ -65,40 +66,52 @@ public class Login extends JFrame implements ActionListener {
 		headerPn.setSize(1680, 60);
 		headerPn.setLayout(null);
 
+		Delegator delegator = Delegator.getInstance();
+
 		// headerlogo
 		headerLogo.setBounds(15, 25, 71, 15);
+		headerLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				delegator.mainController.Main();
+			}
+		});
 		headerPn.add(headerLogo);
 		
-		// logoutBtn
-		logoutBtn = new JButton("로그아웃");
-		logoutBtn.setBounds(1250, 20, 100, 30);
-		logoutBtn.setOpaque(false); // 투명하게
-		logoutBtn.setBorderPainted(false);// 외곽선 없애줌
-		logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
-		logoutBtn.setBackground(commonRedColor);
-		logoutBtn.setForeground(Color.white);
-		headerPn.add(logoutBtn);
-
-		// loginBtn
-		loginBtn = new JButton("로그인");
-		loginBtn.setBounds(1190, 20, 100, 30);
-		loginBtn.setOpaque(false); // 투명하게
-		loginBtn.setBorderPainted(false);// 외곽선 없애줌
-		loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
-		loginBtn.setBackground(commonRedColor);
-		loginBtn.setForeground(Color.white);
-		headerPn.add(loginBtn);
-
-		// SignBtn
-		signBtn = new JButton("회원가입");
-		signBtn.setBounds(1130, 20, 100, 30);
-		signBtn.setOpaque(false); // 투명하게
-		signBtn.setBorderPainted(false);// 외곽선 없애줌
-		signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
-		signBtn.setBackground(commonRedColor);
-		signBtn.setForeground(Color.white);
-		signBtn.addActionListener(this);
-		headerPn.add(signBtn);
+		
+		if(delegator.getCurrent_user()==null) {
+			// loginBtn
+			loginBtn = new JButton("로그인");
+			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setOpaque(false); // 투명하게
+			loginBtn.setBorderPainted(false);// 외곽선 없애줌
+			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
+			loginBtn.setBackground(commonRedColor);
+			loginBtn.setForeground(Color.white);
+			headerPn.add(loginBtn);
+			
+			// SignBtn
+			signBtn = new JButton("회원가입");
+			signBtn.setBounds(1130, 20, 100, 30);
+			signBtn.setOpaque(false); // 투명하게
+			signBtn.setBorderPainted(false);// 외곽선 없애줌
+			signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signBtn.setBackground(commonRedColor);
+			signBtn.setForeground(Color.white);
+			signBtn.addActionListener(this);
+			headerPn.add(signBtn);			
+		}else {
+			// logoutBtn
+			logoutBtn = new JButton("로그아웃");
+			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setOpaque(false); // 투명하게
+			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
+			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
+			logoutBtn.setBackground(commonRedColor);
+			logoutBtn.setForeground(Color.white);
+			headerPn.add(logoutBtn);			
+		}
 		
 		contentPane.add(headerPn);
 		
@@ -156,6 +169,7 @@ public class Login extends JFrame implements ActionListener {
 		signInBtn = new JButton("Sign In");
 		signInBtn.setBounds(720, 220, 100, 135);
 		signInBtn.setBorder(new LineBorder(commonRedColor, 2));
+		signInBtn.addActionListener(this);
 		login.add(signInBtn);
 
 		main.add(login);
@@ -173,7 +187,32 @@ public class Login extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		
 		if(obj == signInBtn) {
-			delegator.personController.checkUser(id.getText(), pwd.getPassword());
+			String _id = id.getText();
+			char[] _pwd = pwd.getPassword();
+			
+			if(_id.length() < 5) {
+				JOptionPane.showMessageDialog(null, "id length must be more than 5");
+				pwd.setText("");
+			}else if(_pwd.length < 5) {
+				JOptionPane.showMessageDialog(null, "password length must be more than 5");
+				pwd.setText("");
+			}else {
+				Person person = delegator.personController.signIn(id.getText(), pwd.getPassword());
+				
+				if(person != null) {
+					//	login success
+					delegator.mainController.Main();
+				}else {
+					//	login fail
+					JOptionPane.showMessageDialog(null, "wrong password");
+					pwd.setText("");
+				}				
+			}
+		}else if(obj == loginBtn) {
+			delegator.personController.Login();
+		}else if(obj == logoutBtn) {
+			delegator.personController.Logout();
+			this.dispose();
 		}
 	}
 

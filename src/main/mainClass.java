@@ -6,7 +6,7 @@ public class mainClass {
 	public static void main(String[] args) {
 		
 		Delegator delegator = Delegator.getInstance();
-		delegator.personController.Login();
+		delegator.mainController.Main();
 		
 	}
 }

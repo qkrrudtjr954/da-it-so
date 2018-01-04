@@ -4,6 +4,7 @@ import controller.AbilityBbsController;
 import controller.CategoryController;
 import controller.ChatController;
 import controller.ItemBbsController;
+import controller.MainController;
 import controller.PersonController;
 import controller.RoomController;
 import dto.Person;
@@ -18,6 +19,7 @@ public class Delegator {
 	public ItemBbsController itemBbsController;
 	public PersonController personController;
 	public RoomController roomController;
+	public MainController mainController;
 	
 	private Delegator() {
 		
@@ -27,6 +29,7 @@ public class Delegator {
 		itemBbsController = new ItemBbsController();
 		personController = new PersonController();
 		roomController = new RoomController();
+		mainController = new MainController();
 	}
 	
 	public static Delegator getInstance() {
