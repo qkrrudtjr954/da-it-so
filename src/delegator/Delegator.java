@@ -27,7 +27,6 @@ public class Delegator {
 		itemBbsController = new ItemBbsController();
 		personController = new PersonController();
 		roomController = new RoomController();
-		
 	}
 	
 	public static Delegator getInstance() {
