@@ -10,6 +10,7 @@ public class AbilityBbs implements Serializable{
 	private String imgurl1;
 	private String imgurl2;
 	private String imgurl3;
+	private String imgurl4;
 	private String ability;	// 보유능력
 	private String content;
 	private String created_at;
@@ -19,8 +20,10 @@ public class AbilityBbs implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public AbilityBbs(int category_id, String user_id, String title, String imgurl1, String imgurl2,
-			String imgurl3, String ability, String content, String created_at) {
+	
+
+	public AbilityBbs(int category_id, String user_id, String title, String imgurl1, String imgurl2, String imgurl3,
+			String imgurl4, String ability, String content, String created_at, int state) {
 		super();
 		this.category_id = category_id;
 		this.user_id = user_id;
@@ -28,10 +31,14 @@ public class AbilityBbs implements Serializable{
 		this.imgurl1 = imgurl1;
 		this.imgurl2 = imgurl2;
 		this.imgurl3 = imgurl3;
+		this.imgurl4 = imgurl4;
 		this.ability = ability;
 		this.content = content;
 		this.created_at = created_at;
+		this.state = state;
 	}
+
+
 
 	public int getSeq() {
 		return seq;
@@ -126,6 +133,14 @@ public class AbilityBbs implements Serializable{
 		return "AbilityBbs [seq=" + seq + ", category_id=" + category_id + ", user_id=" + user_id + ", title=" + title
 				+ ", imgurl1=" + imgurl1 + ", imgurl2=" + imgurl2 + ", imgurl3=" + imgurl3 + ", ability=" + ability
 				+ ", content=" + content + ", created_at=" + created_at + ", state=" + state + "]";
+	}
+
+	public String getImgurl4() {
+		return imgurl4;
+	}
+
+	public void setImgurl4(String imgurl4) {
+		this.imgurl4 = imgurl4;
 	}
 	
 	

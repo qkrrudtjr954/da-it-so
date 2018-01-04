@@ -10,6 +10,8 @@ public class ItemBbs implements Serializable{
 	private String imgurl1;
 	private String imgurl2;
 	private String imgurl3;
+	private String imgurl4;
+	private int price;
 	private String keyword;	// 검색 키워드 ( 해쉬 태크 )
 	private String content;
 	private String created_at;
