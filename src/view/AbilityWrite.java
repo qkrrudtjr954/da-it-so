@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,6 +37,7 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 	String icomImgimgUrl = "C:\\icon\\";
 	
 	private JFileChooser jfc = new JFileChooser();
+	private String filename1,filename2,filename3,filename4;
 	
 	public AbilityWrite() {
 	
@@ -380,6 +383,8 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
             if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
                     // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
                     img1TextF.setText(jfc.getSelectedFile().toString());
+                    filename1 = jfc.getSelectedFile().getName();
+                    
             }
 		}
 		
@@ -387,6 +392,7 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
             if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
                     // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
                     img2TextF.setText(jfc.getSelectedFile().toString());
+                    filename2 = jfc.getSelectedFile().getName();
             }
 		}
 		
@@ -394,6 +400,7 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
             if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
                     // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
                     img3TextF.setText(jfc.getSelectedFile().toString());
+                    filename3 = jfc.getSelectedFile().getName();
             }
 		}
 		
@@ -401,6 +408,7 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
             if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
                     // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
                     img4TextF.setText(jfc.getSelectedFile().toString());
+                    filename4 = jfc.getSelectedFile().getName();
             }
 		}
 		

@@ -27,7 +27,7 @@ public class filesend{
             while(true){
                 String filename = fileurl; //s.next();    //스캐너를 통해 파일의 이름을 입력받고,
                 fin = new FileInputStream(new File(filename)); //FileInputStream - 파일에서 입력받는 스트림을 개통합니다.
-            
+
 		        byte[] buffer = new byte[1024];        //바이트단위로 임시저장하는 버퍼를 생성합니다.
 		        int len;                               //전송할 데이터의 길이를 측정하는 변수입니다.
 		        int data=0;                            //전송횟수, 용량을 측정하는 변수입니다.
@@ -37,11 +37,12 @@ public class filesend{
 		        }
 		        
 		        int datas = data;                      //아래 for문을 통해 data가 0이되기때문에 임시저장한다.
-		 
+		        
 		        fin.close();
 		        fin = new FileInputStream(filename);   //FileInputStream이 만료되었으니 새롭게 개통합니다.
 		        dout.writeInt(data);                   //데이터 전송횟수를 서버에 전송하고,
 		        dout.writeUTF(filename);               //파일의 이름을 서버에 전송합니다.
+		        //dout.writeUTF();
 		        
 		         len = 0;
 		        
@@ -51,8 +52,9 @@ public class filesend{
 		        }
 		        
 		        System.out.println("약 "+datas+" kbyte");
-		            }
-		        }catch(Exception e){
-		        }
-			}
+		        soc.close();
+            }
+		}catch(Exception e){
+		}
+	}
 }
