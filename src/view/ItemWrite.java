@@ -21,19 +21,20 @@ import javax.swing.border.LineBorder;
 
 public class ItemWrite extends JFrame implements ActionListener{
 
-	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, writeBtn;
-	private JTextField searchTextF, nameTextF, img1TextF, img2TextF, img3TextF, keywTextF;
+	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn;
+	private JTextField searchTextF, nameTextF, img1TextF, img2TextF, img3TextF, img4TextF, keywTextF;
 	private JTextPane contentTextPn;
 	private JPanel headerLogo;
 	
 	
 	private JFileChooser jfc = new JFileChooser();
 	
+	String icomImgimgUrl = "C:\\icon\\";
+	
 	public ItemWrite() {
 	
-		String icomImgimgUrl = "C:\\icon\\";
 		
-		JLabel cateLb, nameLb, imgLb1, imgLb2, imgLb3, keywLb, abilityLb, contentLb;
+		JLabel cateLb, nameLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, abilityLb, contentLb;
 		JComboBox cateCombo;
 		JPanel headerPn, sidePn, logoPn, catePn, writePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 		cate9;
@@ -320,26 +321,39 @@ public class ItemWrite extends JFrame implements ActionListener{
 		imgAdd3.addActionListener(this);
 		writePn.add(imgAdd3);
 		
+		imgLb4 = new JLabel("사진4");
+		imgLb4.setBounds(100, 310, 100, 30);
+		writePn.add(imgLb4);
+		
+		img4TextF = new JTextField();
+		img4TextF.setBounds(210, 310, 300, 30);
+		writePn.add(img4TextF);
+		
+		imgAdd3 = new JButton("이미지 4");
+		imgAdd3.setBounds(520, 310, 100, 30);
+		imgAdd3.addActionListener(this);
+		writePn.add(imgAdd3);
+		
 		//key
 		keywLb = new JLabel("키워드");
-		keywLb.setBounds(100, 310, 100, 30);
+		keywLb.setBounds(100, 350, 100, 30);
 		writePn.add(keywLb);
 		
 		keywTextF = new JTextField();
-		keywTextF.setBounds(210, 310, 300, 30);
+		keywTextF.setBounds(210, 350, 300, 30);
 		writePn.add(keywTextF);
 		
 		//content
 		contentLb = new JLabel("내용");
-		contentLb.setBounds(100, 350, 100, 30);
+		contentLb.setBounds(100, 390, 100, 30);
 		writePn.add(contentLb);
 		
 		contentTextPn = new JTextPane();
-		contentTextPn.setBounds(210, 350, 410, 200);
+		contentTextPn.setBounds(210, 390, 410, 200);
 		writePn.add(contentTextPn);
 		
 		writeBtn = new JButton("등록");
-		writeBtn.setBounds(520, 570, 100, 30);
+		writeBtn.setBounds(520, 610, 100, 30);
 		writePn.add(writeBtn);
 		
 		add(sidePn);
@@ -375,8 +389,13 @@ public class ItemWrite extends JFrame implements ActionListener{
                     img3TextF.setText(jfc.getSelectedFile().toString());
             }
 		}
-
-
+		
+		if(e.getActionCommand().equals("이미지 4")){
+            if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+                    // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+                    img4TextF.setText(jfc.getSelectedFile().toString());
+            }
+		}
 	}
 	
 	
