@@ -17,13 +17,12 @@ public class Person implements Serializable{
 	}
 
 
-	public Person(String id, char[] pwd, String phone, String nick, String created_at) {
+	public Person(String id, char[] pwd, String phone, String nick) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
 		this.phone = phone;
 		this.nick = nick;
-		this.created_at = created_at;
 	}
 
 
