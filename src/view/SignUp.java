@@ -234,8 +234,20 @@ public class SignUp extends JFrame implements ActionListener {
 			}else if(_pwd.length < 5) {
 				JOptionPane.showMessageDialog(null, "password length must be more than 5");
 				pwd.setText("");
-			}else {
-				Person person = delegator.personController.signIn(id.getText(), pwd.getPassword());
+			}else if(checkPwd()){
+				JOptionPane.showMessageDialog(null, "비밀 번호가 일치하지 않습니다.");
+				pwd.setText("");
+				pwd2.setText("");
+			}
+			else {
+				
+				Person person = new Person();
+				person.setId(id.getText());
+				person.setPwd(pwd.getPassword());
+				person.setNick(nick.getText());
+				person.setPhone(phone.getText());
+				person.setCreated_at(null);
+				//Person person = delegator.personController.insert(id.getText(), pwd.getPassword());
 				
 				if(person != null) {
 					//	login success
@@ -253,5 +265,21 @@ public class SignUp extends JFrame implements ActionListener {
 			this.dispose();
 		}
 	}
-
+	
+	// 비밀번호가 같은지 확인하는 메소드 
+	private boolean checkPwd() {
+		char[] _pwd1 = pwd.getPassword();
+		char[] _pwd2 = pwd2.getPassword();
+		
+		if(_pwd1.length != _pwd2.length) {
+			return false;
+		}else {
+			for(int i=0; i<_pwd1.length; i++) {
+				if(_pwd1[i]!=_pwd2[i]) {
+					return false;
+				}
+			}			
+		}
+		return true;
+	}
 }
