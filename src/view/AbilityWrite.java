@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -427,18 +425,18 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 				filesend fs = new filesend(img4TextF.getText());
 			}
 			
-			AbilityBbs abilitybbs = new AbilityBbs();
-			abilitybbs.setCategory_id(cateCombo.getSelectedIndex());
-			abilitybbs.setTitle(titleTextF.getText());
-			abilitybbs.setImgurl1(img1TextF.getText());
-			abilitybbs.setImgurl2(img2TextF.getText());
-			abilitybbs.setImgurl3(img3TextF.getText());
-			abilitybbs.setImgurl4(img4TextF.getText());
-			abilitybbs.setAbility(abilityTextF.getText());
-			abilitybbs.setContent(contentTextPn.getText());
+			AbilityBbs abilityDto = new AbilityBbs();
+			abilityDto.setCategory_id(cateCombo.getSelectedIndex());
+			abilityDto.setTitle(titleTextF.getText());
+			abilityDto.setImgurl1(img1TextF.getText());
+			abilityDto.setImgurl2(img2TextF.getText());
+			abilityDto.setImgurl3(img3TextF.getText());
+			abilityDto.setImgurl4(img4TextF.getText());
+			abilityDto.setAbility(abilityTextF.getText());
+			abilityDto.setContent(contentTextPn.getText());
 			
 			Delegator delegator = Delegator.getInstance();
-			delegator.abilityBbsController.main();
+			delegator.abilityBbsController.AbilityDetail(abilityDto);
 			dispose();
 		}
 
@@ -452,7 +450,8 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 			
 			if(e.getComponent().equals(headerLogo)) {
 				Delegator delegator = Delegator.getInstance();
-				//home
+				delegator.abilityBbsController.main();
+				dispose();
 			}
 			
 		}

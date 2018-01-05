@@ -39,7 +39,7 @@ public class DetailPageView extends JFrame implements ActionListener,MouseListen
 	String iconImgUrl = "C:\\icon\\";
 	Person PersonDto = new Person();
 
-	public DetailPageView(AbilityBbs dto, Person PersonDto) {
+	public DetailPageView(AbilityBbs dto) {
 
 		this.PersonDto = PersonDto;
 		Container cn = getContentPane();
