@@ -42,5 +42,13 @@ public class PersonController {
 		return person;
 	}
 	
+	public Person insert(Person person) {
+		return personService.insert(person);
+	}
+	
+	public boolean checkId(String id) {
+		return personService.checkId(id);
+	}
+	
 	
 }

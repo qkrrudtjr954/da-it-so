@@ -32,7 +32,7 @@ public class PersonDao implements PersonDaoImpl {
 		ResultSet rs = null;
 		Person person = null;
 
-		System.out.println(">>>	PersonDao sql : " + sql);
+		System.out.println(">>>	PersonDao .getPerson() sql : " + sql);
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -41,7 +41,7 @@ public class PersonDao implements PersonDaoImpl {
 			if (rs.next()) {
 				person = new Person();
 				person.setId(rs.getString("id"));
-				person.setCreated_at(rs.getString("created_at"));
+				person.setCreated_at(rs.getString("create_at"));
 				person.setNick(rs.getString("nick"));
 				person.setPhone(rs.getString("phone"));
 				person.setSeq(rs.getInt("seq"));
@@ -54,6 +54,72 @@ public class PersonDao implements PersonDaoImpl {
 			DBClose.close(pstmt, conn, rs);
 		}
 		return person;
+	}
+
+	public boolean insert(Person person) {
+		// TODO Auto-generated method stub
+		String pwds = new String(person.getPwd());
+
+		String sql;
+		
+		if (DBConnector.getClass().getName().equals("db.MySqlConnection")) {
+			sql = " insert into person(id, pwd, phone, nick, create_at) "
+					+ " values('"+person.getId()+"', '"+pwds+"', '"+person.getPhone()+"', '"+person.getNick()+"', now()) ";
+		} else {
+			sql = "  ";
+		}
+		
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+
+		ResultSet rs = null;
+		int count = -1;
+
+		System.out.println(">>>	PersonDao .insert() sql : " + sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			count = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+		return count > 0 ? true : false;
+	}
+	
+	public boolean checkId(String id) {
+		String sql = " select * from person where id='" + id + "'";
+		
+		
+		boolean result = true;
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+
+		ResultSet rs = null;
+		Person person = null;
+
+		System.out.println(">>>	PersonDao .checkId() sql : " + sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
+			
+			if(rs.next()) {
+				result = false;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+		return result;
 	}
 
 }

@@ -26,10 +26,11 @@ import dto.Person;
 
 public class SignUp extends JFrame implements ActionListener {
 
-	private JButton loginBtn, logoutBtn, signBtn;
+	private JButton loginBtn, logoutBtn, signBtn, checkIdBtn;
 	private JTextField id, phone, nick;
 	private JPasswordField pwd, pwd2;
 	private JButton signUpBtn;
+	private boolean hidden = false;
 	
 	
 
@@ -159,9 +160,15 @@ public class SignUp extends JFrame implements ActionListener {
 		login.add(idLabel);
 		
 		id = new JTextField();
-		id.setBounds(300, 240, 400, 50);
+		id.setBounds(300, 240, 300, 50);
 		id.setBackground(commonGrayColor);
 		login.add(id);
+		
+		checkIdBtn = new JButton("중복 확인");
+		checkIdBtn.setBounds(600, 240, 100, 50);
+		checkIdBtn.setBorder(new LineBorder(commonRedColor, 2));
+		checkIdBtn.addActionListener(this);
+		login.add(checkIdBtn);
 		
 		JLabel pwdLabel = new JLabel("password");
 		pwdLabel.setBounds(150, 300, 150, 50);
@@ -228,41 +235,60 @@ public class SignUp extends JFrame implements ActionListener {
 			String _id = id.getText();
 			char[] _pwd = pwd.getPassword();
 			
+			System.out.println(hidden);
+			
 			if(_id.length() < 5) {
 				JOptionPane.showMessageDialog(null, "id length must be more than 5");
 				pwd.setText("");
 			}else if(_pwd.length < 5) {
 				JOptionPane.showMessageDialog(null, "password length must be more than 5");
 				pwd.setText("");
-			}else if(checkPwd()){
+			}else if(!checkPwd()){
 				JOptionPane.showMessageDialog(null, "비밀 번호가 일치하지 않습니다.");
 				pwd.setText("");
 				pwd2.setText("");
-			}
-			else {
-				
+			}else if(!checkPhone()){
+				JOptionPane.showMessageDialog(null, "전화번호는 숫자만 입력해주세요. ");
+			}else {
 				Person person = new Person();
 				person.setId(id.getText());
 				person.setPwd(pwd.getPassword());
 				person.setNick(nick.getText());
 				person.setPhone(phone.getText());
-				person.setCreated_at(null);
-				//Person person = delegator.personController.insert(id.getText(), pwd.getPassword());
 				
-				if(person != null) {
-					//	login success
-					delegator.mainController.Main();
+				Person resultPerson = null;
+				
+				if(hidden) {
+					resultPerson = delegator.personController.insert(person);
+
+					if(resultPerson != null) {
+						JOptionPane.showMessageDialog(null, "회원 가입에 성공했습니다. ");
+						delegator.personController.Login();
+						this.dispose();
+					}else {
+						JOptionPane.showMessageDialog(null, "회원 가입에 실패했습니다. 다시 시도해주세요. ");
+						pwd.setText("");
+						pwd2.setText("");
+					}				
 				}else {
-					//	login fail
-					JOptionPane.showMessageDialog(null, "wrong password");
-					pwd.setText("");
-				}				
+					JOptionPane.showMessageDialog(null, "아이디 중복 확인을 해주세요.");
+				}
 			}
 		}else if(obj == loginBtn) {
 			delegator.personController.Login();
 		}else if(obj == logoutBtn) {
 			delegator.personController.Logout();
 			this.dispose();
+		}else if(obj == checkIdBtn) {
+			boolean result = delegator.personController.checkId(id.getText());
+			
+			if(result) {
+				JOptionPane.showMessageDialog(null, "사용 가능한 아이디 입니다. ");
+				hidden = true;
+			}else {
+				JOptionPane.showMessageDialog(null, "이미 사용중 아이디 입니다. ");
+				hidden = false;
+			}
 		}
 	}
 	
@@ -279,6 +305,18 @@ public class SignUp extends JFrame implements ActionListener {
 					return false;
 				}
 			}			
+		}
+		return true;
+	}
+	
+	private boolean checkPhone() {
+		String _phone = phone.getText();
+		
+		for(int i=0; i<_phone.length(); i++) {
+			char ch = _phone.charAt(i);
+			if( (int)ch < 47 || (int)ch > 58) {
+				return false;
+			}
 		}
 		return true;
 	}

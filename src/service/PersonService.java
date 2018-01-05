@@ -24,4 +24,18 @@ public class PersonService implements PersonServiceImpl{
 		return (person != null) ? true : false;
 	}
 
+	public Person insert(Person person) {
+		// TODO Auto-generated method stub
+		boolean result = personDao.insert(person);
+		Person resultPerson = null;
+		if(result) {
+			resultPerson = personDao.getPerson(person.getId(), person.getPwd());
+		}
+		return resultPerson;
+	}
+	
+	public boolean checkId(String id) {
+		return personDao.checkId(id);
+	}
+
 }

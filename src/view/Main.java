@@ -149,13 +149,13 @@ public class Main extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		
 		if(obj == loginBtn) {
-//			delegator.personController.Login();
+			delegator.personController.Login();
 			this.dispose();
 		}else if(obj == signupBtn) {
 			delegator.personController.SignUp();
 			this.dispose();
 		}else if(obj == logoutBtn) {
-//			delegator.personController.Logout();
+			delegator.personController.Logout();
 			this.dispose();
 		}
 	}
