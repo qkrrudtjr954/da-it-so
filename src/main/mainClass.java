@@ -1,8 +1,10 @@
 package main;
 
+import view.AbilityWrite;
+
 public class mainClass {
 	public static void main(String[] args) {
 		
-		System.out.println("서원씨 안녕하세요 !!! 안녕.");
+		new AbilityWrite();
 	}
 }
