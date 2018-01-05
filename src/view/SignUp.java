@@ -24,18 +24,18 @@ import javax.swing.border.LineBorder;
 import delegator.Delegator;
 import dto.Person;
 
-public class Login extends JFrame implements ActionListener {
+public class SignUp extends JFrame implements ActionListener {
 
 	private JButton loginBtn, logoutBtn, signBtn;
-	private JTextField id;
-	private JPasswordField pwd;
-	private JButton signInBtn;
+	private JTextField id, phone, nick;
+	private JPasswordField pwd, pwd2;
+	private JButton signUpBtn;
 	
 	
 
 	private JFileChooser jfc = new JFileChooser();
 
-	public Login() {
+	public SignUp() {
 
 		String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
 
@@ -127,8 +127,8 @@ public class Login extends JFrame implements ActionListener {
 		login.setLayout(null);
 		login.setBackground(Color.white);
 		login.setBorder(new LineBorder(commonRedColor, 3));
-		login.setLocation(340, 200);
-		login.setSize(1000, 550);
+		login.setLocation(340, 150);
+		login.setSize(1000, 700);
 		
 		JPanel loginLogo = new JPanel() {
 			ImageIcon headerimage = new ImageIcon(icomImgimgUrl + "logo.png");
@@ -144,33 +144,71 @@ public class Login extends JFrame implements ActionListener {
 		loginLogo.setBounds(350, 80, 300, 70);
 		login.add(loginLogo);
 		
+		
 		Font labelFont = new Font("fonts", Font.BOLD, 20);
 		
+		JLabel titleLabel = new JLabel("회원 가입");
+		titleLabel.setBounds(450, 170, 300, 50);
+		titleLabel.setFont(new Font("font", Font.BOLD, 30));
+		titleLabel.setForeground(commonRedColor);
+		login.add(titleLabel);
+		
 		JLabel idLabel = new JLabel("email");
-		idLabel.setBounds(150, 220, 150, 50);
+		idLabel.setBounds(150, 240, 150, 50);
 		idLabel.setFont(labelFont);
 		login.add(idLabel);
 		
 		id = new JTextField();
-		id.setBounds(300, 220, 400, 50);
+		id.setBounds(300, 240, 400, 50);
 		id.setBackground(commonGrayColor);
 		login.add(id);
 		
 		JLabel pwdLabel = new JLabel("password");
-		pwdLabel.setBounds(150, 310, 150, 50);
+		pwdLabel.setBounds(150, 300, 150, 50);
 		pwdLabel.setFont(labelFont);
 		login.add(pwdLabel);
 		
 		pwd = new JPasswordField();
-		pwd.setBounds(300, 310, 400, 50);
+		pwd.setBounds(300, 300, 400, 50);
 		pwd.setBackground(commonGrayColor);
 		login.add(pwd);
 		
-		signInBtn = new JButton("Sign In");
-		signInBtn.setBounds(720, 220, 100, 135);
-		signInBtn.setBorder(new LineBorder(commonRedColor, 2));
-		signInBtn.addActionListener(this);
-		login.add(signInBtn);
+		JLabel pwd2Label = new JLabel("password");
+		pwd2Label.setBounds(150, 360, 150, 50);
+		pwd2Label.setFont(labelFont);
+		login.add(pwd2Label);
+		
+		pwd2 = new JPasswordField();
+		pwd2.setBounds(300, 360, 400, 50);
+		pwd2.setBackground(commonGrayColor);
+		login.add(pwd2);
+		
+		JLabel nickLabel = new JLabel("nickname");
+		nickLabel.setBounds(150, 420, 150, 50);
+		nickLabel.setFont(labelFont);
+		login.add(nickLabel);
+		
+		nick = new JTextField();
+		nick.setBounds(300, 420, 400, 50);
+		nick.setBackground(commonGrayColor);
+		login.add(nick);
+		
+		JLabel phoneLabel = new JLabel("phone");
+		phoneLabel.setBounds(150, 480, 150, 50);
+		phoneLabel.setFont(labelFont);
+		login.add(phoneLabel);
+		
+		phone = new JTextField();
+		phone.setBounds(300, 480, 400, 50);
+		phone.setBackground(commonGrayColor);
+		login.add(phone);
+		
+		
+		signUpBtn = new JButton("Sign Up");
+		signUpBtn.setBounds(550, 560, 150, 50);
+		signUpBtn.setBorder(new LineBorder(commonRedColor, 2));
+		signUpBtn.addActionListener(this);
+		login.add(signUpBtn);
 
 		main.add(login);
 		contentPane.add(main);
@@ -186,7 +224,7 @@ public class Login extends JFrame implements ActionListener {
 		Delegator delegator = Delegator.getInstance();
 		Object obj = e.getSource();
 		
-		if(obj == signInBtn) {
+		if(obj == signUpBtn) {
 			String _id = id.getText();
 			char[] _pwd = pwd.getPassword();
 			
@@ -212,9 +250,6 @@ public class Login extends JFrame implements ActionListener {
 			delegator.personController.Login();
 		}else if(obj == logoutBtn) {
 			delegator.personController.Logout();
-			this.dispose();
-		}else if(obj == signBtn) {
-			delegator.personController.SignUp();
 			this.dispose();
 		}
 	}

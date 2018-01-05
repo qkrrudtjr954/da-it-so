@@ -152,7 +152,7 @@ public class Main extends JFrame implements ActionListener {
 			delegator.personController.Login();
 			this.dispose();
 		}else if(obj == signupBtn) {
-//			delegator.personController.SignUp();
+			delegator.personController.SignUp();
 			this.dispose();
 		}else if(obj == logoutBtn) {
 			delegator.personController.Logout();

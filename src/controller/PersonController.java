@@ -6,12 +6,16 @@ import delegator.Delegator;
 import dto.Person;
 import service.PersonService;
 import view.Login;
+import view.SignUp;
 
 public class PersonController {
 	PersonService personService = new PersonService();
 	
 	public void Login() {
 		new Login();
+	}
+	public void SignUp() {
+		new SignUp();
 	}
 	
 	public void Logout() {
