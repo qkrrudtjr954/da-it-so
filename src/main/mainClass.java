@@ -1,10 +1,12 @@
 package main;
 
-import view.AbilityWrite;
+import delegator.Delegator;
 
 public class mainClass {
 	public static void main(String[] args) {
-		
-		new AbilityWrite();
+
+		Delegator delegator = Delegator.getInstance();
+		delegator.mainController.Main();
+
 	}
 }
