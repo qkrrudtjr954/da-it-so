@@ -1,5 +1,7 @@
 package dao;
 
-public interface AbilityDaoImpl {
+import dto.AbilityBbs;
 
+public interface AbilityDaoImpl {
+	public boolean AbilityListAdd(AbilityBbs abilityDto);
 }

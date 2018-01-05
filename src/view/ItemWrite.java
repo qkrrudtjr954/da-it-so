@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,23 +21,28 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
-public class ItemWrite extends JFrame implements ActionListener{
+import delegator.Delegator;
+import dto.AbilityBbs;
+import dto.ItemBbs;
+
+public class ItemWrite extends JFrame implements ActionListener, MouseListener{
 
 	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn;
-	private JTextField searchTextF, nameTextF, img1TextF, img2TextF, img3TextF, img4TextF, keywTextF;
+	private JTextField searchTextF, titleTextF, img1TextF, img2TextF, img3TextF, img4TextF, keywordTextF;
 	private JTextPane contentTextPn;
 	private JPanel headerLogo;
-	
-	
-	private JFileChooser jfc = new JFileChooser();
+	private JComboBox cateCombo;
 	
 	String icomImgimgUrl = "C:\\icon\\";
+	
+	private JFileChooser jfc = new JFileChooser();
+	private String filename1,filename2,filename3,filename4;
 	
 	public ItemWrite() {
 	
 		
-		JLabel cateLb, nameLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, abilityLb, contentLb;
-		JComboBox cateCombo;
+		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, abilityLb, contentLb;
+		
 		JPanel headerPn, sidePn, logoPn, catePn, writePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 		cate9;
 		
@@ -170,6 +177,7 @@ public class ItemWrite extends JFrame implements ActionListener{
 
 		// headerlogo
 		headerLogo.setBounds(15, 25, 71, 15);
+		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
 		// logoutBtn
 		logoutBtn = new JButton("로그아웃");
@@ -271,14 +279,14 @@ public class ItemWrite extends JFrame implements ActionListener{
 		cateCombo.setBounds(210, 100, 150, 30);
 		writePn.add(cateCombo);
 		
-		//name
-		nameLb = new JLabel("이름");
-		nameLb.setBounds(100, 150, 150, 30);
-		writePn.add(nameLb);
+		//title
+		titleLb = new JLabel("제목");
+		titleLb.setBounds(100, 150, 150, 30);
+		writePn.add(titleLb);
 		
-		nameTextF = new JTextField();
-		nameTextF.setBounds(210, 150, 150, 30);
-		writePn.add(nameTextF);
+		titleTextF = new JTextField();
+		titleTextF.setBounds(210, 150, 150, 30);
+		writePn.add(titleTextF);
 		
 		//img
 		imgLb1 = new JLabel("사진1");
@@ -334,14 +342,14 @@ public class ItemWrite extends JFrame implements ActionListener{
 		imgAdd3.addActionListener(this);
 		writePn.add(imgAdd3);
 		
-		//key
+		//keywLb
 		keywLb = new JLabel("키워드");
 		keywLb.setBounds(100, 350, 100, 30);
 		writePn.add(keywLb);
 		
-		keywTextF = new JTextField();
-		keywTextF.setBounds(210, 350, 300, 30);
-		writePn.add(keywTextF);
+		keywordTextF = new JTextField();
+		keywordTextF.setBounds(210, 350, 300, 30);
+		writePn.add(keywordTextF);
 		
 		//content
 		contentLb = new JLabel("내용");
@@ -354,6 +362,7 @@ public class ItemWrite extends JFrame implements ActionListener{
 		
 		writeBtn = new JButton("등록");
 		writeBtn.setBounds(520, 610, 100, 30);
+		writeBtn.addActionListener(this);
 		writePn.add(writeBtn);
 		
 		add(sidePn);
@@ -373,6 +382,8 @@ public class ItemWrite extends JFrame implements ActionListener{
             if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
                     // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
                     img1TextF.setText(jfc.getSelectedFile().toString());
+                    filename1 = jfc.getSelectedFile().getName();
+                    
             }
 		}
 		
@@ -380,6 +391,7 @@ public class ItemWrite extends JFrame implements ActionListener{
             if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
                     // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
                     img2TextF.setText(jfc.getSelectedFile().toString());
+                    filename2 = jfc.getSelectedFile().getName();
             }
 		}
 		
@@ -387,6 +399,7 @@ public class ItemWrite extends JFrame implements ActionListener{
             if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
                     // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
                     img3TextF.setText(jfc.getSelectedFile().toString());
+                    filename3 = jfc.getSelectedFile().getName();
             }
 		}
 		
@@ -394,14 +407,79 @@ public class ItemWrite extends JFrame implements ActionListener{
             if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
                     // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
                     img4TextF.setText(jfc.getSelectedFile().toString());
+                    filename4 = jfc.getSelectedFile().getName();
             }
 		}
+		
+		if(e.getActionCommand().equals("등록")) {
+			
+			if(!img1TextF.getText().isEmpty()) {
+				filesend fs = new filesend(img1TextF.getText());
+			}
+			if(!img2TextF.getText().isEmpty()) {
+				filesend fs = new filesend(img2TextF.getText());
+			}
+			if(!img3TextF.getText().isEmpty()) {
+				filesend fs = new filesend(img3TextF.getText());
+			}
+			if(!img4TextF.getText().isEmpty()) {
+				filesend fs = new filesend(img4TextF.getText());
+			}
+			
+			ItemBbs itemDto = new ItemBbs();
+			itemDto.setCategory_id(cateCombo.getSelectedIndex());
+			itemDto.setTitle(titleTextF.getText());
+			itemDto.setImgurl1(img1TextF.getText());
+			itemDto.setImgurl2(img2TextF.getText());
+			itemDto.setImgurl3(img3TextF.getText());
+			itemDto.setImgurl4(img4TextF.getText());
+			itemDto.setKeyword(keywordTextF.getText());
+			itemDto.setContent(contentTextPn.getText());
+			
+			Delegator delegator = Delegator.getInstance();
+			delegator.itemBbsController.itemDetail(itemDto);
+			dispose();
+		}
+
+
 	}
-	
-	
 
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			//headerLogo 클릭 시 Main페이지로
+			JPanel headerLogo = (JPanel)e.getComponent();
+			
+			if(e.getComponent().equals(headerLogo)) {
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.main();
+				dispose();
+			}
+			
+		}
 
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 
 
 }

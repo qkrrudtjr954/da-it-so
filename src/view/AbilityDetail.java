@@ -28,7 +28,7 @@ import dto.AbilityBbs;
 import dto.ItemBbs;
 import dto.Person;
 
-public class DetailPageView extends JFrame implements ActionListener,MouseListener {
+public class AbilityDetail extends JFrame implements ActionListener,MouseListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
 			subimage4, keywordPanel;
@@ -39,7 +39,7 @@ public class DetailPageView extends JFrame implements ActionListener,MouseListen
 	String iconImgUrl = "C:\\icon\\";
 	Person PersonDto = new Person();
 
-	public DetailPageView(AbilityBbs dto) {
+	public AbilityDetail(AbilityBbs dto) {
 
 		this.PersonDto = PersonDto;
 		Container cn = getContentPane();

@@ -16,13 +16,16 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
+import dao.AbilityDao;
 import delegator.Delegator;
 import dto.AbilityBbs;
+import dto.Person;
 
 public class AbilityWrite extends JFrame implements ActionListener, MouseListener{
 
@@ -37,8 +40,11 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1,filename2,filename3,filename4;
 	
-	public AbilityWrite() {
+	private  Person m_personDto;
 	
+	public AbilityWrite(Person personDto) {
+		
+		m_personDto = personDto;
 		
 		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, abilityLb, contentLb;
 		
@@ -426,6 +432,8 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 			}
 			
 			AbilityBbs abilityDto = new AbilityBbs();
+			
+			abilityDto.setUser_id(m_personDto.getId());
 			abilityDto.setCategory_id(cateCombo.getSelectedIndex());
 			abilityDto.setTitle(titleTextF.getText());
 			abilityDto.setImgurl1(img1TextF.getText());
@@ -435,17 +443,24 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 			abilityDto.setAbility(abilityTextF.getText());
 			abilityDto.setContent(contentTextPn.getText());
 			
-			Delegator delegator = Delegator.getInstance();
-			delegator.abilityBbsController.AbilityDetail(abilityDto);
-			dispose();
-		}
+			//AbilityDao aDao = new AbilityDao();
+			
+			//if(aDao.AbilityListAdd(abilityDto)) {
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.abilityDetail(abilityDto);
+				dispose();
+			//}else {
+			//	JOptionPane.showMessageDialog(null, "글 등록 실패.");
+			//}
+			
 
+		}
 
 	}
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			//headerLogo 클릭 시 이벤트 부여하기위함
+			//headerLogo 클릭 시 Main페이지로
 			JPanel headerLogo = (JPanel)e.getComponent();
 			
 			if(e.getComponent().equals(headerLogo)) {

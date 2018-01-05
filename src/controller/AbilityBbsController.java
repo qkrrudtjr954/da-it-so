@@ -4,7 +4,7 @@ import dto.AbilityBbs;
 import dto.Person;
 import service.AbilityService;
 import service.AbilityServiceImpl;
-import view.DetailPageView;
+import view.AbilityDetail;
 import view.Main;
 
 public class AbilityBbsController {
@@ -14,8 +14,8 @@ public class AbilityBbsController {
 	   new Main();
    }
    
-   public void AbilityDetail(AbilityBbs dto) {
-	   new DetailPageView(dto);
+   public void abilityDetail(AbilityBbs dto) {
+	   new AbilityDetail(dto);
    }
 
    
