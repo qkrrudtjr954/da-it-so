@@ -22,9 +22,11 @@ public class ItemBbs implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 
 	public ItemBbs(int category_id, String user_id, String title, String imgurl1, String imgurl2, String imgurl3,
-			String keyword, String content, String created_at, int state) {
+			String imgurl4, int price, String keyword, String content, String created_at, int state) {
 		super();
 		this.category_id = category_id;
 		this.user_id = user_id;
@@ -32,11 +34,15 @@ public class ItemBbs implements Serializable{
 		this.imgurl1 = imgurl1;
 		this.imgurl2 = imgurl2;
 		this.imgurl3 = imgurl3;
+		this.imgurl4 = imgurl4;
+		this.price = price;
 		this.keyword = keyword;
 		this.content = content;
 		this.created_at = created_at;
 		this.state = state;
 	}
+
+
 
 
 	public int getSeq() {
@@ -154,6 +160,16 @@ public class ItemBbs implements Serializable{
 		return "ItemBbs [seq=" + seq + ", category_id=" + category_id + ", user_id=" + user_id + ", title=" + title
 				+ ", imgurl1=" + imgurl1 + ", imgurl2=" + imgurl2 + ", imgurl3=" + imgurl3 + ", keyword=" + keyword
 				+ ", content=" + content + ", created_at=" + created_at + ", state=" + state + "]";
+	}
+
+
+	public int getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 	
