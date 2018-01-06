@@ -34,7 +34,6 @@ public class AbilityBbs implements Serializable{
 		this.imgurl4 = imgurl4;
 		this.ability = ability;
 		this.content = content;
-		this.created_at = created_at;
 		this.state = state;
 	}
 

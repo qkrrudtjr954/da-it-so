@@ -43,8 +43,10 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 	private  Person m_personDto;
 	
 	public AbilityWrite(Person personDto) {
-		
-		m_personDto = personDto;
+		//m_personDto = personDto;
+	}
+	
+	public AbilityWrite() {
 		
 		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, abilityLb, contentLb;
 		

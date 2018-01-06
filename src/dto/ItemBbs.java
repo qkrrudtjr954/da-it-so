@@ -26,7 +26,7 @@ public class ItemBbs implements Serializable{
 
 
 	public ItemBbs(int category_id, String user_id, String title, String imgurl1, String imgurl2, String imgurl3,
-			String imgurl4, int price, String keyword, String content, String created_at, int state) {
+			String imgurl4, int price, String keyword, String content, int state) {
 		super();
 		this.category_id = category_id;
 		this.user_id = user_id;
@@ -38,7 +38,6 @@ public class ItemBbs implements Serializable{
 		this.price = price;
 		this.keyword = keyword;
 		this.content = content;
-		this.created_at = created_at;
 		this.state = state;
 	}
 

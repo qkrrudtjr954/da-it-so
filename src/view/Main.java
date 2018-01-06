@@ -129,10 +129,12 @@ public class Main extends JFrame implements ActionListener {
 		
 		item = new JButton("item");
 		item.setBounds(100, 100, 400, 350);
+		item.addActionListener(this);
 		center.add(item);
 		
 		ability = new JButton("ability");
 		ability.setBounds(500, 100, 400, 350);
+		ability.addActionListener(this);
 		center.add(ability);
 		
 		contentPane.add(center);
@@ -149,13 +151,21 @@ public class Main extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		
 		if(obj == loginBtn) {
-//			delegator.personController.Login();
+			delegator.personController.Login();
 			this.dispose();
 		}else if(obj == signupBtn) {
-//			delegator.personController.SignUp();
+			delegator.personController.SignUp();
 			this.dispose();
 		}else if(obj == logoutBtn) {
-//			delegator.personController.Logout();
+			delegator.personController.Logout();
+			this.dispose();
+		}
+		
+		if(obj == item) {
+			delegator.itemBbsController.itemWrite();
+			this.dispose();
+		}else if(obj == ability){
+			delegator.abilityBbsController.abilityWrite();
 			this.dispose();
 		}
 	}
