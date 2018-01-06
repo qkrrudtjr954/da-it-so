@@ -1,5 +1,8 @@
 package service;
 
-public interface AbilityServiceImpl {
+import dto.AbilityBbs;
+import dto.ItemBbs;
 
+public interface AbilityServiceImpl {
+	public AbilityBbs allAbilityList();
 }

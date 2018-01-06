@@ -111,24 +111,17 @@ public class ItemMain extends JFrame implements ActionListener {
 		
 		Object obj = e.getSource();
 		
-		
-		
 		if( obj== addBtn ) {
 			System.out.println("addBtn Click");
 			
 			personDto = delegator.getCurrent_user();
 			
 			if(personDto == null) {
-				
 				delegator.personController.Login();
-				
 			}else {
 				delegator.itemBbsController.itemWrite(personDto);
 				this.dispose();
 			}
-			
-			
-
 			
 		}else {
 			//delegator.itemBbsController.itemDetail(m_ItemDto);

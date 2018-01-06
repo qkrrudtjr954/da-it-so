@@ -37,11 +37,11 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
 	String iconImgUrl = "C:\\icon\\";
-	Person PersonDto = new Person();
+	Person m_personDto;
 
-	public AbilityDetail(AbilityBbs dto) {
+	public AbilityDetail(AbilityBbs dto, Person PersonDto) {
 
-		this.PersonDto = PersonDto;
+		m_personDto = PersonDto;
 		Container cn = getContentPane();
 
 		cn.setBounds(0, 0, 1680, 900);
@@ -89,21 +89,21 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		logoutBtn.setForeground(Color.white);
 
 		// loginBtn
-		loginBtn = new JButton("�α���");
+		loginBtn = new JButton("로그인");
 		loginBtn.setBounds(1190, 20, 100, 30);
 		loginBtn.setOpaque(false); // �����ϰ�
 		loginBtn.setBorderPainted(false);// �ܰ��� ������
-		loginBtn.setFont(new Font("�α���", Font.BOLD, 12));
+		loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
 		loginBtn.setBackground(commonColor);
 		loginBtn.setForeground(Color.white);
 
 		// SignBtn
 
-		signBtn = new JButton("ȸ������");
+		signBtn = new JButton("회원가입");
 		signBtn.setBounds(1130, 20, 100, 30);
 		signBtn.setOpaque(false); // �����ϰ�
 		signBtn.setBorderPainted(false);// �ܰ��� ������
-		signBtn.setFont(new Font("ȸ������", Font.BOLD, 12));
+		signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
 		signBtn.setBackground(commonColor);
 		signBtn.setForeground(Color.white);
 

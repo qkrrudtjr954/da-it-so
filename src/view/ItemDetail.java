@@ -38,10 +38,10 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 
 	String iconImgUrl = "C:\\icon\\";
 	Person PersonDto = new Person();
-	ItemBbs mdto ; 
+	ItemBbs m_personDto ; 
 	public ItemDetail(ItemBbs dto, Person PersonDto) {
 	
-		mdto = dto;
+		m_personDto = dto;
 		
 		PersonDto = new Person();
 		PersonDto.setId("KH ACADEMY");
@@ -305,7 +305,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		imagePannel.add(sellLb);
 		// itemImage
 		itemImagePn = new JPanel() {
-			ImageIcon itemImage = new ImageIcon(mdto.getImgurl1());
+			ImageIcon itemImage = new ImageIcon(m_personDto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemImage.getImage(), 0, 0, null);
@@ -324,7 +324,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 
 		// 서브 이미지1
 		subimage1 = new JPanel() {
-			ImageIcon image1 = new ImageIcon(mdto.getImgurl1());
+			ImageIcon image1 = new ImageIcon(m_personDto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image1.getImage(), 0, 0, null);
@@ -336,7 +336,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 
 		// 서브이미지2
 		subimage2 = new JPanel() {
-			ImageIcon image2 = new ImageIcon(mdto.getImgurl2());
+			ImageIcon image2 = new ImageIcon(m_personDto.getImgurl2());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image2.getImage(), 0, 0, null);
@@ -347,7 +347,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		subimagePn.add(subimage2);
 		// 서브이미지3
 		subimage3 = new JPanel() {
-			ImageIcon image3 = new ImageIcon(mdto.getImgurl3());
+			ImageIcon image3 = new ImageIcon(m_personDto.getImgurl3());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image3.getImage(), 0, 0, null);
@@ -359,7 +359,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 
 		// 서브이미지4
 		subimage4 = new JPanel() {
-			ImageIcon image4 = new ImageIcon(mdto.getImgurl4());
+			ImageIcon image4 = new ImageIcon(m_personDto.getImgurl4());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image4.getImage(), 0, 0, null);
