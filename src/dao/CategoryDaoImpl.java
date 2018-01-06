@@ -1,5 +1,9 @@
 package dao;
 
-public interface CategoryDaoImpl {
+import java.util.List;
 
+import dto.Category;
+
+public interface CategoryDaoImpl {
+	public List<Category> getAllCategories();
 }

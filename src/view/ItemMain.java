@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,12 +31,13 @@ public class ItemMain extends JFrame implements ActionListener {
 	Color mainGray = new Color(250, 250, 250);
 	Color mainPink = new Color(255, 174, 174);
 
-	ItemBbs m_ItemDto;
+	List<ItemBbs> itemList = null;
 	AbilityBbs Adto;
 	
-	public ItemMain(ItemBbs itemdto) {
+	public ItemMain(List<ItemBbs> itemList) {
 		
-		m_ItemDto = itemdto;
+		this.itemList = itemList;
+		
 		
 		listPn = new JPanel();
 		listPn.setLayout(null);
@@ -58,7 +60,7 @@ public class ItemMain extends JFrame implements ActionListener {
 		thumPn.add(addBtn);
 		
 		int j = 0;
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < itemList.size(); i++) {
 
 			thumPn1 = new JPanel();
 			thumPn1.setLayout(null);
@@ -69,7 +71,7 @@ public class ItemMain extends JFrame implements ActionListener {
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
 				imgLa = new JLabel(new ImageIcon("+ dto.getImgurl1() +"));
-				txtLa = new JLabel(m_ItemDto.getContent());
+				txtLa = new JLabel(itemList.get(i).getContent());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -79,8 +81,8 @@ public class ItemMain extends JFrame implements ActionListener {
 				
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(m_ItemDto.getImgurl1()));
-				txtLa = new JLabel(m_ItemDto.getContent());
+				imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
+				txtLa = new JLabel(itemList.get(i).getContent());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
