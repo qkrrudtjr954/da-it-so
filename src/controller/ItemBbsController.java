@@ -1,11 +1,13 @@
 package controller;
 
 import dto.ItemBbs;
+import dto.Person;
 import service.ItemBbsService;
 import service.ItemBbsServiceImpl;
-import view.ItemWrite;
 import view.Main;
-import view.itemDetail;
+import view.ItemDetail;
+import view.ItemMain;
+import view.ItemWrite;
 
 public class ItemBbsController {
 	   ItemBbsServiceImpl itemService = new ItemBbsService();
@@ -14,11 +16,17 @@ public class ItemBbsController {
 		   new Main();
 	   }
 	   
-	   public void itemWrite() {
-		   new ItemWrite();
+	   public void allItemList() {
+		   ItemBbs itemdto = new ItemBbs();
+		   itemdto = itemService.allItemList();
+		   new ItemMain(itemdto);
 	   }
 	   
-	   public void itemDetail(ItemBbs dto) {
-		   new itemDetail(dto);
+	   public void itemWrite(Person personDto) {
+		   new ItemWrite(personDto);
+	   }
+	   
+	   public void itemDetail(ItemBbs itemDto, Person personDto) {
+		   new ItemDetail(itemDto, personDto);
 	   }
 }

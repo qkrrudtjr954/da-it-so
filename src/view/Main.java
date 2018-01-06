@@ -22,6 +22,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
+import dto.ItemBbs;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -134,7 +135,6 @@ public class Main extends JFrame implements ActionListener {
 		
 		ability = new JButton("ability");
 		ability.setBounds(500, 100, 400, 350);
-		ability.addActionListener(this);
 		center.add(ability);
 		
 		contentPane.add(center);
@@ -161,12 +161,13 @@ public class Main extends JFrame implements ActionListener {
 			this.dispose();
 		}
 		
+		//select itemMain or AbilityMain 
 		if(obj == item) {
-			delegator.itemBbsController.itemWrite();
+			System.out.println("==itemMain select==");
+			delegator.itemBbsController.allItemList();
 			this.dispose();
 		}else if(obj == ability){
-			delegator.abilityBbsController.abilityWrite();
-			this.dispose();
+			
 		}
 	}
 

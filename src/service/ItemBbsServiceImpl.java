@@ -1,5 +1,7 @@
 package service;
 
-public interface ItemBbsServiceImpl {
+import dto.ItemBbs;
 
+public interface ItemBbsServiceImpl {
+	public ItemBbs allItemList();
 }

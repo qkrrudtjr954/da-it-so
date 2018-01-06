@@ -14,6 +14,8 @@ public class PersonController {
 	public void Login() {
 		new Login();
 	}
+	
+	
 	public void SignUp() {
 		new SignUp();
 	}

@@ -7,14 +7,14 @@ import java.sql.SQLException;
 
 import db.DBClose;
 import db.DBConnection;
-import db.MySqlConnection;
+import db.OracleConnection;
 import dto.Person;
 
 public class PersonDao implements PersonDaoImpl {
 
-	DBConnection DBConnector = new MySqlConnection();
-	// DBConnection DBConnector = new OracleConnection();
-	
+	//DBConnection DBConnector = new MySqlConnection();
+	  DBConnection DBConnector = new OracleConnection();
+
 	/* 
 	 * 2018-01-04 init by Parker.
 	 * select person object from data base using id, pwd
@@ -23,13 +23,10 @@ public class PersonDao implements PersonDaoImpl {
 		
 		String pwds = new String(pwd);
 
-		
-		
-		String sql = " select * from person where id='" + id + "' and pwd='" + pwds
+		String sql = " select * from person where id='" + id + "' and PASSWORD='" + pwds
 				+ "'";
-
+		
 		Connection conn = DBConnector.makeConnection();
-		System.out.println("==>"+DBConnector.getClass().getName());
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -69,7 +66,8 @@ public class PersonDao implements PersonDaoImpl {
 			sql = " insert into person(id, pwd, phone, nick, create_at) "
 					+ " values('"+person.getId()+"', '"+pwds+"', '"+person.getPhone()+"', '"+person.getNick()+"', now()) ";
 		} else {
-			sql = "  ";
+			sql = "INSERT INTO PERSON(SEQ, ID, PWD, PHONE, NICK, CREATE_AT)"
+					+"VALUES (SEQ.NEXTVAL,'"+person.getId()+"','"+pwds+"','"+person.getPhone()+"','"+person.getNick()+"',SYSDATE);";
 		}
 		
 
@@ -107,7 +105,7 @@ public class PersonDao implements PersonDaoImpl {
 		Person person = null;
 
 		System.out.println(">>>	PersonDao .checkId() sql : " + sql);
-
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.

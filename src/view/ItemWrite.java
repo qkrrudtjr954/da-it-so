@@ -24,6 +24,7 @@ import javax.swing.border.LineBorder;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.ItemBbs;
+import dto.Person;
 
 public class ItemWrite extends JFrame implements ActionListener, MouseListener{
 
@@ -38,10 +39,13 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener{
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1,filename2,filename3,filename4;
 	
-	public ItemWrite() {
+	private Person m_personDto;
 	
+	public ItemWrite(Person personDto) {
+	
+		m_personDto = personDto;
 		
-		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, abilityLb, contentLb;
+		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, contentLb;
 		
 		JPanel headerPn, sidePn, logoPn, catePn, writePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 		cate9;
@@ -437,7 +441,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener{
 			itemDto.setContent(contentTextPn.getText());
 			
 			Delegator delegator = Delegator.getInstance();
-			delegator.itemBbsController.itemDetail(itemDto);
+			delegator.itemBbsController.itemDetail(itemDto,m_personDto);
 			dispose();
 		}
 

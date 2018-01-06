@@ -23,7 +23,7 @@ public class AbilityBbs implements Serializable{
 	
 
 	public AbilityBbs(int category_id, String user_id, String title, String imgurl1, String imgurl2, String imgurl3,
-			String imgurl4, String ability, String content, String created_at, int state) {
+			String imgurl4, String ability, String content, int state) {
 		super();
 		this.category_id = category_id;
 		this.user_id = user_id;
@@ -94,6 +94,13 @@ public class AbilityBbs implements Serializable{
 	public void setImgurl3(String imgurl3) {
 		this.imgurl3 = imgurl3;
 	}
+	public String getImgurl4() {
+		return imgurl4;
+	}
+
+	public void setImgurl4(String imgurl4) {
+		this.imgurl4 = imgurl4;
+	}
 
 	public String getAbility() {
 		return ability;
@@ -132,14 +139,6 @@ public class AbilityBbs implements Serializable{
 		return "AbilityBbs [seq=" + seq + ", category_id=" + category_id + ", user_id=" + user_id + ", title=" + title
 				+ ", imgurl1=" + imgurl1 + ", imgurl2=" + imgurl2 + ", imgurl3=" + imgurl3 + ", ability=" + ability
 				+ ", content=" + content + ", created_at=" + created_at + ", state=" + state + "]";
-	}
-
-	public String getImgurl4() {
-		return imgurl4;
-	}
-
-	public void setImgurl4(String imgurl4) {
-		this.imgurl4 = imgurl4;
 	}
 	
 	

@@ -201,7 +201,9 @@ public class Login extends JFrame implements ActionListener {
 				
 				if(person != null) {
 					//	login success
-					delegator.mainController.Main();
+					//delegator.mainController.Main();
+					this.dispose();
+					
 				}else {
 					//	login fail
 					JOptionPane.showMessageDialog(null, "wrong password");
