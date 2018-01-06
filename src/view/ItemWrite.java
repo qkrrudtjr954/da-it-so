@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -25,11 +26,12 @@ import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.ItemBbs;
 import dto.Person;
+import service.ItemBbsService;
 
 public class ItemWrite extends JFrame implements ActionListener, MouseListener{
 
 	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn;
-	private JTextField searchTextF, titleTextF, img1TextF, img2TextF, img3TextF, img4TextF, keywordTextF;
+	private JTextField searchTextF, titleTextF, img1TextF, img2TextF, img3TextF, img4TextF, keywordTextF, priceTextF;
 	private JTextPane contentTextPn;
 	private JPanel headerLogo;
 	private JComboBox cateCombo;
@@ -45,7 +47,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener{
 	
 		m_personDto = personDto;
 		
-		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, contentLb;
+		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, contentLb, priceLb;
 		
 		JPanel headerPn, sidePn, logoPn, catePn, writePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 		cate9;
@@ -361,8 +363,17 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener{
 		writePn.add(contentLb);
 		
 		contentTextPn = new JTextPane();
-		contentTextPn.setBounds(210, 390, 410, 200);
+		contentTextPn.setBounds(210, 390, 410, 150);
 		writePn.add(contentTextPn);
+		
+		priceLb = new JLabel("가격");
+		priceLb.setBounds(100, 550, 100, 30);
+		writePn.add(priceLb);
+		
+		priceTextF = new JTextField();
+		priceTextF.setBounds(210, 550, 300, 30);
+		writePn.add(priceTextF);
+		
 		
 		writeBtn = new JButton("등록");
 		writeBtn.setBounds(520, 610, 100, 30);
@@ -438,11 +449,22 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener{
 			itemDto.setImgurl3(img3TextF.getText());
 			itemDto.setImgurl4(img4TextF.getText());
 			itemDto.setKeyword(keywordTextF.getText());
+			itemDto.setPrice(Integer.parseInt(priceTextF.getText()));
 			itemDto.setContent(contentTextPn.getText());
 			
 			Delegator delegator = Delegator.getInstance();
-			delegator.itemBbsController.itemDetail(itemDto,m_personDto);
-			dispose();
+			ItemBbsService itemservice = new ItemBbsService();
+			
+			boolean addItemCK = itemservice.addItem(itemDto, m_personDto);
+			System.out.println("addItemCK"+addItemCK);
+			if(addItemCK) {
+				delegator.itemBbsController.itemDetail(itemDto,m_personDto);
+				this.dispose();
+			}else {
+				JOptionPane.showMessageDialog(null, "글작성 실패");
+			}
+			
+
 		}
 
 
@@ -456,7 +478,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener{
 			if(e.getComponent().equals(headerLogo)) {
 				Delegator delegator = Delegator.getInstance();
 				delegator.abilityBbsController.main();
-				dispose();
+				this.dispose();
 			}
 			
 		}
