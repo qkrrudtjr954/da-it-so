@@ -1,5 +1,9 @@
 package service;
 
-public interface CategoryServiceImpl {
+import java.util.List;
 
+import dto.Category;
+
+public interface CategoryServiceImpl {
+	public List<Category> getAllCategories();
 }

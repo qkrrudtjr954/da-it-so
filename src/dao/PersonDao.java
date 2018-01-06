@@ -7,13 +7,13 @@ import java.sql.SQLException;
 
 import db.DBClose;
 import db.DBConnection;
-import db.OracleConnection;
+import db.MySqlConnection;
 import dto.Person;
 
 public class PersonDao implements PersonDaoImpl {
 
-	//DBConnection DBConnector = new MySqlConnection();
-	  DBConnection DBConnector = new OracleConnection();
+	DBConnection DBConnector = new MySqlConnection();
+//	  DBConnection DBConnector = new OracleConnection();
 
 	/* 
 	 * 2018-01-04 init by Parker.
@@ -23,8 +23,7 @@ public class PersonDao implements PersonDaoImpl {
 		
 		String pwds = new String(pwd);
 
-		String sql = " select * from person where id='" + id + "' and PASSWORD='" + pwds
-				+ "'";
+		String sql = " select * from person where id='" + id + "' and password='" + pwds + "'";
 		
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
@@ -41,7 +40,7 @@ public class PersonDao implements PersonDaoImpl {
 			if (rs.next()) {
 				person = new Person();
 				person.setId(rs.getString("id"));
-				person.setCreated_at(rs.getString("create_at"));
+				person.setCreated_at(rs.getString("created_at"));
 				person.setNick(rs.getString("nick"));
 				person.setPhone(rs.getString("phone"));
 				person.setSeq(rs.getInt("seq"));
@@ -58,6 +57,7 @@ public class PersonDao implements PersonDaoImpl {
 
 	public boolean insert(Person person) {
 		// TODO Auto-generated method stub
+		
 		String pwds = new String(person.getPwd());
 
 		String sql;
