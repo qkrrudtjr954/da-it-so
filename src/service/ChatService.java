@@ -1,5 +1,5 @@
 package service;
 
-public class ChatService {
+public class ChatService implements ChatServiceImpl{
 
 }
