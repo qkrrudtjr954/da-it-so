@@ -9,13 +9,13 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
-import db.MySqlConnection;
+import db.OracleConnection;
 import dto.Category;
-import dto.ItemBbs;
 
 public class CategoryDao implements CategoryDaoImpl {
 
-	DBConnection DBConnector = new MySqlConnection();
+	//DBConnection DBConnector = new MySqlConnection();
+	DBConnection DBConnector = new OracleConnection();
 
 	public List<Category> getAllCategories() {
 

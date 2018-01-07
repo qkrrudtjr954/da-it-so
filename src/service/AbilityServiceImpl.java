@@ -1,8 +1,9 @@
 package service;
 
+import java.util.List;
+
 import dto.AbilityBbs;
-import dto.ItemBbs;
 
 public interface AbilityServiceImpl {
-	public AbilityBbs allAbilityList();
+	public List<AbilityBbs> allAbilityList();
 }

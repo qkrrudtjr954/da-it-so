@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import controller.ItemBbsController;
@@ -37,13 +38,15 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
 	String iconImgUrl = "C:\\icon\\";
-	Person m_personDto;
+	Person m_personDto = null;
+	AbilityBbs m_abilityDto = null;
+	public AbilityDetail(AbilityBbs abilityDto, Person PersonDto) {
 
-	public AbilityDetail(AbilityBbs dto, Person PersonDto) {
-
-		m_personDto = PersonDto;
+		this.m_abilityDto = abilityDto;
+		this.m_personDto = PersonDto;
+		
 		Container cn = getContentPane();
-
+		
 		cn.setBounds(0, 0, 1680, 900);
 		cn.setBackground(Color.white);
 
@@ -69,7 +72,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		// headerlogo
 		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
 		headerLogo = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(headerimage.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -80,19 +83,19 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
 		// logoutBtn
-		logoutBtn = new JButton("�α׾ƿ�");
+		logoutBtn = new JButton("로그아웃");
 		logoutBtn.setBounds(1250, 20, 100, 30);
-		logoutBtn.setOpaque(false); // �����ϰ�
-		logoutBtn.setBorderPainted(false);// �ܰ��� ������
-		logoutBtn.setFont(new Font("�α׾ƿ�", Font.BOLD, 12));
+		logoutBtn.setOpaque(false); // 투명하게
+		logoutBtn.setBorderPainted(false);// 외곽선 없애줌
+		logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
 		logoutBtn.setBackground(commonColor);
 		logoutBtn.setForeground(Color.white);
 
 		// loginBtn
 		loginBtn = new JButton("로그인");
 		loginBtn.setBounds(1190, 20, 100, 30);
-		loginBtn.setOpaque(false); // �����ϰ�
-		loginBtn.setBorderPainted(false);// �ܰ��� ������
+		loginBtn.setOpaque(false); // 투명하게
+		loginBtn.setBorderPainted(false);// 외곽선 없애줌
 		loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
 		loginBtn.setBackground(commonColor);
 		loginBtn.setForeground(Color.white);
@@ -101,8 +104,8 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 
 		signBtn = new JButton("회원가입");
 		signBtn.setBounds(1130, 20, 100, 30);
-		signBtn.setOpaque(false); // �����ϰ�
-		signBtn.setBorderPainted(false);// �ܰ��� ������
+		signBtn.setOpaque(false); // 투명하게
+		signBtn.setBorderPainted(false);// 외곽선 없애줌
 		signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
 		signBtn.setBackground(commonColor);
 		signBtn.setForeground(Color.white);
@@ -121,7 +124,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 
 		ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
 		logoPn = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -133,7 +136,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		sidePn.add(logoPn);
 
 		// SearchText
-		searchTextF = new JTextField("�˻���");
+		searchTextF = new JTextField("검색어");
 		searchTextF.setBounds(40, 160, 260, 40);
 		searchTextF.setBorder(new LineBorder(commonColor, 5));
 		sidePn.add(searchTextF);
@@ -141,10 +144,10 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		// searchBtn
 		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
-		searchBtn.setOpaque(false); // �����ϰ�
+		searchBtn.setOpaque(false); // 투명하게
 		// searchBtn.setBackground();
 
-		searchBtn.setContentAreaFilled(false);// ���뿵�� ä���x
+		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
 
 		sidePn.add(searchBtn);
 
@@ -154,11 +157,11 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
 
-		// ī�Ͱ�
+		// 카터고리
 
 		ImageIcon cate1Image = new ImageIcon(iconImgUrl + "1.png");
 		cate1 = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate1Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -167,10 +170,10 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		};
 		cate1.setBorder(new LineBorder(commonColor, 3));
 		cate1.addMouseListener(this);
-		// ī�װ� 2
+		// 카테고리 2
 		ImageIcon cate2Image = new ImageIcon(iconImgUrl + "2.png");
 		cate2 = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate2Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -179,10 +182,10 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		};
 		cate2.setBorder(new LineBorder(commonColor, 3));
 		cate2.addMouseListener(this);
-		// ī�װ� 3
+		// 카테고리 3
 		ImageIcon cate3Image = new ImageIcon(iconImgUrl + "3.png");
 		cate3 = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate3Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -191,10 +194,10 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		};
 		cate3.setBorder(new LineBorder(commonColor, 3));
 		cate3.addMouseListener(this);
-		// ī�װ�4
+		// 카테고리4
 		ImageIcon cate4Image = new ImageIcon(iconImgUrl + "4.png");
 		cate4 = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate4Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -203,10 +206,10 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		};
 		cate4.setBorder(new LineBorder(commonColor, 3));
 		cate4.addMouseListener(this);
-		// ī�װ� 5
+		// 카테고리 5
 		ImageIcon cate5Image = new ImageIcon(iconImgUrl + "5.png");
 		cate5 = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate5Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -215,10 +218,10 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		};
 		cate5.setBorder(new LineBorder(commonColor, 3));
 		cate5.addMouseListener(this);
-		// ī�װ� 6
+		// 카테고리 6
 		ImageIcon cate6Image = new ImageIcon(iconImgUrl + "6.png");
 		cate6 = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate6Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -227,10 +230,10 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		};
 		cate6.setBorder(new LineBorder(commonColor, 3));
 		cate6.addMouseListener(this);
-		// ī�װ�7
+		// 카테고리7
 		ImageIcon cate7Image = new ImageIcon(iconImgUrl + "7.png");
 		cate7 = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate7Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -239,10 +242,10 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		};
 		cate7.setBorder(new LineBorder(commonColor, 3));
 		cate7.addMouseListener(this);
-		// ī�װ�8
+		// 카테고리8
 		ImageIcon cate8Image = new ImageIcon(iconImgUrl + "8.png");
 		cate8 = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate8Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -251,10 +254,10 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		};
 		cate8.setBorder(new LineBorder(commonColor, 3));
 		cate8.addMouseListener(this);
-		// ī�װ�9
+		// 카테고리9
 		ImageIcon cate9Image = new ImageIcon(iconImgUrl + "9.png");
 		cate9 = new JPanel() {
-			// ������°� ������
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate9Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -283,8 +286,8 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		imagePannel.setBorder(new LineBorder(Color.red, 2));
 		imagePannel.setBackground(Color.white);
 		// titleLb
-		titleLb = new JLabel(dto.getTitle());
-		titleLb.setFont(new Font(dto.getTitle(), Font.BOLD, 25));
+		titleLb = new JLabel(m_abilityDto.getTitle());
+		titleLb.setFont(new Font(m_abilityDto.getTitle(), Font.BOLD, 25));
 		titleLb.setBounds(10, 30, 400, 30);
 		titleLb.setOpaque(false);
 		titleLb.setBackground(Color.DARK_GRAY);
@@ -300,7 +303,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		imagePannel.add(sellLb);
 		// itemImage
 		itemImagePn = new JPanel() {
-			ImageIcon itemImage = new ImageIcon();
+			ImageIcon itemImage = new ImageIcon(m_abilityDto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemImage.getImage(), 0, 0, null);
@@ -317,9 +320,9 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		subimagePn.setBounds(10, 530, 400, 90);
 		// subimagePn.setBackground(Color.PINK);
 
-		// ���� �̹���1
+		// 서브 이미지1
 		subimage1 = new JPanel() {
-			ImageIcon image1 = new ImageIcon(dto.getImgurl1());
+			ImageIcon image1 = new ImageIcon(m_abilityDto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image1.getImage(), 0, 0, null);
@@ -329,9 +332,9 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		};
 		subimagePn.add(subimage1);
 
-		// �����̹���2
+		// 서브이미지2
 		subimage2 = new JPanel() {
-			ImageIcon image2 = new ImageIcon(dto.getImgurl2());
+			ImageIcon image2 = new ImageIcon(m_abilityDto.getImgurl2());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image2.getImage(), 0, 0, null);
@@ -340,9 +343,9 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 			}
 		};
 		subimagePn.add(subimage2);
-		// �����̹���3
+		// 서브이미지3
 		subimage3 = new JPanel() {
-			ImageIcon image3 = new ImageIcon(dto.getImgurl3());
+			ImageIcon image3 = new ImageIcon(m_abilityDto.getImgurl3());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image3.getImage(), 0, 0, null);
@@ -352,9 +355,9 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		};
 		subimagePn.add(subimage3);
 
-		// �����̹���4
+		// 서브이미지4
 		subimage4 = new JPanel() {
-			ImageIcon image4 = new ImageIcon(dto.getImgurl4());
+			ImageIcon image4 = new ImageIcon(m_abilityDto.getImgurl4());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image4.getImage(), 0, 0, null);
@@ -372,38 +375,76 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		iteminfoPn = new JPanel();
 		iteminfoPn.setLayout(null);
 		iteminfoPn.setBounds(580, 135, 340, 400);
-		iteminfoPn.setBackground(Color.GREEN);
+		iteminfoPn.setBackground(Color.white);
+		iteminfoPn.setBorder(new LineBorder(Color.red,2));
 
 		// detailtitleLb
-		detailtitleLb = new JLabel(dto.getTitle());
+		detailtitleLb = new JLabel(m_abilityDto.getTitle());
 		detailtitleLb.setBounds(10, 10, 340, 30);
+		detailtitleLb.setFont(new Font(m_abilityDto.getTitle(), Font.BOLD, 20));
 		iteminfoPn.add(detailtitleLb);
 
-/*		// detailprice
-		priceLb = new JLabel(dto.getPrice() + "");
-		priceLb.setBounds(10, 40, 340, 30);
-		priceLb.setFont(new Font(dto.getPrice() + "", Font.BOLD, 15));
-		iteminfoPn.add(priceLb);*/
-
-	/*	// keyword
-		String key = dto.getKeyword();
+		// Ability
+		
+		String key = m_abilityDto.getAbility();
+		System.out.println("key값 : "+key);
+		int rowSize = 0;
 		String[] keyarray;
+		keyarray = new String[rowSize * 3]; 
 		keyarray = key.split("-key-");
-		JPanel keywordPanel[];
-
-		int tap = 10;
-		for (int i = 0; i < keyarray.length; i++) {
-			keywordPanel = new JPanel[i];
-			keywordPanel[i].setBounds(0+tap, 70, 70, 30);
-			itemImagePn.add(keywordPanel[i]);
+		System.out.println("keyarray:"+keyarray[0]);
+		System.out.println("keyarraylength :"+keyarray.length);
+	
+		if(keyarray.length%3 == 0) {
+			rowSize = keyarray.length/3;
+		}else {
+			rowSize = keyarray.length/3+1;
 		}
 		
-		*/
+		JPanel keywordPanel = new JPanel();
+		keywordPanel.setLocation(10, 70);
+		keywordPanel.setSize(240, 30*rowSize);
+		keywordPanel.setBackground(Color.white);
+		keywordPanel.setLayout(null);
+		
+		JLabel keywordLabel[][] = new JLabel[rowSize][3];
+
+		
+		
+		int k=0;
+		for(int i=0; i<rowSize; i++) {
+			for(int j=0; j<keyarray.length; j++) {
+			
+				keywordLabel[i][j]= new JLabel();
+				keywordLabel[i][j].setOpaque(true);
+				keywordLabel[i][j].setBackground(Color.pink);
+				keywordLabel[i][j].setHorizontalAlignment(SwingConstants.LEFT);
+				keywordLabel[i][j].setText("#"+keyarray[k]);
+				keywordLabel[i][j].setSize(70, 30);
+				keywordLabel[i][j].setLocation((j*80), (i*40));
+				System.out.println(keywordLabel[i][j].getBounds());
+				keywordPanel.add(keywordLabel[i][j]);
+				k++;
+			}
+		}
+		
+		iteminfoPn.add(keywordPanel);
+		
+		//categori
+		cateLb = new JLabel("카테고리 : "+m_abilityDto.getCategory_id()); 
+		cateLb.setBounds(10, 100, 80, 30);
+		cateLb.setOpaque(true);
+		cateLb.setBackground(Color.white);
+		iteminfoPn.add(cateLb);
 
 		//item explanation
-		explanationLb = new JLabel(dto.getContent());
-		explanationLb.setBounds(10, 100, 340, 400);
-		itemImagePn.add(explanationLb);
+		explanationLb = new JLabel("저품 설명 : "+m_abilityDto.getContent());
+		explanationLb.setBounds(10,150 , 300, 10*m_abilityDto.getContent().length());
+		explanationLb.setOpaque(true);
+		explanationLb.setBackground(Color.white);
+		explanationLb.setVerticalAlignment(SwingConstants.TOP);
+		iteminfoPn.add(explanationLb);
+		
 		
 
 		// chatBtn
@@ -431,7 +472,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		JButton btn = (JButton) e.getSource();
 
 		if (btn == talkBtn) {
-			if (this.PersonDto != null) {
+			if (this.m_personDto!= null) {
 
 				dispose();
 			}
@@ -469,7 +510,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("������Ȯ��");
+		System.out.println("프레스확인");
 		
 	}
 

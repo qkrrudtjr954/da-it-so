@@ -494,7 +494,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 
 		if (e.getComponent().equals(headerLogo)) {
 			Delegator delegator = Delegator.getInstance();
-			delegator.abilityBbsController.main();
+			delegator.itemBbsController.main();
 			this.dispose();
 		}
 

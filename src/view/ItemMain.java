@@ -32,7 +32,6 @@ public class ItemMain extends JFrame implements ActionListener {
 	Color mainPink = new Color(255, 174, 174);
 
 	List<ItemBbs> itemList = null;
-	AbilityBbs Adto;
 	
 	public ItemMain(List<ItemBbs> itemList) {
 		

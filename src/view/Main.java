@@ -135,6 +135,7 @@ public class Main extends JFrame implements ActionListener {
 		
 		ability = new JButton("ability");
 		ability.setBounds(500, 100, 400, 350);
+		ability.addActionListener(this);
 		center.add(ability);
 		
 		contentPane.add(center);
@@ -149,6 +150,7 @@ public class Main extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Delegator delegator = Delegator.getInstance();
 		Object obj = e.getSource();
+		System.out.println(obj);
 		
 		if(obj == loginBtn) {
 			delegator.personController.Login();
@@ -161,13 +163,18 @@ public class Main extends JFrame implements ActionListener {
 			this.dispose();
 		}
 		
-		//select itemMain or AbilityMain 
+		//select itemMain
 		if(obj == item) {
 			System.out.println("==itemMain select==");
 			delegator.itemBbsController.allItemList();
 			this.dispose();
-		}else if(obj == ability){
-			
+		}
+		
+		//select AbilityMain 
+		if(obj == ability){
+			System.out.println("==abilityMain select==");
+			delegator.abilityBbsController.allAbilityList();
+			this.dispose();
 		}
 	}
 

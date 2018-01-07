@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,7 +26,10 @@ import javax.swing.border.LineBorder;
 import dao.AbilityDao;
 import delegator.Delegator;
 import dto.AbilityBbs;
+import dto.Category;
 import dto.Person;
+import service.AbilityService;
+import service.ItemBbsService;
 
 public class AbilityWrite extends JFrame implements ActionListener, MouseListener{
 
@@ -40,11 +44,11 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1,filename2,filename3,filename4;
 	
-	private  Person m_personDto;
+	List<Category> categoryList = null;
 	
-	public AbilityWrite(Person personDto) {
+	public AbilityWrite(List<Category> categoryList) {
 		
-		m_personDto = personDto;
+		this.categoryList = categoryList;
 		
 		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, abilityLb, contentLb;
 		
@@ -279,8 +283,13 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		cateLb.setBounds(100, 100, 100, 30);		
 		writePn.add(cateLb);
 		
-		String item[] = {"1","2","3","4","5","6","7","8","9"};
-		cateCombo = new JComboBox(item);
+		String category[] = new String[categoryList.size()];
+
+		for (int i = 0; i < category.length; i++) {
+			category[i] = categoryList.get(i).getTitle();
+		}
+		
+		cateCombo = new JComboBox(category);
 		cateCombo.setBounds(210, 100, 150, 30);
 		writePn.add(cateCombo);
 		
@@ -383,37 +392,37 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 			
 		}
 		
-		if(e.getActionCommand().equals("이미지 1")){
-            if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-                    // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
-                    img1TextF.setText(jfc.getSelectedFile().toString());
-                    filename1 = jfc.getSelectedFile().getName();
-                    
-            }
+		if (e.getActionCommand().equals("이미지 1")) {
+			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+				img1TextF.setText(jfc.getSelectedFile().toString());
+				filename1 = jfc.getSelectedFile().getName();
+
+			}
 		}
-		
-		if(e.getActionCommand().equals("이미지 2")){
-            if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-                    // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
-                    img2TextF.setText(jfc.getSelectedFile().toString());
-                    filename2 = jfc.getSelectedFile().getName();
-            }
+
+		if (e.getActionCommand().equals("이미지 2")) {
+			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+				img2TextF.setText(jfc.getSelectedFile().toString());
+				filename2 = jfc.getSelectedFile().getName();
+			}
 		}
-		
-		if(e.getActionCommand().equals("이미지 3")){
-            if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-                    // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
-                    img3TextF.setText(jfc.getSelectedFile().toString());
-                    filename3 = jfc.getSelectedFile().getName();
-            }
+
+		if (e.getActionCommand().equals("이미지 3")) {
+			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+				img3TextF.setText(jfc.getSelectedFile().toString());
+				filename3 = jfc.getSelectedFile().getName();
+			}
 		}
-		
-		if(e.getActionCommand().equals("이미지 4")){
-            if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-                    // showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
-                    img4TextF.setText(jfc.getSelectedFile().toString());
-                    filename4 = jfc.getSelectedFile().getName();
-            }
+
+		if (e.getActionCommand().equals("이미지 4")) {
+			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+				img4TextF.setText(jfc.getSelectedFile().toString());
+				filename4 = jfc.getSelectedFile().getName();
+			}
 		}
 		
 		if(e.getActionCommand().equals("등록")) {
@@ -433,8 +442,8 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 			
 			AbilityBbs abilityDto = new AbilityBbs();
 			
-			abilityDto.setUser_id(m_personDto.getId());
-			abilityDto.setCategory_id(cateCombo.getSelectedIndex());
+			int categoryIndex = cateCombo.getSelectedIndex();
+			abilityDto.setCategory_id(this.categoryList.get(categoryIndex).getSeq());
 			abilityDto.setTitle(titleTextF.getText());
 			abilityDto.setImgurl1(img1TextF.getText());
 			abilityDto.setImgurl2(img2TextF.getText());
@@ -443,15 +452,20 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 			abilityDto.setAbility(abilityTextF.getText());
 			abilityDto.setContent(contentTextPn.getText());
 			
-			//AbilityDao aDao = new AbilityDao();
-			
-			//if(aDao.AbilityListAdd(abilityDto)) {
-				Delegator delegator = Delegator.getInstance();
-				delegator.abilityBbsController.abilityDetail(abilityDto);
-				dispose();
-			//}else {
-			//	JOptionPane.showMessageDialog(null, "글 등록 실패.");
-			//}
+			/* delegator 에 현재 로그인된 유저 정보를 받아오도록 수정 */
+			Delegator delegator = Delegator.getInstance();
+			AbilityService abilityService = new AbilityService();
+
+			Person personDto = delegator.getCurrent_user();
+
+			boolean addAbilityCK = abilityService.addAbility(abilityDto, personDto);
+			System.out.println("addAbilityCK" + addAbilityCK);
+			if (addAbilityCK) {
+				delegator.abilityBbsController.AbilityDetail(abilityDto, personDto);
+				this.dispose();
+			} else {
+				JOptionPane.showMessageDialog(null, "글작성 실패");
+			}
 			
 
 		}

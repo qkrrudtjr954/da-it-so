@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,7 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
+import delegator.Delegator;
 import dto.AbilityBbs;
+import dto.ItemBbs;
+import dto.Person;
 
 public class AbilityMain extends JFrame implements ActionListener {
 	
@@ -27,13 +31,11 @@ public class AbilityMain extends JFrame implements ActionListener {
 	Color mainGray = new Color(250, 250, 250);
 	Color mainPink = new Color(255, 174, 174);
 
-	AbilityBbs mAbilitydto;
+	List<AbilityBbs> abilityList = null;
 	
-
-	
-	public AbilityMain(AbilityBbs dto) {
+	public AbilityMain(List<AbilityBbs> abilityList) {
 		
-		mAbilitydto = dto;
+		this.abilityList = abilityList;
 		
 		listPn = new JPanel();
 		listPn.setLayout(null);
@@ -45,6 +47,8 @@ public class AbilityMain extends JFrame implements ActionListener {
 
 		addBtn = new JButton("+");
 		addBtn.setBounds(200, 35, 100, 50);
+		addBtn.addActionListener(this);
+		
 		// thumPn
 		thumPn = new JPanel();
 		thumPn.setLayout(null);
@@ -54,7 +58,7 @@ public class AbilityMain extends JFrame implements ActionListener {
 		thumPn.add(addBtn);
 		
 		int j = 0;
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < abilityList.size(); i++) {
 
 			thumPn1 = new JPanel();
 			thumPn1.setLayout(null);
@@ -65,7 +69,7 @@ public class AbilityMain extends JFrame implements ActionListener {
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
 				imgLa = new JLabel(new ImageIcon("+ dto.getImgurl1() +"));
-				txtLa = new JLabel(mAbilitydto.getContent());
+				txtLa = new JLabel(abilityList.get(i).getContent());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -75,8 +79,8 @@ public class AbilityMain extends JFrame implements ActionListener {
 				
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(dto.getImgurl1()));
-				txtLa = new JLabel(mAbilitydto.getContent());
+				imgLa = new JLabel(new ImageIcon(abilityList.get(i).getImgurl1()));
+				txtLa = new JLabel(abilityList.get(i).getContent());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -102,8 +106,26 @@ public class AbilityMain extends JFrame implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
+		Delegator delegator = Delegator.getInstance();
+		Person personDto = null;
+		
+		Object obj = e.getSource();
+		
+		if( obj== addBtn ) {
+			System.out.println("Ability AddBtn Click");
+			
+			personDto = delegator.getCurrent_user();
+			
+			if(personDto == null) {
+				delegator.personController.Login();
+			}else {
+				delegator.abilityBbsController.AbilityWrite(personDto);
+				this.dispose();
+			}
+			
+		}else {
+			//delegator.itemBbsController.itemDetail(m_ItemDto);
+		}
 	}
 
 }

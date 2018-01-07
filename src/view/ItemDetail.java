@@ -37,15 +37,12 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
 	String iconImgUrl = "C:\\icon\\";
-	Person PersonDto = new Person();
-	ItemBbs m_personDto ; 
-	public ItemDetail(ItemBbs dto, Person PersonDto) {
+	Person m_personDto = null;
+	ItemBbs m_itemDto = null; 
+	public ItemDetail(ItemBbs itemDto, Person PersonDto) {
 	
-		m_personDto = dto;
-		
-		PersonDto = new Person();
-		PersonDto.setId("KH ACADEMY");
-		this.PersonDto = PersonDto;
+		this.m_itemDto = itemDto;
+		this.m_personDto = PersonDto;
 		
 		Container cn = getContentPane();
 		
@@ -69,7 +66,6 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		JScrollPane scrollPane = new JScrollPane(detailPn);
 		scrollPane.setBounds(400, 60, 1100, 900);
 		scrollPane.setBackground(Color.black);
-		// scrollPane.add(detailPn);
 
 		// headerlogo
 		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
@@ -288,8 +284,8 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		imagePannel.setBorder(new LineBorder(Color.red, 2));
 		imagePannel.setBackground(Color.white);
 		// titleLb
-		titleLb = new JLabel(dto.getTitle());
-		titleLb.setFont(new Font(dto.getTitle(), Font.BOLD, 25));
+		titleLb = new JLabel(m_itemDto.getTitle());
+		titleLb.setFont(new Font(m_itemDto.getTitle(), Font.BOLD, 25));
 		titleLb.setBounds(10, 30, 400, 30);
 		titleLb.setOpaque(false);
 		titleLb.setBackground(Color.DARK_GRAY);
@@ -297,7 +293,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		imagePannel.add(titleLb);
 		// Seller
 		
-		sellLb = new JLabel(PersonDto.getId());
+		sellLb = new JLabel(m_personDto.getId());
 		sellLb.setBounds(10, 75, 400, 20);
 		sellLb.setFont(new Font(PersonDto.getId(), Font.BOLD, 12));
 		sellLb.setOpaque(false);
@@ -305,7 +301,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		imagePannel.add(sellLb);
 		// itemImage
 		itemImagePn = new JPanel() {
-			ImageIcon itemImage = new ImageIcon(m_personDto.getImgurl1());
+			ImageIcon itemImage = new ImageIcon(m_itemDto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemImage.getImage(), 0, 0, null);
@@ -324,7 +320,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 
 		// 서브 이미지1
 		subimage1 = new JPanel() {
-			ImageIcon image1 = new ImageIcon(m_personDto.getImgurl1());
+			ImageIcon image1 = new ImageIcon(m_itemDto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image1.getImage(), 0, 0, null);
@@ -336,7 +332,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 
 		// 서브이미지2
 		subimage2 = new JPanel() {
-			ImageIcon image2 = new ImageIcon(m_personDto.getImgurl2());
+			ImageIcon image2 = new ImageIcon(m_itemDto.getImgurl2());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image2.getImage(), 0, 0, null);
@@ -347,7 +343,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		subimagePn.add(subimage2);
 		// 서브이미지3
 		subimage3 = new JPanel() {
-			ImageIcon image3 = new ImageIcon(m_personDto.getImgurl3());
+			ImageIcon image3 = new ImageIcon(m_itemDto.getImgurl3());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image3.getImage(), 0, 0, null);
@@ -359,7 +355,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 
 		// 서브이미지4
 		subimage4 = new JPanel() {
-			ImageIcon image4 = new ImageIcon(m_personDto.getImgurl4());
+			ImageIcon image4 = new ImageIcon(m_itemDto.getImgurl4());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image4.getImage(), 0, 0, null);
@@ -381,21 +377,21 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		iteminfoPn.setBorder(new LineBorder(Color.red,2));
 
 		// detailtitleLb
-		detailtitleLb = new JLabel(dto.getTitle());
+		detailtitleLb = new JLabel(m_itemDto.getTitle());
 		detailtitleLb.setBounds(10, 10, 340, 30);
-		detailtitleLb.setFont(new Font(dto.getTitle(), Font.BOLD, 20));
+		detailtitleLb.setFont(new Font(m_itemDto.getTitle(), Font.BOLD, 20));
 		iteminfoPn.add(detailtitleLb);
 	
 
 		// detailprice
-		priceLb = new JLabel(dto.getPrice() + "");
+		priceLb = new JLabel(m_itemDto.getPrice() + "");
 		priceLb.setBounds(10, 40, 340, 30);
-		priceLb.setFont(new Font(dto.getPrice() + "", Font.BOLD, 15));
+		priceLb.setFont(new Font(m_itemDto.getPrice() + "", Font.BOLD, 15));
 		iteminfoPn.add(priceLb);
 
 		// keyword
 		
-		String key = dto.getKeyword();
+		String key = m_itemDto.getKeyword();
 		System.out.println("key값 : "+key);
 		int rowSize = 0;
 		String[] keyarray;
@@ -417,9 +413,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		keywordPanel.setLayout(null);
 		
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
-
-		
-		
+	
 		int k=0;
 		for(int i=0; i<rowSize; i++) {
 			for(int j=0; j<keyarray.length; j++) {
@@ -429,13 +423,6 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 				keywordLabel[i][j].setBackground(Color.pink);
 				keywordLabel[i][j].setHorizontalAlignment(SwingConstants.LEFT);
 				keywordLabel[i][j].setText("#"+keyarray[k]);
-			//	System.out.println("i :"+i +"     J : "+j);
-			//	System.out.println(keyarray[k]);
-	/*			if(i==0 && j==0) {
-					keywordLabel[i][j].setSize(0, 0);
-				}else {
-					keywordLabel[i][j].setSize(70, 30);
-				}*/
 				keywordLabel[i][j].setSize(70, 30);
 				keywordLabel[i][j].setLocation((j*80), (i*40));
 				System.out.println(keywordLabel[i][j].getBounds());
@@ -447,15 +434,15 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		iteminfoPn.add(keywordPanel);
 		
 		//categori
-		cateLb = new JLabel("카테고리 : "+dto.getCategory_id()); 
+		cateLb = new JLabel("카테고리 : "+m_itemDto.getCategory_id()); 
 		cateLb.setBounds(10, 100, 80, 30);
 		cateLb.setOpaque(true);
 		cateLb.setBackground(Color.white);
 		iteminfoPn.add(cateLb);
 
 		//item explanation
-		explanationLb = new JLabel("저품 설명 : "+dto.getContent());
-		explanationLb.setBounds(10,150 , 300, 10*dto.getContent().length());
+		explanationLb = new JLabel("저품 설명 : "+m_itemDto.getContent());
+		explanationLb.setBounds(10,150 , 300, 10*m_itemDto.getContent().length());
 		explanationLb.setOpaque(true);
 		explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
@@ -488,7 +475,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		JButton btn = (JButton) e.getSource();
 
 		if (btn == talkBtn) {
-			if (this.PersonDto != null) {
+			if (this.m_personDto != null) {
 
 				dispose();
 			}
