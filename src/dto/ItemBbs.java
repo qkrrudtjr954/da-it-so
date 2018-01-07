@@ -113,6 +113,15 @@ public class ItemBbs implements Serializable{
 		this.imgurl3 = imgurl3;
 	}
 
+	public String getImgurl4() {
+		return imgurl4;
+	}
+
+
+	public void setImgurl4(String imgurl4) {
+		this.imgurl4 = imgurl4;
+	}
+
 
 	public String getKeyword() {
 		return keyword;
@@ -170,6 +179,8 @@ public class ItemBbs implements Serializable{
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
+	
 	
 	
 }
