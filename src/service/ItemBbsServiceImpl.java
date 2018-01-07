@@ -1,5 +1,9 @@
 package service;
 
-public interface ItemBbsServiceImpl {
+import java.util.List;
 
+import dto.ItemBbs;
+
+public interface ItemBbsServiceImpl {
+	public List<ItemBbs> getAllItemBbs();
 }

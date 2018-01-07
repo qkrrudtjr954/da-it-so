@@ -21,7 +21,7 @@ import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
 
-public class AdminMain extends JFrame implements ActionListener {
+public class AdminItemList extends JFrame implements ActionListener {
 
 	private JButton searchBtn;
 	private JTextField searchTextF;
@@ -31,7 +31,7 @@ public class AdminMain extends JFrame implements ActionListener {
 
 	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
 
-	public AdminMain() {
+	public AdminItemList() {
 
 		Container contentPane = getContentPane();
 		
