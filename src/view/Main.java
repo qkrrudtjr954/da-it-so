@@ -22,6 +22,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
+import dto.ItemBbs;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -34,7 +35,7 @@ public class Main extends JFrame implements ActionListener {
 	
 	
 	
-
+	// 메인 테그트ㅡㅡㅡ
 	private JFileChooser jfc = new JFileChooser();
 
 	public Main() {
@@ -129,10 +130,12 @@ public class Main extends JFrame implements ActionListener {
 		
 		item = new JButton("item");
 		item.setBounds(100, 100, 400, 350);
+		item.addActionListener(this);
 		center.add(item);
 		
 		ability = new JButton("ability");
 		ability.setBounds(500, 100, 400, 350);
+		ability.addActionListener(this);
 		center.add(ability);
 		
 		contentPane.add(center);
@@ -149,13 +152,27 @@ public class Main extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		
 		if(obj == loginBtn) {
-//			delegator.personController.Login();
+			delegator.personController.Login();
 			this.dispose();
 		}else if(obj == signupBtn) {
-//			delegator.personController.SignUp();
+			delegator.personController.SignUp();
 			this.dispose();
 		}else if(obj == logoutBtn) {
-//			delegator.personController.Logout();
+			delegator.personController.Logout();
+			this.dispose();
+		}
+		
+		//select itemMain
+		if(obj == item) {
+			System.out.println("==itemMain select==");
+			delegator.itemBbsController.allItemList();
+			this.dispose();
+		}
+		
+		//select AbilityMain 
+		if(obj == ability){
+			System.out.println("==abilityMain select==");
+			delegator.abilityBbsController.allAbilityList();
 			this.dispose();
 		}
 	}

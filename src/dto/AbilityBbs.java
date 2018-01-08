@@ -15,12 +15,12 @@ public class AbilityBbs implements Serializable{
 	private String content;
 	private String created_at;
 	private int state;	//0이면 구해요(구매), 1이면 드려(판매)
-	
+
 	public AbilityBbs() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+
 
 	public AbilityBbs(int category_id, String user_id, String title, String imgurl1, String imgurl2, String imgurl3,
 			String imgurl4, String ability, String content, int state) {
@@ -94,6 +94,13 @@ public class AbilityBbs implements Serializable{
 	public void setImgurl3(String imgurl3) {
 		this.imgurl3 = imgurl3;
 	}
+	public String getImgurl4() {
+		return imgurl4;
+	}
+
+	public void setImgurl4(String imgurl4) {
+		this.imgurl4 = imgurl4;
+	}
 
 	public String getAbility() {
 		return ability;
@@ -134,13 +141,4 @@ public class AbilityBbs implements Serializable{
 				+ ", content=" + content + ", created_at=" + created_at + ", state=" + state + "]";
 	}
 
-	public String getImgurl4() {
-		return imgurl4;
-	}
-
-	public void setImgurl4(String imgurl4) {
-		this.imgurl4 = imgurl4;
-	}
-	
-	
 }

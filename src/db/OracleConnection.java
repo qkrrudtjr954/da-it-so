@@ -8,6 +8,7 @@ public class OracleConnection implements DBConnection{
 	
 	public void initConnect() {
 		try {
+			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("Driver Loading Success!!");
 		} catch (ClassNotFoundException e) {

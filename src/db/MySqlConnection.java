@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MySqlConnection implements DBConnection{
-	
+
 	public void initConnect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -15,17 +15,17 @@ public class MySqlConnection implements DBConnection{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Connection makeConnection() {
 		Connection conn = null;
-		
+
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/daitso", "root", "Rudtjr1216");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/daitso", "root", "");
 			System.out.println("Data Base is connected.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return conn;
 	}
 
