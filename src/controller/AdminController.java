@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 
+import admin.AdminItemList;
+import admin.AdminMain;
 import dto.ItemBbs;
 import service.AbilityService;
 import service.AbilityServiceImpl;
@@ -24,8 +26,12 @@ public class AdminController {
 	PersonServiceImpl personService = new PersonService();
 	RoomServiceImpl roomService = new RoomService();
 	
+	public void AdminMain() {
+		new AdminMain();
+	}
 	public void ItemList() {
-		List<ItemBbs> itemList = itemBbsService.getAllItemList();
+		List<ItemBbs> itemList = itemBbsService.getAllItemBbs();
+		new AdminItemList(itemList);
 	}
 	
 	public void AbilityList() {

@@ -112,7 +112,7 @@ public class AdminMain extends JFrame implements ActionListener {
 		abilityListBtn = new JButton("All Ability BBS");
 		abilityListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		abilityListBtn.addActionListener(this);
-		abilityListBtn.add(abilityListBtn);
+		btnPanel.add(abilityListBtn);
 
 		userListBtn = new JButton("All User");
 		userListBtn.setBorder(new LineBorder(commonRedColor, 2));

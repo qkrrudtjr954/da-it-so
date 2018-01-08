@@ -2,24 +2,26 @@ package admin;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Font;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
+import dto.ItemBbs;
 
 public class AdminItemList extends JFrame implements ActionListener {
 
@@ -27,12 +29,15 @@ public class AdminItemList extends JFrame implements ActionListener {
 	private JTextField searchTextF;
 	private JPanel headerLogo;
 	
+	List<ItemBbs> itemList;
+	
 	JButton itemListBtn, abilityListBtn, userListBtn;
 
 	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
 
-	public AdminItemList() {
+	public AdminItemList(List<ItemBbs> itemList) {
 
+		this.itemList = itemList;
 		Container contentPane = getContentPane();
 		
 		contentPane.setBounds(0, 0, 1680, 1050);
@@ -80,6 +85,8 @@ public class AdminItemList extends JFrame implements ActionListener {
 		sidePn.setBounds(0, 60, 400, 1000);
 		sidePn.setLayout(null);
 		sidePn.setBackground(sideC);
+		
+		
 
 		// logoPn
 		logoPn.setBounds(40, 30, 300, 66);
@@ -112,7 +119,7 @@ public class AdminItemList extends JFrame implements ActionListener {
 		abilityListBtn = new JButton("All Ability BBS");
 		abilityListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		abilityListBtn.addActionListener(this);
-		abilityListBtn.add(abilityListBtn);
+		btnPanel.add(abilityListBtn);
 
 		userListBtn = new JButton("All User");
 		userListBtn.setBorder(new LineBorder(commonRedColor, 2));
@@ -120,7 +127,58 @@ public class AdminItemList extends JFrame implements ActionListener {
 		btnPanel.add(userListBtn);
 
 		sidePn.add(btnPanel);
+		
+		
 
+		
+		// main view
+		int itemHeight = 60;
+		int mainHeight = itemList.size() * itemHeight;
+		
+		
+		JPanel main = new JPanel();
+		main.setLocation(400, 60);
+		main.setPreferredSize(new Dimension(1260, mainHeight));
+		main.setLayout(null);
+		
+		for(int i=0; i<itemList.size(); i++) {
+			JPanel itemPanel = new JPanel();
+			itemPanel.setBounds(50, i*itemHeight+20, 1000, itemHeight);
+			itemPanel.setBorder(new LineBorder(commonRedColor));
+			itemPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					int y = e.getY();
+					
+					Delegator delegator = Delegator.getInstance();
+					delegator.adminController.AdminItemDetail(itemList.get(y/itemHeight));
+				}
+			});
+			
+			JLabel itemTitle = new JLabel();
+			itemTitle.setText(itemList.get(i).getTitle());
+			itemTitle.setBounds(50, 20, 200, 20);
+			itemPanel.add(itemTitle);
+			
+			JLabel itemUser = new JLabel();
+			itemUser.setText(itemList.get(i).getUser_id());
+			itemUser.setBounds(250, 20, 200, 20);
+			itemPanel.add(itemUser);
+			
+			JLabel itemCreated = new JLabel();
+			itemCreated.setText(itemList.get(i).getCreated_at());
+			itemCreated.setBounds(450, 20, 200, 20);
+			itemPanel.add(itemCreated);
+			
+			main.add(itemPanel);
+		}
+		
+		
+		JScrollPane jscPanel = new JScrollPane(main);
+		jscPanel.setBounds(400, 60, 1280, 1000);
+		
+		
+		contentPane.add(jscPanel);
 		contentPane.add(sidePn);
 		contentPane.add(headerPn);
 
