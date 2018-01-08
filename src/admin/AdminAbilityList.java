@@ -7,7 +7,6 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -22,15 +21,16 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
+import dto.AbilityBbs;
 import dto.ItemBbs;
 
-public class AdminItemList extends JFrame implements ActionListener, MouseListener {
+public class AdminAbilityList extends JFrame implements ActionListener, MouseListener {
 
 	private JButton searchBtn;
 	private JTextField searchTextF;
 	private JPanel headerLogo;
 	
-	List<ItemBbs> itemList;
+	List<AbilityBbs> abilityList;
 	
 	JButton itemListBtn, abilityListBtn, userListBtn;
 	
@@ -38,9 +38,9 @@ public class AdminItemList extends JFrame implements ActionListener, MouseListen
 
 	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
 
-	public AdminItemList(List<ItemBbs> itemList) {
+	public AdminAbilityList(List<AbilityBbs> abilityList) {
 
-		this.itemList = itemList;
+		this.abilityList = abilityList;
 		Container contentPane = getContentPane();
 		
 		contentPane.setBounds(0, 0, 1680, 1050);
@@ -135,7 +135,7 @@ public class AdminItemList extends JFrame implements ActionListener, MouseListen
 
 		
 		// main view
-		int mainHeight = itemList.size() * this.itemHeight;
+		int mainHeight = abilityList.size() * this.itemHeight;
 		
 		
 		JPanel main = new JPanel();
@@ -143,7 +143,7 @@ public class AdminItemList extends JFrame implements ActionListener, MouseListen
 		main.setPreferredSize(new Dimension(1260, mainHeight));
 		main.setLayout(null);
 		
-		for(int i=0; i<itemList.size(); i++) {
+		for(int i=0; i<abilityList.size(); i++) {
 			JPanel itemPanel = new JPanel();
 			itemPanel.setBounds(50, i*itemHeight+20, 1000, itemHeight);
 			itemPanel.setBorder(new LineBorder(commonRedColor));
@@ -152,17 +152,17 @@ public class AdminItemList extends JFrame implements ActionListener, MouseListen
 			itemPanel.setBackground(Color.white);
 			
 			JLabel itemUser = new JLabel();
-			itemUser.setText(itemList.get(i).getUser_id());
+			itemUser.setText(abilityList.get(i).getUser_id());
 			itemUser.setBounds(20, 20, 200, 20);
 			itemPanel.add(itemUser);
 			
 			JLabel itemTitle = new JLabel();
-			itemTitle.setText(itemList.get(i).getTitle());
+			itemTitle.setText(abilityList.get(i).getTitle());
 			itemTitle.setBounds(250, 20, 200, 20);
 			itemPanel.add(itemTitle);
 			
 			JLabel itemCreated = new JLabel();
-			itemCreated.setText(itemList.get(i).getCreated_at());
+			itemCreated.setText(abilityList.get(i).getCreated_at());
 			itemCreated.setBounds(860, 20, 140, 20);
 			itemPanel.add(itemCreated);
 			
@@ -206,7 +206,7 @@ public class AdminItemList extends JFrame implements ActionListener, MouseListen
 		int y = e.getY();
 		
 		Delegator delegator = Delegator.getInstance();
-		delegator.adminController.AdminItemDetail(itemList.get(y/itemHeight));
+		delegator.adminController.AdminAbilityDetail(abilityList.get(y/itemHeight));
 	}
 
 	@Override

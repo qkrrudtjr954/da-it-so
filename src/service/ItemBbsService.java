@@ -18,7 +18,7 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 	}
 
 	public List<ItemBbs> getAllItemBbs(){
-		return itemBbsDao.getAllItemBbs();
+		return itemDao.getAllItemBbs();
 	}
 	
 	@Override

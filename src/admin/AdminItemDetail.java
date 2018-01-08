@@ -39,19 +39,17 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
 	String iconImgUrl = "C:\\icon\\";
-	Person m_personDto = null;
-	ItemBbs m_itemDto = null; 
-	public AdminItemDetail(ItemBbs itemDto) {
-	
-		Delegator delegator = Delegator.getInstance();
+	Person person = null;
+	ItemBbs item = null; 
+	public AdminItemDetail(ItemBbs itemDto, Person person) {
 		
-		this.m_itemDto = itemDto;
-		this.m_personDto = delegator.getCurrent_user();
+		this.item = itemDto;
+		this.person = person;
 		
-		Container cn = getContentPane();
+		Container contentPane = getContentPane();
 		
-		cn.setBounds(0, 0, 1680, 900);
-		cn.setBackground(Color.white);
+		contentPane.setBounds(0, 0, 1680, 900);
+		contentPane.setBackground(Color.white);
 
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
@@ -84,6 +82,8 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
+		
+		Delegator delegator = Delegator.getInstance();
 		
 		if(delegator.getCurrent_user()==null) {
 			// loginBtn
@@ -187,8 +187,8 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 		imagePannel.setBorder(new LineBorder(Color.red, 2));
 		imagePannel.setBackground(Color.white);
 		// titleLb
-		titleLb = new JLabel(m_itemDto.getTitle());
-		titleLb.setFont(new Font(m_itemDto.getTitle(), Font.BOLD, 25));
+		titleLb = new JLabel(item.getTitle());
+		titleLb.setFont(new Font(item.getTitle(), Font.BOLD, 25));
 		titleLb.setBounds(10, 30, 400, 30);
 		titleLb.setOpaque(false);
 		titleLb.setBackground(Color.DARK_GRAY);
@@ -196,15 +196,15 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 		imagePannel.add(titleLb);
 		// Seller
 		
-		sellLb = new JLabel(m_personDto.getId());
+		sellLb = new JLabel(person.getId());
 		sellLb.setBounds(10, 75, 400, 20);
-		sellLb.setFont(new Font(m_personDto.getId(), Font.BOLD, 12));
+		sellLb.setFont(new Font(person.getId(), Font.BOLD, 12));
 		sellLb.setOpaque(false);
 
 		imagePannel.add(sellLb);
 		// itemImage
 		itemImagePn = new JPanel() {
-			ImageIcon itemImage = new ImageIcon(m_itemDto.getImgurl1());
+			ImageIcon itemImage = new ImageIcon(item.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemImage.getImage(), 0, 0, null);
@@ -223,7 +223,7 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 
 		// 서브 이미지1
 		subimage1 = new JPanel() {
-			ImageIcon image1 = new ImageIcon(m_itemDto.getImgurl1());
+			ImageIcon image1 = new ImageIcon(item.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image1.getImage(), 0, 0, null);
@@ -235,7 +235,7 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 
 		// 서브이미지2
 		subimage2 = new JPanel() {
-			ImageIcon image2 = new ImageIcon(m_itemDto.getImgurl2());
+			ImageIcon image2 = new ImageIcon(item.getImgurl2());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image2.getImage(), 0, 0, null);
@@ -246,7 +246,7 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 		subimagePn.add(subimage2);
 		// 서브이미지3
 		subimage3 = new JPanel() {
-			ImageIcon image3 = new ImageIcon(m_itemDto.getImgurl3());
+			ImageIcon image3 = new ImageIcon(item.getImgurl3());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image3.getImage(), 0, 0, null);
@@ -258,7 +258,7 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 
 		// 서브이미지4
 		subimage4 = new JPanel() {
-			ImageIcon image4 = new ImageIcon(m_itemDto.getImgurl4());
+			ImageIcon image4 = new ImageIcon(item.getImgurl4());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image4.getImage(), 0, 0, null);
@@ -280,21 +280,21 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 		iteminfoPn.setBorder(new LineBorder(Color.red,2));
 
 		// detailtitleLb
-		detailtitleLb = new JLabel(m_itemDto.getTitle());
+		detailtitleLb = new JLabel(item.getTitle());
 		detailtitleLb.setBounds(10, 10, 340, 30);
-		detailtitleLb.setFont(new Font(m_itemDto.getTitle(), Font.BOLD, 20));
+		detailtitleLb.setFont(new Font(item.getTitle(), Font.BOLD, 20));
 		iteminfoPn.add(detailtitleLb);
 	
 
 		// detailprice
-		priceLb = new JLabel(m_itemDto.getPrice() + "");
+		priceLb = new JLabel(item.getPrice() + "");
 		priceLb.setBounds(10, 40, 340, 30);
-		priceLb.setFont(new Font(m_itemDto.getPrice() + "", Font.BOLD, 15));
+		priceLb.setFont(new Font(item.getPrice() + "", Font.BOLD, 15));
 		iteminfoPn.add(priceLb);
 
 		// keyword
 		
-		String key = m_itemDto.getKeyword();
+		String key = item.getKeyword();
 		System.out.println("key값 : "+key);
 		int rowSize = 0;
 		String[] keyarray;
@@ -337,15 +337,15 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 		iteminfoPn.add(keywordPanel);
 		
 		//categori
-		cateLb = new JLabel("카테고리 : "+m_itemDto.getCategory_id()); 
+		cateLb = new JLabel("카테고리 : "+item.getCategory_id()); 
 		cateLb.setBounds(10, 100, 80, 30);
 		cateLb.setOpaque(true);
 		cateLb.setBackground(Color.white);
 		iteminfoPn.add(cateLb);
 
 		//item explanation
-		explanationLb = new JLabel("저품 설명 : "+m_itemDto.getContent());
-		explanationLb.setBounds(10,150 , 300, 10*m_itemDto.getContent().length());
+		explanationLb = new JLabel("저품 설명 : "+item.getContent());
+		explanationLb.setBounds(10,150 , 300, 10*item.getContent().length());
 		explanationLb.setOpaque(true);
 		explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
@@ -363,9 +363,10 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 		detailPn.add(chatBtn);
 		detailPn.add(iteminfoPn);
 
-		add(sidePn);
-		add(headerPn);
-		add(scrollPane);
+		contentPane.add(sidePn);
+		contentPane.add(headerPn);
+		contentPane.add(scrollPane);
+		
 		setBounds(0, 0, 1680, 730);
 		setLayout(null);
 		setVisible(true);

@@ -54,6 +54,35 @@ public class PersonDao implements PersonDaoImpl {
 		}
 		return person;
 	}
+	
+	public Person getPersonById(String id) {
+		String sql = " SELECT * FROM PERSON WHERE ID ='"+id+"'";
+		
+		Person person = null;
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		
+		ResultSet rs = null;
+		
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+			
+			if(rs.next()) {
+				person = new Person();
+				person.setCreated_at(rs.getString("created_at"));
+				person.setId(rs.getString("id"));
+				person.setNick(rs.getString("nick"));
+				person.setPhone(rs.getString("phone"));
+				person.setSeq(rs.getInt("seq"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return person;
+	}
 
 	public boolean insert(Person person) {
 		// TODO Auto-generated method stub

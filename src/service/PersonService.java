@@ -14,6 +14,11 @@ public class PersonService implements PersonServiceImpl{
 		return personDao.getPerson(id, pwd);
 	}
 	
+	public Person getPersonById(String id) {
+		// TODO Auto-generated method stub
+		return personDao.getPersonById(id);
+	}
+	
 	/*
 	 * 2017-01-04 init by Parker.
 	 * if person exist return true
