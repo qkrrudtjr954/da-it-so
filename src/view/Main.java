@@ -34,7 +34,7 @@ public class Main extends JFrame implements ActionListener {
 	
 	
 	
-
+	// 메인 테그트ㅡㅡㅡ
 	private JFileChooser jfc = new JFileChooser();
 
 	public Main() {

@@ -11,6 +11,7 @@ public class AbilityBbs implements Serializable{
 	private String imgurl2;
 	private String imgurl3;
 	private String imgurl4;
+	private String mainimgurl;
 	private String ability;	// 보유능력
 	private String content;
 	private String created_at;
@@ -141,6 +142,18 @@ public class AbilityBbs implements Serializable{
 
 	public void setImgurl4(String imgurl4) {
 		this.imgurl4 = imgurl4;
+	}
+
+
+
+	public String getMainimgurl() {
+		return mainimgurl;
+	}
+
+
+
+	public void setMainimgurl(String mainimgurl) {
+		this.mainimgurl = mainimgurl;
 	}
 	
 	
