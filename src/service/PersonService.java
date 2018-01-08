@@ -1,10 +1,13 @@
 package service;
 
+import java.util.List;
+
 import dao.PersonDao;
+import dao.PersonDaoImpl;
 import dto.Person;
 
 public class PersonService implements PersonServiceImpl{
-	PersonDao personDao = new PersonDao();
+	PersonDaoImpl personDao = new PersonDao();
 
 	/*
 	 * 2017-01-04 init by Parker.
@@ -41,6 +44,12 @@ public class PersonService implements PersonServiceImpl{
 	
 	public boolean checkId(String id) {
 		return personDao.checkId(id);
+	}
+
+	@Override
+	public List<Person> getAllPerson() {
+		// TODO Auto-generated method stub
+		return personDao.getAllPerson();
 	}
 
 }

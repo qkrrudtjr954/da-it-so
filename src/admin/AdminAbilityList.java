@@ -36,7 +36,8 @@ public class AdminAbilityList extends JFrame implements ActionListener, MouseLis
 	
 	int itemHeight = 80;
 
-	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "E:\\icon/";
 
 	public AdminAbilityList(List<AbilityBbs> abilityList) {
 
@@ -48,7 +49,7 @@ public class AdminAbilityList extends JFrame implements ActionListener, MouseLis
 		
 		// header
 		headerLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon(icomImgimgUrl + "headerlogo.png");
+			ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
 
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -60,7 +61,7 @@ public class AdminAbilityList extends JFrame implements ActionListener, MouseLis
 
 		// logo
 		JPanel logoPn = new JPanel() {
-			ImageIcon image = new ImageIcon(icomImgimgUrl + "logo.png");
+			ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
 
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -102,7 +103,7 @@ public class AdminAbilityList extends JFrame implements ActionListener, MouseLis
 		sidePn.add(searchTextF);
 
 		// searchBtn
-		searchBtn = new JButton(new ImageIcon(icomImgimgUrl + "search.png"));
+		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x

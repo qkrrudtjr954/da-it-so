@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import dto.Person;
 
 public interface PersonServiceImpl {
@@ -8,5 +10,5 @@ public interface PersonServiceImpl {
 	public boolean checkPerson(String id, char[] pwd);
 	public Person insert(Person person);
 	public boolean checkId(String id);
-
+	public List<Person> getAllPerson();
 }

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
@@ -150,6 +152,42 @@ public class PersonDao implements PersonDaoImpl {
 			DBClose.close(pstmt, conn, rs);
 		}
 		return result;
+	}
+
+	@Override
+	public List<Person> getAllPerson() {
+		// TODO Auto-generated method stub
+		
+		String sql = " select * from person ";
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		
+		ResultSet rs = null;
+		
+		List<Person> userList = new ArrayList<>();
+		
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+			
+			while(rs.next()) {
+				Person person = new Person();
+				
+				person.setCreated_at(rs.getString("created_at"));
+				person.setId(rs.getString("id"));
+				person.setNick(rs.getString("nick"));
+				person.setPhone(rs.getString("phone"));
+				person.setSeq(rs.getInt("seq"));
+				
+				userList.add(person);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return userList;
 	}
 
 }

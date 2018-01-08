@@ -29,7 +29,8 @@ public class AdminMain extends JFrame implements ActionListener {
 	
 	JButton itemListBtn, abilityListBtn, userListBtn;
 
-	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
+//	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
+	String icomImgimgUrl = "E:\\icon/";
 
 	public AdminMain() {
 

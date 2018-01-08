@@ -23,10 +23,7 @@ public class mainClass {
 		admin.setPwd(pwd);
 		admin.setSeq(1);
 		delegator.setCurrent_user(admin);
-//		delegator.adminController.AdminMain();
+		delegator.adminController.AdminMain();
 //		delegator.mainController.Main();
-		DBConnection db = new OracleConnection();
-		db.initConnect();
-		db.makeConnection();
 	}
 }

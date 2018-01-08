@@ -2,9 +2,12 @@ package controller;
 
 import java.util.List;
 
+import admin.AdminAbilityDetail;
+import admin.AdminAbilityList;
 import admin.AdminItemDetail;
 import admin.AdminItemList;
 import admin.AdminMain;
+import admin.AdminUserList;
 import dto.AbilityBbs;
 import dto.ItemBbs;
 import dto.Person;
@@ -44,15 +47,22 @@ public class AdminController {
 	}
 	
 	public void AbilityList() {
-		
+		List<AbilityBbs> abilityList = abilityService.getAllAbilityList();
+		new AdminAbilityList(abilityList);
 	}
 	
 	public void AdminAbilityDetail(AbilityBbs abilityBbs) {
-		
+		Person person = personService.getPersonById(abilityBbs.getUser_id());
+		new AdminAbilityDetail(abilityBbs, person);
 	}
 	
 	public void UserList() {
-		
-		
+		List<Person> userList = personService.getAllPerson();
+		new AdminUserList(userList);
+	}
+	
+	public void AdminUserDetail(Person person) {
+		List<ItemBbs> itemList = itemBbsService.getItemBbsByUserId(person.getId());
+//		List<AbilityBbs> abilityList = abilityService.getAbilityBbsByUserId(person.getId());
 	}
 }

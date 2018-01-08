@@ -1,7 +1,6 @@
 package admin;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,9 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,26 +21,28 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import controller.ItemBbsController;
+import delegator.Delegator;
 import dto.AbilityBbs;
-import dto.ItemBbs;
 import dto.Person;
 
 public class AdminAbilityDetail extends JFrame implements ActionListener,MouseListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
-			subimage4, keywordPanel;
-	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
+			subimage4;
+	private JButton loginBtn, logoutBtn, signBtn, searchBtn, talkBtn, chatBtn;
 	private JTextField searchTextF;
-	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
+	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 
-	String iconImgUrl = "C:\\icon\\";
-	Person m_personDto = null;
-	AbilityBbs m_abilityDto = null;
-	public AdminAbilityDetail(AbilityBbs abilityDto, Person PersonDto) {
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "E:\\icon/";
+	
+	Person person = null;
+	AbilityBbs ability = null;
+	
+	public AdminAbilityDetail(AbilityBbs ability, Person person) {
 
-		this.m_abilityDto = abilityDto;
-		this.m_personDto = PersonDto;
+		this.person = person;
+		this.ability = ability;
 		
 		Container cn = getContentPane();
 		
@@ -286,8 +285,8 @@ public class AdminAbilityDetail extends JFrame implements ActionListener,MouseLi
 		imagePannel.setBorder(new LineBorder(Color.red, 2));
 		imagePannel.setBackground(Color.white);
 		// titleLb
-		titleLb = new JLabel(m_abilityDto.getTitle());
-		titleLb.setFont(new Font(m_abilityDto.getTitle(), Font.BOLD, 25));
+		titleLb = new JLabel(ability.getTitle());
+		titleLb.setFont(new Font(ability.getTitle(), Font.BOLD, 25));
 		titleLb.setBounds(10, 30, 400, 30);
 		titleLb.setOpaque(false);
 		titleLb.setBackground(Color.DARK_GRAY);
@@ -295,15 +294,15 @@ public class AdminAbilityDetail extends JFrame implements ActionListener,MouseLi
 		imagePannel.add(titleLb);
 		// Seller
 		
-		sellLb = new JLabel(PersonDto.getId());
+		sellLb = new JLabel(person.getId());
 		sellLb.setBounds(10, 75, 400, 20);
-		sellLb.setFont(new Font(PersonDto.getId(), Font.BOLD, 12));
+		sellLb.setFont(new Font(person.getId(), Font.BOLD, 12));
 		sellLb.setOpaque(false);
 
 		imagePannel.add(sellLb);
 		// itemImage
 		itemImagePn = new JPanel() {
-			ImageIcon itemImage = new ImageIcon(m_abilityDto.getImgurl1());
+			ImageIcon itemImage = new ImageIcon(ability.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemImage.getImage(), 0, 0, null);
@@ -322,7 +321,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener,MouseLi
 
 		// 서브 이미지1
 		subimage1 = new JPanel() {
-			ImageIcon image1 = new ImageIcon(m_abilityDto.getImgurl1());
+			ImageIcon image1 = new ImageIcon(ability.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image1.getImage(), 0, 0, null);
@@ -334,7 +333,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener,MouseLi
 
 		// 서브이미지2
 		subimage2 = new JPanel() {
-			ImageIcon image2 = new ImageIcon(m_abilityDto.getImgurl2());
+			ImageIcon image2 = new ImageIcon(ability.getImgurl2());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image2.getImage(), 0, 0, null);
@@ -345,7 +344,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener,MouseLi
 		subimagePn.add(subimage2);
 		// 서브이미지3
 		subimage3 = new JPanel() {
-			ImageIcon image3 = new ImageIcon(m_abilityDto.getImgurl3());
+			ImageIcon image3 = new ImageIcon(ability.getImgurl3());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image3.getImage(), 0, 0, null);
@@ -357,7 +356,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener,MouseLi
 
 		// 서브이미지4
 		subimage4 = new JPanel() {
-			ImageIcon image4 = new ImageIcon(m_abilityDto.getImgurl4());
+			ImageIcon image4 = new ImageIcon(ability.getImgurl4());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(image4.getImage(), 0, 0, null);
@@ -379,14 +378,14 @@ public class AdminAbilityDetail extends JFrame implements ActionListener,MouseLi
 		iteminfoPn.setBorder(new LineBorder(Color.red,2));
 
 		// detailtitleLb
-		detailtitleLb = new JLabel(m_abilityDto.getTitle());
+		detailtitleLb = new JLabel(ability.getTitle());
 		detailtitleLb.setBounds(10, 10, 340, 30);
-		detailtitleLb.setFont(new Font(m_abilityDto.getTitle(), Font.BOLD, 20));
+		detailtitleLb.setFont(new Font(ability.getTitle(), Font.BOLD, 20));
 		iteminfoPn.add(detailtitleLb);
 
 		// Ability
 		
-		String key = m_abilityDto.getAbility();
+		String key = ability.getAbility();
 		System.out.println("key값 : "+key);
 		int rowSize = 0;
 		String[] keyarray;
@@ -431,15 +430,15 @@ public class AdminAbilityDetail extends JFrame implements ActionListener,MouseLi
 		iteminfoPn.add(keywordPanel);
 		
 		//categori
-		cateLb = new JLabel("카테고리 : "+m_abilityDto.getCategory_id()); 
+		cateLb = new JLabel("카테고리 : "+ability.getCategory_id()); 
 		cateLb.setBounds(10, 100, 80, 30);
 		cateLb.setOpaque(true);
 		cateLb.setBackground(Color.white);
 		iteminfoPn.add(cateLb);
 
 		//item explanation
-		explanationLb = new JLabel("저품 설명 : "+m_abilityDto.getContent());
-		explanationLb.setBounds(10,150 , 300, 10*m_abilityDto.getContent().length());
+		explanationLb = new JLabel("저품 설명 : "+ability.getContent());
+		explanationLb.setBounds(10,150 , 300, 10*ability.getContent().length());
 		explanationLb.setOpaque(true);
 		explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
@@ -472,7 +471,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener,MouseLi
 		JButton btn = (JButton) e.getSource();
 
 		if (btn == talkBtn) {
-			if (this.m_personDto!= null) {
+			if (this.person!= null) {
 
 				dispose();
 			}
@@ -491,7 +490,14 @@ public class AdminAbilityDetail extends JFrame implements ActionListener,MouseLi
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		//headerLogo 클릭 시 Main페이지로
+		JPanel headerLogo = (JPanel)e.getComponent();
+		
+		if(e.getComponent().equals(headerLogo)) {
+			Delegator delegator = Delegator.getInstance();
+			delegator.abilityBbsController.main();
+			dispose();
+		}
 		
 	}
 

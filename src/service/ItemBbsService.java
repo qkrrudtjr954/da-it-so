@@ -25,4 +25,10 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 	public List<ItemBbs>list(ItemBbs Idto) {
 		return itemDao.list(Idto);
 	}
+
+	@Override
+	public List<ItemBbs> getItemBbsByUserId(String user_id) {
+		// TODO Auto-generated method stub
+		return itemDao.getItemBbsByUserId(user_id);
+	}
 }

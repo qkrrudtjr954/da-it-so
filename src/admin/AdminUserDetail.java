@@ -1,7 +1,6 @@
 package admin;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,12 +22,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import controller.ItemBbsController;
 import delegator.Delegator;
+import dto.AbilityBbs;
 import dto.ItemBbs;
 import dto.Person;
 
-public class AdminItemDetail extends JFrame implements ActionListener,MouseListener {
+public class AdminUserDetail extends JFrame implements ActionListener,MouseListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
 			subimage4, keywordPanel;
@@ -41,13 +39,18 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 //	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	String iconImgUrl = "E:\\icon/";
 	
-	Person person = null;
-	ItemBbs item = null; 
+	int itemHeight = 60;
 	
-	public AdminItemDetail(ItemBbs itemDto, Person person) {
+	Person person = null;
+	List<ItemBbs> itemList = null;
+	List<AbilityBbs> abilityList = null;
+	
+	public AdminUserDetail(Person person, List<ItemBbs> itemList, List<AbilityBbs> abilityList) {
 		
-		this.item = itemDto;
+		
 		this.person = person;
+		this.itemList = itemList;
+		this.abilityList = abilityList;
 		
 		Container contentPane = getContentPane();
 		
@@ -182,193 +185,131 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 
 		sidePn.add(btnPanel);
 
-		// sidePn.setBounds(0, 60, 400, 1000);
-		// imagePannel
-		imagePannel = new JPanel();
-		imagePannel.setBounds(70, 20, 420, 650);
-		imagePannel.setLayout(null);
-		imagePannel.setBorder(new LineBorder(Color.red, 2));
-		imagePannel.setBackground(Color.white);
-		// titleLb
-		titleLb = new JLabel(item.getTitle());
-		titleLb.setFont(new Font(item.getTitle(), Font.BOLD, 25));
-		titleLb.setBounds(10, 30, 400, 30);
-		titleLb.setOpaque(false);
-		titleLb.setBackground(Color.DARK_GRAY);
-
-		imagePannel.add(titleLb);
-		// Seller
 		
-		sellLb = new JLabel(person.getId());
-		sellLb.setBounds(10, 75, 400, 20);
-		sellLb.setFont(new Font(person.getId(), Font.BOLD, 12));
-		sellLb.setOpaque(false);
-
-		imagePannel.add(sellLb);
-		// itemImage
-		itemImagePn = new JPanel() {
-			ImageIcon itemImage = new ImageIcon(item.getImgurl1());
-
-			public void paintComponent(Graphics g) {
-				g.drawImage(itemImage.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		itemImagePn.setBounds(10, 115, 400, 500);
-		imagePannel.add(itemImagePn);
-
-		// itemsub
-		subimagePn = new JPanel();
-		subimagePn.setLayout(new GridLayout(1, 4, 10, 5));
-		subimagePn.setBounds(10, 530, 400, 90);
-		// subimagePn.setBackground(Color.PINK);
-
-		// 서브 이미지1
-		subimage1 = new JPanel() {
-			ImageIcon image1 = new ImageIcon(item.getImgurl1());
-
-			public void paintComponent(Graphics g) {
-				g.drawImage(image1.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		subimagePn.add(subimage1);
-
-		// 서브이미지2
-		subimage2 = new JPanel() {
-			ImageIcon image2 = new ImageIcon(item.getImgurl2());
-
-			public void paintComponent(Graphics g) {
-				g.drawImage(image2.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		subimagePn.add(subimage2);
-		// 서브이미지3
-		subimage3 = new JPanel() {
-			ImageIcon image3 = new ImageIcon(item.getImgurl3());
-
-			public void paintComponent(Graphics g) {
-				g.drawImage(image3.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		subimagePn.add(subimage3);
-
-		// 서브이미지4
-		subimage4 = new JPanel() {
-			ImageIcon image4 = new ImageIcon(item.getImgurl4());
-
-			public void paintComponent(Graphics g) {
-				g.drawImage(image4.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		subimagePn.add(subimage4);
-
-		imagePannel.add(subimagePn);
-		detailPn.add(imagePannel);
-
-		// itemdetailPn
-
-		iteminfoPn = new JPanel();
-		iteminfoPn.setLayout(null);
-		iteminfoPn.setBounds(580, 135, 340, 400);
-		iteminfoPn.setBackground(Color.white);
-		iteminfoPn.setBorder(new LineBorder(Color.red,2));
-
-		// detailtitleLb
-		detailtitleLb = new JLabel(item.getTitle());
-		detailtitleLb.setBounds(10, 10, 340, 30);
-		detailtitleLb.setFont(new Font(item.getTitle(), Font.BOLD, 20));
-		iteminfoPn.add(detailtitleLb);
-	
-
-		// detailprice
-		priceLb = new JLabel(item.getPrice() + "");
-		priceLb.setBounds(10, 40, 340, 30);
-		priceLb.setFont(new Font(item.getPrice() + "", Font.BOLD, 15));
-		iteminfoPn.add(priceLb);
-
-		// keyword
+		/*
+	private int seq;
+	private String id;
+	private char[] pwd;
+	private String phone;
+	private String nick;
+	private String created_at;
+	*/
+		// main view
+		JPanel main = new JPanel();
+		main.setLayout(new GridLayout(5,  1));
+		main.setBounds(400, 60, 1280, 500);
 		
-		String key = item.getKeyword();
-		System.out.println("key값 : "+key);
-		int rowSize = 0;
-		String[] keyarray;
-		keyarray = new String[rowSize * 3]; 
-		keyarray = key.split("-key-");
-		System.out.println("keyarray:"+keyarray[0]);
-		System.out.println("keyarraylength :"+keyarray.length);
-	
-		if(keyarray.length%3 == 0) {
-			rowSize = keyarray.length/3;
-		}else {
-			rowSize = keyarray.length/3+1;
+		JPanel userIDPanel = new JPanel();
+		userIDPanel.setLayout(null);
+		
+		JLabel uesrID = new JLabel();
+		uesrID.setText("ID");
+		uesrID.setBounds(100, 50, 200, 20);
+		userIDPanel.add(uesrID);
+		
+		JLabel userID2 = new JLabel();
+		userID2.setText(person.getId());
+		userID2.setBounds(300, 50, 200, 20);
+		userIDPanel.add(userID2);
+		
+		main.add(userIDPanel);
+		
+		
+		JPanel userPhonePanel = new JPanel();
+		userPhonePanel.setLayout(null);
+		
+		JLabel uesrPhone = new JLabel();
+		uesrPhone.setText("Phone");
+		uesrPhone.setBounds(100, 50, 200, 20);
+		userPhonePanel.add(uesrPhone);
+		
+		JLabel uesrPhone2 = new JLabel();
+		uesrPhone2.setText(person.getPhone());
+		uesrPhone2.setBounds(300, 50, 200, 20);
+		userPhonePanel.add(uesrPhone2);
+		
+		main.add(userPhonePanel);
+		
+
+		
+		JPanel userNickPanel = new JPanel();
+		userNickPanel.setLayout(null);
+		
+		JLabel userNick = new JLabel();
+		userNick.setText("Phone");
+		userNick.setBounds(100, 50, 200, 20);
+		userNickPanel.add(userNick);
+		
+		JLabel userNick2 = new JLabel();
+		userNick2.setText(person.getNick());
+		userNick2.setBounds(300, 50, 200, 20);
+		userNickPanel.add(userNick2);
+		
+		main.add(userNickPanel);
+		
+
+
+		
+		JPanel userCreatedPanel = new JPanel();
+		userCreatedPanel.setLayout(null);
+		
+		JLabel userCreated = new JLabel();
+		userCreated.setText("Join date");
+		userCreated.setBounds(100, 50, 200, 20);
+		userCreatedPanel.add(userCreated);
+		
+		JLabel userCreated2 = new JLabel();
+		userCreated2.setText(person.getCreated_at());
+		userCreated2.setBounds(300, 50, 200, 20);
+		userCreatedPanel.add(userCreated2);
+		
+		main.add(userCreatedPanel);
+		
+		contentPane.add(main);
+		
+		
+		int abilityHeight = abilityList.size() * this.itemHeight;
+		int itemHeight = itemList.size() * this.itemHeight;
+
+		JPanel aMain = new JPanel();
+		aMain.setLocation(400, 60);
+//		aMain.setPreferredSize(new Dimension(630, mainHeight));
+		aMain.setLayout(null);
+
+		JScrollPane aScrPane = new JScrollPane(aMain);
+
+		for (int i = 0; i < abilityList.size(); i++) {
+			JPanel itemPanel = new JPanel();
+			itemPanel.setBounds(50, i * itemHeight + 20, 1000, itemHeight);
+			itemPanel.setBorder(new LineBorder(commonRedColor));
+			itemPanel.addMouseListener(this);
+			itemPanel.setLayout(null);
+			itemPanel.setBackground(Color.white);
+
+			JLabel itemUser = new JLabel();
+			itemUser.setText(abilityList.get(i).getUser_id());
+			itemUser.setBounds(20, 20, 200, 20);
+			itemPanel.add(itemUser);
+
+			JLabel itemTitle = new JLabel();
+			itemTitle.setText(abilityList.get(i).getTitle());
+			itemTitle.setBounds(250, 20, 200, 20);
+			itemPanel.add(itemTitle);
+
+			JLabel itemCreated = new JLabel();
+			itemCreated.setText(abilityList.get(i).getCreated_at());
+			itemCreated.setBounds(860, 20, 140, 20);
+			itemPanel.add(itemCreated);
+
+			main.add(itemPanel);
 		}
-		
-		JPanel keywordPanel = new JPanel();
-		keywordPanel.setLocation(10, 70);
-		keywordPanel.setSize(240, 30*rowSize);
-		keywordPanel.setBackground(Color.white);
-		keywordPanel.setLayout(null);
-		
-		JLabel keywordLabel[][] = new JLabel[rowSize][3];
-	
-		int k=0;
-		for(int i=0; i<rowSize; i++) {
-			for(int j=0; j<keyarray.length; j++) {
-			
-				keywordLabel[i][j]= new JLabel();
-				keywordLabel[i][j].setOpaque(true);
-				keywordLabel[i][j].setBackground(Color.pink);
-				keywordLabel[i][j].setHorizontalAlignment(SwingConstants.LEFT);
-				keywordLabel[i][j].setText("#"+keyarray[k]);
-				keywordLabel[i][j].setSize(70, 30);
-				keywordLabel[i][j].setLocation((j*80), (i*40));
-				System.out.println(keywordLabel[i][j].getBounds());
-				keywordPanel.add(keywordLabel[i][j]);
-				k++;
-			}
-		}
-		
-		iteminfoPn.add(keywordPanel);
-		
-		//categori
-		cateLb = new JLabel("카테고리 : "+item.getCategory_id()); 
-		cateLb.setBounds(10, 100, 80, 30);
-		cateLb.setOpaque(true);
-		cateLb.setBackground(Color.white);
-		iteminfoPn.add(cateLb);
 
-		//item explanation
-		explanationLb = new JLabel("저품 설명 : "+item.getContent());
-		explanationLb.setBounds(10,150 , 300, 10*item.getContent().length());
-		explanationLb.setOpaque(true);
-		explanationLb.setBackground(Color.white);
-		explanationLb.setVerticalAlignment(SwingConstants.TOP);
-		iteminfoPn.add(explanationLb);
+		JScrollPane jscPanel = new JScrollPane(main);
+		jscPanel.setBounds(400, 60, 1280, 1000);
 		
-		
-
-		// chatBtn
-		chatBtn = new JButton(new ImageIcon(iconImgUrl + "chatting.png"));
-		chatBtn.setBounds(630, 555, 240, 34);
-		chatBtn.setOpaque(false);
-		chatBtn.setBorderPainted(false);
-		chatBtn.setFocusPainted(false);
-
-		detailPn.add(chatBtn);
-		detailPn.add(iteminfoPn);
 
 		contentPane.add(sidePn);
 		contentPane.add(headerPn);
-		contentPane.add(scrollPane);
 		
 		setBounds(0, 0, 1680, 730);
 		setLayout(null);
