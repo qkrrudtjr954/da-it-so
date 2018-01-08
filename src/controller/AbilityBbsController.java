@@ -15,6 +15,13 @@ import view.AbilityWrite;
 import view.Main;
 
 public class AbilityBbsController {
+	AbilityServiceImpl Aserv = new AbilityService();
+	
+	public List<AbilityBbs> list(AbilityBbs Adto){
+		return Aserv.list(Adto);
+	}
+
+
    AbilityServiceImpl abilityService = new AbilityService();
    CategoryService categoryService = new CategoryService();
    
@@ -48,5 +55,6 @@ public class AbilityBbsController {
    public void itemDetail(ItemBbs itemDto, Person personDto) {
 	   new ItemDetail(itemDto, personDto);
    }*/
+
    
 }

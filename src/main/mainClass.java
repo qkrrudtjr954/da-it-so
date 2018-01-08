@@ -1,11 +1,19 @@
 package main;
 
-import delegator.Delegator;
+import db.DBConnection;
+import db.MySqlConnection;
+import dto.Category;
+import view.ListVIew;
+import view.mainView;
 
 public class mainClass {
 	public static void main(String[] args) {
+		DBConnection db = new MySqlConnection();
 
-		Delegator delegator = Delegator.getInstance();
-		delegator.mainController.Main();
+		db.makeConnection();
+		db.initConnect();
+
+
+		new mainView();
 	}
 }

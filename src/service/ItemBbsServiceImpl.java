@@ -6,4 +6,5 @@ import dto.ItemBbs;
 
 public interface ItemBbsServiceImpl {
 	public List<ItemBbs> allItemList();
+	public List<ItemBbs> list(ItemBbs Idto);
 }

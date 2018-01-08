@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import db.DBClose;
 import db.DBConnection;
 import db.OracleConnection;
@@ -98,6 +99,80 @@ public class AbilityDao implements AbilityDaoImpl{
 		}
 		
 		return count > 0 ? true : false;
+	}
+
+	public List<AbilityBbs> list(AbilityBbs Adto) {
+		
+		java.sql.Statement stmt = null;
+		ResultSet rs = null;
+		
+		List<AbilityBbs> list = new ArrayList<AbilityBbs>();
+		String sql = "SELECT "+ 
+				" SEQ, CATEGORY_ID, USER_ID, TITLE, "+ 
+				" IMGURL1, IMGURL2, IMGURL3, IMGURL4, MAINIMGURL" + 
+				" ABILITY, CONTENT, CREATED_AT, STATE" + 
+				" FROM ABILITY_BBS";
+		System.out.println("sql: " + sql);
+		
+		java.sql.Connection conn = DBConnector.makeConnection();
+		System.out.println("conn success");
+		
+		try {
+			stmt = conn.createStatement();
+			System.out.println("stmt success");
+
+			rs = stmt.executeQuery(sql);
+			System.out.println("rs success");
+			
+			while(rs.next()) {
+				int seq = rs.getInt("SEQ");
+				int category_id = rs.getInt("CATEGORY_ID");
+				String user_id = rs.getString("USER_ID");
+				String title = rs.getString("TITLE");
+				String imgurl1 = rs.getString("IMGURL1");
+				String imgurl2 = rs.getString("IMGURL2");
+				String imgurl3 = rs.getString("IMGURL3");
+				String imgurl4 = rs.getString("IMGURL4");
+				String ability = rs.getString("ABILITY");
+				String content = rs.getString("CONTENT");
+				String created_at = rs.getString("CREATED_AT");
+				int state = rs.getInt("STATE");
+				
+				AbilityBbs dto = new AbilityBbs();
+				
+				
+				dto.setSeq(seq);
+				dto.setCategory_id(category_id);
+				dto.setUser_id(user_id);
+				dto.setTitle(title);
+				dto.setImgurl1(imgurl1);
+				dto.setImgurl2(imgurl2);
+				dto.setImgurl3(imgurl3);
+				dto.setImgurl4(imgurl4);
+				dto.setAbility(ability);
+				dto.setContent(content);
+				dto.setCreated_at(created_at);
+				dto.setState(state);
+
+				list.add(dto);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBClose.close(stmt, conn, rs);
+		}
+		return null;
+	}
+	
+	public List<AbilityBbs> search(AbilityBbs Adto){
+		
+		String sql = " SELECT * FROM ABILITY_BBS "
+				+ " WHERE TITLE = '" + Adto.getTitle() +"'" ;
+		
+		return null;
+		
 	}
 
 	

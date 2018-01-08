@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import dto.Category;
 import dto.ItemBbs;
 import dto.Person;
@@ -18,6 +19,12 @@ import view.Main;
 public class ItemBbsController {
 	   ItemBbsServiceImpl itemService = new ItemBbsService();
 	   CategoryServiceImpl categoryService = new CategoryService();
+
+ItemBbsServiceImpl Iserv = new ItemBbsService();
+	
+	public List<ItemBbs> list(ItemBbs Idto){
+		return Iserv.list(Idto);
+	}
 	   
 	   public void main() {
 		   new Main();
@@ -41,4 +48,5 @@ public class ItemBbsController {
 	   public void itemDetail(ItemBbs itemDto) {
 		   new ItemDetail(itemDto);
 	   }
+
 }
