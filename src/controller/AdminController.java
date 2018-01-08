@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import admin.AdminItemDetail;
 import admin.AdminItemList;
 import admin.AdminMain;
 import dto.ItemBbs;
@@ -31,6 +32,7 @@ public class AdminController {
 	}
 	
 	public void AdminItemDetail(ItemBbs itemBbs) {
+//		Person person = personService.
 		new AdminItemDetail(itemBbs);
 	}
 	public void ItemList() {
