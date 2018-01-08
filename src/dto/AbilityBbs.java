@@ -24,7 +24,7 @@ public class AbilityBbs implements Serializable{
 	
 
 	public AbilityBbs(int category_id, String user_id, String title, String imgurl1, String imgurl2, String imgurl3,
-			String imgurl4, String ability, String content, String created_at, int state) {
+			String imgurl4, String ability, String content, int state) {
 		super();
 		this.category_id = category_id;
 		this.user_id = user_id;
@@ -35,7 +35,6 @@ public class AbilityBbs implements Serializable{
 		this.imgurl4 = imgurl4;
 		this.ability = ability;
 		this.content = content;
-		this.created_at = created_at;
 		this.state = state;
 	}
 
