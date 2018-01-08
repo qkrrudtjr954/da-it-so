@@ -50,7 +50,7 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		
 		this.categoryList = categoryList;
 		
-		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, abilityLb, contentLb;
+		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, abilityLb, contentLb;
 		
 		JPanel headerPn, sidePn, logoPn, catePn, writePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 		cate9;
@@ -461,15 +461,12 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 			boolean addAbilityCK = abilityService.addAbility(abilityDto, personDto);
 			System.out.println("addAbilityCK" + addAbilityCK);
 			if (addAbilityCK) {
-				delegator.abilityBbsController.AbilityDetail(abilityDto, personDto);
+				delegator.abilityBbsController.AbilityDetail(abilityDto);
 				this.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, "글작성 실패");
 			}
-			
-
 		}
-
 	}
 
 		@Override

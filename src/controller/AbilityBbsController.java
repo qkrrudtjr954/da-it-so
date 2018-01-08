@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dto.AbilityBbs;
@@ -23,6 +24,9 @@ public class AbilityBbsController {
 
    public void allAbilityList() {
 	   List<AbilityBbs> abilityDto = abilityService.allAbilityList();
+	   if(abilityDto == null) {
+		   abilityDto = new ArrayList<>();
+	   }
 	   new AbilityMain(abilityDto);
    }
    
@@ -31,8 +35,8 @@ public class AbilityBbsController {
 	   new AbilityWrite(categoryList);
    }
    
-   public void AbilityDetail(AbilityBbs abilityDto, Person personDto) {
-	   new AbilityDetail(abilityDto, personDto);
+   public void AbilityDetail(AbilityBbs abilityDto) {
+	   new AbilityDetail(abilityDto);
    }
 
    

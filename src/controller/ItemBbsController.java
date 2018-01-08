@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dto.Category;
@@ -24,6 +25,11 @@ public class ItemBbsController {
 	   
 	   public void allItemList() {
 		   List<ItemBbs> itemdto = itemService.allItemList();
+		   
+		   if(itemdto == null) {
+			   itemdto = new ArrayList<>();
+		   }
+		   
 		   new ItemMain(itemdto);
 	   }
 	   
@@ -32,7 +38,7 @@ public class ItemBbsController {
 		   new ItemWrite(categoryList);
 	   }
 	   
-	   public void itemDetail(ItemBbs itemDto, Person personDto) {
-		   new ItemDetail(itemDto, personDto);
+	   public void itemDetail(ItemBbs itemDto) {
+		   new ItemDetail(itemDto);
 	   }
 }

@@ -477,7 +477,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			boolean addItemCK = itemservice.addItem(itemDto, personDto);
 			System.out.println("addItemCK" + addItemCK);
 			if (addItemCK) {
-				delegator.itemBbsController.itemDetail(itemDto, personDto);
+				delegator.itemBbsController.itemDetail(itemDto);
 				this.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, "글작성 실패");

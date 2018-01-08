@@ -150,7 +150,6 @@ public class Main extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Delegator delegator = Delegator.getInstance();
 		Object obj = e.getSource();
-		System.out.println(obj);
 		
 		if(obj == loginBtn) {
 			delegator.personController.Login();

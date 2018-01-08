@@ -66,8 +66,8 @@ public class PersonDao implements PersonDaoImpl {
 			sql = " insert into person(id, pwd, phone, nick, create_at) "
 					+ " values('"+person.getId()+"', '"+pwds+"', '"+person.getPhone()+"', '"+person.getNick()+"', now()) ";
 		} else {
-			sql = "INSERT INTO PERSON(SEQ, ID, PWD, PHONE, NICK, CREATE_AT)"
-					+"VALUES (SEQ.NEXTVAL,'"+person.getId()+"','"+pwds+"','"+person.getPhone()+"','"+person.getNick()+"',SYSDATE);";
+			sql = "INSERT INTO PERSON(ID, PASSWORD, PHONE, NICK, CREATED_AT)"
+					+" VALUES ('"+person.getId()+"','"+pwds+"','"+person.getPhone()+"','"+person.getNick()+"',SYSDATE)";
 		}
 		
 

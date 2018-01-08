@@ -25,6 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import controller.ItemBbsController;
+import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.ItemBbs;
 import dto.Person;
@@ -40,10 +41,11 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 	String iconImgUrl = "C:\\icon\\";
 	Person m_personDto = null;
 	AbilityBbs m_abilityDto = null;
-	public AbilityDetail(AbilityBbs abilityDto, Person PersonDto) {
+	public AbilityDetail(AbilityBbs abilityDto) {
 
+		Delegator delegator = Delegator.getInstance();
 		this.m_abilityDto = abilityDto;
-		this.m_personDto = PersonDto;
+		m_personDto = delegator.getCurrent_user();
 		
 		Container cn = getContentPane();
 		
@@ -295,9 +297,9 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		imagePannel.add(titleLb);
 		// Seller
 		
-		sellLb = new JLabel(PersonDto.getId());
+		sellLb = new JLabel(m_personDto.getId());
 		sellLb.setBounds(10, 75, 400, 20);
-		sellLb.setFont(new Font(PersonDto.getId(), Font.BOLD, 12));
+		sellLb.setFont(new Font(m_personDto.getId(), Font.BOLD, 12));
 		sellLb.setOpaque(false);
 
 		imagePannel.add(sellLb);
@@ -491,7 +493,14 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		//headerLogo 클릭 시 Main페이지로
+		JPanel headerLogo = (JPanel)e.getComponent();
+		
+		if(e.getComponent().equals(headerLogo)) {
+			Delegator delegator = Delegator.getInstance();
+			delegator.abilityBbsController.main();
+			dispose();
+		}
 		
 	}
 
