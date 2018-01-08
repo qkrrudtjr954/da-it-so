@@ -8,6 +8,6 @@ public interface AbilityDaoImpl {
 	public List<AbilityBbs> allAbilityList();
 
 	public List<AbilityBbs> getAllAbilityList();
-	public boolean addAbility(AbilityBbs abilityDto, Person personDto);
+	public boolean addAbility(AbilityBbs abilityDto);
 
 }
