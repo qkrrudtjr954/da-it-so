@@ -82,33 +82,39 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
-		// logoutBtn
-		logoutBtn = new JButton("로그아웃");
-		logoutBtn.setBounds(1250, 20, 100, 30);
-		logoutBtn.setOpaque(false); // 투명하게
-		logoutBtn.setBorderPainted(false);// 외곽선 없애줌
-		logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
-		logoutBtn.setBackground(commonColor);
-		logoutBtn.setForeground(Color.white);
-
-		// loginBtn
-		loginBtn = new JButton("로그인");
-		loginBtn.setBounds(1190, 20, 100, 30);
-		loginBtn.setOpaque(false); // 투명하게
-		loginBtn.setBorderPainted(false);// 외곽선 없애줌
-		loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
-		loginBtn.setBackground(commonColor);
-		loginBtn.setForeground(Color.white);
-
-		// SignBtn
-
-		signBtn = new JButton("회원가입");
-		signBtn.setBounds(1130, 20, 100, 30);
-		signBtn.setOpaque(false); // 투명하게
-		signBtn.setBorderPainted(false);// 외곽선 없애줌
-		signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
-		signBtn.setBackground(commonColor);
-		signBtn.setForeground(Color.white);
+	
+		if(delegator.getCurrent_user()==null) {
+			// loginBtn
+			loginBtn = new JButton("로그인");
+			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setOpaque(false); // 투명하게
+			loginBtn.setBorderPainted(false);// 외곽선 없애줌
+			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
+			loginBtn.setBackground(commonColor);
+			loginBtn.setForeground(Color.white);
+			headerPn.add(loginBtn);
+			
+			// SignBtn
+			signBtn = new JButton("회원가입");
+			signBtn.setBounds(1130, 20, 100, 30);
+			signBtn.setOpaque(false); // 투명하게
+			signBtn.setBorderPainted(false);// 외곽선 없애줌
+			signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signBtn.setBackground(commonColor);
+			signBtn.setForeground(Color.white);
+			signBtn.addActionListener(this);
+			headerPn.add(signBtn);			
+		}else {
+			// logoutBtn
+			logoutBtn = new JButton("로그아웃");
+			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setOpaque(false); // 투명하게
+			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
+			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
+			logoutBtn.setBackground(commonColor);
+			logoutBtn.setForeground(Color.white);
+			headerPn.add(logoutBtn);			
+		}
 
 		headerPn.add(logoutBtn);
 		headerPn.add(loginBtn);

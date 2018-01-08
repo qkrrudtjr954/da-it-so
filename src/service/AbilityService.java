@@ -17,13 +17,8 @@ public class AbilityService implements AbilityServiceImpl {
 		return abilityDao.getAllAbilityList();
 	}
 
-	public boolean addAbility(AbilityBbs abilityDto, Person personDto) {
-		return abilityDao.addAbility(abilityDto, personDto) ? true : false;
-	}
+    public boolean addAbility(AbilityBbs abilityDto) {
+        return abilityDao.addAbility(abilityDto) ? true : false;
+    }
 
-	@Override
-	public List<AbilityBbs> list(AbilityBbs Adto) {
-		// TODO Auto-generated method stub
-		return abilityDao.list(Adto);
-	}
 }
