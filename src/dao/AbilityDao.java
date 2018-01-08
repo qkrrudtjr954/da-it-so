@@ -7,13 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import db.DBClose;
 import db.DBConnection;
 import db.OracleConnection;
 import delegator.Delegator;
 import dto.AbilityBbs;
-import dto.ItemBbs;
 import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl{
@@ -41,6 +39,7 @@ public class AbilityDao implements AbilityDaoImpl{
 			while (rs.next()) {
 				AbilityBbs abilityDto = new AbilityBbs();
 				
+				abilityDto.setSeq(Integer.parseInt(rs.getString("SEQ")));
 				abilityDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
 				abilityDto.setTitle(rs.getString("TITLE"));
 				abilityDto.setImgurl1(rs.getString("IMGURL1"));
@@ -49,7 +48,8 @@ public class AbilityDao implements AbilityDaoImpl{
 				abilityDto.setImgurl4(rs.getString("IMGURL4"));
 				abilityDto.setAbility(rs.getString("ABILITY"));
 				abilityDto.setContent(rs.getString("CONTENT"));
-				abilityDto.setCreated_at(rs.getString("CREATE_AT"));
+				abilityDto.setState(Integer.parseInt(rs.getString("STATE")));
+				abilityDto.setCreated_at(rs.getString("CREATED_AT"));
 				abilityDto.setUser_id(rs.getString("USER_ID"));
 				
 				AbilityList.add(abilityDto);
@@ -64,8 +64,9 @@ public class AbilityDao implements AbilityDaoImpl{
 		return AbilityList;
 	}
 	
-	public boolean addAbility(AbilityBbs abilityDto, Person personDto) {
+	public boolean addAbility(AbilityBbs abilityDto) {
 		Delegator delegator = Delegator.getInstance();
+		Person personDto = delegator.getCurrent_user();
 				
 		String sql;
 		
@@ -74,8 +75,8 @@ public class AbilityDao implements AbilityDaoImpl{
 					+ " values( "+abilityDto.getCategory_id()+", '"+delegator.getCurrent_user().getId()+"', '"+abilityDto.getTitle()+"', '"
 					+ abilityDto.getImgurl1() +"', '"+abilityDto.getImgurl2()+"', '"+abilityDto.getImgurl3()+"', '"+abilityDto.getImgurl4()+"', '"+abilityDto.getAbility()+"', '"+abilityDto.getContent()+"', 1, now());";
 		} else {
-			sql ="INSERT INTO ABILITY_BBS(SEQ, CATEGORY_ID, TITLE, IMGURL1, IMGURL2, IMGURL3, IMGURL4, ABILITY, CONTENT, STATE, CREATE_AT, USER_ID)"
-					+" VALUES(IBBS_SEQ.NEXTVAL, '"+abilityDto.getCategory_id()+"','"+abilityDto.getTitle()+"','"+abilityDto.getImgurl1()+"','"+abilityDto.getImgurl2()+"','"+abilityDto.getImgurl3()+"','"+abilityDto.getImgurl4()+"','"+abilityDto.getAbility()+"','"+abilityDto.getContent()+"', 1, SYSDATE, '"+personDto.getId()+"')";
+			sql ="INSERT INTO ABILITY_BBS(SEQ, CATEGORY_ID, TITLE, IMGURL1, IMGURL2, IMGURL3, IMGURL4, ABILITY, CONTENT, STATE, CREATED_AT, USER_ID)"
+					+" VALUES(SEQ_ABILITY_BBS.NEXTVAL,'"+abilityDto.getCategory_id()+"','"+abilityDto.getTitle()+"','"+abilityDto.getImgurl1()+"','"+abilityDto.getImgurl2()+"','"+abilityDto.getImgurl3()+"','"+abilityDto.getImgurl4()+"','"+abilityDto.getAbility()+"','"+abilityDto.getContent()+"', 1, SYSDATE, '"+personDto.getId()+"')";
 
 		}
 
@@ -100,7 +101,8 @@ public class AbilityDao implements AbilityDaoImpl{
 		
 		return count > 0 ? true : false;
 	}
-
+	
+/*
 	public List<AbilityBbs> list(AbilityBbs Adto) {
 		
 		java.sql.Statement stmt = null;
@@ -165,7 +167,7 @@ public class AbilityDao implements AbilityDaoImpl{
 		}
 		return null;
 	}
-	
+*/	
 	public List<AbilityBbs> search(AbilityBbs Adto){
 		
 		String sql = " SELECT * FROM ABILITY_BBS "

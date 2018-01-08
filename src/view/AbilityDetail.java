@@ -39,13 +39,14 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
 	String iconImgUrl = "C:\\icon\\";
-	Person m_personDto = null;
 	AbilityBbs m_abilityDto = null;
+	
+	//삭제버튼추가필요
+	//완료 버튼 추가 시 STATE 1로 변경 STATE = 0 등록시 STATE = 1 완료 STATE = 2 삭제 STATE = 3 관리자에의한 삭제
 	public AbilityDetail(AbilityBbs abilityDto) {
 
 		Delegator delegator = Delegator.getInstance();
 		this.m_abilityDto = abilityDto;
-		m_personDto = delegator.getCurrent_user();
 		
 		Container cn = getContentPane();
 		
@@ -84,37 +85,39 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
-		// logoutBtn
-		logoutBtn = new JButton("로그아웃");
-		logoutBtn.setBounds(1250, 20, 100, 30);
-		logoutBtn.setOpaque(false); // 투명하게
-		logoutBtn.setBorderPainted(false);// 외곽선 없애줌
-		logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
-		logoutBtn.setBackground(commonColor);
-		logoutBtn.setForeground(Color.white);
-
-		// loginBtn
-		loginBtn = new JButton("로그인");
-		loginBtn.setBounds(1190, 20, 100, 30);
-		loginBtn.setOpaque(false); // 투명하게
-		loginBtn.setBorderPainted(false);// 외곽선 없애줌
-		loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
-		loginBtn.setBackground(commonColor);
-		loginBtn.setForeground(Color.white);
-
-		// SignBtn
-
-		signBtn = new JButton("회원가입");
-		signBtn.setBounds(1130, 20, 100, 30);
-		signBtn.setOpaque(false); // 투명하게
-		signBtn.setBorderPainted(false);// 외곽선 없애줌
-		signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
-		signBtn.setBackground(commonColor);
-		signBtn.setForeground(Color.white);
-
-		headerPn.add(logoutBtn);
-		headerPn.add(loginBtn);
-		headerPn.add(signBtn);
+		
+		if(delegator.getCurrent_user()==null) {
+			// loginBtn
+			loginBtn = new JButton("로그인");
+			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setOpaque(false); // 투명하게
+			loginBtn.setBorderPainted(false);// 외곽선 없애줌
+			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
+			loginBtn.setBackground(commonColor);
+			loginBtn.setForeground(Color.white);
+			headerPn.add(loginBtn);
+			
+			// SignBtn
+			signBtn = new JButton("회원가입");
+			signBtn.setBounds(1130, 20, 100, 30);
+			signBtn.setOpaque(false); // 투명하게
+			signBtn.setBorderPainted(false);// 외곽선 없애줌
+			signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signBtn.setBackground(commonColor);
+			signBtn.setForeground(Color.white);
+			signBtn.addActionListener(this);
+			headerPn.add(signBtn);			
+		}else {
+			// logoutBtn
+			logoutBtn = new JButton("로그아웃");
+			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setOpaque(false); // 투명하게
+			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
+			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
+			logoutBtn.setBackground(commonColor);
+			logoutBtn.setForeground(Color.white);
+			headerPn.add(logoutBtn);			
+		}
 
 		// 1050
 		// sidePn
@@ -295,11 +298,11 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		titleLb.setBackground(Color.DARK_GRAY);
 
 		imagePannel.add(titleLb);
-		// Seller
 		
-		sellLb = new JLabel(m_personDto.getId());
+		// Seller
+		sellLb = new JLabel(m_abilityDto.getUser_id());
 		sellLb.setBounds(10, 75, 400, 20);
-		sellLb.setFont(new Font(m_personDto.getId(), Font.BOLD, 12));
+		sellLb.setFont(new Font(m_abilityDto.getUser_id(), Font.BOLD, 12));
 		sellLb.setOpaque(false);
 
 		imagePannel.add(sellLb);
@@ -472,9 +475,11 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 	public void actionPerformed(ActionEvent e) {
 
 		JButton btn = (JButton) e.getSource();
+		Delegator delegator = Delegator.getInstance();
+		
 
 		if (btn == talkBtn) {
-			if (this.m_personDto!= null) {
+			if (delegator.getCurrent_user().getId()!= null) {
 
 				dispose();
 			}
@@ -505,27 +510,14 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("프레스확인");
-		
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 }

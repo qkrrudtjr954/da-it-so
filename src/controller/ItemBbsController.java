@@ -41,7 +41,9 @@ ItemBbsServiceImpl Iserv = new ItemBbsService();
 	   }
 	   
 	   public void itemWrite(Person personDto) {
-		   List<Category> categoryList = categoryService.getAllCategories();
+		   //getAllCategories == 0 Ability 
+		   //getAllCategories == 1 item 
+		   List<Category> categoryList = categoryService.getAllCategories(0);
 		   new ItemWrite(categoryList);
 	   }
 	   

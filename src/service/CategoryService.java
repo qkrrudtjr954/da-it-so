@@ -9,7 +9,7 @@ import dto.Category;
 public class CategoryService implements CategoryServiceImpl{
 	CategoryDaoImpl categoryDao = new CategoryDao();
 	
-	public List<Category> getAllCategories(){
-		return categoryDao.getAllCategories();
+	public List<Category> getAllCategories(int state){
+		return categoryDao.getAllCategories(state);
 	}
 }

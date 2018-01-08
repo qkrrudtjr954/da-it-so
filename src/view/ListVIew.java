@@ -43,25 +43,27 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 	AbilityBbs Adto; 
 	
 	public ListVIew(Category Cdto) {
+		Delegator delegator = Delegator.getInstance();
 
 		this.state = Cdto.getState();
 
 		if (state == 0) {
-			// ¹°°Ç¸®½ºÆ®¸¦ ¶ç¿î´Ù
-			// controller ÅëÇØ¼­ daoÀÇ ItemList ¸Þ¼Òµå·Î º¸³½´Ù(ÀÎÀÚ°ª ItemBbs)
+			// ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// controller ï¿½ï¿½ï¿½Ø¼ï¿½ daoï¿½ï¿½ ItemList ï¿½Þ¼Òµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ú°ï¿½ ItemBbs)
 		showIList();
 			
 			
 		} else if (state == 1) {
-			// ÀÎ·Â¸®½ºÆ®¸¦ ¶ç¿î´Ù
-			// controller ÅëÇØ¼­ daoÀÇ AbilityList ¸Þ¼Òµå·Î º¸³½´Ù(ÀÎÀÚ°ª AbilityBbs)			
+			// ï¿½Î·Â¸ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// controller ï¿½ï¿½ï¿½Ø¼ï¿½ daoï¿½ï¿½ AbilityList ï¿½Þ¼Òµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ú°ï¿½ AbilityBbs)			
 		showAList();
 		}
 	}
 
 	public ItemBbs showIList() {
 		
-			List<ItemBbs>list = de.itemBbsController.list(Idto);
+		Delegator delegator = Delegator.getInstance();
+		List<ItemBbs>list = delegator.itemBbsController.allItemList();
 		
 		listPn = new JPanel();
 		listPn.setLayout(null);
@@ -90,7 +92,7 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 			thumPn2 = new JPanel();
 			thumPn2.setLayout(null);
 
-			if (i % 2 == 0) { // Â¦¼öÀÏ¶§(»õ·Î¿î ÁÙ·Î ³Ñ¾î°¥¶§)
+			if (i % 2 == 0) { // Â¦ï¿½ï¿½ï¿½Ï¶ï¿½(ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½Ù·ï¿½ ï¿½Ñ¾î°¥ï¿½ï¿½)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
 				imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
 				imgLa.addMouseListener(this);
@@ -170,7 +172,7 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 			thumPn2 = new JPanel();
 			thumPn2.setLayout(null);
 
-			if (i % 2 == 0) { // Â¦¼öÀÏ¶§(»õ·Î¿î ÁÙ·Î ³Ñ¾î°¥¶§)
+			if (i % 2 == 0) { // Â¦ï¿½ï¿½ï¿½Ï¶ï¿½(ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½Ù·ï¿½ ï¿½Ñ¾î°¥ï¿½ï¿½)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
 				imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
 				imgLa.addMouseListener(this);
@@ -225,7 +227,7 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 		Person Pdto =  new Person();
 		Pdto.setId("asd");
 		
-	//Idto = delegator ÅëÇØ¼­ ÄÁÆ®·Ñ·¯ ÅëÇØ¼­ ¼­ºñ½º ÅëÇØ¼­ dao  
+	//Idto = delegator ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ dao  
 		new DetailPageView(Idto, Pdto);
 		System.out.println("iddto :"+Idto.getContent());
 	}

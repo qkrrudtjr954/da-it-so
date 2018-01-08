@@ -15,13 +15,6 @@ import view.AbilityWrite;
 import view.Main;
 
 public class AbilityBbsController {
-	AbilityServiceImpl Aserv = new AbilityService();
-	
-	public List<AbilityBbs> list(AbilityBbs Adto){
-		return Aserv.list(Adto);
-	}
-
-
    AbilityServiceImpl abilityService = new AbilityService();
    CategoryService categoryService = new CategoryService();
    
@@ -31,30 +24,22 @@ public class AbilityBbsController {
 
    public void allAbilityList() {
 	   List<AbilityBbs> abilityDto = abilityService.allAbilityList();
-	   if(abilityDto == null) {
+	   if(abilityDto.isEmpty()) {
 		   abilityDto = new ArrayList<>();
 	   }
 	   new AbilityMain(abilityDto);
    }
    
    public void AbilityWrite(Person personDto) {
-	   List<Category> categoryList = categoryService.getAllCategories();
+	   //getAllCategories == 0 Ability 
+	   //getAllCategories == 1 item 
+	   List<Category> categoryList = categoryService.getAllCategories(0);
 	   new AbilityWrite(categoryList);
    }
    
    public void AbilityDetail(AbilityBbs abilityDto) {
 	   new AbilityDetail(abilityDto);
    }
-
-   
-/*   public void itemWrite(Person personDto) {
-	   List<Category> categoryList = categoryService.getAllCategories();
-	   new ItemWrite(categoryList);
-   }
-   
-   public void itemDetail(ItemBbs itemDto, Person personDto) {
-	   new ItemDetail(itemDto, personDto);
-   }*/
 
    
 }

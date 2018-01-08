@@ -17,9 +17,9 @@ public class CategoryDao implements CategoryDaoImpl {
 	//DBConnection DBConnector = new MySqlConnection();
 	DBConnection DBConnector = new OracleConnection();
 
-	public List<Category> getAllCategories() {
+	public List<Category> getAllCategories(int state) {
 
-		String sql = "SELECT * FROM CATEGORY WHERE STATE = 1";
+		String sql = "SELECT * FROM CATEGORY WHERE STATE ="+state;
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
