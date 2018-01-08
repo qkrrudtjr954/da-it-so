@@ -13,8 +13,8 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 		return itemDao.allItemList();
 	}
 
-	public boolean addItem(ItemBbs itemDto, Person personDto) {
-		return itemDao.addItem(itemDto, personDto) ? true : false;
+	public boolean addItem(ItemBbs itemDto) {
+		return itemDao.addItem(itemDto) ? true : false;
 	}
 
 	@Override

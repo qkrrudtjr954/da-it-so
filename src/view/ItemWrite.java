@@ -472,9 +472,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			Delegator delegator = Delegator.getInstance();
 			ItemBbsService itemservice = new ItemBbsService();
 
-			Person personDto = delegator.getCurrent_user();
-
-			boolean addItemCK = itemservice.addItem(itemDto, personDto);
+			boolean addItemCK = itemservice.addItem(itemDto);
 			System.out.println("addItemCK" + addItemCK);
 			if (addItemCK) {
 				delegator.itemBbsController.itemDetail(itemDto);

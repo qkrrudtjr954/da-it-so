@@ -504,7 +504,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		if(e.getComponent().equals(headerLogo)) {
 			Delegator delegator = Delegator.getInstance();
 			delegator.abilityBbsController.main();
-			dispose();
+			this.dispose();
 		}
 		
 	}

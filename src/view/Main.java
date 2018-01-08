@@ -140,7 +140,7 @@ public class Main extends JFrame implements ActionListener {
 		
 		contentPane.add(center);
 		
-		setBounds(0, 0, 1680, 1050);
+		setBounds(0, 0, 1680, 730);
 		setLayout(null);
 		setVisible(true);
 

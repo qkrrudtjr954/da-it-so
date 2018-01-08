@@ -25,20 +25,18 @@ import dto.AbilityBbs;
 import dto.Person;
 
 public class AbilityMain extends JFrame implements ActionListener, MouseListener{
-	
-	int state;
-
+	//list panel
 	private JPanel listPn, thumPn, thumPn1, thumPn2;
 	private JLabel imgLa, txtLa;
 	private JButton addBtn;
 	
+	//side panel
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
-	cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
-	subimage4, keywordPanel;
+	cate9, detailPn;
 	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
 	private JTextField searchTextF;
-	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 	
+	//imgurl
 	String iconImgUrl = "C:\\icon\\";
 
 	Color mainRed = new Color(218, 0, 0);
@@ -51,6 +49,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		
 		Delegator delegator = Delegator.getInstance();
 		this.m_abilityList = abilityList;
+		
 		
 		// Header
 		Color commonColor = new Color(218, 0, 0);
@@ -304,7 +303,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		thumPn.add(addBtn);
 		
 		int j = 0;
-		for (int i = 0; i < abilityList.size(); i++) {
+		for (int i = 0; i < m_abilityList.size(); i++) {
 
 			thumPn1 = new JPanel();
 			thumPn1.setLayout(null);
@@ -315,7 +314,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
 				imgLa = new JLabel(new ImageIcon("+ dto.getImgurl1() +"));
-				txtLa = new JLabel(abilityList.get(i).getContent());
+				txtLa = new JLabel(m_abilityList.get(i).getContent());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -325,8 +324,8 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 				
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(abilityList.get(i).getImgurl1()));
-				txtLa = new JLabel(abilityList.get(i).getContent());
+				imgLa = new JLabel(new ImageIcon(m_abilityList.get(i).getImgurl1()));
+				txtLa = new JLabel(m_abilityList.get(i).getContent());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -348,7 +347,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		add(scroll);
 		add(sidePn);
 		add(headerPn);
-		setBounds(0, 0, 1680, 1050);
+		setBounds(0, 0, 1680, 730);
 		setLayout(null);
 		setVisible(true);	
 		
@@ -377,31 +376,32 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JPanel thumPn1 = (JPanel)e.getComponent();
-		System.out.println(e.getComponent().equals(thumPn1));
+		//System.out.println(e.getComponent().equals(thumPn1));
 		
 		System.out.println("x,y ==>"+thumPn1.getX() +"," +thumPn1.getY());
 		
 		Delegator delegator = Delegator.getInstance();
 		AbilityBbs abilitySelect = null;
 		
-		for (int i = 0; i < m_abilityList.size(); i++) {
-			int j = 50;
-			if(thumPn1.getY() == (j+170)*i) {
-				System.out.println(m_abilityList.get(0));
-				abilitySelect = m_abilityList.get(0);
-				delegator.abilityBbsController.AbilityDetail(abilitySelect);
-			}
+		int i =0;
+		int j =0;
+		
+		if(thumPn1.getX()==15) {
+			i=0;
+		}else if(thumPn1.getX()==525) {
+			i=1;
 		}
 		
+		j = thumPn1.getY()/170;
 		
-/*		Person Pdto =  new Person();
-		Pdto = delegator.getCurrent_user();
-		
-		//Idto = delegator ���ؼ� ��Ʈ�ѷ� ���ؼ� ���� ���ؼ� dao  
-		//new DetailPageView(Idto, Pdto);
-		*/
-		//delegator.abilityBbsController.AbilityDetail(m_abilityList.get(index));
-		//System.out.println("iddto :"+Idto.getContent());
+		if(thumPn1.getX()==525 && thumPn1.getY()==50) {
+			abilitySelect = m_abilityList.get(0);
+			delegator.abilityBbsController.AbilityDetail(abilitySelect);
+		}else {
+			abilitySelect = m_abilityList.get(i+j);
+			delegator.abilityBbsController.AbilityDetail(abilitySelect);
+		}
+
 		
 	}
 	@Override
