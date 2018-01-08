@@ -9,6 +9,7 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
+import db.MySqlConnection;
 import db.OracleConnection;
 import delegator.Delegator;
 import dto.ItemBbs;
@@ -16,7 +17,8 @@ import dto.Person;
 
 public class ItemBbsDao implements ItemBbsDaoImpl{
 
-	DBConnection DBConnector = new OracleConnection();
+//	DBConnection DBConnector = new OracleConnection();
+	DBConnection DBConnector = new MySqlConnection();
 
 	@Override
 	public List<ItemBbs> list(ItemBbs Idto) {
