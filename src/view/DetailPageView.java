@@ -310,7 +310,7 @@ public class DetailPageView extends JFrame implements ActionListener,MouseListen
 		imagePannel.add(sellLb);
 		// itemImage
 		itemImagePn = new JPanel() {
-			ImageIcon itemImage = new ImageIcon(Idto.getMainimgurl());
+			ImageIcon itemImage = new ImageIcon(Idto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemImage.getImage(), 0, 0, null);

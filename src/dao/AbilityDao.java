@@ -137,10 +137,8 @@ public class AbilityDao implements AbilityDaoImpl{
 		return count > 0 ? true : false;
 	}
 
-@Override
 	public List<AbilityBbs> list(AbilityBbs Adto) {
 		
-		DBConnection db = new MySqlConnection();
 		java.sql.Statement stmt = null;
 		ResultSet rs = null;
 		
@@ -152,7 +150,7 @@ public class AbilityDao implements AbilityDaoImpl{
 				" FROM ABILITY_BBS";
 		System.out.println("sql: " + sql);
 		
-		java.sql.Connection conn = db.makeConnection();
+		java.sql.Connection conn = DBConnector.makeConnection();
 		System.out.println("conn success");
 		
 		try {
@@ -171,13 +169,27 @@ public class AbilityDao implements AbilityDaoImpl{
 				String imgurl2 = rs.getString("IMGURL2");
 				String imgurl3 = rs.getString("IMGURL3");
 				String imgurl4 = rs.getString("IMGURL4");
-				String mainimgurl = rs.getString("MAINIMGURL");
 				String ability = rs.getString("ABILITY");
 				String content = rs.getString("CONTENT");
 				String created_at = rs.getString("CREATED_AT");
 				int state = rs.getInt("STATE");
 				
-				AbilityBbs dto = new AbilityBbs(category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, ability, content, created_at, state);
+				AbilityBbs dto = new AbilityBbs();
+				
+				
+				dto.setSeq(seq);
+				dto.setCategory_id(category_id);
+				dto.setUser_id(user_id);
+				dto.setTitle(title);
+				dto.setImgurl1(imgurl1);
+				dto.setImgurl2(imgurl2);
+				dto.setImgurl3(imgurl3);
+				dto.setImgurl4(imgurl4);
+				dto.setAbility(ability);
+				dto.setContent(content);
+				dto.setCreated_at(created_at);
+				dto.setState(state);
+
 				list.add(dto);
 			}
 

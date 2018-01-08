@@ -27,7 +27,6 @@ public class ItemBbs implements Serializable{
 	public ItemBbs(int category_id, String user_id, String title, String imgurl1, String imgurl2, String imgurl3,
 			String imgurl4, int price, String keyword, String content, int state) {
 		super();
-		this.seq = seq;
 		this.category_id = category_id;
 		this.user_id = user_id;
 		this.title = title;
@@ -35,7 +34,6 @@ public class ItemBbs implements Serializable{
 		this.imgurl2 = imgurl2;
 		this.imgurl3 = imgurl3;
 		this.imgurl4 = imgurl4;
-		this.mainimgurl = mainimgurl;
 		this.price = price;
 		this.keyword = keyword;
 		this.content = content;
@@ -148,45 +146,6 @@ public class ItemBbs implements Serializable{
 	public void setImgurl4(String imgurl4) {
 		this.imgurl4 = imgurl4;
 	}
-
-	public String getImgurl4() {
-		return imgurl4;
-	}
-
-
-	public void setImgurl4(String imgurl4) {
-		this.imgurl4 = imgurl4;
-	}
-
-
-
-
-	public String getImgurl4() {
-		return imgurl4;
-	}
-
-
-
-
-	public void setImgurl4(String imgurl4) {
-		this.imgurl4 = imgurl4;
-	}
-
-
-
-
-	public String getMainimgurl() {
-		return mainimgurl;
-	}
-
-
-
-
-	public void setMainimgurl(String mainimgurl) {
-		this.mainimgurl = mainimgurl;
-	}
-
-
 
 
 	public String getKeyword() {

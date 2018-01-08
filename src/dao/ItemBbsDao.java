@@ -7,28 +7,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.MySQLConnection;
-import com.mysql.jdbc.Statement;
-
 import db.DBClose;
 import db.DBConnection;
-import db.MySqlConnection;
 import db.OracleConnection;
+import delegator.Delegator;
 import dto.ItemBbs;
+import dto.Person;
 
 public class ItemBbsDao implements ItemBbsDaoImpl{
+	
+	DBConnection DBConnector = new OracleConnection();
 
 	@Override
 	public List<ItemBbs> list(ItemBbs Idto) {
-		DBConnection db = new MySqlConnection();
 
 		java.sql.Statement stmt = null;
 		ResultSet rs = null;
 
 		List<ItemBbs> list = new ArrayList<ItemBbs>();
-		//db�� �����ؼ� ������ ������ �κ�
+		
 		String sql = " SELECT "
 				+ " SEQ, CATEGORY_ID, USER_ID, TITLE,"
 				+ " IMGURL1, IMGURL2, IMGURL3, IMGURL4, MAINIMGURL"
@@ -37,7 +34,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		System.out.println("sql: " + sql);
 
-		java.sql.Connection conn = db.makeConnection();
+		java.sql.Connection conn = DBConnector.makeConnection();
 		System.out.println("conn success");
 
 		try {
@@ -48,6 +45,8 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 			System.out.println("rs success");
 
 			while (rs.next()) {
+				ItemBbs dto = new ItemBbs();
+
 				int seq = rs.getInt("SEQ");
 				int category_id = rs.getInt("CATEGORY_ID");
 				String user_id = rs.getString("USER_ID");
@@ -56,14 +55,26 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 				String imgurl2 = rs.getString("IMGURL2");
 				String imgurl3 = rs.getString("IMGURL3");
 				String imgurl4 = rs.getString("IMGURL4");
-				String mainimgurl = rs.getString("MAINIMGURL");
 				String content = rs.getString("CONTENT");
 				int price = rs.getInt("PRICE");
 				String keyword = rs.getString("KEYWORD");
 				String created_at = rs.getString("CREATED_AT");
 				int state = rs.getInt("STATE");
+				
+				dto.setCategory_id(category_id);
+				dto.setContent(content);
+				dto.setCreated_at(created_at);
+				dto.setImgurl1(imgurl1);
+				dto.setImgurl2(imgurl2);
+				dto.setImgurl3(imgurl3);
+				dto.setImgurl4(imgurl4);
+				dto.setKeyword(keyword);
+				dto.setPrice(price);
+				dto.setSeq(seq);
+				dto.setUser_id(user_id);
+				dto.setState(state);
+				dto.setTitle(title);
 
-				ItemBbs dto = new ItemBbs(seq, category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, mainimgurl, price, keyword, content, created_at, state);
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -113,7 +124,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			DBClose.close(stmt, conn, rs);
+			DBClose.close(pstmt, conn, rs);
 		}
 		return itemList;
 	}

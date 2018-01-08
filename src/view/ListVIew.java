@@ -61,10 +61,7 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 
 	public ItemBbs showIList() {
 		
-		Idto = new ItemBbs(1, 1, "eee", "puppies", "", 
-				"", "", "", "/Users/leefrances/Desktop/puppies.jpg", 10000, "강쥐", "강쥐는 사랑입니다", "", 1);
-		
-		List<ItemBbs>list = de.itemBbsController.list(Idto);
+			List<ItemBbs>list = de.itemBbsController.list(Idto);
 		
 		listPn = new JPanel();
 		listPn.setLayout(null);
@@ -95,7 +92,7 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(list.get(i).getMainimgurl()));
+				imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
 				imgLa.addMouseListener(this);
 				txtLa = new JLabel(Idto.getTitle() + "\n" + list.get(i).getContent());
 				txtLa.addMouseListener(this);
@@ -110,7 +107,7 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 				j++;
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(list.get(i).getMainimgurl()));
+				imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
 				imgLa.addMouseListener(this);
 				txtLa = new JLabel(Idto.getTitle() + "\n" + list.get(i).getContent());
 				txtLa.addMouseListener(this);
@@ -144,9 +141,6 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 
 	public AbilityBbs showAList() {
 
-		Adto = new AbilityBbs(0, "eeeseoone", "developer", "/Users/leefrances/Desktop/developer.jpg",
-				"", "", "", "개발5년차", "웹사이트 개발, 맡겨만주세요", "", 1);
-
 		List<AbilityBbs> list = de.abilityBbsController.list(Adto);
 		
 		listPn = new JPanel();
@@ -178,7 +172,7 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(list.get(i).getMainimgurl()));
+				imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
 				imgLa.addMouseListener(this);
 				
 				txtLa = new JLabel(Adto.getTitle() + "\n" +list.get(i).getContent());
@@ -193,10 +187,10 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 				j++;
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(list.get(i).getMainimgurl()));
+				imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
 				imgLa.addMouseListener(this);
 				
-				txtLa = new JLabel(Adto.getTitle() + "\n" + list.get(i).getMainimgurl());
+				txtLa = new JLabel(Adto.getTitle() + "\n" +list.get(i).getContent());
 				txtLa.addMouseListener(this);
 
 				imgLa.setBounds(0, 0, 200, 120);
