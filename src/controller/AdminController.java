@@ -29,6 +29,10 @@ public class AdminController {
 	public void AdminMain() {
 		new AdminMain();
 	}
+	
+	public void AdminItemDetail(ItemBbs itemBbs) {
+		new AdminItemDetail(itemBbs);
+	}
 	public void ItemList() {
 		List<ItemBbs> itemList = itemBbsService.getAllItemBbs();
 		new AdminItemList(itemList);

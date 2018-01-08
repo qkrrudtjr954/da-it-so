@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -23,7 +24,7 @@ import javax.swing.border.LineBorder;
 import delegator.Delegator;
 import dto.ItemBbs;
 
-public class AdminItemList extends JFrame implements ActionListener {
+public class AdminItemList extends JFrame implements ActionListener, MouseListener {
 
 	private JButton searchBtn;
 	private JTextField searchTextF;
@@ -32,6 +33,8 @@ public class AdminItemList extends JFrame implements ActionListener {
 	List<ItemBbs> itemList;
 	
 	JButton itemListBtn, abilityListBtn, userListBtn;
+	
+	int itemHeight = 80;
 
 	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
 
@@ -132,8 +135,7 @@ public class AdminItemList extends JFrame implements ActionListener {
 
 		
 		// main view
-		int itemHeight = 60;
-		int mainHeight = itemList.size() * itemHeight;
+		int mainHeight = itemList.size() * this.itemHeight;
 		
 		
 		JPanel main = new JPanel();
@@ -145,15 +147,7 @@ public class AdminItemList extends JFrame implements ActionListener {
 			JPanel itemPanel = new JPanel();
 			itemPanel.setBounds(50, i*itemHeight+20, 1000, itemHeight);
 			itemPanel.setBorder(new LineBorder(commonRedColor));
-			itemPanel.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent e) {
-					int y = e.getY();
-					
-					Delegator delegator = Delegator.getInstance();
-					delegator.adminController.AdminItemDetail(itemList.get(y/itemHeight));
-				}
-			});
+			itemPanel.addMouseListener(this);
 			
 			JLabel itemTitle = new JLabel();
 			itemTitle.setText(itemList.get(i).getTitle());
@@ -203,6 +197,38 @@ public class AdminItemList extends JFrame implements ActionListener {
 			delegator.adminController.UserList();
 			this.dispose();
 		}
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		int y = e.getY();
+		
+		Delegator delegator = Delegator.getInstance();
+		delegator.adminController.AdminItemDetail(itemList.get(y/itemHeight));
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
