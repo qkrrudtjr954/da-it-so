@@ -254,4 +254,73 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		return list;
 	}
+
+	@Override
+	public boolean DeleteItemBbsByAdmin(ItemBbs item) {
+		// TODO Auto-generated method stub
+		// state가 3이면 관리자에 의한 삭제. 
+		String sql = " update item_bbs set state = 3 where seq="+item.getSeq();
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		
+		int count = -1;
+		
+		try {
+			
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
+	}
+
+	@Override
+	public boolean CompleteItemBbsByAdmin(ItemBbs item) {
+		// TODO Auto-generated method stub
+		// state가 3이면 관리자에 의한 삭제. 
+		String sql = " update item_bbs set state = 1 where seq="+item.getSeq();
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		
+		int count = -1;
+		
+		try {
+			
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
+	}
+
+	@Override
+	public boolean ContinueItemBbsByAdmin(ItemBbs item) {
+		// TODO Auto-generated method stub
+		// state가 3이면 관리자에 의한 삭제. 
+		String sql = " update item_bbs set state = 0 where seq="+item.getSeq();
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		
+		int count = -1;
+		
+		try {
+			
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
+	}
 }

@@ -6,8 +6,6 @@ import db.OracleConnection;
 import delegator.Delegator;
 import dto.Category;
 import dto.Person;
-import view.ListVIew;
-import view.mainView;
 
 public class mainClass {
 	public static void main(String[] args) {

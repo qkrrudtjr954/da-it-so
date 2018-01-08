@@ -29,28 +29,28 @@ import delegator.Delegator;
 import dto.ItemBbs;
 import dto.Person;
 
-public class AdminItemDetail extends JFrame implements ActionListener,MouseListener {
-	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
-			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
-			subimage4, keywordPanel;
-	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
+public class AdminItemDetail extends JFrame implements ActionListener, MouseListener {
+	private JPanel headerPn, headerLogo, sidePn, logoPn, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn,
+			subimage1, subimage2, subimage3, subimage4, keywordPanel;
+	private JButton loginBtn, logoutBtn, signupBtn, searchBtn, backBtn, delBtn;
 	private JButton itemListBtn, userListBtn, abilityListBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
+	private JButton completeBtn, continueBtn, undoBtn;
 
-//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	// String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	String iconImgUrl = "E:\\icon/";
-	
+
 	Person person = null;
-	ItemBbs item = null; 
-	
+	ItemBbs item = null;
+
 	public AdminItemDetail(ItemBbs itemDto, Person person) {
-		
+
 		this.item = itemDto;
 		this.person = person;
-		
+
 		Container contentPane = getContentPane();
-		
+
 		contentPane.setBounds(0, 0, 1680, 900);
 		contentPane.setBackground(Color.white);
 
@@ -85,10 +85,10 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
-		
+
 		Delegator delegator = Delegator.getInstance();
-		
-		if(delegator.getCurrent_user()==null) {
+
+		if (delegator.getCurrent_user() == null) {
 			// loginBtn
 			loginBtn = new JButton("로그인");
 			loginBtn.setBounds(1190, 20, 100, 30);
@@ -99,7 +99,7 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 			loginBtn.setForeground(Color.white);
 			loginBtn.addActionListener(this);
 			headerPn.add(loginBtn);
-			
+
 			// SignBtn
 			signupBtn = new JButton("회원가입");
 			signupBtn.setBounds(1130, 20, 100, 30);
@@ -109,8 +109,8 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 			signupBtn.setBackground(commonRedColor);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
-			headerPn.add(signupBtn);			
-		}else {
+			headerPn.add(signupBtn);
+		} else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
 			logoutBtn.setBounds(1250, 20, 100, 30);
@@ -119,7 +119,7 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
 			logoutBtn.setBackground(commonRedColor);
 			logoutBtn.setForeground(Color.white);
-			headerPn.add(logoutBtn);			
+			headerPn.add(logoutBtn);
 		}
 
 		// 1050
@@ -158,7 +158,7 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
 
 		sidePn.add(searchBtn);
-		
+
 		// btnPanel
 		JPanel btnPanel = new JPanel();
 		btnPanel.setLayout(new GridLayout(3, 1, 10, 10));
@@ -198,7 +198,7 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 
 		imagePannel.add(titleLb);
 		// Seller
-		
+
 		sellLb = new JLabel(person.getId());
 		sellLb.setBounds(10, 75, 400, 20);
 		sellLb.setFont(new Font(person.getId(), Font.BOLD, 12));
@@ -280,96 +280,148 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 		iteminfoPn.setLayout(null);
 		iteminfoPn.setBounds(580, 135, 340, 400);
 		iteminfoPn.setBackground(Color.white);
-		iteminfoPn.setBorder(new LineBorder(Color.red,2));
+		iteminfoPn.setBorder(new LineBorder(Color.red, 2));
 
 		// detailtitleLb
 		detailtitleLb = new JLabel(item.getTitle());
 		detailtitleLb.setBounds(10, 10, 340, 30);
 		detailtitleLb.setFont(new Font(item.getTitle(), Font.BOLD, 20));
 		iteminfoPn.add(detailtitleLb);
-	
 
 		// detailprice
-		priceLb = new JLabel(item.getPrice() + "");
+		priceLb = new JLabel(item.getPrice() + " 원 ");
 		priceLb.setBounds(10, 40, 340, 30);
 		priceLb.setFont(new Font(item.getPrice() + "", Font.BOLD, 15));
 		iteminfoPn.add(priceLb);
 
 		// keyword
-		
+
 		String key = item.getKeyword();
-		System.out.println("key값 : "+key);
+		System.out.println("key값 : " + key);
 		int rowSize = 0;
 		String[] keyarray;
-		keyarray = new String[rowSize * 3]; 
+		keyarray = new String[rowSize * 3];
 		keyarray = key.split("-key-");
-		System.out.println("keyarray:"+keyarray[0]);
-		System.out.println("keyarraylength :"+keyarray.length);
-	
-		if(keyarray.length%3 == 0) {
-			rowSize = keyarray.length/3;
-		}else {
-			rowSize = keyarray.length/3+1;
+		System.out.println("keyarray:" + keyarray[0]);
+		System.out.println("keyarraylength :" + keyarray.length);
+
+		if (keyarray.length % 3 == 0) {
+			rowSize = keyarray.length / 3;
+		} else {
+			rowSize = keyarray.length / 3 + 1;
 		}
-		
+
 		JPanel keywordPanel = new JPanel();
 		keywordPanel.setLocation(10, 70);
-		keywordPanel.setSize(240, 30*rowSize);
+		keywordPanel.setSize(240, 30 * rowSize);
 		keywordPanel.setBackground(Color.white);
 		keywordPanel.setLayout(null);
-		
+
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
-	
-		int k=0;
-		for(int i=0; i<rowSize; i++) {
-			for(int j=0; j<keyarray.length; j++) {
-			
-				keywordLabel[i][j]= new JLabel();
+
+		int k = 0;
+		for (int i = 0; i < rowSize; i++) {
+			for (int j = 0; j < keyarray.length; j++) {
+
+				keywordLabel[i][j] = new JLabel();
 				keywordLabel[i][j].setOpaque(true);
 				keywordLabel[i][j].setBackground(Color.pink);
 				keywordLabel[i][j].setHorizontalAlignment(SwingConstants.LEFT);
-				keywordLabel[i][j].setText("#"+keyarray[k]);
+				keywordLabel[i][j].setText("#" + keyarray[k]);
 				keywordLabel[i][j].setSize(70, 30);
-				keywordLabel[i][j].setLocation((j*80), (i*40));
+				keywordLabel[i][j].setLocation((j * 80), (i * 40));
 				System.out.println(keywordLabel[i][j].getBounds());
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
 			}
 		}
-		
+
 		iteminfoPn.add(keywordPanel);
-		
-		//categori
-		cateLb = new JLabel("카테고리 : "+item.getCategory_id()); 
+
+		// categori
+		cateLb = new JLabel("카테고리 : " + item.getCategory_id());
 		cateLb.setBounds(10, 100, 80, 30);
 		cateLb.setOpaque(true);
 		cateLb.setBackground(Color.white);
 		iteminfoPn.add(cateLb);
 
-		//item explanation
-		explanationLb = new JLabel("저품 설명 : "+item.getContent());
-		explanationLb.setBounds(10,150 , 300, 10*item.getContent().length());
+		// item explanation
+		explanationLb = new JLabel("저품 설명 : " + item.getContent());
+		explanationLb.setBounds(10, 150, 300, 10 * item.getContent().length());
 		explanationLb.setOpaque(true);
 		explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
 		iteminfoPn.add(explanationLb);
-		
-		
 
 		// chatBtn
-		chatBtn = new JButton(new ImageIcon(iconImgUrl + "chatting.png"));
-		chatBtn.setBounds(630, 555, 240, 34);
-		chatBtn.setOpaque(false);
-		chatBtn.setBorderPainted(false);
-		chatBtn.setFocusPainted(false);
+		backBtn = new JButton("뒤로 가기");
+		backBtn.setBounds(630, 555, 240, 35);
+		backBtn.setBorder(new LineBorder(commonRedColor));
+		backBtn.addActionListener(this);
 
-		detailPn.add(chatBtn);
+		detailPn.add(iteminfoPn);
+
+		JLabel state = new JLabel();
+		state.setFont(new Font("state", Font.BOLD, 15));
+		state.setBounds(580, 100, 200, 15);
+		detailPn.add(state);
+
+		if (item.getState() == 0) {
+			// 진행중...
+			state.setText("진행중");
+
+			completeBtn = new JButton("완료 상태로 변경");
+			completeBtn.setBounds(630, 600, 240, 35);
+			completeBtn.setBorder(new LineBorder(commonRedColor));
+			detailPn.add(completeBtn);
+
+			delBtn = new JButton("관리자 권한 삭제");
+			delBtn.setBounds(630, 645, 240, 35);
+			delBtn.setBorder(new LineBorder(commonRedColor));
+			delBtn.addActionListener(this);
+			detailPn.add(delBtn);
+		} else if (item.getState() == 1) {
+			// 완료됨...
+			state.setText("완료됨 ");
+
+			continueBtn = new JButton("진행 상태로 변경");
+			continueBtn.setBounds(630, 600, 240, 35);
+			continueBtn.setBorder(new LineBorder(commonRedColor));
+			continueBtn.addActionListener(this);
+			detailPn.add(continueBtn);
+
+			delBtn = new JButton("관리자 권한 삭제");
+			delBtn.setBounds(630, 645, 240, 35);
+			delBtn.setBorder(new LineBorder(commonRedColor));
+			delBtn.addActionListener(this);
+			detailPn.add(delBtn);
+		} else if (item.getState() == 2) {
+			// 삭제됨...
+			state.setText("삭제됨 ");
+
+			continueBtn = new JButton("진행 상태로 변경");
+			continueBtn.setBounds(630, 600, 240, 35);
+			continueBtn.setBorder(new LineBorder(commonRedColor));
+			continueBtn.addActionListener(this);
+			detailPn.add(continueBtn);
+
+		} else if (item.getState() == 3) {
+			// 관리자에 의해 삭제됨...
+			state.setText("관리자에 의해 삭제됨 ");
+
+			continueBtn = new JButton("진행 상태로 변경");
+			continueBtn.setBounds(630, 600, 240, 35);
+			continueBtn.setBorder(new LineBorder(commonRedColor));
+			continueBtn.addActionListener(this);
+			detailPn.add(continueBtn);
+		}
+
 		detailPn.add(iteminfoPn);
 
 		contentPane.add(sidePn);
 		contentPane.add(headerPn);
 		contentPane.add(scrollPane);
-		
+
 		setBounds(0, 0, 1680, 730);
 		setLayout(null);
 		setVisible(true);
@@ -378,50 +430,65 @@ public class AdminItemDetail extends JFrame implements ActionListener,MouseListe
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		Delegator delegator = Delegator.getInstance();
 		JButton btn = (JButton) e.getSource();
 
-		if (btn == talkBtn) {
-
-		} else if (btn == signupBtn) {
-
-			
-			dispose();
-		} else if (btn == loginBtn) {
-
-			
-			dispose();
-		}
+		if (btn == backBtn) {
+			delegator.adminController.ItemList();
+			this.dispose();
+		} else if(btn == delBtn) {
+			delegator.adminController.DeleteItemBbsByAdmin(this.item);
+			this.dispose();
+		} else if(btn == completeBtn) {
+			delegator.adminController.CompleteItemBbsByAdmin(this.item);
+			this.dispose();
+		} else if(btn == continueBtn) {
+			delegator.adminController.ContinueItemBbsByAdmin(this.item);
+			this.dispose();
+		} else if(btn == loginBtn) {
+			delegator.personController.Login();
+			this.dispose();
+		} else if(btn == logoutBtn) {
+			delegator.personController.Logout();
+			this.dispose();
+		} else if(btn == signupBtn) {
+			delegator.personController.SignUp();
+			this.dispose();
+		} 
+		
+		
+		
+		//completeBtn, continueBtn, undoBtn;
 
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

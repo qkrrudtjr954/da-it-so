@@ -3,11 +3,12 @@ package service;
 import java.util.List;
 
 import dao.ItemBbsDao;
+import dao.ItemBbsDaoImpl;
 import dto.ItemBbs;
 import dto.Person;
 
 public class ItemBbsService implements ItemBbsServiceImpl{
-	ItemBbsDao itemDao = new ItemBbsDao();
+	ItemBbsDaoImpl itemDao = new ItemBbsDao();
 
 	public List<ItemBbs> allItemList() {
 		return itemDao.allItemList();
@@ -31,4 +32,16 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 		// TODO Auto-generated method stub
 		return itemDao.getItemBbsByUserId(user_id);
 	}
+	
+	public boolean DeleteItemBbsByAdmin(ItemBbs item) {
+		return itemDao.DeleteItemBbsByAdmin(item);
+	}
+	
+	public boolean CompleteItemBbsByAdmin(ItemBbs item) {
+		return itemDao.CompleteItemBbsByAdmin(item);
+	}
+	public boolean ContinueItemBbsByAdmin(ItemBbs item) {
+		return itemDao.ContinueItemBbsByAdmin(item);
+	}
+
 }

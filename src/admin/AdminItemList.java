@@ -158,9 +158,26 @@ public class AdminItemList extends JFrame implements ActionListener, MouseListen
 			itemPanel.add(itemUser);
 			
 			JLabel itemTitle = new JLabel();
-			itemTitle.setText(itemList.get(i).getTitle());
+			if( itemList.get(i).getTitle().length() > 15) {
+				itemTitle.setText(itemList.get(i).getTitle().substring(0, 15)+" ...");				
+			} else {
+				itemTitle.setText(itemList.get(i).getTitle());
+			}
 			itemTitle.setBounds(250, 20, 200, 20);
 			itemPanel.add(itemTitle);
+			
+			JLabel itemState = new JLabel();
+			if(itemList.get(i).getState() == 0) {
+				itemState.setText("게시중");
+			} else if(itemList.get(i).getState() == 1) {
+				itemState.setText("완료됨");
+			} else if(itemList.get(i).getState() == 2) {
+				itemState.setText("삭제됨");
+			} else if(itemList.get(i).getState() == 3) {
+				itemState.setText("관리자에 의해 삭제됨");
+			}
+			itemState.setBounds(700, 20, 100, 20);
+			itemPanel.add(itemState);
 			
 			JLabel itemCreated = new JLabel();
 			itemCreated.setText(itemList.get(i).getCreated_at());

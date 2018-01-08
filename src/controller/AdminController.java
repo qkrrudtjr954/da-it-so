@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import admin.AdminAbilityDetail;
 import admin.AdminAbilityList;
 import admin.AdminItemDetail;
@@ -64,5 +66,47 @@ public class AdminController {
 	public void AdminUserDetail(Person person) {
 		List<ItemBbs> itemList = itemBbsService.getItemBbsByUserId(person.getId());
 //		List<AbilityBbs> abilityList = abilityService.getAbilityBbsByUserId(person.getId());
+	}
+	
+	public void DeleteItemBbsByAdmin(ItemBbs item) {
+		boolean result = itemBbsService.DeleteItemBbsByAdmin(item);
+		
+		if(result) {
+			JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
+			List<ItemBbs> itemList = itemBbsService.getAllItemBbs();
+			new AdminItemList(itemList);
+		}else {
+			JOptionPane.showMessageDialog(null, "삭제할 수 없습니다.");
+			Person person = personService.getPersonById(item.getUser_id());
+			new AdminItemDetail(item, person);
+		}
+	}
+	
+	public void CompleteItemBbsByAdmin(ItemBbs item) {
+		boolean result = itemBbsService.CompleteItemBbsByAdmin(item);
+		
+		if(result) {
+			JOptionPane.showMessageDialog(null, "완료상태로 변경 되었습니다.");
+			List<ItemBbs> itemList = itemBbsService.getAllItemBbs();
+			new AdminItemList(itemList);
+		}else {
+			JOptionPane.showMessageDialog(null, "변경할 수 없습니다.");
+			Person person = personService.getPersonById(item.getUser_id());
+			new AdminItemDetail(item, person);
+		}
+	}
+	
+	public void ContinueItemBbsByAdmin(ItemBbs item) {
+		boolean result = itemBbsService.ContinueItemBbsByAdmin(item);
+		
+		if(result) {
+			JOptionPane.showMessageDialog(null, "진행상태로 변경 되었습니다.");
+			List<ItemBbs> itemList = itemBbsService.getAllItemBbs();
+			new AdminItemList(itemList);
+		}else {
+			JOptionPane.showMessageDialog(null, "변경할 수 없습니다.");
+			Person person = personService.getPersonById(item.getUser_id());
+			new AdminItemDetail(item, person);
+		}
 	}
 }
