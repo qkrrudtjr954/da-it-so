@@ -1,9 +1,12 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.MySQLConnection;
@@ -23,27 +26,27 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		java.sql.Statement stmt = null;
 		ResultSet rs = null;
-		
+
 		List<ItemBbs> list = new ArrayList<ItemBbs>();
-		//db¿¡ ¿¬°áÇØ¼­ Äõ¸®¹® ³¯¸®´Â ºÎºÐ
+		//dbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
 		String sql = " SELECT "
 				+ " SEQ, CATEGORY_ID, USER_ID, TITLE,"
 				+ " IMGURL1, IMGURL2, IMGURL3, IMGURL4, MAINIMGURL"
 				+ " CONTENT, PRICE, KEYWORD, CREATED_AT, STATE"
 				+ " FROM ITEM_BBS";
-	
+
 		System.out.println("sql: " + sql);
-		
+
 		java.sql.Connection conn = db.makeConnection();
 		System.out.println("conn success");
-		
+
 		try {
 			stmt = conn.createStatement();
 			System.out.println("stmt success");
-			
+
 			rs = stmt.executeQuery(sql);
 			System.out.println("rs success");
-			
+
 			while (rs.next()) {
 				int seq = rs.getInt("SEQ");
 				int category_id = rs.getInt("CATEGORY_ID");
@@ -72,5 +75,84 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		return list;
 	}
 
-	
+	public List<ItemBbs> allItemList() {
+
+		String sql = "SELECT * FROM ITEM_BBS";
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+
+		ResultSet rs = null;
+		List<ItemBbs> itemList = new ArrayList<>();
+
+		System.out.println(">>>	ItemBbsDao .allItemList() sql : " + sql);
+
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(sql); // query ë¥¼ ì‹¤í–‰í•˜ë¼ ê·¸ë¦¬ê³  ê·¸ ê°’ì„ rsì— ì €ìž¥í•´ë¼.
+
+			while (rs.next()) {
+				ItemBbs itemdto = new ItemBbs();
+
+				itemdto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				itemdto.setTitle(rs.getString("TITLE"));
+				itemdto.setImgurl1(rs.getString("IMGURL1"));
+				itemdto.setImgurl2(rs.getString("IMGURL2"));
+				itemdto.setImgurl3(rs.getString("IMGURL3"));
+				itemdto.setImgurl4(rs.getString("IMGURL4"));
+				itemdto.setPrice(rs.getInt("PRICE"));
+				itemdto.setKeyword(rs.getString("KEYWORD"));
+				itemdto.setContent(rs.getString("CONTENT"));
+				itemdto.setCreated_at(rs.getString("CREATED_AT"));
+				itemdto.setUser_id(rs.getString("USER_ID"));
+
+				itemList.add(itemdto);
+			}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBClose.close(stmt, conn, rs);
+		}
+		return itemList;
+	}
+
+	public boolean addItem(ItemBbs itemDto, Person personDto) {
+		Delegator delegator = Delegator.getInstance();
+
+
+		String sql;
+
+		if (DBConnector.getClass().getName().equals("db.MySqlConnection")) {
+			sql = " insert into item_bbs(category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, keyword, content, state, created_at) "
+					+ " values( "+itemDto.getCategory_id()+", '"+delegator.getCurrent_user().getId()+"', '"+itemDto.getTitle()+"', '"
+					+ itemDto.getImgurl1() +"', '"+itemDto.getImgurl2()+"', '"+itemDto.getImgurl3()+"', '"+itemDto.getImgurl4()+"', '"+itemDto.getKeyword()+"', '"+itemDto.getContent()+"', 1, now());";
+		} else {
+			sql ="INSERT INTO ITEM_BBS(SEQ, CATEGORY_ID, TITLE, IMGURL1, IMGURL2, IMGURL3, IMGURL4, PRICE, KEYWORD, CONTENT, CREATED_AT, USER_ID)"
+					+" VALUES(IBBS_SEQ.NEXTVAL, '"+itemDto.getCategory_id()+"','"+itemDto.getTitle()+"','"+itemDto.getImgurl1()+"','"+itemDto.getImgurl2()+"','"+itemDto.getImgurl3()+"','"+itemDto.getImgurl4()+"','"+itemDto.getPrice()+"','"+itemDto.getKeyword()+"','"+itemDto.getContent()+"',SYSDATE, '"+personDto.getId()+"')";
+
+		}
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+
+		ResultSet rs = null;
+		int count = -1;
+
+		System.out.println(">>>	ItemBbsDao .addItem() sql : " + sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			count = pstmt.executeUpdate(); // query ë¥¼ ì‹¤í–‰í•˜ë¼ ê·¸ë¦¬ê³  ê·¸ ê°’ì„ rsì— ì €ìž¥í•´ë¼.
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+
+		return count > 0 ? true : false;
+	}
 }
