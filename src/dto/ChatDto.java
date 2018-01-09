@@ -2,16 +2,16 @@ package dto;
 
 import java.io.Serializable;
 
-public class Chat implements Serializable {
+public class ChatDto implements Serializable {
     private int seq;
     private int room_id;
     private String user_id;
     private String content;
 
-    public Chat() {
+    public ChatDto() {
     }
 
-    public Chat(int room_id, String user_id, String content) {
+    public ChatDto(int room_id, String user_id, String content) {
         this.room_id = room_id;
         this.user_id = user_id;
         this.content = content;

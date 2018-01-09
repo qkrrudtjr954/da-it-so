@@ -2,15 +2,15 @@ package dto;
 
 import java.io.Serializable;
 
-public class Room implements Serializable {
+public class RoomDto implements Serializable {
     private int seq;
     private String user_id;
     private String target_id;
 
-    public Room() {
+    public RoomDto() {
     }
 
-    public Room(String user_id, String target_id) {
+    public RoomDto(String user_id, String target_id) {
         this.user_id = user_id;
         this.target_id = target_id;
     }
