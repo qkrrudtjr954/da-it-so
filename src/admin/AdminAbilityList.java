@@ -22,7 +22,6 @@ import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
 import dto.AbilityBbs;
-import dto.ItemBbs;
 
 public class AdminAbilityList extends JFrame implements ActionListener, MouseListener {
 

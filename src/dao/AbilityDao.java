@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 import db.DBClose;
 import db.DBConnection;
 import db.OracleConnection;
