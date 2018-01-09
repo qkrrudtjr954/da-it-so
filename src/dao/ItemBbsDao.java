@@ -18,8 +18,8 @@ import dto.Person;
 
 public class ItemBbsDao implements ItemBbsDaoImpl{
 
-//	DBConnection DBConnector = new OracleConnection();
-	DBConnection DBConnector = new MySqlConnection();
+	DBConnection DBConnector = new OracleConnection();
+//	DBConnection DBConnector = new MySqlConnection();
 
 
 	public List<ItemBbs> allItemList() {

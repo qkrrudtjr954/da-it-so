@@ -4,7 +4,6 @@ import java.util.List;
 
 import dto.AbilityBbs;
 import dto.ItemBbs;
-import dto.Person;
 
 
 public interface ItemBbsDaoImpl {

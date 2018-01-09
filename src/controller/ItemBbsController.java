@@ -29,12 +29,12 @@ public class ItemBbsController {
 	   
 	   public void allItemList() {
 		   List<ItemBbs> itemdto = itemService.allItemList();
-		   
+		   List<Category> categoryList = categoryService.getAllCategories(0);
 		   if(itemdto == null) {
 			   itemdto = new ArrayList<>();
 		   }
 		   
-		   new ItemMain(itemdto);
+		   new ItemMain(itemdto, categoryList);
 	   }
 	   
 	   public void itemWrite(Person personDto) {
@@ -51,26 +51,29 @@ public class ItemBbsController {
 	   
 	   public void SelectItemCategories(int category_id){
 		   List<ItemBbs> itemList = itemService.SelectItemCategories(category_id);
-		   new ItemMain(itemList);
+		   List<Category> categoryList = categoryService.getAllCategories(0);
+		   new ItemMain(itemList, categoryList);
 	   }	
 	   
 	   
 	   public void SelectAbilityCategories(int category_id){
 		   List<AbilityBbs> abilityList = itemService.SelectAbilityCategories(category_id);
+		   List<Category> categoryList = categoryService.getAllCategories(1);
 		   new AbilityMain(abilityList);
 	   }
 
 	   public void searchList(String searchWord){
 		   List<ItemBbs> itemList = itemService.searchList(searchWord);
+		   List<Category> categoryList = categoryService.getAllCategories(0);
 		   
 		   System.out.println("controller: ");
 		   itemList.stream().forEach(System.out::println);
 		   if(itemList.size() != 0) {
-			   new ItemMain(itemList);
+			   new ItemMain(itemList, categoryList);
 		   }else {
 			   JOptionPane.showMessageDialog(null, "검색 결과가 없습니다.");
 			   itemList = itemService.allItemList();
-			   new ItemMain(itemList);
+			   new ItemMain(itemList, categoryList);
 		   }
 	   }
 

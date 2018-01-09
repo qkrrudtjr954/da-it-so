@@ -29,11 +29,11 @@ import dto.ItemBbs;
 
 public class ItemDetail extends JFrame implements ActionListener, MouseListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
-			subimage4, keywordPanel;
+			subimage4, keywordPanel, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8, cate9;
 	private JButton  loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
-	private JLabel SidecategoryPn[][];
+
 	
 	String iconImgUrl = "c:\\icon\\";
 
@@ -112,6 +112,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
 			logoutBtn.setBackground(commonColor);
 			logoutBtn.setForeground(Color.white);
+			logoutBtn.addActionListener(this);
 			headerPn.add(logoutBtn);			
 		}
 
@@ -152,38 +153,166 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 
 		sidePn.add(searchBtn);
 
-		// 카터고리
 		// catePn
 		catePn = new JPanel();
 		catePn.setLayout(new GridLayout(3, 3, 10, 10));
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
-
-		int rowSize = 0;
-		SidecategoryPn = new JLabel[m_categoryList.size()][3];
-
-		if (categoryList.size() % 3 == 0) {
-			rowSize = categoryList.size() / 3;
-		} else {
-			rowSize = categoryList.size() / 3 + 1;
+		
+		String category_id[] = new String[9];
+		
+		for (int i = 0; i < m_categoryList.size(); i++) {
+			category_id[i] = String.valueOf(m_categoryList.get(i).getSeq()); 
 		}
 
-		int k = 0;
-		for (int i = 0; i < rowSize; i++) {
-			
-			for (int j = 0; j < categoryList.size(); j++) {
-				String imgURL = "C:\\icon\\";
-				ImageIcon imgIcon = new ImageIcon(imgURL + k + ".png");
-				SidecategoryPn[i][j] = new JLabel(imgIcon);
-				SidecategoryPn[i][j].setOpaque(true);
-				SidecategoryPn[i][j].setSize(110, 110);
-				SidecategoryPn[i][j].setLocation((j * 120), (i * 120));
-				SidecategoryPn[i][j].addMouseListener(this);
-
-				catePn.add(SidecategoryPn[i][j]);
-				k++;
+		ImageIcon cate1Image = new ImageIcon(iconImgUrl + "1.png");
+		cate1 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate1Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
 			}
+		};
+		cate1.setBorder(new LineBorder(commonColor, 3));
+		
+		if(category_id[0] != null) {
+			cate1.setName(category_id[0]);
+			cate1.addMouseListener(this);
 		}
+
+		//  2
+		ImageIcon cate2Image = new ImageIcon(iconImgUrl + "2.png");
+		cate2 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate2Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
+		cate2.setBorder(new LineBorder(commonColor, 3));
+		if(category_id[1] != null) {
+			cate2.setName(category_id[1]);
+			cate2.addMouseListener(this);
+		}
+		//  3
+		ImageIcon cate3Image = new ImageIcon(iconImgUrl + "3.png");
+		cate3 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate3Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
+		cate3.setBorder(new LineBorder(commonColor, 3));
+		if(category_id[2] != null) {
+			cate3.setName(category_id[2]);
+			cate3.addMouseListener(this);
+		}
+		// 4
+		ImageIcon cate4Image = new ImageIcon(iconImgUrl + "4.png");
+		cate4 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate4Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
+		cate4.setBorder(new LineBorder(commonColor, 3));
+
+		if(category_id[3] != null) {
+			cate4.setName(category_id[3]);
+			cate4.addMouseListener(this);
+		}
+		
+		//  5
+		ImageIcon cate5Image = new ImageIcon(iconImgUrl + "5.png");
+		cate5 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate5Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
+		cate5.setBorder(new LineBorder(commonColor, 3));
+		if(category_id[4] != null) {
+			cate5.setName(category_id[4]);
+			cate5.addMouseListener(this);
+		}
+		//  6
+		ImageIcon cate6Image = new ImageIcon(iconImgUrl + "6.png");
+		cate6 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate6Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
+		cate6.setBorder(new LineBorder(commonColor, 3));
+		if(category_id[5] != null) {
+			cate6.setName(category_id[5]);
+			cate6.addMouseListener(this);
+		}
+		// 7
+		ImageIcon cate7Image = new ImageIcon(iconImgUrl + "7.png");
+		cate7 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate7Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
+		cate7.setBorder(new LineBorder(commonColor, 3));
+		
+		if(category_id[6] != null) {
+			cate7.setName(category_id[6]);
+			cate7.addMouseListener(this);
+		}
+
+		ImageIcon cate8Image = new ImageIcon(iconImgUrl + "8.png");
+		cate8 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate8Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
+		cate8.setBorder(new LineBorder(commonColor, 3));
+		
+		if(category_id[7] != null) {
+			cate8.setName(category_id[7]);
+			cate8.addMouseListener(this);
+		}
+		// 9
+		ImageIcon cate9Image = new ImageIcon(iconImgUrl + "9.png");
+		cate9 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate9Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
+		cate9.setBorder(new LineBorder(commonColor, 3));
+		if(category_id[8] != null) {
+			cate9.setName(category_id[8]);
+			cate9.addMouseListener(this);
+		}
+		
+		catePn.add(cate1);
+		catePn.add(cate2);
+		catePn.add(cate3);
+		catePn.add(cate4);
+		catePn.add(cate5);
+		catePn.add(cate6);
+		catePn.add(cate7);
+		catePn.add(cate8);
+		catePn.add(cate9);
+
 		sidePn.add(catePn);
 
 		// sidePn.setBounds(0, 60, 400, 1000);
@@ -299,10 +428,9 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		iteminfoPn.add(priceLb);
 
 		// keyword
-
+		
 		String key = m_itemDto.getKeyword();
-
-		rowSize = 0;
+		int rowSize = 0;
 		String[] keyarray;
 		keyarray = new String[rowSize * 3];
 		keyarray = key.split("-key-");
@@ -321,7 +449,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
 
-		k = 0;
+		int k = 0;
 		for (int i = 0; i < rowSize; i++) {
 			for (int j = 0; j < keyarray.length; j++) {
 
@@ -387,30 +515,66 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 				delegator.personController.Login();
 				this.dispose();
 			}
-
 		} else if (btn == signupBtn) {
 			delegator.personController.SignUp();
 			this.dispose();
-
 		} else if (btn == searchBtn) {
 			// delegator.itemBbsController. search 결과
 		} else if (btn == logoutBtn) {
-
-			delegator.setCurrent_user(null);
-			delegator.mainController.Main();
+			delegator.personController.Logout();
+			this.dispose();
 		}
 
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		// headerLogo 클릭 시 Main페이지로
-		JPanel headerLogo = (JPanel) e.getComponent();
+		Delegator delegator = Delegator.getInstance();
+		Object obj = e.getSource();
+		int category_id = 99;
+		
+		//Header event
+		if(obj == headerLogo){
+			delegator.mainController.Main();
+			this.dispose();
+		}
 
-		if (e.getComponent().equals(headerLogo)) {
-			Delegator delegator = Delegator.getInstance();
-			delegator.itemBbsController.main();
+		//Side Category event
+		if(obj == cate1){
+			category_id = Integer.parseInt(cate1.getName());
+			delegator.itemBbsController.SelectItemCategories(category_id);
+			this.dispose();
+		}else if(obj == cate2) {
+			category_id = Integer.parseInt(cate2.getName());
+			delegator.itemBbsController.SelectItemCategories(category_id);
+			this.dispose();
+		}else if(obj == cate3) {
+			category_id = Integer.parseInt(cate3.getName());
+			delegator.itemBbsController.SelectItemCategories(category_id);
+			this.dispose();
+		}else if(obj == cate4) {
+			category_id = Integer.parseInt(cate4.getName());
+			delegator.itemBbsController.SelectItemCategories(category_id);
+			this.dispose();
+		}else if(obj == cate5) {
+			category_id = Integer.parseInt(cate5.getName());
+			delegator.itemBbsController.SelectItemCategories(category_id);
+			this.dispose();
+		}else if(obj == cate6) {
+			category_id = Integer.parseInt(cate6.getName());
+			delegator.itemBbsController.SelectItemCategories(category_id);
+			this.dispose();
+		}else if(obj == cate7) {
+			category_id = Integer.parseInt(cate7.getName());
+			delegator.itemBbsController.SelectItemCategories(category_id);
+			this.dispose();
+		}else if(obj == cate8) {
+			category_id = Integer.parseInt(cate8.getName());
+			delegator.itemBbsController.SelectItemCategories(category_id);
+			this.dispose();
+		}else if(obj == cate9) {
+			category_id = Integer.parseInt(cate9.getName());
+			delegator.itemBbsController.SelectItemCategories(category_id);
 			this.dispose();
 		}
 
