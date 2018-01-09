@@ -26,6 +26,7 @@ import dto.ItemBbs;
 
 public class Main extends JFrame implements ActionListener {
 
+	
 	private JButton loginBtn, logoutBtn, signupBtn;
 	private JButton item, ability;
 	
@@ -108,8 +109,8 @@ public class Main extends JFrame implements ActionListener {
 		JPanel main = new JPanel();
 		main.setLayout(null);
 		main.setBackground(new Color(250, 250, 250));
+
 		main.setBounds(0, 0, 1350, 750);
-				
 		
 		JPanel center = new JPanel();
 		center.setLayout(null);

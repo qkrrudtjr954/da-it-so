@@ -146,7 +146,7 @@ public class AdminAbilityList extends JFrame implements ActionListener, MouseLis
 		
 		for(int i=0; i<abilityList.size(); i++) {
 			JPanel itemPanel = new JPanel();
-			itemPanel.setBounds(50, i*itemHeight+20, 1000, itemHeight);
+			itemPanel.setBounds(50, i*itemHeight, 1000, itemHeight);
 			itemPanel.setBorder(new LineBorder(commonRedColor));
 			itemPanel.addMouseListener(this);
 			itemPanel.setLayout(null);
@@ -158,9 +158,26 @@ public class AdminAbilityList extends JFrame implements ActionListener, MouseLis
 			itemPanel.add(itemUser);
 			
 			JLabel itemTitle = new JLabel();
-			itemTitle.setText(abilityList.get(i).getTitle());
+			if( abilityList.get(i).getTitle().length() > 15) {
+				itemTitle.setText(abilityList.get(i).getTitle().substring(0, 15)+" ...");				
+			} else {
+				itemTitle.setText(abilityList.get(i).getTitle());
+			}
 			itemTitle.setBounds(250, 20, 200, 20);
 			itemPanel.add(itemTitle);
+			
+			JLabel itemState = new JLabel();
+			if(abilityList.get(i).getState() == 0) {
+				itemState.setText("게시중");
+			} else if(abilityList.get(i).getState() == 1) {
+				itemState.setText("완료됨");
+			} else if(abilityList.get(i).getState() == 2) {
+				itemState.setText("삭제됨");
+			} else if(abilityList.get(i).getState() == 3) {
+				itemState.setText("관리자에 의해 삭제됨");
+			}
+			itemState.setBounds(700, 20, 100, 20);
+			itemPanel.add(itemState);
 			
 			JLabel itemCreated = new JLabel();
 			itemCreated.setText(abilityList.get(i).getCreated_at());
@@ -206,8 +223,10 @@ public class AdminAbilityList extends JFrame implements ActionListener, MouseLis
 	public void mousePressed(MouseEvent e) {
 		int y = e.getY();
 		
-		Delegator delegator = Delegator.getInstance();
-		delegator.adminController.AdminAbilityDetail(abilityList.get(y/itemHeight));
+		if( (y/itemHeight) < abilityList.size()) {
+			Delegator delegator = Delegator.getInstance();
+			delegator.adminController.AdminAbilityDetail(abilityList.get(y/itemHeight));			
+		}
 	}
 
 	@Override

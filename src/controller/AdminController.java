@@ -109,4 +109,46 @@ public class AdminController {
 			new AdminItemDetail(item, person);
 		}
 	}
+	
+	public void DeleteAbilityBbsByAdmin(AbilityBbs ability) {
+		boolean result = abilityService.DeleteAbilityBbsByAdmin(ability);
+		
+		if(result) {
+			JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
+			List<ItemBbs> itemList = itemBbsService.getAllItemBbs();
+			new AdminItemList(itemList);
+		}else {
+			JOptionPane.showMessageDialog(null, "삭제할 수 없습니다.");
+			Person person = personService.getPersonById(ability.getUser_id());
+			new AdminAbilityDetail(ability, person);
+		}
+	}
+	
+	public void CompleteAbilityBbsByAdmin(AbilityBbs ability) {
+		boolean result = abilityService.CompleteAbilityBbsByAdmin(ability);
+		
+		if(result) {
+			JOptionPane.showMessageDialog(null, "완료상태로 변경 되었습니다.");
+			List<ItemBbs> itemList = itemBbsService.getAllItemBbs();
+			new AdminItemList(itemList);
+		}else {
+			JOptionPane.showMessageDialog(null, "변경할 수 없습니다.");
+			Person person = personService.getPersonById(ability.getUser_id());
+			new AdminAbilityDetail(ability, person);
+		}
+	}
+	
+	public void ContinueAbilityBbsByAdmin(AbilityBbs ability) {
+		boolean result = abilityService.ContinueAbilityBbsByAdmin(ability);
+		
+		if(result) {
+			JOptionPane.showMessageDialog(null, "진행상태로 변경 되었습니다.");
+			List<ItemBbs> itemList = itemBbsService.getAllItemBbs();
+			new AdminItemList(itemList);
+		}else {
+			JOptionPane.showMessageDialog(null, "변경할 수 없습니다.");
+			Person person = personService.getPersonById(ability.getUser_id());
+			new AdminAbilityDetail(ability, person);
+		}
+	}
 }

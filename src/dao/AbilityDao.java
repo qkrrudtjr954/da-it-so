@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import db.DBClose;
 import db.DBConnection;
 import db.OracleConnection;
@@ -21,26 +20,33 @@ public class AbilityDao implements AbilityDaoImpl {
 
 	public List<AbilityBbs> allAbilityList() {
 
+
 		String sql = "SELECT * FROM ABILITY_BBS ORDER BY CREATED_AT";
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
-
 		ResultSet rs = null;
+
 		List<AbilityBbs> AbilityList = new ArrayList<>();
 
 		System.out.println(">>>	AbilityBbsDao .allAbilityList() sql : " + sql);
 
 		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
 
-			while (rs.next()) {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(); // query
+			System.out.println("1-6 ssuc");
+
+
+			while(rs.next()) {
+
+				System.out.println("2-6 suc");
 				AbilityBbs abilityDto = new AbilityBbs();
 
 				abilityDto.setSeq(Integer.parseInt(rs.getString("SEQ")));
 				abilityDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
 				abilityDto.setTitle(rs.getString("TITLE"));
+
 				abilityDto.setImgurl1(rs.getString("IMGURL1"));
 				abilityDto.setImgurl2(rs.getString("IMGURL2"));
 				abilityDto.setImgurl3(rs.getString("IMGURL3"));
@@ -77,7 +83,7 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
+			rs = pstmt.executeQuery(sql); // query
 
 			while (rs.next()) {
 				AbilityBbs abilityDto = new AbilityBbs();
@@ -134,7 +140,7 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			count = pstmt.executeUpdate(); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
+			count = pstmt.executeUpdate(); // query 
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -146,29 +152,35 @@ public class AbilityDao implements AbilityDaoImpl {
 		return count > 0 ? true : false;
 	}
 
-/*
-	public List<AbilityBbs> list(AbilityBbs Adto) {
 
-		java.sql.Statement stmt = null;
+	@Override
+	public List<AbilityBbs> searchList(String searchWord) {
+
+		List<AbilityBbs> searchlist = new ArrayList<AbilityBbs>();
+		Connection conn = DBConnector.makeConnection();
 		ResultSet rs = null;
+		PreparedStatement psmt = null;
 
-		List<AbilityBbs> list = new ArrayList<AbilityBbs>();
-		String sql = "SELECT " + " SEQ, CATEGORY_ID, USER_ID, TITLE, "
-				+ " IMGURL1, IMGURL2, IMGURL3, IMGURL4, MAINIMGURL" + " ABILITY, CONTENT, CREATED_AT, STATE"
-				+ " FROM ABILITY_BBS";
-		System.out.println("sql: " + sql);
+		String sql = " SELECT * FROM ABILITY_BBS "
+				+ " WHERE TITLE LIKE '%" + searchWord +"%'"
+				+ " OR CONTENT LIKE '%" + searchWord + "%'"
+				+ " OR ABILITY LIKE '%" + searchWord + "%'";
 
-		java.sql.Connection conn = DBConnector.makeConnection();
+		System.out.println(">>> AbilityDao.searchList()sql: " + sql);
+		//select * from item_bbs where title like %something% or content like %something% or ability like %something%;
+
+
 		System.out.println("conn success");
 
 		try {
-			stmt = conn.createStatement();
-			System.out.println("stmt success");
+			psmt = conn.prepareStatement(sql);
+			System.out.println("psmt success");
 
-			rs = stmt.executeQuery(sql);
+			rs = psmt.executeQuery(sql);
 			System.out.println("rs success");
 
-			while (rs.next()) {
+			while(rs.next()) {
+
 				int seq = rs.getInt("SEQ");
 				int category_id = rs.getInt("CATEGORY_ID");
 				String user_id = rs.getString("USER_ID");
@@ -179,43 +191,88 @@ public class AbilityDao implements AbilityDaoImpl {
 				String imgurl4 = rs.getString("IMGURL4");
 				String ability = rs.getString("ABILITY");
 				String content = rs.getString("CONTENT");
-				String created_at = rs.getString("CREATED_AT");
 				int state = rs.getInt("STATE");
+				String created_at = rs.getString("CREATED_AT");
 
-				AbilityBbs dto = new AbilityBbs();
-
-				dto.setSeq(seq);
-				dto.setCategory_id(category_id);
-				dto.setUser_id(user_id);
-				dto.setTitle(title);
-				dto.setImgurl1(imgurl1);
-				dto.setImgurl2(imgurl2);
-				dto.setImgurl3(imgurl3);
-				dto.setImgurl4(imgurl4);
-				dto.setAbility(ability);
-				dto.setContent(content);
-				dto.setCreated_at(created_at);
-				dto.setState(state);
-
-				list.add(dto);
+				AbilityBbs dto = new AbilityBbs(seq, category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, ability, content, state, created_at);
+				System.out.println("dto: " + dto);
+				searchlist.add(dto);
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			DBClose.close(stmt, conn, rs);
+		}finally {
+			DBClose.close(psmt, conn, rs);
 		}
-		return null;
+		searchlist.stream().forEach(System.out::println);
+
+		return searchlist;
 	}
-*/
-	public List<AbilityBbs> search(AbilityBbs Adto){
 
-		String sql = " SELECT * FROM ABILITY_BBS "
-				+ " WHERE TITLE = '" + Adto.getTitle() +"'" ;
+	@Override
+	public boolean DeleteAbilityBbsByAdmin(AbilityBbs ability) {
+		String sql = " update item_bbs set state = 3 where seq="+ability.getSeq();
 
-		return null;
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
 
+		int count = -1;
+
+		try {
+
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
+	}
+
+	@Override
+	public boolean CompleteAbilityBbsByAdmin(AbilityBbs ability) {
+		// TODO Auto-generated method stub
+		String sql = " update item_bbs set state = 1 where seq="+ability.getSeq();
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+
+		int count = -1;
+
+		try {
+
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
+	}
+
+	@Override
+	public boolean ContinueAbilityBbsByAdmin(AbilityBbs ability) {
+		// TODO Auto-generated method stub
+		String sql = " update item_bbs set state = 0 where seq="+ability.getSeq();
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+
+		int count = -1;
+
+		try {
+
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
 	}
 
 }

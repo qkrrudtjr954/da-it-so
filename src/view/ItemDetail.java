@@ -34,7 +34,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
-	String iconImgUrl = "C:\\icon\\";
+	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	ItemBbs m_itemDto = null;
 
@@ -453,6 +453,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		chatBtn.setOpaque(false);
 		chatBtn.setBorderPainted(false);
 		chatBtn.setFocusPainted(false);
+		chatBtn.addActionListener(this);
 
 		detailPn.add(chatBtn);
 		detailPn.add(iteminfoPn);
@@ -471,11 +472,9 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		Delegator delegator = Delegator.getInstance();
 		JButton btn = (JButton) e.getSource();
 
-		if (btn == talkBtn) {
+		if (btn == chatBtn) {
 			if (delegator.getCurrent_user() != null) {
-
-				// de.chatController 현재 로그인된 상태이면 채팅창 띄움
-
+				delegator.roomController.checkRoom(sellLb.getText());
 			} else {
 				JOptionPane.showMessageDialog(null, "로그인 해주세요");
 				delegator.personController.Login();

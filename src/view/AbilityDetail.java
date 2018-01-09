@@ -479,8 +479,8 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		
 
 		if (btn == talkBtn) {
-			if (delegator.getCurrent_user().getId()!= null) {
-
+			if (delegator.getCurrent_user() == null) {
+				delegator.roomController.checkRoom(sellLb.getText());
 				dispose();
 			}
 

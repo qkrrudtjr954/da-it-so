@@ -24,15 +24,18 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 	}
 
 	@Override
+	public List<ItemBbs> searchList(String searchWord) {
+		return itemDao.searchList(searchWord);
+	}
 	public List<ItemBbs> getItemBbsByUserId(String user_id) {
 		// TODO Auto-generated method stub
 		return itemDao.getItemBbsByUserId(user_id);
 	}
-	
+
 	public boolean DeleteItemBbsByAdmin(ItemBbs item) {
 		return itemDao.DeleteItemBbsByAdmin(item);
 	}
-	
+
 	public boolean CompleteItemBbsByAdmin(ItemBbs item) {
 		return itemDao.CompleteItemBbsByAdmin(item);
 	}

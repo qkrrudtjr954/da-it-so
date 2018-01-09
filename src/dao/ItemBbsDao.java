@@ -21,6 +21,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 	DBConnection DBConnector = new OracleConnection();
 //	DBConnection DBConnector = new MySqlConnection();
 
+
 	public List<ItemBbs> allItemList() {
 
 		String sql = "SELECT * FROM ITEM_BBS ORDER BY CREATED_AT";
@@ -67,7 +68,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 	public boolean addItem(ItemBbs itemDto) {
 		Delegator delegator = Delegator.getInstance();
-		
+
 		String id = delegator.getCurrent_user().getId();
 
 		String sql;
@@ -103,6 +104,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		return count > 0 ? true : false;
 	}
+
 	public List<ItemBbs> SelectItemCategories(int category_id) {
 
 		String sql;
@@ -156,6 +158,60 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		return itemList;
 	}
+
+	@Override
+	public List<ItemBbs> searchList(String searchWord) {
+
+		List<ItemBbs> searchlist = new ArrayList<ItemBbs>();
+
+		ResultSet rs = null;
+		PreparedStatement ptmt = null;
+
+		String sql = " SELECT * FROM ITEM_BBS "
+				+ " WHERE TITLE LIKE '%" + searchWord +"%'"
+				+ " OR CONTENT LIKE '%" + searchWord + "%'"
+				+ " OR KEYWORD LIKE '%" + searchWord + "%'";//제목 컨텐츠 키워드
+
+		System.out.println(">>>	ItemBbsDao .searchList() sql : " + sql);
+		//select * from item_bbs where title like %something% or content like %something% or ability like %something%;
+
+		java.sql.Connection conn = DBConnector.makeConnection();
+		System.out.println("conn success");
+
+		try {
+			ptmt = conn.prepareStatement(sql);
+			System.out.println("psmt success");
+
+			rs = ptmt.executeQuery();
+			System.out.println("rs success");
+
+			while(rs.next()) {
+				int seq = rs.getInt("SEQ");
+				int category_id = rs.getInt("CATEGORY_ID");
+				String user_id = rs.getString("USER_ID");
+				String title = rs.getString("TITLE");
+				String imgurl1 = rs.getString("IMGURL1");
+				String imgurl2 = rs.getString("IMGURL2");
+				String imgurl3 = rs.getString("IMGURL3");
+				String imgurl4 = rs.getString("IMGURL4");
+				int price = rs.getInt("PRICE");
+				String keyword = rs.getString("KEYWORD");
+				String content = rs.getString("CONTENT");
+				String created_at = rs.getString("CREATED_AT");
+				int state = rs.getInt("STATE");
+
+				ItemBbs dto = new ItemBbs(seq, category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, price, keyword, content, created_at, state);
+				searchlist.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(ptmt, conn, rs);
+		}
+		return searchlist;
+	}
+
 	
 	public List<AbilityBbs> SelectAbilityCategories(int category_id) {
 
@@ -209,6 +265,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		return abilityList;
 	}
+
 	public List<ItemBbs> getAllItemBbs() {
 
 		String sql = " SELECT * FROM ITEM_BBS ";
@@ -298,19 +355,19 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 	@Override
 	public boolean DeleteItemBbsByAdmin(ItemBbs item) {
 		// TODO Auto-generated method stub
-		// state가 3이면 관리자에 의한 삭제. 
+		// state가 3이면 관리자에 의한 삭제.
 		String sql = " update item_bbs set state = 3 where seq="+item.getSeq();
-		
+
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
-		
+
 		int count = -1;
-		
+
 		try {
-			
+
 			ptmt = conn.prepareStatement(sql);
 			count = ptmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -321,19 +378,19 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 	@Override
 	public boolean CompleteItemBbsByAdmin(ItemBbs item) {
 		// TODO Auto-generated method stub
-		// state가 3이면 관리자에 의한 삭제. 
+		// state가 3이면 관리자에 의한 삭제.
 		String sql = " update item_bbs set state = 1 where seq="+item.getSeq();
-		
+
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
-		
+
 		int count = -1;
-		
+
 		try {
-			
+
 			ptmt = conn.prepareStatement(sql);
 			count = ptmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -344,19 +401,19 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 	@Override
 	public boolean ContinueItemBbsByAdmin(ItemBbs item) {
 		// TODO Auto-generated method stub
-		// state가 3이면 관리자에 의한 삭제. 
+		// state가 3이면 관리자에 의한 삭제.
 		String sql = " update item_bbs set state = 0 where seq="+item.getSeq();
-		
+
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
-		
+
 		int count = -1;
-		
+
 		try {
-			
+
 			ptmt = conn.prepareStatement(sql);
 			count = ptmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.AbilityBbs;
+import javax.swing.JOptionPane;
+
 import dto.Category;
 import dto.ItemBbs;
 import dto.Person;
@@ -20,7 +22,7 @@ import view.Main;
 public class ItemBbsController {
 	   ItemBbsServiceImpl itemService = new ItemBbsService();
 	   CategoryServiceImpl categoryService = new CategoryService();
-	
+
 	   public void main() {
 		   new Main();
 	   }
@@ -55,6 +57,19 @@ public class ItemBbsController {
 	   public void SelectAbilityCategories(int category_id){
 		   List<AbilityBbs> abilityList = itemService.SelectAbilityCategories(category_id);
 		   new AbilityMain(abilityList);
+
+	   public void searchList(String searchWord){
+		   List<ItemBbs> itemList = itemService.searchList(searchWord);
+		   
+		   System.out.println("controller: ");
+		   itemList.stream().forEach(System.out::println);
+		   if(itemList.size() != 0) {
+			   new ItemMain(itemList);
+		   }else {
+			   JOptionPane.showMessageDialog(null, "검색 결과가 없습니다.");
+			   itemList = itemService.allItemList();
+			   new ItemMain(itemList);
+		   }
 	   }
 
 }
