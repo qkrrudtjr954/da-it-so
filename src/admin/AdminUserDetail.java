@@ -195,15 +195,6 @@ public class AdminUserDetail extends JFrame implements ActionListener {
 
 		sidePn.add(btnPanel);
 
-		
-		/*
-	private int seq;
-	private String id;
-	private char[] pwd;
-	private String phone;
-	private String nick;
-	private String created_at;
-	*/
 		// main view
 		JPanel main = new JPanel();
 		main.setLayout(new GridLayout(5,  1));
@@ -300,8 +291,10 @@ public class AdminUserDetail extends JFrame implements ActionListener {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				int index = e.getID();
-				System.out.println("pressed index: "+index);
+				int index = atable.getSelectedRow();
+
+				Delegator delegator = Delegator.getInstance();
+				delegator.adminController.AdminAbilityDetail(abilityList.get(index));
 			}
 		});
 		
@@ -332,8 +325,10 @@ public class AdminUserDetail extends JFrame implements ActionListener {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				int index = e.getID();
-				System.out.println("pressed index: "+index);
+				int index = itable.getSelectedRow();
+				
+				Delegator delegator = Delegator.getInstance();
+				delegator.adminController.AdminItemDetail(itemList.get(index));
 			}
 		});
 		
