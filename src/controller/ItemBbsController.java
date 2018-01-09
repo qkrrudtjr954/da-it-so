@@ -57,6 +57,7 @@ public class ItemBbsController {
 	   public void SelectAbilityCategories(int category_id){
 		   List<AbilityBbs> abilityList = itemService.SelectAbilityCategories(category_id);
 		   new AbilityMain(abilityList);
+	   }
 
 	   public void searchList(String searchWord){
 		   List<ItemBbs> itemList = itemService.searchList(searchWord);

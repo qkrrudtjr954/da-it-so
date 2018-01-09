@@ -45,12 +45,12 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 	Color mainGray = new Color(250, 250, 250);
 	Color mainPink = new Color(255, 174, 174);
 
-	List<ItemBbs> itemList;
+	List<ItemBbs> m_itemList;
 	List<ItemBbs> itemSearchList;
 
 	public ItemMain(List<ItemBbs> itemList) {
 		Delegator delegator = Delegator.getInstance();
-		this.itemList = itemList;
+		this.m_itemList = itemList;
 
 		// Header
 		Color commonColor = new Color(218, 0, 0);
@@ -310,7 +310,6 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			thumPn1.setLayout(null);
 
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
-<<<<<<< HEAD
 				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
 
 				if(itemList.get(i).getImgurl1() == null) {
