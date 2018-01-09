@@ -301,13 +301,11 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		// keyword
 
 		String key = m_itemDto.getKeyword();
-		System.out.println("key값 : " + key);
+
 		rowSize = 0;
 		String[] keyarray;
 		keyarray = new String[rowSize * 3];
 		keyarray = key.split("-key-");
-		System.out.println("keyarray:" + keyarray[0]);
-		//System.out.println("keyarraylength :" + keyarray.length);
 
 		if (keyarray.length % 3 == 0) {
 			rowSize = keyarray.length / 3;
@@ -334,7 +332,6 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 				keywordLabel[i][j].setText("#" + keyarray[k]);
 				keywordLabel[i][j].setSize(70, 30);
 				keywordLabel[i][j].setLocation((j * 80), (i * 40));
-				System.out.println(keywordLabel[i][j].getBounds());
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
 			}
