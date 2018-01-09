@@ -32,7 +32,7 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 	private JButton itemListBtn, userListBtn, abilityListBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
-	private JButton completeBtn, continueBtn, undoBtn;
+	private JButton completeBtn, continueBtn, undoBtn, chatBtn;
 
 	// String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	String iconImgUrl = "E:\\icon/";
@@ -157,24 +157,29 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 
 		// btnPanel
 		JPanel btnPanel = new JPanel();
-		btnPanel.setLayout(new GridLayout(3, 1, 10, 10));
+		btnPanel.setLayout(new GridLayout(4, 1, 10, 10));
 		btnPanel.setBounds(25, 290, 350, 350);
 		btnPanel.setBackground(Color.WHITE);
 
-		itemListBtn = new JButton("All Item BBS");
+		itemListBtn = new JButton("모든 상품글 보기 ");
 		itemListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		itemListBtn.addActionListener(this);
 		btnPanel.add(itemListBtn);
 
-		abilityListBtn = new JButton("All Ability BBS");
+		abilityListBtn = new JButton("모든 인력글 보기 ");
 		abilityListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		abilityListBtn.addActionListener(this);
 		btnPanel.add(abilityListBtn);
 
-		userListBtn = new JButton("All User");
+		userListBtn = new JButton("모든 유저 정보 보기 ");
 		userListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		userListBtn.addActionListener(this);
 		btnPanel.add(userListBtn);
+		
+		chatBtn = new JButton("관리자 채팅 열기 ");
+		chatBtn.setBorder(new LineBorder(commonRedColor, 2));
+		chatBtn.addActionListener(this);
+		btnPanel.add(chatBtn);
 
 		sidePn.add(btnPanel);
 
@@ -351,9 +356,10 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 
 		// chatBtn
 		backBtn = new JButton("뒤로 가기");
-		backBtn.setBounds(630, 555, 240, 35);
+		backBtn.setBounds(630, 540, 240, 35);
 		backBtn.setBorder(new LineBorder(commonRedColor));
 		backBtn.addActionListener(this);
+		detailPn.add(backBtn);
 
 		detailPn.add(iteminfoPn);
 
@@ -367,13 +373,13 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 			state.setText("진행중");
 
 			completeBtn = new JButton("완료 상태로 변경");
-			completeBtn.setBounds(630, 600, 240, 35);
+			completeBtn.setBounds(630, 585, 240, 35);
 			completeBtn.setBorder(new LineBorder(commonRedColor));
 			completeBtn.addActionListener(this);
 			detailPn.add(completeBtn);
 
 			delBtn = new JButton("관리자 권한 삭제");
-			delBtn.setBounds(630, 645, 240, 35);
+			delBtn.setBounds(630, 630, 240, 35);
 			delBtn.setBorder(new LineBorder(commonRedColor));
 			delBtn.addActionListener(this);
 			detailPn.add(delBtn);
@@ -382,13 +388,13 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 			state.setText("완료됨 ");
 
 			continueBtn = new JButton("진행 상태로 변경");
-			continueBtn.setBounds(630, 600, 240, 35);
+			continueBtn.setBounds(630, 585, 240, 35);
 			continueBtn.setBorder(new LineBorder(commonRedColor));
 			continueBtn.addActionListener(this);
 			detailPn.add(continueBtn);
 
 			delBtn = new JButton("관리자 권한 삭제");
-			delBtn.setBounds(630, 645, 240, 35);
+			delBtn.setBounds(630, 630, 240, 35);
 			delBtn.setBorder(new LineBorder(commonRedColor));
 			delBtn.addActionListener(this);
 			detailPn.add(delBtn);
@@ -397,7 +403,7 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 			state.setText("삭제됨 ");
 
 			continueBtn = new JButton("진행 상태로 변경");
-			continueBtn.setBounds(630, 600, 240, 35);
+			continueBtn.setBounds(630, 585, 240, 35);
 			continueBtn.setBorder(new LineBorder(commonRedColor));
 			continueBtn.addActionListener(this);
 			detailPn.add(continueBtn);
@@ -407,7 +413,7 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 			state.setText("관리자에 의해 삭제됨 ");
 
 			continueBtn = new JButton("진행 상태로 변경");
-			continueBtn.setBounds(630, 600, 240, 35);
+			continueBtn.setBounds(630, 630, 240, 35);
 			continueBtn.setBorder(new LineBorder(commonRedColor));
 			continueBtn.addActionListener(this);
 			detailPn.add(continueBtn);
@@ -419,7 +425,7 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 		contentPane.add(headerPn);
 		contentPane.add(scrollPane);
 
-		setBounds(0, 0, 1680, 730);
+		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
 
@@ -451,7 +457,18 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 		} else if(btn == signupBtn) {
 			delegator.personController.SignUp();
 			this.dispose();
-		} 
+		} else if(btn == itemListBtn) {
+			delegator.adminController.ItemList();
+			this.dispose();
+		}else if(btn == abilityListBtn) {
+			delegator.adminController.AbilityList();
+			this.dispose();
+		}else if(btn == userListBtn) {
+			delegator.adminController.UserList();
+			this.dispose();
+		} else if(btn == chatBtn) {
+			delegator.roomController.RoomList();
+		}
 		
 		
 		

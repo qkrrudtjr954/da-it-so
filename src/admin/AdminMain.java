@@ -27,7 +27,7 @@ public class AdminMain extends JFrame implements ActionListener {
 	private JTextField searchTextF;
 	private JPanel headerLogo;
 	
-	JButton itemListBtn, abilityListBtn, userListBtn;
+	JButton itemListBtn, abilityListBtn, userListBtn, chatBtn;
 
 //	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
 	String icomImgimgUrl = "E:\\icon/";
@@ -101,31 +101,36 @@ public class AdminMain extends JFrame implements ActionListener {
 
 		// btnPanel
 		JPanel btnPanel = new JPanel();
-		btnPanel.setLayout(new GridLayout(3, 1, 10, 10));
+		btnPanel.setLayout(new GridLayout(4, 1, 10, 10));
 		btnPanel.setBounds(25, 290, 350, 350);
 		btnPanel.setBackground(Color.WHITE);
 
-		itemListBtn = new JButton("All Item BBS");
+		itemListBtn = new JButton("모든 상품글 보기 ");
 		itemListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		itemListBtn.addActionListener(this);
 		btnPanel.add(itemListBtn);
 
-		abilityListBtn = new JButton("All Ability BBS");
+		abilityListBtn = new JButton("모든 인력글 보기 ");
 		abilityListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		abilityListBtn.addActionListener(this);
 		btnPanel.add(abilityListBtn);
 
-		userListBtn = new JButton("All User");
+		userListBtn = new JButton("모든 유저 정보 보기 ");
 		userListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		userListBtn.addActionListener(this);
 		btnPanel.add(userListBtn);
+		
+		chatBtn = new JButton("관리자 채팅 열기 ");
+		chatBtn.setBorder(new LineBorder(commonRedColor, 2));
+		chatBtn.addActionListener(this);
+		btnPanel.add(chatBtn);
 
 		sidePn.add(btnPanel);
 
 		contentPane.add(sidePn);
 		contentPane.add(headerPn);
 
-		setBounds(0, 0, 1680, 1050);
+		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
 
@@ -145,6 +150,8 @@ public class AdminMain extends JFrame implements ActionListener {
 		}else if(obj == userListBtn) {
 			delegator.adminController.UserList();
 			this.dispose();
+		} else if(obj == chatBtn) {
+			delegator.roomController.RoomList();
 		}
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import dao.AbilityDao;
 import dao.AbilityDaoImpl;
 import dto.AbilityBbs;
+import dto.Person;
 
 public class AbilityService implements AbilityServiceImpl {
 	AbilityDaoImpl abilityDao = new AbilityDao();
@@ -23,6 +24,10 @@ public class AbilityService implements AbilityServiceImpl {
 	}
 	public boolean addAbility(AbilityBbs abilityDto) {
 		return abilityDao.addAbility(abilityDto) ? true : false;
+	}
+	
+	public List<AbilityBbs> getAbilityBbsByUserId(String user_id){
+		return abilityDao.getAbilityBbsByUserId(user_id);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import admin.AdminAbilityList;
 import admin.AdminItemDetail;
 import admin.AdminItemList;
 import admin.AdminMain;
+import admin.AdminUserDetail;
 import admin.AdminUserList;
 import dto.AbilityBbs;
 import dto.ItemBbs;
@@ -65,7 +66,9 @@ public class AdminController {
 	
 	public void AdminUserDetail(Person person) {
 		List<ItemBbs> itemList = itemBbsService.getItemBbsByUserId(person.getId());
-//		List<AbilityBbs> abilityList = abilityService.getAbilityBbsByUserId(person.getId());
+		List<AbilityBbs> abilityList = abilityService.getAbilityBbsByUserId(person.getId());
+		
+		new AdminUserDetail(person, itemList, abilityList);
 	}
 	
 	public void DeleteItemBbsByAdmin(ItemBbs item) {

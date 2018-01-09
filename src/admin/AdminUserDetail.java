@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -18,8 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
@@ -27,14 +28,11 @@ import dto.AbilityBbs;
 import dto.ItemBbs;
 import dto.Person;
 
-public class AdminUserDetail extends JFrame implements ActionListener,MouseListener {
-	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
-			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
-			subimage4, keywordPanel;
-	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
+public class AdminUserDetail extends JFrame implements ActionListener {
+	private JPanel headerPn, headerLogo, sidePn, logoPn, detailPn;
+	private JButton loginBtn, logoutBtn, signupBtn, searchBtn, talkBtn, chatBtn;
 	private JButton itemListBtn, userListBtn, abilityListBtn;
 	private JTextField searchTextF;
-	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
 //	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	String iconImgUrl = "E:\\icon/";
@@ -86,7 +84,14 @@ public class AdminUserDetail extends JFrame implements ActionListener,MouseListe
 			}
 		};
 		headerLogo.setBounds(15, 25, 71, 15);
-		headerLogo.addMouseListener(this);
+		headerLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.mainController.Main();
+			}
+		});
 		headerPn.add(headerLogo);
 		
 		Delegator delegator = Delegator.getInstance();
@@ -164,24 +169,29 @@ public class AdminUserDetail extends JFrame implements ActionListener,MouseListe
 		
 		// btnPanel
 		JPanel btnPanel = new JPanel();
-		btnPanel.setLayout(new GridLayout(3, 1, 10, 10));
+		btnPanel.setLayout(new GridLayout(4, 1, 10, 10));
 		btnPanel.setBounds(25, 290, 350, 350);
 		btnPanel.setBackground(Color.WHITE);
 
-		itemListBtn = new JButton("All Item BBS");
+		itemListBtn = new JButton("모든 상품글 보기 ");
 		itemListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		itemListBtn.addActionListener(this);
 		btnPanel.add(itemListBtn);
 
-		abilityListBtn = new JButton("All Ability BBS");
+		abilityListBtn = new JButton("모든 인력글 보기 ");
 		abilityListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		abilityListBtn.addActionListener(this);
 		btnPanel.add(abilityListBtn);
 
-		userListBtn = new JButton("All User");
+		userListBtn = new JButton("모든 유저 정보 보기 ");
 		userListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		userListBtn.addActionListener(this);
 		btnPanel.add(userListBtn);
+		
+		chatBtn = new JButton("관리자 채팅 열기 ");
+		chatBtn.setBorder(new LineBorder(commonRedColor, 2));
+		chatBtn.addActionListener(this);
+		btnPanel.add(chatBtn);
 
 		sidePn.add(btnPanel);
 
@@ -236,7 +246,7 @@ public class AdminUserDetail extends JFrame implements ActionListener,MouseListe
 		userNickPanel.setLayout(null);
 		
 		JLabel userNick = new JLabel();
-		userNick.setText("Phone");
+		userNick.setText("nickname");
 		userNick.setBounds(100, 50, 200, 20);
 		userNickPanel.add(userNick);
 		
@@ -268,50 +278,74 @@ public class AdminUserDetail extends JFrame implements ActionListener,MouseListe
 		contentPane.add(main);
 		
 		
-		int abilityHeight = abilityList.size() * this.itemHeight;
-		int itemHeight = itemList.size() * this.itemHeight;
-
-		JPanel aMain = new JPanel();
-		aMain.setLocation(400, 60);
-//		aMain.setPreferredSize(new Dimension(630, mainHeight));
-		aMain.setLayout(null);
-
-		JScrollPane aScrPane = new JScrollPane(aMain);
-
-		for (int i = 0; i < abilityList.size(); i++) {
-			JPanel itemPanel = new JPanel();
-			itemPanel.setBounds(50, i * itemHeight + 20, 1000, itemHeight);
-			itemPanel.setBorder(new LineBorder(commonRedColor));
-			itemPanel.addMouseListener(this);
-			itemPanel.setLayout(null);
-			itemPanel.setBackground(Color.white);
-
-			JLabel itemUser = new JLabel();
-			itemUser.setText(abilityList.get(i).getUser_id());
-			itemUser.setBounds(20, 20, 200, 20);
-			itemPanel.add(itemUser);
-
-			JLabel itemTitle = new JLabel();
-			itemTitle.setText(abilityList.get(i).getTitle());
-			itemTitle.setBounds(250, 20, 200, 20);
-			itemPanel.add(itemTitle);
-
-			JLabel itemCreated = new JLabel();
-			itemCreated.setText(abilityList.get(i).getCreated_at());
-			itemCreated.setBounds(860, 20, 140, 20);
-			itemPanel.add(itemCreated);
-
-			main.add(itemPanel);
+		String columnNames[] = { "제목 ", "생성일 ", "상태" };
+		Object rowData[][] = new Object[abilityList.size()][columnNames.length];		
+		
+		for(int i=0; i<abilityList.size(); i++) {
+			rowData[i][0] = abilityList.get(i).getTitle();
+			rowData[i][1] = abilityList.get(i).getCreated_at();
+			if (abilityList.get(i).getState() == 0) {
+				rowData[i][2] = "게시중.";				
+			} else if (abilityList.get(i).getState() == 1) {
+				rowData[i][2] = "완료됨.";				
+			}  else if (abilityList.get(i).getState() == 2) {
+				rowData[i][2] = "삭됨.";				
+			}  else if (abilityList.get(i).getState() == 3) {
+				rowData[i][2] = "관리자에 의해 삭제됨.";				
+			} 
 		}
+		
+		JTable atable = new JTable(rowData, columnNames);
+		atable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				int index = e.getID();
+				System.out.println("pressed index: "+index);
+			}
+		});
+		
+		JScrollPane aScrPane = new JScrollPane(atable);
+		aScrPane.setBounds(400, 560, 475, 690);
+		contentPane.add(aScrPane);
 
-		JScrollPane jscPanel = new JScrollPane(main);
-		jscPanel.setBounds(400, 60, 1280, 1000);
+		
+		
+		Object irowData[][] = new Object[itemList.size()][columnNames.length];		
+		
+		for(int i=0; i<itemList.size(); i++) {
+			irowData[i][0] = itemList.get(i).getTitle();
+			irowData[i][1] = itemList.get(i).getCreated_at();
+			if (itemList.get(i).getState() == 0) {
+				irowData[i][2] = "게시중.";				
+			} else if (itemList.get(i).getState() == 1) {
+				irowData[i][2] = "완료됨.";				
+			}  else if (itemList.get(i).getState() == 2) {
+				irowData[i][2] = "삭됨.";				
+			}  else if (itemList.get(i).getState() == 3) {
+				irowData[i][2] = "관리자에 의해 삭제됨.";				
+			} 
+		}
+		
+		JTable itable = new JTable(irowData, columnNames);
+		itable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				int index = e.getID();
+				System.out.println("pressed index: "+index);
+			}
+		});
+		
+		JScrollPane iScrPane = new JScrollPane(itable);
+		iScrPane.setBounds(880, 560, 475, 690);
+		contentPane.add(iScrPane);
 		
 
 		contentPane.add(sidePn);
 		contentPane.add(headerPn);
 		
-		setBounds(0, 0, 1680, 730);
+		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
 
@@ -319,50 +353,20 @@ public class AdminUserDetail extends JFrame implements ActionListener,MouseListe
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		JButton btn = (JButton) e.getSource();
-
-		if (btn == talkBtn) {
-
-		} else if (btn == signupBtn) {
-
-			
-			dispose();
-		} else if (btn == loginBtn) {
-
-			
-			dispose();
+		Delegator delegator = Delegator.getInstance();
+		Object obj = e.getSource();
+		
+		if(obj == itemListBtn) {
+			delegator.adminController.ItemList();
+			this.dispose();
+		}else if(obj == abilityListBtn) {
+			delegator.adminController.AbilityList();
+			this.dispose();
+		}else if(obj == userListBtn) {
+			delegator.adminController.UserList();
+			this.dispose();
+		} else if(obj == chatBtn) {
+			delegator.roomController.RoomList();
 		}
-
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }

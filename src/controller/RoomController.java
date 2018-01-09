@@ -48,6 +48,7 @@ public class RoomController {
             new RoomList(list);
         }
 	}
+	
 	public void Chat(RoomDto room) {
 		List<ChatDto> list = chatService.getChatByRoomSeq(room.getSeq());
 		
