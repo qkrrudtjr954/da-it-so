@@ -22,7 +22,7 @@ public class AbilityDao implements AbilityDaoImpl {
 	public List<AbilityBbs> allAbilityList() {
 
 
-		String sql = "SELECT * FROM ABILITY_BBS ORDER BY CREATED_AT";
+		String sql = "SELECT * FROM ABILITY_BBS ORDER BY CREATED_AT WHERE STATE = 0 OR STATE = 1";
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
@@ -70,6 +70,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		return AbilityList;
 	}
 
+	// 관리자 전용 
 	public List<AbilityBbs> getAllAbilityList() {
 
 		String sql = "SELECT * FROM ABILITY_BBS";
@@ -80,7 +81,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		ResultSet rs = null;
 		List<AbilityBbs> AbilityList = new ArrayList<>();
 
-		System.out.println(">>>	AbilityBbsDao .allItemList() sql : " + sql);
+		System.out.println(">>>	AbilityBbsDao .getAllAbilityList() sql : " + sql);
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -124,10 +125,10 @@ public class AbilityDao implements AbilityDaoImpl {
 					+ " values( " + abilityDto.getCategory_id() + ", '" + delegator.getCurrent_user().getId() + "', '"
 					+ abilityDto.getTitle() + "', '" + abilityDto.getImgurl1() + "', '" + abilityDto.getImgurl2()
 					+ "', '" + abilityDto.getImgurl3() + "', '" + abilityDto.getImgurl4() + "', '"
-					+ abilityDto.getAbility() + "', '" + abilityDto.getContent() + "', 1, now());";
+					+ abilityDto.getAbility() + "', '" + abilityDto.getContent() + "', 0, now());";
 		} else {
 			sql ="INSERT INTO ABILITY_BBS(SEQ, CATEGORY_ID, TITLE, IMGURL1, IMGURL2, IMGURL3, IMGURL4, ABILITY, CONTENT, STATE, CREATED_AT, USER_ID)"
-					+" VALUES(SEQ_ABILITY_BBS.NEXTVAL,'"+abilityDto.getCategory_id()+"','"+abilityDto.getTitle()+"','"+abilityDto.getImgurl1()+"','"+abilityDto.getImgurl2()+"','"+abilityDto.getImgurl3()+"','"+abilityDto.getImgurl4()+"','"+abilityDto.getAbility()+"','"+abilityDto.getContent()+"', 1, SYSDATE, '"+personDto.getId()+"')";
+					+" VALUES(SEQ_ABILITY_BBS.NEXTVAL,'"+abilityDto.getCategory_id()+"','"+abilityDto.getTitle()+"','"+abilityDto.getImgurl1()+"','"+abilityDto.getImgurl2()+"','"+abilityDto.getImgurl3()+"','"+abilityDto.getImgurl4()+"','"+abilityDto.getAbility()+"','"+abilityDto.getContent()+"', 0, SYSDATE, '"+personDto.getId()+"')";
 
 		}
 
@@ -317,6 +318,56 @@ public class AbilityDao implements AbilityDaoImpl {
 			e.printStackTrace();
 		}
 		return (count > 0) ? true : false;
+	}
+
+	// 관리자 전용 
+	@Override
+	public List<AbilityBbs> AdminSearch(String search) {
+		// TODO Auto-generated method stub
+		
+		String sql = " SELECT * FROM ABILITY_BBS "
+				+ " WHERE TITLE LIKE '%" + search +"%'"
+				+ " OR CONTENT LIKE '%" + search + "%'"
+				+ " OR ABILITY LIKE '%" + search + "%'";
+		
+		System.out.println(">>> AbilityDao  .AdminSearch()  sql: " + sql);
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		ResultSet rs = null;
+		
+		List<AbilityBbs> searchList = new ArrayList<>();
+		
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+			
+			while(rs.next()) {
+
+				int seq = rs.getInt("SEQ");
+				int category_id = rs.getInt("CATEGORY_ID");
+				String user_id = rs.getString("USER_ID");
+				String title = rs.getString("TITLE");
+				String imgurl1 = rs.getString("IMGURL1");
+				String imgurl2 = rs.getString("IMGURL2");
+				String imgurl3 = rs.getString("IMGURL3");
+				String imgurl4 = rs.getString("IMGURL4");
+				String ability = rs.getString("ABILITY");
+				String content = rs.getString("CONTENT");
+				int state = rs.getInt("STATE");
+				String created_at = rs.getString("CREATED_AT");
+
+				AbilityBbs dto = new AbilityBbs(seq, category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, ability, content, state, created_at);
+				
+				searchList.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return searchList;
 	}
 
 }

@@ -420,4 +420,55 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		}
 		return (count > 0) ? true : false;
 	}
+
+	// 관리자 전용 
+	@Override
+	public List<ItemBbs> AdminSearch(String search) {
+		// TODO Auto-generated method stub
+		List<ItemBbs> searchList = new ArrayList<ItemBbs>();
+
+		ResultSet rs = null;
+		PreparedStatement ptmt = null;
+
+		String sql = " SELECT * FROM ITEM_BBS "
+				+ " WHERE TITLE LIKE '%" + search +"%'"
+				+ " OR CONTENT LIKE '%" + search + "%'"
+				+ " OR KEYWORD LIKE '%" + search + "%'";//제목 컨텐츠 키워드
+
+		System.out.println(">>>	ItemBbsDao .AdminSearch() sql : " + sql);
+
+		Connection conn = DBConnector.makeConnection();
+
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+
+			while(rs.next()) {
+				ItemBbs item = new ItemBbs();
+				
+				item.setSeq(rs.getInt("seq"));
+				item.setCategory_id(rs.getInt("category_id"));
+				item.setContent(rs.getString("content"));
+				item.setCreated_at(rs.getString("created_at"));
+				item.setImgurl1(rs.getString("imgurl1"));
+				item.setImgurl2(rs.getString("imgurl2"));
+				item.setImgurl3(rs.getString("imgurl3"));
+				item.setImgurl4(rs.getString("imgurl4"));
+				item.setKeyword(rs.getString("keyword"));
+				item.setPrice(rs.getInt("price"));
+				item.setState(rs.getInt("state"));
+				item.setTitle(rs.getString("title"));
+				item.setUser_id(rs.getString("user_id"));
+				
+				searchList.add(item);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(ptmt, conn, rs);
+		}
+		
+		return searchList;
+	}
 }

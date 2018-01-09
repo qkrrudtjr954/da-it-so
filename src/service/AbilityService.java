@@ -47,4 +47,11 @@ public class AbilityService implements AbilityServiceImpl {
 		// TODO Auto-generated method stub
 		return abilityDao.ContinueAbilityBbsByAdmin(ability);
 	}
+
+	// 관리자 전용 
+	@Override
+	public List<AbilityBbs> AdminSearch(String search) {
+		// TODO Auto-generated method stub
+		return abilityDao.AdminSearch(search);
+	}
 }

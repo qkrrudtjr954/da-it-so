@@ -190,4 +190,39 @@ public class PersonDao implements PersonDaoImpl {
 		return userList;
 	}
 
+	@Override
+	public List<Person> AdminSearch(String search) {
+		// TODO Auto-generated method stub
+		String sql = " select * from person where id like '%"+search+"%' or nick like '%"+search+"%' or phone like '%"+search+"%'";
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+
+		ResultSet rs = null;
+
+		List<Person> searchList = new ArrayList<>();
+
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+
+			while(rs.next()) {
+				Person person = new Person();
+
+				person.setCreated_at(rs.getString("created_at"));
+				person.setId(rs.getString("id"));
+				person.setNick(rs.getString("nick"));
+				person.setPhone(rs.getString("phone"));
+				person.setSeq(rs.getInt("seq"));
+
+				searchList.add(person);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return searchList;
+	}
+
 }

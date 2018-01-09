@@ -154,4 +154,38 @@ public class AdminController {
 			new AdminAbilityDetail(ability, person);
 		}
 	}
+
+	public void SerarchAbilityList(String search) {
+		// TODO Auto-generated method stub
+		List<AbilityBbs> abilityList = abilityService.AdminSearch(search);
+		
+		if(abilityList.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "검색 결과가 없습니다.");
+			abilityList = abilityService.getAllAbilityList();
+		}
+		new AdminAbilityList(abilityList);
+	}
+
+	public void SerarchItemList(String search) {
+		// TODO Auto-generated method stub
+		List<ItemBbs> itemList = itemBbsService.AdminSearch(search);
+		
+		if(itemList.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "검색 결과가 없습니다.");
+			itemList = itemBbsService.getAllItemBbs();
+		}
+		new AdminItemList(itemList);
+		
+	}
+
+	public void SerarchUserList(String search) {
+		// TODO Auto-generated method stub
+		List<Person> personList = personService.AdminSearch(search);
+		
+		if(personList.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "검색 결과가 없습니다.");
+			personList = personService.getAllPerson();
+		}
+		new AdminUserList(personList);
+	}
 }

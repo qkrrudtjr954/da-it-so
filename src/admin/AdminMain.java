@@ -86,18 +86,25 @@ public class AdminMain extends JFrame implements ActionListener {
 		logoPn.setBounds(40, 30, 300, 66);
 		sidePn.add(logoPn);
 
-		// SearchText
-		searchTextF = new JTextField("검색어");
-		searchTextF.setBounds(40, 160, 260, 40);
-		searchTextF.setBorder(new LineBorder(commonRedColor, 5));
-		sidePn.add(searchTextF);
-
-		// searchBtn
-		searchBtn = new JButton(new ImageIcon(icomImgimgUrl + "search.png"));
-		searchBtn.setBounds(300, 160, 40, 40);
-		searchBtn.setOpaque(false); // 투명하게
-		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
-		sidePn.add(searchBtn);
+//		// SearchText
+//		searchTextF = new JTextField("검색어");
+//		searchTextF.setBounds(40, 160, 260, 40);
+//		searchTextF.setBorder(new LineBorder(commonRedColor, 5));
+//		sidePn.add(searchTextF);
+//
+//		// searchBtn
+//		searchBtn = new JButton(new ImageIcon(icomImgimgUrl + "search.png"));
+//		searchBtn.setBounds(300, 160, 40, 40);
+//		searchBtn.setOpaque(false); // 투명하게
+//		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
+//		sidePn.add(searchBtn);
+		
+		JLabel adminLabel = new JLabel();
+		adminLabel.setText("관리자 페이지");
+		adminLabel.setFont(new Font("font", Font.BOLD, 25));
+		adminLabel.setForeground(commonRedColor);
+		adminLabel.setBounds(130, 180, 260, 25);
+		sidePn.add(adminLabel);
 
 		// btnPanel
 		JPanel btnPanel = new JPanel();

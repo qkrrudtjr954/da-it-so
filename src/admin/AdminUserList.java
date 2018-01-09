@@ -3,6 +3,7 @@ package admin;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -26,27 +27,26 @@ import dto.Person;
 
 public class AdminUserList extends JFrame implements ActionListener {
 
-	private JButton searchBtn;
 	private JTextField searchTextF;
 	private JPanel headerLogo;
-	
+	private JButton loginBtn, logoutBtn, signupBtn, searchBtn;
 	List<Person> userList;
-	
+
 	JButton itemListBtn, abilityListBtn, userListBtn, chatBtn;
-	
+
 	int itemHeight = 80;
 
-//	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
+	// String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
 	String icomImgimgUrl = "E:\\icon/";
 
 	public AdminUserList(List<Person> userList) {
 
 		this.userList = userList;
 		Container contentPane = getContentPane();
-		
+
 		contentPane.setBounds(0, 0, 1680, 1050);
 		contentPane.setBackground(Color.white);
-		
+
 		// header
 		headerLogo = new JPanel() {
 			ImageIcon headerimage = new ImageIcon(icomImgimgUrl + "headerlogo.png");
@@ -71,7 +71,6 @@ public class AdminUserList extends JFrame implements ActionListener {
 			}
 		};
 
-
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		JPanel headerPn = new JPanel();
@@ -83,14 +82,48 @@ public class AdminUserList extends JFrame implements ActionListener {
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerPn.add(headerLogo);
 
+		Delegator delegator = Delegator.getInstance();
+
+		if (delegator.getCurrent_user() == null) {
+			// loginBtn
+			loginBtn = new JButton("로그인");
+			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setOpaque(false); // 투명하게
+			loginBtn.setBorderPainted(false);// 외곽선 없애줌
+			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
+			loginBtn.setBackground(commonRedColor);
+			loginBtn.setForeground(Color.white);
+			loginBtn.addActionListener(this);
+			headerPn.add(loginBtn);
+
+			// SignBtn
+			signupBtn = new JButton("회원가입");
+			signupBtn.setBounds(1130, 20, 100, 30);
+			signupBtn.setOpaque(false); // 투명하게
+			signupBtn.setBorderPainted(false);// 외곽선 없애줌
+			signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signupBtn.setBackground(commonRedColor);
+			signupBtn.setForeground(Color.white);
+			signupBtn.addActionListener(this);
+			headerPn.add(signupBtn);
+		} else {
+			// logoutBtn
+			logoutBtn = new JButton("로그아웃");
+			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setOpaque(false); // 투명하게
+			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
+			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
+			logoutBtn.setBackground(commonRedColor);
+			logoutBtn.setForeground(Color.white);
+			headerPn.add(logoutBtn);
+		}
+
 		// sidePn
 		Color sideC = new Color(250, 250, 250);
 		JPanel sidePn = new JPanel();
 		sidePn.setBounds(0, 60, 400, 1000);
 		sidePn.setLayout(null);
 		sidePn.setBackground(sideC);
-		
-		
 
 		// logoPn
 		logoPn.setBounds(40, 30, 300, 66);
@@ -107,6 +140,10 @@ public class AdminUserList extends JFrame implements ActionListener {
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
+		searchBtn.addActionListener((ActionEvent e) -> {
+			delegator.adminController.SerarchUserList(searchTextF.getText());
+			dispose();
+		});
 		sidePn.add(searchBtn);
 
 		// btnPanel
@@ -129,80 +166,74 @@ public class AdminUserList extends JFrame implements ActionListener {
 		userListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		userListBtn.addActionListener(this);
 		btnPanel.add(userListBtn);
-		
+
 		chatBtn = new JButton("관리자 채팅 열기 ");
 		chatBtn.setBorder(new LineBorder(commonRedColor, 2));
 		chatBtn.addActionListener(this);
 		btnPanel.add(chatBtn);
 
 		sidePn.add(btnPanel);
-		
-		
 
-		
 		// main view
 		int mainHeight = userList.size() * this.itemHeight;
-		
-		
+
 		JPanel main = new JPanel();
 		main.setLocation(400, 60);
 		main.setPreferredSize(new Dimension(1260, mainHeight));
 		main.setLayout(null);
-		
-		for(int i=0; i<userList.size(); i++) {
+
+		for (int i = 0; i < userList.size(); i++) {
 			JPanel itemPanel = new JPanel();
-			itemPanel.setBounds(10, i*itemHeight, 930, itemHeight);
+			itemPanel.setBounds(10, i * itemHeight, 930, itemHeight);
 			itemPanel.setBorder(new LineBorder(commonRedColor));
 			itemPanel.setLayout(null);
 			itemPanel.setBackground(Color.white);
-			itemPanel.setName(i+"");
+			itemPanel.setName(i + "");
 			itemPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
 					int index = Integer.parseInt(itemPanel.getName());
-					
+
 					Delegator delegator = Delegator.getInstance();
 					delegator.adminController.AdminUserDetail(userList.get(index));
 				}
 			});
-			
+
 			JLabel itemUser = new JLabel();
-			itemUser.setText(i+"");
+			itemUser.setText(i + "");
 			itemUser.setBounds(10, 25, 130, 20);
 			itemPanel.add(itemUser);
-			
-			JLabel itemTitle = new JLabel();	
+
+			JLabel itemTitle = new JLabel();
 			itemTitle.setText(userList.get(i).getId());
 			itemTitle.setBounds(140, 20, 200, 20);
 			itemPanel.add(itemTitle);
-			
-//			JLabel itemState = new JLabel();
-//			if(itemList.get(i).getState() == 0) {
-//				itemState.setText("게시중");
-//			} else if(itemList.get(i).getState() == 1) {
-//				itemState.setText("완료됨");
-//			} else if(itemList.get(i).getState() == 2) {
-//				itemState.setText("삭제됨");
-//			} else if(itemList.get(i).getState() == 3) {
-//				itemState.setText("관리자에 의해 삭제됨");
-//			}
-//			itemState.setBounds(630, 20, 150, 20);
-//			itemPanel.add(itemState);
-			
+
+			// JLabel itemState = new JLabel();
+			// if(itemList.get(i).getState() == 0) {
+			// itemState.setText("게시중");
+			// } else if(itemList.get(i).getState() == 1) {
+			// itemState.setText("완료됨");
+			// } else if(itemList.get(i).getState() == 2) {
+			// itemState.setText("삭제됨");
+			// } else if(itemList.get(i).getState() == 3) {
+			// itemState.setText("관리자에 의해 삭제됨");
+			// }
+			// itemState.setBounds(630, 20, 150, 20);
+			// itemPanel.add(itemState);
+
 			JLabel itemCreated = new JLabel();
 			itemCreated.setText(userList.get(i).getCreated_at());
 			itemCreated.setBounds(780, 20, 150, 20);
 			itemPanel.add(itemCreated);
-			
+
 			main.add(itemPanel);
 		}
-		
-		
+
 		JScrollPane jscPanel = new JScrollPane(main);
 		jscPanel.setBounds(400, 60, 950, 690);
-		
-		
+
 		contentPane.add(jscPanel);
 		contentPane.add(sidePn);
 		contentPane.add(headerPn);
@@ -217,17 +248,17 @@ public class AdminUserList extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Delegator delegator = Delegator.getInstance();
 		Object obj = e.getSource();
-		
-		if(obj == itemListBtn) {
+
+		if (obj == itemListBtn) {
 			delegator.adminController.ItemList();
 			this.dispose();
-		}else if(obj == abilityListBtn) {
+		} else if (obj == abilityListBtn) {
 			delegator.adminController.AbilityList();
 			this.dispose();
-		}else if(obj == userListBtn) {
+		} else if (obj == userListBtn) {
 			delegator.adminController.UserList();
 			this.dispose();
-		} else if(obj == chatBtn) {
+		} else if (obj == chatBtn) {
 			delegator.roomController.RoomList();
 		}
 	}
