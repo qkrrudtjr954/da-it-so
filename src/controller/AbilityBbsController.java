@@ -42,13 +42,6 @@ public class AbilityBbsController {
    }
 
    public List<AbilityBbs> searchList(String searchWord){
-	   return Aserv.searchList(searchWord);
+	   return abilityService.searchList(searchWord);
    }
-
-/*   public void itemWrite(Person personDto) {
-	   List<Category> categoryList = categoryService.getAllCategories();
-	   new ItemWrite(categoryList);
-   }
-
-
 }

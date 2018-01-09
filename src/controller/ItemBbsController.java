@@ -20,12 +20,6 @@ import view.Main;
 public class ItemBbsController {
 	   ItemBbsServiceImpl itemService = new ItemBbsService();
 	   CategoryServiceImpl categoryService = new CategoryService();
-
-
-	
-	public List<ItemBbs> list(ItemBbs Idto){
-		return itemService.list(Idto);
-	}
 	   
 	   public void main() {
 		   new Main();

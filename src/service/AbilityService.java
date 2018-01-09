@@ -16,13 +16,6 @@ public class AbilityService implements AbilityServiceImpl {
 	public List<AbilityBbs> getAllAbilityList() {
 		return abilityDao.getAllAbilityList();
 	}
-
-	@Override
-	public List<AbilityBbs> list(AbilityBbs Adto) {
-		// TODO Auto-generated method stub
-		return abilityDao.list(Adto);
-	}
-
 	@Override
 	public List<AbilityBbs> searchList(String searchWord) {
 		// TODO Auto-generated method stub
