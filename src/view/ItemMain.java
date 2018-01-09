@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -150,7 +151,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		// searchBtn.setBackground();
 
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
-
+		searchBtn.addActionListener(this);
 		sidePn.add(searchBtn);
 
 		// catePn
@@ -376,12 +377,12 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		}else if(obj == searchBtn) {
 			System.out.println("searchBtn Click");
 			String searchWord = searchTextF.getText();
-			//아이템리스트 이름 다르게줘서 다시해보자
+			System.out.println("searchTextF :" + searchTextF);
+//			List<ItemBbs> searchList = new ArrayList<ItemBbs>();
+			
 			delegator.itemBbsController.searchList(searchWord);
-		} else {
-			//delegator.itemBbsController.itemDetail(m_ItemDto);
+			
 		}
-
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {

@@ -151,7 +151,8 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		// searchBtn.setBackground();
 
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
-
+		searchBtn.addActionListener(this);
+		
 		sidePn.add(searchBtn);
 
 		// catePn
@@ -370,8 +371,11 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 				delegator.abilityBbsController.AbilityWrite(personDto);
 				this.dispose();
 			}	
+		}else if(obj == searchBtn) {
+			System.out.println("searchBtn Click");
+			String searchWord = searchTextF.getText();
+			delegator.abilityBbsController.searchList(searchWord);
 		}
-		
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {

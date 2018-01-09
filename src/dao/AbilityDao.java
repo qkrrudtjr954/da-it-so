@@ -10,14 +10,15 @@ import java.util.List;
 import db.DBClose;
 import db.DBConnection;
 import db.MySqlConnection;
+import db.OracleConnection;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl {
 
-	 DBConnection DBConnector = new MySqlConnection();
-//	DBConnection DBConnector = new OracleConnection();
+//	 DBConnection DBConnector = new MySqlConnection();
+	DBConnection DBConnector = new OracleConnection();
 
 	public List<AbilityBbs> allAbilityList() {
 
@@ -148,38 +149,45 @@ public class AbilityDao implements AbilityDaoImpl {
 
 	@Override
 	public List<AbilityBbs> searchList(String searchWord) {
-		java.sql.Statement stmt = null;
-		ResultSet rs = null;
+
 		List<AbilityBbs> searchlist = new ArrayList<AbilityBbs>();
+		ResultSet rs = null;
+		PreparedStatement psmt = null;
 
 		String sql = " SELECT * FROM ABILITY_BBS "
-				+ " WHERE TITLE LIKE %'" + searchWord +"'%"
-				+ " OR CONTENT LIKE %'" + searchWord + "'%"
-				+ " OR ABILITY LIKE %'" + searchWord + "'%";//제목 컨텐츠 키워드
+				+ " WHERE TITLE LIKE '%" + searchWord +"%'"
+				+ " OR CONTENT LIKE '%" + searchWord + "%'"
+				+ " OR ABILITY LIKE '%" + searchWord + "%'";//제목 컨텐츠 키워드
+		
+		System.out.println(">>> AbilityDao.searchList()sql: " + sql);
 		//select * from item_bbs where title like %something% or content like %something% or ability like %something%;
 
 		java.sql.Connection conn = DBConnector.makeConnection();
 		System.out.println("conn success");
 
 		try {
-			stmt = conn.createStatement();
-			System.out.println("stmt success");
+			psmt = conn.prepareStatement(sql);
+			System.out.println("psmt success");
 
-			rs = stmt.executeQuery(sql);
+			rs = psmt.executeQuery();
 			System.out.println("rs success");
 
 			while(rs.next()) {
-
+				int seq = rs.getInt("SEQ");
+				int category_id = rs.getInt("CATEGORY_ID");
+				String user_id = rs.getString("USER_ID");
 				String title = rs.getString("TITLE");
+				String imgurl1 = rs.getString("IMGURL1");
+				String imgurl2 = rs.getString("IMGURL2");
+				String imgurl3 = rs.getString("IMGURL3");
+				String imgurl4 = rs.getString("IMGURL4");
 				String ability = rs.getString("ABILITY");
 				String content = rs.getString("CONTENT");
+				int state = rs.getInt("STATE");
+				String created_at = rs.getString("CREATED_AT");
 
-				AbilityBbs dto = new AbilityBbs();
-
-				dto.setTitle(title);
-				dto.setAbility(ability);
-				dto.setContent(content);
-
+				AbilityBbs dto = new AbilityBbs(seq, category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, ability, content, state, created_at);
+				System.out.println("dto: " + dto);
 				searchlist.add(dto);
 			}
 
@@ -187,8 +195,10 @@ public class AbilityDao implements AbilityDaoImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			DBClose.close(stmt, conn, rs);
+			DBClose.close(psmt, conn, rs);
 		}
+		searchlist.stream().forEach(System.out::println);
+		
 		return searchlist;
 	}
 

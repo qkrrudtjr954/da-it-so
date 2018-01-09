@@ -124,7 +124,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		try {
 			ptmt = conn.prepareStatement(sql);
-			System.out.println("stmt success");
+			System.out.println("psmt success");
 
 			rs = ptmt.executeQuery();
 			System.out.println("rs success");

@@ -11,7 +11,8 @@ public class mainClass {
 	public static void main(String[] args) {
 
 		DBConnection DBConnector = new OracleConnection();
-
+//		DBConnection DBConnector = new MySqlConnection();
+		
 		DBConnector.makeConnection();
 		DBConnector.initConnect();
 
