@@ -9,14 +9,16 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
+import db.MySqlConnection;
 import db.OracleConnection;
 import delegator.Delegator;
 import dto.ItemBbs;
 import dto.Person;
 
 public class ItemBbsDao implements ItemBbsDaoImpl{
-	
-	DBConnection DBConnector = new OracleConnection();
+
+//	DBConnection DBConnector = new OracleConnection();
+	DBConnection DBConnector = new MySqlConnection();
 
 	@Override
 	public List<ItemBbs> list(ItemBbs Idto) {
@@ -25,7 +27,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		ResultSet rs = null;
 
 		List<ItemBbs> list = new ArrayList<ItemBbs>();
-		
+
 		String sql = " SELECT "
 				+ " SEQ, CATEGORY_ID, USER_ID, TITLE,"
 				+ " IMGURL1, IMGURL2, IMGURL3, IMGURL4, MAINIMGURL"
@@ -60,7 +62,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 				String keyword = rs.getString("KEYWORD");
 				String created_at = rs.getString("CREATED_AT");
 				int state = rs.getInt("STATE");
-				
+
 				dto.setCategory_id(category_id);
 				dto.setContent(content);
 				dto.setCreated_at(created_at);
@@ -166,5 +168,160 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		}
 
 		return count > 0 ? true : false;
+	}
+	
+	public List<ItemBbs> getAllItemBbs() {
+
+		String sql = " SELECT * FROM ITEM_BBS ";
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+
+		ResultSet rs = null;
+
+		List<ItemBbs> list = new ArrayList<>();
+
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+
+			while(rs.next()) {
+				ItemBbs item = new ItemBbs();
+
+				item.setSeq(rs.getInt("seq"));
+				item.setCategory_id(rs.getInt("category_id"));
+				item.setContent(rs.getString("content"));
+				item.setCreated_at(rs.getString("created_at"));
+				item.setImgurl1(rs.getString("imgurl1"));
+				item.setImgurl2(rs.getString("imgurl2"));
+				item.setImgurl3(rs.getString("imgurl3"));
+				item.setImgurl4(rs.getString("imgurl4"));
+				item.setKeyword(rs.getString("keyword"));
+				item.setPrice(rs.getInt("price"));
+				item.setState(rs.getInt("state"));
+				item.setTitle(rs.getString("title"));
+				item.setUser_id(rs.getString("user_id"));
+
+				list.add(item);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<ItemBbs> getItemBbsByUserId(String user_id) {
+		String sql = " SELECT * FROM ITEM_BBS WHERE USER_ID='"+user_id+"'";
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+
+		ResultSet rs = null;
+
+		List<ItemBbs> list = new ArrayList<>();
+
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+
+			while(rs.next()) {
+				ItemBbs item = new ItemBbs();
+
+				item.setSeq(rs.getInt("seq"));
+				item.setCategory_id(rs.getInt("category_id"));
+				item.setContent(rs.getString("content"));
+				item.setCreated_at(rs.getString("created_at"));
+				item.setImgurl1(rs.getString("imgurl1"));
+				item.setImgurl2(rs.getString("imgurl2"));
+				item.setImgurl3(rs.getString("imgurl3"));
+				item.setImgurl4(rs.getString("imgurl4"));
+				item.setKeyword(rs.getString("keyword"));
+				item.setPrice(rs.getInt("price"));
+				item.setState(rs.getInt("state"));
+				item.setTitle(rs.getString("title"));
+				item.setUser_id(rs.getString("user_id"));
+
+				list.add(item);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	@Override
+	public boolean DeleteItemBbsByAdmin(ItemBbs item) {
+		// TODO Auto-generated method stub
+		// state가 3이면 관리자에 의한 삭제. 
+		String sql = " update item_bbs set state = 3 where seq="+item.getSeq();
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		
+		int count = -1;
+		
+		try {
+			
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
+	}
+
+	@Override
+	public boolean CompleteItemBbsByAdmin(ItemBbs item) {
+		// TODO Auto-generated method stub
+		// state가 3이면 관리자에 의한 삭제. 
+		String sql = " update item_bbs set state = 1 where seq="+item.getSeq();
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		
+		int count = -1;
+		
+		try {
+			
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
+	}
+
+	@Override
+	public boolean ContinueItemBbsByAdmin(ItemBbs item) {
+		// TODO Auto-generated method stub
+		// state가 3이면 관리자에 의한 삭제. 
+		String sql = " update item_bbs set state = 0 where seq="+item.getSeq();
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		
+		int count = -1;
+		
+		try {
+			
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
 	}
 }

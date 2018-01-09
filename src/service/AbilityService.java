@@ -12,9 +12,14 @@ public class AbilityService implements AbilityServiceImpl {
 	public List<AbilityBbs> allAbilityList() {
 		return abilityDao.allAbilityList();
 	}
+	
+	public List<AbilityBbs> getAllAbilityList() {
+		return abilityDao.getAllAbilityList();
+	}
 
     public boolean addAbility(AbilityBbs abilityDto) {
         return abilityDao.addAbility(abilityDto) ? true : false;
     }
+
 
 }

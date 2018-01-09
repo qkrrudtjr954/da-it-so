@@ -6,5 +6,6 @@ import dto.AbilityBbs;
 
 public interface AbilityServiceImpl {
 	public List<AbilityBbs> allAbilityList();
+	public List<AbilityBbs> getAllAbilityList();
 	public boolean addAbility(AbilityBbs abilityDto);
 }
