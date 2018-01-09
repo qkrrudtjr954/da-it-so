@@ -389,30 +389,37 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JPanel thumPn1 = (JPanel)e.getComponent();
-		//System.out.println(e.getComponent().equals(thumPn1));
-		
-		System.out.println("x,y ==>"+thumPn1.getX() +"," +thumPn1.getY());
+		Object obj = e.getSource();
 		
 		Delegator delegator = Delegator.getInstance();
 		AbilityBbs abilitySelect = null;
 		
-		int i =0;
-		int j =0;
-		
-		if(thumPn1.getX()==15) {
-			i=0;
-		}else if(thumPn1.getX()==525) {
-			i=1;
-		}
-		
-		j = thumPn1.getY()/170;
-		
-		if(thumPn1.getX()==525 && thumPn1.getY()==50) {
-			abilitySelect = m_abilityList.get(0);
-			delegator.abilityBbsController.AbilityDetail(abilitySelect);
+		if(obj != headerLogo) {
+			int i =0;
+			int j =0;
+			
+			if(thumPn1.getX()==15) {
+				i=0;
+			}else if(thumPn1.getX()==525) {
+				i=1;
+			}
+			
+			j = thumPn1.getY()/170;
+			
+			if(!m_abilityList.isEmpty()) {
+				if(thumPn1.getX()==525 && thumPn1.getY()==50) {
+					abilitySelect = m_abilityList.get(0);
+					delegator.abilityBbsController.AbilityDetail(abilitySelect);
+					this.dispose();
+				}else {
+					abilitySelect = m_abilityList.get(i+j);
+					delegator.abilityBbsController.AbilityDetail(abilitySelect);
+					this.dispose();
+				}
+			}
 		}else {
-			abilitySelect = m_abilityList.get(i+j);
-			delegator.abilityBbsController.AbilityDetail(abilitySelect);
+			delegator.mainController.Main();
+			this.dispose();
 		}
 
 		

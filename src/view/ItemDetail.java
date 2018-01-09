@@ -30,7 +30,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
 			subimage4, keywordPanel;
-	private JButton  logoutBtn, signBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
+	private JButton  loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
@@ -63,7 +63,6 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 
 		JScrollPane scrollPane = new JScrollPane(detailPn);
 		scrollPane.setBounds(400, 60, 1100, 900);
-		scrollPane.setBackground(Color.black);
 
 		// headerlogo
 		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
@@ -78,36 +77,40 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
-		// logoutBtn
-		logoutBtn = new JButton("로그아웃");
-		logoutBtn.setBounds(1250, 20, 100, 30);
-		logoutBtn.setOpaque(false); // 투명하게
-		logoutBtn.setBorderPainted(false);// 외곽선 없애줌
-		logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
-		logoutBtn.setBackground(commonColor);
-		logoutBtn.setForeground(Color.white);
-
-/*		
-		  loginBtn = new JButton("로그인"); 
-		  loginBtn.setBounds(1190, 20, 100,30);
-		  loginBtn.setOpaque(false); // 투명하게 loginBtn.setBorderPainted(false);//
-		  loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
-		  loginBtn.setBackground(commonColor);
-		  loginBtn.setForeground(Color.white);
-		 */
-		// SignBtn
-
-		signBtn = new JButton("회원가입");
-		signBtn.setBounds(1190, 20, 100,30);
-		signBtn.setOpaque(false); // 투명하게
-		signBtn.setBorderPainted(false);// 외곽선 없애줌
-		signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
-		signBtn.setBackground(commonColor);
-		signBtn.setForeground(Color.white);
-
-		headerPn.add(logoutBtn);
-
-		headerPn.add(signBtn);
+		
+		if(delegator.getCurrent_user()==null) {
+			// loginBtn
+			loginBtn = new JButton("로그인");
+			loginBtn.setBounds(1240, 20, 100, 30);
+			loginBtn.setOpaque(false); // 투명하게
+			loginBtn.setBorderPainted(false);// 외곽선 없애줌
+			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
+			loginBtn.setBackground(commonColor);
+			loginBtn.setForeground(Color.white);
+			loginBtn.addActionListener(this);
+			headerPn.add(loginBtn);
+			
+			// SignBtn
+			signupBtn = new JButton("회원가입");
+			signupBtn.setBounds(1180, 20, 100, 30);
+			signupBtn.setOpaque(false); // 투명하게
+			signupBtn.setBorderPainted(false);// 외곽선 없애줌
+			signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signupBtn.setBackground(commonColor);
+			signupBtn.setForeground(Color.white);
+			signupBtn.addActionListener(this);
+			headerPn.add(signupBtn);			
+		}else {
+			// logoutBtn
+			logoutBtn = new JButton("로그아웃");
+			logoutBtn.setBounds(1240, 20, 100, 30);
+			logoutBtn.setOpaque(false); // 투명하게
+			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
+			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
+			logoutBtn.setBackground(commonColor);
+			logoutBtn.setForeground(Color.white);
+			headerPn.add(logoutBtn);			
+		}
 
 		// 1050
 		// sidePn
@@ -437,7 +440,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		iteminfoPn.add(cateLb);
 
 		// item explanation
-		explanationLb = new JLabel("저품 설명 : " + m_itemDto.getContent());
+		explanationLb = new JLabel("제품 설명 : " + m_itemDto.getContent());
 		explanationLb.setBounds(10, 150, 300, 10 * m_itemDto.getContent().length());
 		explanationLb.setOpaque(true);
 		explanationLb.setBackground(Color.white);
@@ -478,7 +481,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 				this.dispose();
 			}
 
-		} else if (btn == signBtn) {
+		} else if (btn == signupBtn) {
 			delegator.personController.SignUp();
 			this.dispose();
 
@@ -507,27 +510,14 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("프레스확인");
-
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseReleased(MouseEvent e) {}
 }

@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.AbilityBbs;
 import javax.swing.JOptionPane;
 
 import dto.Category;
@@ -12,6 +13,7 @@ import service.CategoryService;
 import service.CategoryServiceImpl;
 import service.ItemBbsService;
 import service.ItemBbsServiceImpl;
+import view.AbilityMain;
 import view.ItemDetail;
 import view.ItemMain;
 import view.ItemWrite;
@@ -20,7 +22,7 @@ import view.Main;
 public class ItemBbsController {
 	   ItemBbsServiceImpl itemService = new ItemBbsService();
 	   CategoryServiceImpl categoryService = new CategoryService();
-	   
+
 	   public void main() {
 		   new Main();
 	   }
@@ -45,6 +47,18 @@ public class ItemBbsController {
 	   public void itemDetail(ItemBbs itemDto) {
 		   new ItemDetail(itemDto);
 	   }
+	   
+	   public void SelectItemCategories(int category_id){
+		   List<ItemBbs> itemList = itemService.SelectItemCategories(category_id);
+		   new ItemMain(itemList);
+	   }	
+	   
+	   
+	   public void SelectAbilityCategories(int category_id){
+		   List<AbilityBbs> abilityList = itemService.SelectAbilityCategories(category_id);
+		   new AbilityMain(abilityList);
+	   }
+
 	   public void searchList(String searchWord){
 		   List<ItemBbs> itemList = itemService.searchList(searchWord);
 		   

@@ -14,7 +14,7 @@ import dto.Person;
 
 public class PersonDao implements PersonDaoImpl {
 
-	//DBConnection DBConnector = new MySqlConnection();
+//	DBConnection DBConnector = new MySqlConnection();
 	DBConnection DBConnector = new OracleConnection();
 
 	/*

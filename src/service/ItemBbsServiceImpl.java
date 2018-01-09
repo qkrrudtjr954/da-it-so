@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import dto.AbilityBbs;
 import dto.ItemBbs;
 
 public interface ItemBbsServiceImpl {
@@ -12,4 +13,6 @@ public interface ItemBbsServiceImpl {
 	public boolean DeleteItemBbsByAdmin(ItemBbs item);
 	public boolean CompleteItemBbsByAdmin(ItemBbs item);
 	public boolean ContinueItemBbsByAdmin(ItemBbs item);
+	public List<ItemBbs> SelectItemCategories(int Category_seq);
+	public List<AbilityBbs> SelectAbilityCategories(int Category_seq);
 }

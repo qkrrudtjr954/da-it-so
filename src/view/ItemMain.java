@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
+import dto.AbilityBbs;
 import dto.ItemBbs;
 import dto.Person;
 
@@ -29,7 +30,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 	//side panel
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 	cate9, detailPn;
-	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
+	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
 	private JTextField searchTextF;
 
 	//list panel
@@ -44,18 +45,18 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 	Color mainGray = new Color(250, 250, 250);
 	Color mainPink = new Color(255, 174, 174);
 
-	List<ItemBbs> itemList;
+	List<ItemBbs> m_itemList;
 	List<ItemBbs> itemSearchList;
 
 	public ItemMain(List<ItemBbs> itemList) {
 		Delegator delegator = Delegator.getInstance();
-		this.itemList = itemList;
+		this.m_itemList = itemList;
 
 		// Header
 		Color commonColor = new Color(218, 0, 0);
 		headerPn = new JPanel();
 		headerPn.setBackground(commonColor);
-		headerPn.setSize(1680, 60);
+		headerPn.setSize(1350, 60);
 		headerPn.setLayout(null);
 
 		// detailPn
@@ -87,32 +88,33 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		if(delegator.getCurrent_user()==null) {
 			// loginBtn
 			loginBtn = new JButton("로그인");
-			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setBounds(1240, 20, 100, 30);
 			loginBtn.setOpaque(false); // 투명하게
 			loginBtn.setBorderPainted(false);// 외곽선 없애줌
 			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
-			loginBtn.setBackground(commonColor);
+			loginBtn.setBackground(mainRed);
 			loginBtn.setForeground(Color.white);
+			loginBtn.addActionListener(this);
 			headerPn.add(loginBtn);
 
 			// SignBtn
-			signBtn = new JButton("회원가입");
-			signBtn.setBounds(1130, 20, 100, 30);
-			signBtn.setOpaque(false); // 투명하게
-			signBtn.setBorderPainted(false);// 외곽선 없애줌
-			signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
-			signBtn.setBackground(commonColor);
-			signBtn.setForeground(Color.white);
-			signBtn.addActionListener(this);
-			headerPn.add(signBtn);
+			signupBtn = new JButton("회원가입");
+			signupBtn.setBounds(1180, 20, 100, 30);
+			signupBtn.setOpaque(false); // 투명하게
+			signupBtn.setBorderPainted(false);// 외곽선 없애줌
+			signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signupBtn.setBackground(mainRed);
+			signupBtn.setForeground(Color.white);
+			signupBtn.addActionListener(this);
+			headerPn.add(signupBtn);			
 		}else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
-			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setBounds(1240, 20, 100, 30);
 			logoutBtn.setOpaque(false); // 투명하게
 			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
-			logoutBtn.setBackground(commonColor);
+			logoutBtn.setBackground(mainRed);
 			logoutBtn.setForeground(Color.white);
 			headerPn.add(logoutBtn);
 		}
@@ -290,13 +292,13 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		listPn.setBackground(mainPink);
 
 		addBtn = new JButton("+");
-		addBtn.setBounds(200, 35, 100, 50);
+		addBtn.setBounds(170, 35, 100, 50);
 		addBtn.addActionListener(this);
 
 		// thumPn
 		thumPn = new JPanel();
 		thumPn.setLayout(null);
-		thumPn.setBounds(15, 50, 500, 120);
+		thumPn.setBounds(15, 50, 440, 120);
 		thumPn.setBorder(new LineBorder(mainRed, 1));
 		thumPn.setBackground(Color.white);
 		thumPn.add(addBtn);
@@ -308,13 +310,15 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			thumPn1.setLayout(null);
 
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
-				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
+				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
+
 				if(itemList.get(i).getImgurl1() == null) {
 					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
 				}else {
 					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
 				}
 				txtLa = new JLabel(itemList.get(i).getTitle());
+
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -323,6 +327,9 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 				j++;
 
 			} else {
+
+				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
+
 				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
 				if(itemList.get(i).getImgurl1() == null) {
 					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
@@ -330,6 +337,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
 				}
 				txtLa = new JLabel(itemList.get(i).getTitle());
+
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -351,13 +359,13 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		listPn.add(thumPn);
 		JScrollPane scroll;
 		scroll = new JScrollPane(listPn);
-		scroll.setBounds(400, 60, 1280, 990);
+		scroll.setBounds(400, 60, 935, 990);
 		scroll.setBackground(mainPink);
 		add(sidePn);
 		add(headerPn);
 		add(scroll);
 
-		setBounds(0, 0, 1680, 730);
+		setBounds(0, 0, 1350, 750);
 
 		setLayout(null);
 		setVisible(true);
@@ -377,75 +385,78 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 			if(personDto == null) {
 				delegator.personController.Login();
-			}else{
+				this.dispose();
+			}else {
 				delegator.itemBbsController.itemWrite(personDto);
 				this.dispose();
-			}
-
+			}	
+		}else if(obj == loginBtn) {
+			delegator.personController.Login();
+			this.dispose();
+		}else if(obj == signupBtn) {
+			delegator.personController.SignUp();
+			this.dispose();
+		}else if(obj == logoutBtn) {
+			delegator.personController.Logout();
+			this.dispose();
 		}else if(obj == searchBtn) {
 			System.out.println("searchBtn Click");
 			String searchWord = searchTextF.getText();
 			System.out.println("searchTextF :" + searchTextF);
-//			List<ItemBbs> searchList = new ArrayList<ItemBbs>();
 			
 			delegator.itemBbsController.searchList(searchWord);
-			
+
 		}
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JPanel thumPn1 = (JPanel)e.getComponent();
 
+		Object obj = e.getSource();
 		System.out.println("x,y ==>"+thumPn1.getX() +"," +thumPn1.getY());
 
 		Delegator delegator = Delegator.getInstance();
 		ItemBbs itemSelect = null;
 
-		int i =0;
-		int j =0;
+		if(obj != headerLogo) {
+			int i =0;
+			int j =0;
+			
+			//x좌표가 15면 0 525면 1
+			if(thumPn1.getX()==15) {
+				i=0;
+			}else if(thumPn1.getX()==460) {
+				i=1;
+			}
 
-		//x좌표가 15면 0 525면 1
-		if(thumPn1.getX()==15) {
-			i=0;
-		}else if(thumPn1.getX()==525) {
-			i=1;
-		}
-
-		//y좌표를 170으로 나눈값
-		j = thumPn1.getY()/170;
-
-		//0번 리스트 일땐 x좌표와 y좌표가 525,50 일때 로 고정
-		//0번을 제외한 나머지는 i+j 의 list값을 get
-		if(thumPn1.getX()==525 && thumPn1.getY()==50) {
-			itemSelect = itemList.get(0);
-			delegator.itemBbsController.itemDetail(itemSelect);
+			j = thumPn1.getY()/170;
+			
+			//0번 리스트 일땐 x좌표와 y좌표가 525,50 일때 로 고정
+			//0번을 제외한 나머지는 i+j 의 list값을 get
+			if(!m_itemList.isEmpty()) {
+				if(thumPn1.getX()==460 && thumPn1.getY()==50) {
+					itemSelect = m_itemList.get(0);
+					delegator.itemBbsController.itemDetail(itemSelect);
+					this.dispose();
+				}else { 
+					itemSelect = m_itemList.get(i+j);
+					delegator.itemBbsController.itemDetail(itemSelect);
+					this.dispose();
+				}
+			}
 		}else {
-			itemSelect = itemList.get(i+j);
-			delegator.itemBbsController.itemDetail(itemSelect);
+			delegator.mainController.Main();
+			this.dispose();
 		}
 
 	}
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mousePressed(MouseEvent e) {}
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseReleased(MouseEvent e) {}
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseEntered(MouseEvent e) {}
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-
+	public void mouseExited(MouseEvent e) {}
 
 }

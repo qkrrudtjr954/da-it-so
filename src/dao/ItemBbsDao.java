@@ -19,11 +19,12 @@ import dto.Person;
 public class ItemBbsDao implements ItemBbsDaoImpl{
 
 	DBConnection DBConnector = new OracleConnection();
-	// DBConnection DBConnector = new MySqlConnection();
+//	DBConnection DBConnector = new MySqlConnection();
+
 
 	public List<ItemBbs> allItemList() {
 
-		String sql = "SELECT * FROM ITEM_BBS";
+		String sql = "SELECT * FROM ITEM_BBS ORDER BY CREATED_AT";
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
@@ -41,7 +42,8 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 			while (rs.next()) {
 				ItemBbs itemdto = new ItemBbs();
 
-				itemdto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				itemdto.setSeq(rs.getInt("SEQ"));
+				itemdto.setCategory_id(rs.getInt("CATEGORY_ID"));
 				itemdto.setTitle(rs.getString("TITLE"));
 				itemdto.setImgurl1(rs.getString("IMGURL1"));
 				itemdto.setImgurl2(rs.getString("IMGURL2"));
@@ -103,6 +105,60 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		return count > 0 ? true : false;
 	}
 
+	public List<ItemBbs> SelectItemCategories(int category_id) {
+
+		String sql;
+		
+		if(DBConnector.getClass().getName().equals("db.mysql")) {
+			sql = "";
+		}else {
+			sql = "SELECT * FROM ITEM_BBS WHERE CATEGORY_ID = "+ category_id;
+		}
+		
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+
+		List<ItemBbs> itemList = new ArrayList<>();
+		ResultSet rs = null;
+
+		System.out.println(">>>	CategoryDao .SelectItemCategories() sql : " + sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
+
+			while (rs.next()) {
+			ItemBbs itemBbs = new ItemBbs();
+			
+			itemBbs.setSeq(rs.getInt("SEQ"));
+			itemBbs.setCategory_id(rs.getInt("CATEGORY_ID"));
+			itemBbs.setTitle(rs.getString("TITLE"));
+			itemBbs.setImgurl1(rs.getString("IMGURL1"));
+			itemBbs.setImgurl2(rs.getString("IMGURL2"));
+			itemBbs.setImgurl3(rs.getString("IMGURL3"));
+			itemBbs.setImgurl4(rs.getString("IMGURL4"));
+			itemBbs.setPrice(rs.getInt("PRICE"));
+			itemBbs.setKeyword(rs.getString("KEYWORD"));
+			itemBbs.setContent(rs.getString("CONTENT"));
+			itemBbs.setCreated_at(rs.getString("CREATED_AT"));
+			itemBbs.setUser_id(rs.getString("USER_ID"));
+			itemBbs.setState(rs.getInt("STATE"));
+			
+			
+
+			itemList.add(itemBbs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+
+		return itemList;
+	}
+
 	@Override
 	public List<ItemBbs> searchList(String searchWord) {
 
@@ -150,16 +206,65 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBClose.close(ptmt, conn, rs);
 		}
-
-		searchlist.stream().forEach(System.out::println);
-
 		return searchlist;
 	}
 
+	
+	public List<AbilityBbs> SelectAbilityCategories(int category_id) {
 
+		String sql;
+		
+		if(DBConnector.getClass().getName().equals("db.mysql")) {
+			sql = "";
+		}else {
+			sql = "SELECT * FROM ABILITY_BBS WHERE CATEGORY_ID = "+ category_id;
+		}
+		
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+
+		List<AbilityBbs> abilityList = new ArrayList<>();
+		ResultSet rs = null;
+
+		System.out.println(">>>	CategoryDao .SelectCategories() sql : " + sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
+
+			while (rs.next()) {
+			AbilityBbs abilityBbs = new AbilityBbs();
+			
+			abilityBbs.setSeq(rs.getInt("SEQ"));
+			abilityBbs.setCategory_id(rs.getInt("CATEGORY_ID"));
+			abilityBbs.setTitle(rs.getString("TITLE"));
+			abilityBbs.setImgurl1(rs.getString("IMGURL1"));
+			abilityBbs.setImgurl2(rs.getString("IMGURL2"));
+			abilityBbs.setImgurl3(rs.getString("IMGURL3"));
+			abilityBbs.setImgurl4(rs.getString("IMGURL4"));
+			abilityBbs.setAbility(rs.getString("ABILITY"));
+			abilityBbs.setContent(rs.getString("CONTENT"));
+			abilityBbs.setCreated_at(rs.getString("CREATED_AT"));
+			abilityBbs.setUser_id(rs.getString("USER_ID"));
+			abilityBbs.setState(rs.getInt("STATE"));
+			
+			
+
+			abilityList.add(abilityBbs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+
+		return abilityList;
+	}
 
 	public List<ItemBbs> getAllItemBbs() {
 

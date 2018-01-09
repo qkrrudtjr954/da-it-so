@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import db.DBClose;
 import db.DBConnection;
 import db.OracleConnection;
@@ -21,7 +20,8 @@ public class AbilityDao implements AbilityDaoImpl {
 
 	public List<AbilityBbs> allAbilityList() {
 
-		String sql = " SELECT * FROM ABILITY_BBS";
+
+		String sql = "SELECT * FROM ABILITY_BBS ORDER BY CREATED_AT";
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
@@ -29,12 +29,12 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		List<AbilityBbs> AbilityList = new ArrayList<>();
 
-		System.out.println(">>>	AbilityBbsDao .allItemList() sql : " + sql);
+		System.out.println(">>>	AbilityBbsDao .allAbilityList() sql : " + sql);
 
 		try {
 
 			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // query 瑜� �떎�뻾�븯�씪 洹몃━怨� 洹� 媛믪쓣 rs�뿉 ���옣�빐�씪.
+			rs = pstmt.executeQuery(); // query
 			System.out.println("1-6 ssuc");
 
 
@@ -83,12 +83,13 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery(sql); // query 瑜� �떎�뻾�븯�씪 洹몃━怨� 洹� 媛믪쓣 rs�뿉 ���옣�빐�씪.
+			rs = pstmt.executeQuery(sql); // query
 
 			while (rs.next()) {
 				AbilityBbs abilityDto = new AbilityBbs();
 
-				abilityDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				abilityDto.setSeq(rs.getInt("SEQ"));
+				abilityDto.setCategory_id(rs.getInt("CATEGORY_ID"));
 				abilityDto.setTitle(rs.getString("TITLE"));
 				abilityDto.setImgurl1(rs.getString("IMGURL1"));
 				abilityDto.setImgurl2(rs.getString("IMGURL2"));
@@ -139,7 +140,7 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			count = pstmt.executeUpdate(); // query 瑜� �떎�뻾�븯�씪 洹몃━怨� 洹� 媛믪쓣 rs�뿉 ���옣�빐�씪.
+			count = pstmt.executeUpdate(); // query
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -163,7 +164,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		String sql = " SELECT * FROM ABILITY_BBS "
 				+ " WHERE TITLE LIKE '%" + searchWord +"%'"
 				+ " OR CONTENT LIKE '%" + searchWord + "%'"
-				+ " OR ABILITY LIKE '%" + searchWord + "%'";//�젣紐� 而⑦뀗痢� �궎�썙�뱶
+				+ " OR ABILITY LIKE '%" + searchWord + "%'";
 
 		System.out.println(">>> AbilityDao.searchList()sql: " + sql);
 		//select * from item_bbs where title like %something% or content like %something% or ability like %something%;

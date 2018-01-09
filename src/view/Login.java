@@ -26,18 +26,14 @@ import dto.Person;
 
 public class Login extends JFrame implements ActionListener {
 
-	private JButton loginBtn, logoutBtn, signBtn;
+	private JButton signupBtn;
 	private JTextField id;
 	private JPasswordField pwd;
 	private JButton signInBtn;
-	
-	
-
-	private JFileChooser jfc = new JFileChooser();
 
 	public Login() {
 
-		String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
+		String icomImgimgUrl = "c:\\icon\\";
 
 		JPanel headerPn;
 
@@ -52,10 +48,9 @@ public class Login extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-
+		
 		// mainView
 		Container contentPane = getContentPane();
-
 
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
@@ -63,8 +58,19 @@ public class Login extends JFrame implements ActionListener {
 		
 		headerPn = new JPanel();
 		headerPn.setBackground(commonRedColor);
-		headerPn.setSize(1680, 60);
+		headerPn.setSize(1350, 60);
 		headerPn.setLayout(null);
+		
+		// signupBtn
+		signupBtn = new JButton("회원가입");
+		signupBtn.setBounds(1180, 20, 100, 30);
+		signupBtn.setOpaque(false); // 투명하게
+		signupBtn.setBorderPainted(false);// 외곽선 없애줌
+		signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+		signupBtn.setBackground(commonRedColor);
+		signupBtn.setForeground(Color.white);
+		signupBtn.addActionListener(this);
+		headerPn.add(signupBtn);	
 
 		Delegator delegator = Delegator.getInstance();
 
@@ -75,44 +81,10 @@ public class Login extends JFrame implements ActionListener {
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
 				delegator.mainController.Main();
+				dispose();
 			}
 		});
-		headerPn.add(headerLogo);
-		
-		
-		if(delegator.getCurrent_user()==null) {
-			// loginBtn
-			loginBtn = new JButton("로그인");
-			loginBtn.setBounds(1190, 20, 100, 30);
-			loginBtn.setOpaque(false); // 투명하게
-			loginBtn.setBorderPainted(false);// 외곽선 없애줌
-			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
-			loginBtn.setBackground(commonRedColor);
-			loginBtn.setForeground(Color.white);
-			headerPn.add(loginBtn);
-			
-			// SignBtn
-			signBtn = new JButton("회원가입");
-			signBtn.setBounds(1130, 20, 100, 30);
-			signBtn.setOpaque(false); // 투명하게
-			signBtn.setBorderPainted(false);// 외곽선 없애줌
-			signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
-			signBtn.setBackground(commonRedColor);
-			signBtn.setForeground(Color.white);
-			signBtn.addActionListener(this);
-			headerPn.add(signBtn);			
-		}else {
-			// logoutBtn
-			logoutBtn = new JButton("로그아웃");
-			logoutBtn.setBounds(1250, 20, 100, 30);
-			logoutBtn.setOpaque(false); // 투명하게
-			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
-			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
-			logoutBtn.setBackground(commonRedColor);
-			logoutBtn.setForeground(Color.white);
-			headerPn.add(logoutBtn);			
-		}
-		
+		headerPn.add(headerLogo);		
 		contentPane.add(headerPn);
 		
 
@@ -120,14 +92,14 @@ public class Login extends JFrame implements ActionListener {
 		JPanel main = new JPanel();
 		main.setLayout(null);
 		main.setBackground(new Color(250, 250, 250));
-		main.setBounds(0, 60, 1680, 990);
+		main.setBounds(0, 0, 1350, 750);
 				
 		// login area
 		JPanel login = new JPanel();
 		login.setLayout(null);
 		login.setBackground(Color.white);
 		login.setBorder(new LineBorder(commonRedColor, 3));
-		login.setLocation(340, 200);
+		login.setLocation(170, 110);
 		login.setSize(1000, 550);
 		
 		JPanel loginLogo = new JPanel() {
@@ -142,11 +114,12 @@ public class Login extends JFrame implements ActionListener {
 		};
 		
 		loginLogo.setBounds(350, 80, 300, 70);
+
 		login.add(loginLogo);
 		
 		Font labelFont = new Font("fonts", Font.BOLD, 20);
 		
-		JLabel idLabel = new JLabel("email");
+		JLabel idLabel = new JLabel("e-mail");
 		idLabel.setBounds(150, 220, 150, 50);
 		idLabel.setFont(labelFont);
 		login.add(idLabel);
@@ -156,7 +129,7 @@ public class Login extends JFrame implements ActionListener {
 		id.setBackground(commonGrayColor);
 		login.add(id);
 		
-		JLabel pwdLabel = new JLabel("password");
+		JLabel pwdLabel = new JLabel("Password");
 		pwdLabel.setBounds(150, 310, 150, 50);
 		pwdLabel.setFont(labelFont);
 		login.add(pwdLabel);
@@ -175,7 +148,7 @@ public class Login extends JFrame implements ActionListener {
 		main.add(login);
 		contentPane.add(main);
 		
-		setBounds(0, 0, 1680, 730);
+		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
 
@@ -201,26 +174,23 @@ public class Login extends JFrame implements ActionListener {
 				
 				if(person != null) {
 					//	login success
-					if(person.getId().equals("admin")) {
+					_id = person.getId();
+					if(_id.equals("admin")) {
+						System.out.println("Admin Login");
 						delegator.adminController.AdminMain();
 						this.dispose();
 					}else {
+						System.out.println("User Login");
 						delegator.mainController.Main();
-						this.dispose();						
+						this.dispose();
 					}
-					
 				}else {
 					//	login fail
 					JOptionPane.showMessageDialog(null, "wrong password");
 					pwd.setText("");
 				}				
 			}
-		}else if(obj == loginBtn) {
-			delegator.personController.Login();
-		}else if(obj == logoutBtn) {
-			delegator.personController.Logout();
-			this.dispose();
-		}else if(obj == signBtn) {
+		}else if(obj == signupBtn) {
 			delegator.personController.SignUp();
 			this.dispose();
 		}
