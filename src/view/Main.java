@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -21,6 +23,8 @@ public class Main extends JFrame implements ActionListener {
 	
 	private JButton loginBtn, logoutBtn, signupBtn;
 	private JButton item, ability;
+	
+	JButton test;
 	
 	public Main() {
 
@@ -41,8 +45,7 @@ public class Main extends JFrame implements ActionListener {
 
 		// mainView
 		Container contentPane = getContentPane();
-
-
+		
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		Color commonGrayColor = new Color(250, 250, 250);

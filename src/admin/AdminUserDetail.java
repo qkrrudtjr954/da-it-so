@@ -198,7 +198,7 @@ public class AdminUserDetail extends JFrame implements ActionListener {
 		// main view
 		JPanel main = new JPanel();
 		main.setLayout(new GridLayout(5,  1));
-		main.setBounds(400, 60, 1280, 500);
+		main.setBounds(400, 60, 1280, 330);
 		
 		JPanel userIDPanel = new JPanel();
 		userIDPanel.setLayout(null);
@@ -295,11 +295,20 @@ public class AdminUserDetail extends JFrame implements ActionListener {
 
 				Delegator delegator = Delegator.getInstance();
 				delegator.adminController.AdminAbilityDetail(abilityList.get(index));
+				dispose();
 			}
 		});
 		
+		JLabel alabel = new JLabel();
+		alabel.setText("인력글 작성 현황");
+		alabel.setBounds(400, 390, 475, 20);
+		alabel.setFont(new Font("font", Font.BOLD, 17));
+		alabel.setBackground(commonRedColor);
+		alabel.setForeground(Color.white);
+		contentPane.add(alabel);
+		
 		JScrollPane aScrPane = new JScrollPane(atable);
-		aScrPane.setBounds(400, 560, 475, 690);
+		aScrPane.setBounds(400, 410, 475, 690);
 		contentPane.add(aScrPane);
 
 		
@@ -332,8 +341,17 @@ public class AdminUserDetail extends JFrame implements ActionListener {
 			}
 		});
 		
+		JLabel ilabel = new JLabel();
+		ilabel.setText("상품글 작성 현황");
+		ilabel.setBounds(880, 390, 475, 20);
+		ilabel.setFont(new Font("font", Font.BOLD, 17));
+		ilabel.setBackground(commonRedColor);
+		ilabel.setForeground(Color.white);
+		contentPane.add(ilabel);
+		
+		
 		JScrollPane iScrPane = new JScrollPane(itable);
-		iScrPane.setBounds(880, 560, 475, 690);
+		iScrPane.setBounds(880, 410, 475, 690);
 		contentPane.add(iScrPane);
 		
 

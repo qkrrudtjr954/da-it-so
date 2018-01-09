@@ -6,17 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import db.DBClose;
 import db.DBConnection;
-import db.OracleConnection;
+import db.MySqlConnection;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl {
 
-//	 DBConnection DBConnector = new MySqlConnection();
-	DBConnection DBConnector = new OracleConnection();
+	 DBConnection DBConnector = new MySqlConnection();
+//	DBConnection DBConnector = new OracleConnection();
 
 	public List<AbilityBbs> allAbilityList() {
 
@@ -211,7 +212,7 @@ public class AbilityDao implements AbilityDaoImpl {
 	
 	public List<AbilityBbs> getAbilityBbsByUserId(String user_id){
 		
-		String sql = " selec * from ability_bbs where user_id='"+user_id+"'";
+		String sql = " select * from ability_bbs where user_id='"+user_id+"'";
 		
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;

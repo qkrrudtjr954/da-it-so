@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -23,7 +24,7 @@ import javax.swing.border.LineBorder;
 import delegator.Delegator;
 import dto.AbilityBbs;
 
-public class AdminAbilityList extends JFrame implements ActionListener, MouseListener {
+public class AdminAbilityList extends JFrame implements ActionListener {
 
 	private JButton searchBtn;
 	private JTextField searchTextF;
@@ -152,7 +153,17 @@ public class AdminAbilityList extends JFrame implements ActionListener, MouseLis
 			JPanel itemPanel = new JPanel();
 			itemPanel.setBounds(10, i*itemHeight, 930, itemHeight);
 			itemPanel.setBorder(new LineBorder(commonRedColor));
-			itemPanel.addMouseListener(this);
+			itemPanel.setName(i+"");
+			itemPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					int index = Integer.parseInt(itemPanel.getName());
+					System.out.println(index);
+					Delegator delegator = Delegator.getInstance();
+					delegator.adminController.AdminAbilityDetail(abilityList.get(index));
+				}
+			});
 			itemPanel.setLayout(null);
 			itemPanel.setBackground(Color.white);
 			
@@ -223,41 +234,6 @@ public class AdminAbilityList extends JFrame implements ActionListener, MouseLis
 		} else if(obj == chatBtn) {
 			delegator.roomController.RoomList();
 		}
-	}
-	
-	@Override
-	public void mousePressed(MouseEvent e) {
-		int y = e.getY();
-		
-		if( (y/itemHeight) < abilityList.size()) {
-			Delegator delegator = Delegator.getInstance();
-			delegator.adminController.AdminAbilityDetail(abilityList.get(y/itemHeight));
-			this.dispose();
-		}
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

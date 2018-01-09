@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnection;
+import db.MySqlConnection;
 import db.OracleConnection;
 import delegator.Delegator;
 import dto.ChatDto;
 
 public class ChatDao implements ChatDaoImpl{
-	DBConnection DBConnector = new OracleConnection();
+//	DBConnection DBConnector = new OracleConnection();
+	DBConnection DBConnector = new MySqlConnection();
 
     public List<ChatDto> getChatByRoomSeq(int seq){
         String sql = "select * from chat where room_id="+seq+" order by seq";

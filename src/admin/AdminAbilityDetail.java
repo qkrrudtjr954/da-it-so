@@ -352,6 +352,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 		backBtn.setBounds(630, 540, 240, 35);
 		backBtn.setBorder(new LineBorder(commonRedColor));
 		backBtn.addActionListener(this);
+		detailPn.add(backBtn);
 
 		detailPn.add(iteminfoPn);
 
