@@ -40,13 +40,13 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
-	private JLabel SidecategoryLn[][];
+	private JLabel SidecategoryPn[][];
 	
-	List<Category> categoryList = null;
+	List<Category> m_categoryList = null;
 
 	public ItemWrite(List<Category> categoryList) {
 		Delegator delegator = Delegator.getInstance();
-		this.categoryList = categoryList;
+		this.m_categoryList = categoryList;
 
 		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, contentLb, priceLb;
 
@@ -81,10 +81,10 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		// mainView
 		Container cn = getContentPane();
 
-		cn.setBounds(0, 0, 1680, 1050);
+		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
-		setBounds(0, 0, 1680, 1050);
+		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
 
@@ -92,7 +92,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		Color commonColor = new Color(218, 0, 0);
 		headerPn = new JPanel();
 		headerPn.setBackground(commonColor);
-		headerPn.setSize(1680, 60);
+		headerPn.setSize(1350, 60);
 		headerPn.setLayout(null);
 
 		// headerlogo
@@ -166,7 +166,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		catePn.setBackground(Color.WHITE);
 
 		int rowSize = 0;
-		SidecategoryLn = new JLabel[categoryList.size()][3];
+		SidecategoryPn = new JLabel[categoryList.size()][3];
 
 		if (categoryList.size() % 3 == 0) {
 			rowSize = categoryList.size() / 3;
@@ -180,13 +180,13 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			for (int j = 0; j < categoryList.size(); j++) {
 				String imgURL = "C:\\icon\\";
 				ImageIcon imgIcon = new ImageIcon(imgURL + k + ".png");
-				SidecategoryLn[i][j] = new JLabel(imgIcon);
-				SidecategoryLn[i][j].setOpaque(true);
-				SidecategoryLn[i][j].setSize(110, 110);
-				SidecategoryLn[i][j].setLocation((j * 120), (i * 120));
-				SidecategoryLn[i][j].addMouseListener(this);
+				SidecategoryPn[i][j] = new JLabel(imgIcon);
+				SidecategoryPn[i][j].setOpaque(true);
+				SidecategoryPn[i][j].setSize(110, 110);
+				SidecategoryPn[i][j].setLocation((j * 120), (i * 120));
+				SidecategoryPn[i][j].addMouseListener(this);
 
-				catePn.add(SidecategoryLn[i][j]);
+				catePn.add(SidecategoryPn[i][j]);
 				k++;
 			}
 		}
@@ -202,7 +202,6 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		cateLb.setBounds(100, 100, 100, 30);
 		writePn.add(cateLb);
 
-		// String item[] = {"1","2","3","4","5","6","7","8","9"};
 		String category[] = new String[categoryList.size()];
 
 		for (int i = 0; i < category.length; i++) {
@@ -335,7 +334,6 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 				filename1 = jfc.getSelectedFile().getName();
 			}
 		}
-
 		if (obj == imgAdd2) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
@@ -343,7 +341,6 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 				filename2 = jfc.getSelectedFile().getName();
 			}
 		}
-
 		if (obj == imgAdd3) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
@@ -351,7 +348,6 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 				filename3 = jfc.getSelectedFile().getName();
 			}
 		}
-
 		if (obj == imgAdd4) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
@@ -359,9 +355,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 				filename4 = jfc.getSelectedFile().getName();
 			}
 		}
-
-		if (e.getActionCommand().equals("등록")) {
-
+		if (obj == writeBtn) {
 			if (!img1TextF.getText().isEmpty()) {
 				filesend fs = new filesend(img1TextF.getText());
 			}
@@ -378,7 +372,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			ItemBbs itemDto = new ItemBbs();
 			
 			int categoryIndex = cateCombo.getSelectedIndex();
-			itemDto.setCategory_id(this.categoryList.get(categoryIndex).getSeq());
+			itemDto.setCategory_id(this.m_categoryList.get(categoryIndex).getSeq());
 			itemDto.setTitle(titleTextF.getText());
 			itemDto.setImgurl1(img1TextF.getText());
 			itemDto.setImgurl2(img2TextF.getText());
@@ -392,12 +386,17 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			ItemBbsService itemservice = new ItemBbsService();
 
 			boolean addItemCK = itemservice.addItem(itemDto);
+			boolean priceCK = false; 
 			System.out.println("addItemCK" + addItemCK);
 			if (addItemCK) {
 				delegator.itemBbsController.itemDetail(itemDto);
 				this.dispose();
-			} else {
+			} else if( priceCK ) { 
+				JOptionPane.showMessageDialog(null, "금액은 숫자만 입력 가능합니다.");
+				return;
+			}else {
 				JOptionPane.showMessageDialog(null, "글작성 실패");
+				return;
 			}
 
 		}

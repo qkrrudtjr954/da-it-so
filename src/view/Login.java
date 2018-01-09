@@ -63,7 +63,7 @@ public class Login extends JFrame implements ActionListener {
 		
 		// signupBtn
 		signupBtn = new JButton("회원가입");
-		signupBtn.setBounds(1180, 20, 100, 30);
+		signupBtn.setBounds(1240, 20, 100, 30);
 		signupBtn.setOpaque(false); // 투명하게
 		signupBtn.setBorderPainted(false);// 외곽선 없애줌
 		signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));

@@ -45,7 +45,8 @@ public class ItemBbsController {
 	   }
 	   
 	   public void itemDetail(ItemBbs itemDto) {
-		   new ItemDetail(itemDto);
+		   List<Category> categoryList = categoryService.getAllCategories(0);
+		   new ItemDetail(itemDto, categoryList);
 	   }
 	   
 	   public void SelectItemCategories(int category_id){

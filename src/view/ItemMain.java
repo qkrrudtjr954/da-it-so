@@ -327,10 +327,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 				j++;
 
 			} else {
-
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
-
-				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
 				if(itemList.get(i).getImgurl1() == null) {
 					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
 				}else {
@@ -374,9 +371,8 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Delegator delegator = Delegator.getInstance();
-		Person personDto = null;
-		ItemBbs Idto = null;
 		Object obj = e.getSource();
+		Person personDto = null;
 
 		if( obj== addBtn ) {
 			System.out.println("addBtn Click");
@@ -422,7 +418,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			int i =0;
 			int j =0;
 			
-			//x좌표가 15면 0 525면 1
+			//x좌표가 15면 0 460면 1
 			if(thumPn1.getX()==15) {
 				i=0;
 			}else if(thumPn1.getX()==460) {
