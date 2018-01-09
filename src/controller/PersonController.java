@@ -24,7 +24,7 @@ public class PersonController {
 		Delegator delegator = Delegator.getInstance();
 		delegator.setCurrent_user(null);
 		
-		JOptionPane.showMessageDialog(null, "Sing out successfully");
+		JOptionPane.showMessageDialog(null, "Sign out successfully");
 		
 		delegator.mainController.Main();
 	}

@@ -9,19 +9,19 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
-import db.MySqlConnection;
+import db.OracleConnection;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl {
 
-	 DBConnection DBConnector = new MySqlConnection();
-//	DBConnection DBConnector = new OracleConnection();
+//	 DBConnection DBConnector = new MySqlConnection();
+	DBConnection DBConnector = new OracleConnection();
 
 	public List<AbilityBbs> allAbilityList() {
 
-		String sql = "SELECT * FROM ABILITY_BBS";
+		String sql = "SELECT * FROM ABILITY_BBS ORDER BY CREATED_AT";
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
@@ -29,7 +29,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		ResultSet rs = null;
 		List<AbilityBbs> AbilityList = new ArrayList<>();
 
-		System.out.println(">>>	AbilityBbsDao .allItemList() sql : " + sql);
+		System.out.println(">>>	AbilityBbsDao .allAbilityList() sql : " + sql);
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -82,7 +82,8 @@ public class AbilityDao implements AbilityDaoImpl {
 			while (rs.next()) {
 				AbilityBbs abilityDto = new AbilityBbs();
 
-				abilityDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				abilityDto.setSeq(rs.getInt("SEQ"));
+				abilityDto.setCategory_id(rs.getInt("CATEGORY_ID"));
 				abilityDto.setTitle(rs.getString("TITLE"));
 				abilityDto.setImgurl1(rs.getString("IMGURL1"));
 				abilityDto.setImgurl2(rs.getString("IMGURL2"));

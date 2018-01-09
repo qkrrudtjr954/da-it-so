@@ -27,20 +27,11 @@ import dto.ItemBbs;
 public class Main extends JFrame implements ActionListener {
 
 	private JButton loginBtn, logoutBtn, signupBtn;
-	private JTextField id;
-	private JPasswordField pwd;
-	private JButton signInBtn;
-	
 	private JButton item, ability;
 	
-	
-	
-	// 메인 테그트ㅡㅡㅡ
-	private JFileChooser jfc = new JFileChooser();
-
 	public Main() {
 
-		String commonImgUrl = "/Users/parker/Desktop/img/icon/";
+		String commonImgUrl = "c:\\icon\\";
 
 		JPanel headerPn;
 
@@ -78,7 +69,7 @@ public class Main extends JFrame implements ActionListener {
 		if(delegator.getCurrent_user()==null) {
 			// loginBtn
 			loginBtn = new JButton("로그인");
-			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setBounds(1240, 20, 100, 30);
 			loginBtn.setOpaque(false); // 투명하게
 			loginBtn.setBorderPainted(false);// 외곽선 없애줌
 			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
@@ -89,7 +80,7 @@ public class Main extends JFrame implements ActionListener {
 			
 			// SignBtn
 			signupBtn = new JButton("회원가입");
-			signupBtn.setBounds(1130, 20, 100, 30);
+			signupBtn.setBounds(1180, 20, 100, 30);
 			signupBtn.setOpaque(false); // 투명하게
 			signupBtn.setBorderPainted(false);// 외곽선 없애줌
 			signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
@@ -100,7 +91,7 @@ public class Main extends JFrame implements ActionListener {
 		}else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
-			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setBounds(1240, 20, 100, 30);
 			logoutBtn.setOpaque(false); // 투명하게
 			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
@@ -117,30 +108,29 @@ public class Main extends JFrame implements ActionListener {
 		JPanel main = new JPanel();
 		main.setLayout(null);
 		main.setBackground(new Color(250, 250, 250));
-		main.setBounds(0, 60, 1680, 990);
+		main.setBounds(0, 0, 1350, 750);
 				
 		
 		JPanel center = new JPanel();
 		center.setLayout(null);
-		center.setBackground(Color.black);
 		center.setBorder(new LineBorder(commonRedColor, 3));
-		center.setLocation(340, 200);
+		center.setLocation(170, 110);
 		center.setSize(1000, 550);
 		
 		
 		item = new JButton("item");
-		item.setBounds(100, 100, 400, 350);
+		item.setBounds(90, 100, 400, 350);
 		item.addActionListener(this);
 		center.add(item);
 		
 		ability = new JButton("ability");
-		ability.setBounds(500, 100, 400, 350);
+		ability.setBounds(510, 100, 400, 350);
 		ability.addActionListener(this);
 		center.add(ability);
 		
 		contentPane.add(center);
-		
-		setBounds(0, 0, 1680, 730);
+
+		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
 
