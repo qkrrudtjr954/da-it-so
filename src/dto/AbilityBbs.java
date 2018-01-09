@@ -22,9 +22,10 @@ public class AbilityBbs implements Serializable{
 
 
 
-	public AbilityBbs(int category_id, String user_id, String title, String imgurl1, String imgurl2, String imgurl3,
-			String imgurl4, String ability, String content, int state) {
+	public AbilityBbs(int seq, int category_id, String user_id, String title, String imgurl1, String imgurl2, String imgurl3,
+			String imgurl4, String ability, String content, int state, String created_at) {
 		super();
+		this.seq = seq;
 		this.category_id = category_id;
 		this.user_id = user_id;
 		this.title = title;
@@ -35,6 +36,8 @@ public class AbilityBbs implements Serializable{
 		this.ability = ability;
 		this.content = content;
 		this.state = state;
+		this.created_at = created_at;
+
 	}
 
 
@@ -118,6 +121,13 @@ public class AbilityBbs implements Serializable{
 		this.content = content;
 	}
 
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
 	public String getCreated_at() {
 		return created_at;
 	}
@@ -126,19 +136,16 @@ public class AbilityBbs implements Serializable{
 		this.created_at = created_at;
 	}
 
-	public int getState() {
-		return state;
-	}
 
-	public void setState(int state) {
-		this.state = state;
-	}
 
 	@Override
 	public String toString() {
 		return "AbilityBbs [seq=" + seq + ", category_id=" + category_id + ", user_id=" + user_id + ", title=" + title
-				+ ", imgurl1=" + imgurl1 + ", imgurl2=" + imgurl2 + ", imgurl3=" + imgurl3 + ", ability=" + ability
-				+ ", content=" + content + ", created_at=" + created_at + ", state=" + state + "]";
+				+ ", imgurl1=" + imgurl1 + ", imgurl2=" + imgurl2 + ", imgurl3=" + imgurl3 + ", imgurl4=" + imgurl4
+				+ ", ability=" + ability + ", content=" + content + ", created_at=" + created_at + ", state=" + state
+				+ "]";
 	}
+
+
 
 }

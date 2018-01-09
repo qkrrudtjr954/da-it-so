@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import dto.AbilityBbs;
 import dto.Category;
 import dto.Person;
@@ -25,9 +27,10 @@ public class AbilityBbsController {
    public void allAbilityList() {
 	   List<AbilityBbs> abilityDto = abilityService.allAbilityList();
 	   if(abilityDto.isEmpty()) {
-		   abilityDto = new ArrayList<>();
+		  abilityDto = new ArrayList<>();
+		    
 	   }
-	   new AbilityMain(abilityDto);
+	  new AbilityMain(abilityDto);
    }
 
    public void AbilityWrite(Person personDto) {
@@ -41,7 +44,14 @@ public class AbilityBbsController {
 	   new AbilityDetail(abilityDto);
    }
 
-   public List<AbilityBbs> searchList(String searchWord){
-	   return abilityService.searchList(searchWord);
+   public void searchList(String searchWord){
+	   List<AbilityBbs> searchList = abilityService.searchList(searchWord);
+	   if(searchList.size() == 0) {
+		   JOptionPane.showMessageDialog(null, "검색 결과가 없습니다. ");
+		   searchList = abilityService.allAbilityList();
+		   new AbilityMain(searchList);
+	   }else {
+		   new AbilityMain(searchList);		   
+	   }
    }
 }

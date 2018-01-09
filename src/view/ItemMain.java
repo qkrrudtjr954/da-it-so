@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -150,7 +151,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		// searchBtn.setBackground();
 
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
-
+		searchBtn.addActionListener(this);
 		sidePn.add(searchBtn);
 
 		// catePn
@@ -308,8 +309,12 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
-				txtLa = new JLabel(itemList.get(i).getContent());
+				if(itemList.get(i).getImgurl1() == null) {
+					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
+				}else {
+					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
+				}
+				txtLa = new JLabel(itemList.get(i).getTitle());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -319,8 +324,12 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
-				txtLa = new JLabel(itemList.get(i).getContent());
+				if(itemList.get(i).getImgurl1() == null) {
+					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
+				}else {
+					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
+				}
+				txtLa = new JLabel(itemList.get(i).getTitle());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -376,12 +385,12 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		}else if(obj == searchBtn) {
 			System.out.println("searchBtn Click");
 			String searchWord = searchTextF.getText();
-			//아이템리스트 이름 다르게줘서 다시해보자
+			System.out.println("searchTextF :" + searchTextF);
+//			List<ItemBbs> searchList = new ArrayList<ItemBbs>();
+			
 			delegator.itemBbsController.searchList(searchWord);
-		} else {
-			//delegator.itemBbsController.itemDetail(m_ItemDto);
+			
 		}
-
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
