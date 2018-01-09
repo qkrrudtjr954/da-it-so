@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnection;
+import db.MySqlConnection;
 import db.OracleConnection;
 import dto.RoomDto;
 
 public class RoomDao implements RoomDaoImpl{
-	DBConnection DBConnector = new OracleConnection();
+//	DBConnection DBConnector = new OracleConnection();
+	DBConnection DBConnector = new MySqlConnection();
 	
 	public List<RoomDto> getRoomByUesrId(String user_id) {
 		

@@ -9,13 +9,13 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
-import db.OracleConnection;
+import db.MySqlConnection;
 import dto.Person;
 
 public class PersonDao implements PersonDaoImpl {
 
-//	DBConnection DBConnector = new MySqlConnection();
-	DBConnection DBConnector = new OracleConnection();
+	DBConnection DBConnector = new MySqlConnection();
+//	DBConnection DBConnector = new OracleConnection();
 
 	/*
 	 * 2018-01-04 init by Parker.

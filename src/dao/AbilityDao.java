@@ -6,17 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import db.DBClose;
 import db.DBConnection;
-import db.OracleConnection;
+import db.MySqlConnection;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl {
 
-//	 DBConnection DBConnector = new MySqlConnection();
-	DBConnection DBConnector = new OracleConnection();
+	 DBConnection DBConnector = new MySqlConnection();
+//	DBConnection DBConnector = new OracleConnection();
 
 	public List<AbilityBbs> allAbilityList() {
 
@@ -195,7 +196,7 @@ public class AbilityDao implements AbilityDaoImpl {
 				String created_at = rs.getString("CREATED_AT");
 
 				AbilityBbs dto = new AbilityBbs(seq, category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, ability, content, state, created_at);
-				System.out.println("dto: " + dto);
+				
 				searchlist.add(dto);
 			}
 
@@ -205,9 +206,52 @@ public class AbilityDao implements AbilityDaoImpl {
 		}finally {
 			DBClose.close(psmt, conn, rs);
 		}
-		searchlist.stream().forEach(System.out::println);
 
 		return searchlist;
+	}
+	
+	public List<AbilityBbs> getAbilityBbsByUserId(String user_id){
+		
+		String sql = " select * from ability_bbs where user_id='"+user_id+"'";
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+
+		ResultSet rs = null;
+		List<AbilityBbs> abilityList = new ArrayList<>();
+
+		System.out.println(">>>	AbilityBbsDao .getAbilityBbsByUserId() sql : " + sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(sql); // query
+
+			while (rs.next()) {
+				AbilityBbs abilityDto = new AbilityBbs();
+
+				abilityDto.setSeq(rs.getInt("SEQ"));
+				abilityDto.setCategory_id(rs.getInt("CATEGORY_ID"));
+				abilityDto.setTitle(rs.getString("TITLE"));
+				abilityDto.setImgurl1(rs.getString("IMGURL1"));
+				abilityDto.setImgurl2(rs.getString("IMGURL2"));
+				abilityDto.setImgurl3(rs.getString("IMGURL3"));
+				abilityDto.setImgurl4(rs.getString("IMGURL4"));
+				abilityDto.setAbility(rs.getString("ABILITY"));
+				abilityDto.setContent(rs.getString("CONTENT"));
+				abilityDto.setCreated_at(rs.getString("CREATED_AT"));
+				abilityDto.setUser_id(rs.getString("USER_ID"));
+
+				abilityList.add(abilityDto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+		
+		
+		return abilityList;
 	}
 
 	@Override
