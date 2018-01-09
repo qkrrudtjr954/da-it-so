@@ -311,6 +311,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
+				thumPn1.setName(String.valueOf(i));
 
 				if(itemList.get(i).getImgurl1() == null) {
 					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
@@ -328,6 +329,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
+				thumPn1.setName(String.valueOf(i));
 				if(itemList.get(i).getImgurl1() == null) {
 					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
 				}else {
@@ -407,43 +409,32 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JPanel thumPn1 = (JPanel)e.getComponent();
-
+		this.thumPn1 = thumPn1;
+		
 		Object obj = e.getSource();
 		System.out.println("x,y ==>"+thumPn1.getX() +"," +thumPn1.getY());
-
 		Delegator delegator = Delegator.getInstance();
 		ItemBbs itemSelect = null;
+		int itemNum = 0;
 
-		if(obj != headerLogo) {
-			int i =0;
-			int j =0;
-			
-			//x좌표가 15면 0 460면 1
-			if(thumPn1.getX()==15) {
-				i=0;
-			}else if(thumPn1.getX()==460) {
-				i=1;
-			}
+		if(obj != headerLogo && obj != cate1 && obj != cate2 && obj != cate3 && obj != cate4 && obj != cate5
+				&& obj != cate6 && obj != cate7 && obj != cate8 && obj != cate9) {
 
-			j = thumPn1.getY()/170;
+			System.out.println("thumPn1 GetName==>"+thumPn1.getName());
+			itemNum = Integer.parseInt(thumPn1.getName());			
 			
-			//0번 리스트 일땐 x좌표와 y좌표가 525,50 일때 로 고정
-			//0번을 제외한 나머지는 i+j 의 list값을 get
 			if(!m_itemList.isEmpty()) {
-				if(thumPn1.getX()==460 && thumPn1.getY()==50) {
-					itemSelect = m_itemList.get(0);
-					delegator.itemBbsController.itemDetail(itemSelect);
-					this.dispose();
-				}else { 
-					itemSelect = m_itemList.get(i+j);
-					delegator.itemBbsController.itemDetail(itemSelect);
-					this.dispose();
-				}
+				itemSelect = m_itemList.get(itemNum);
+				delegator.itemBbsController.itemDetail(itemSelect);
+				this.dispose();
 			}
-		}else {
+		}else if(obj == headerLogo){
 			delegator.mainController.Main();
 			this.dispose();
+		}else {
+			System.out.println("카테고리 뜰 예정");
 		}
+		
 
 	}
 	@Override
