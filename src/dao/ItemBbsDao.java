@@ -134,7 +134,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 	public boolean addItem(ItemBbs itemDto) {
 		Delegator delegator = Delegator.getInstance();
 		
-		String id =delegator.getCurrent_user().getId();
+		String id = delegator.getCurrent_user().getId();
 
 		String sql;
 

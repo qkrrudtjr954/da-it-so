@@ -7,7 +7,7 @@ import dto.Person;
 
 
 public interface ItemBbsDaoImpl {
-	public boolean addItem(ItemBbs itemDto, Person personDto);
+	public boolean addItem(ItemBbs itemDto);
 	public List<ItemBbs> allItemList();
 	public List<ItemBbs> getAllItemBbs();
 	public List<ItemBbs> list(ItemBbs Idto);
