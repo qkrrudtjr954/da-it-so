@@ -106,8 +106,11 @@ public class RoomList extends JFrame implements MouseListener {
 
         if(e!=null){
             int i = e.getY()/(roomHeight+1);
-            delegator.roomController.Chat(list.get(i));
-            this.dispose();
+            
+            if( i < list.size()) {
+            	delegator.roomController.Chat(list.get(i));            	
+            	this.dispose();
+            }
         }
     }
 

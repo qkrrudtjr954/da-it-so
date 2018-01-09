@@ -13,12 +13,6 @@ public class RoomService implements RoomServiceImpl{
 	@Override
 	public RoomDto checkRoom(String user, String target) {
 		RoomDto room = roomDao.checkRoom(user, target);
-		
-		if(room == null) {
-			room = roomDao.makeRoom(user, target);
-		}
-		
-		
 		return room;
 	}
 	
@@ -27,5 +21,18 @@ public class RoomService implements RoomServiceImpl{
     public List<RoomDto> getRoomByUesrId(String user_id) {
         return roomDao.getRoomByUesrId(user_id);
     }
+
+
+	@Override
+	public RoomDto makeRoom(String user, String target) {
+		boolean result = roomDao.makeRoom(user, target);
+		RoomDto room = null;
+		
+		if(result) {
+			room = roomDao.checkRoom(user, target);
+		}
+		
+		return room;
+	}
 
 }

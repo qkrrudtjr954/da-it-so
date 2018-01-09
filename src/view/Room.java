@@ -54,6 +54,8 @@ public class Room extends JFrame {
         back.setBounds(0, 0, 50, 50);
         back.setForeground(commonColor);
         back.setBorder(new LineBorder(commonColor, 1));
+        back.setBackground(commonColor);
+        back.setOpaque(false);
 
         Delegator delegator = Delegator.getInstance();
 

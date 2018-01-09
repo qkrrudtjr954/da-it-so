@@ -16,7 +16,7 @@ public class ChatDao implements ChatDaoImpl{
 	DBConnection DBConnector = new OracleConnection();
 
     public List<ChatDto> getChatByRoomSeq(int seq){
-        String sql = "select * from chat where room_id="+seq;
+        String sql = "select * from chat where room_id="+seq+" order by seq";
 
         List<ChatDto> list = new ArrayList<>();
 

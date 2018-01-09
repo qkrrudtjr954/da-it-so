@@ -23,6 +23,10 @@ public class RoomController {
 		
 		RoomDto room = roomService.checkRoom(delegator.getCurrent_user().getId(), target_id);
 		
+		if(room == null) {
+			room = roomService.makeRoom(delegator.getCurrent_user().getId(), target_id);
+		}
+		
 		List<ChatDto> list = chatService.getChatByRoomSeq(room.getSeq());
 		
 		if (list == null) {

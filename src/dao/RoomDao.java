@@ -48,7 +48,7 @@ public class RoomDao implements RoomDaoImpl{
         return list;
     }
 
-	public RoomDto makeRoom(String user, String target) {
+	public boolean makeRoom(String user, String target) {
 		// TODO Auto-generated method stub
 		String sql = " insert into room values(room_seq.nextval, '"+user+"', '"+target+"','"+user+"와 "+target+"의 대화 "+"' , sysdate)";
 		
@@ -65,7 +65,7 @@ public class RoomDao implements RoomDaoImpl{
 			e.printStackTrace();
 		}
 		
-		return null;
+		return (count > 0) ? true : false;
 	}
 
 	public RoomDto checkRoom(String user, String target) {
