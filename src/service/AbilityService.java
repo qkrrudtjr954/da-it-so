@@ -3,11 +3,11 @@ package service;
 import java.util.List;
 
 import dao.AbilityDao;
+import dao.AbilityDaoImpl;
 import dto.AbilityBbs;
-import dto.Person;
 
 public class AbilityService implements AbilityServiceImpl {
-	AbilityDao abilityDao = new AbilityDao();
+	AbilityDaoImpl abilityDao = new AbilityDao();
 
 	public List<AbilityBbs> allAbilityList() {
 		return abilityDao.allAbilityList();
@@ -23,5 +23,23 @@ public class AbilityService implements AbilityServiceImpl {
 	}
 	public boolean addAbility(AbilityBbs abilityDto) {
 		return abilityDao.addAbility(abilityDto) ? true : false;
+	}
+
+	@Override
+	public boolean DeleteAbilityBbsByAdmin(AbilityBbs ability) {
+		// TODO Auto-generated method stub
+		return abilityDao.DeleteAbilityBbsByAdmin(ability);
+	}
+
+	@Override
+	public boolean CompleteAbilityBbsByAdmin(AbilityBbs ability) {
+		// TODO Auto-generated method stub
+		return abilityDao.CompleteAbilityBbsByAdmin(ability);
+	}
+
+	@Override
+	public boolean ContinueAbilityBbsByAdmin(AbilityBbs ability) {
+		// TODO Auto-generated method stub
+		return abilityDao.ContinueAbilityBbsByAdmin(ability);
 	}
 }

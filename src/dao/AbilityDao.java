@@ -9,15 +9,15 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
-import db.MySqlConnection;
+import db.OracleConnection;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl {
 
-	 DBConnection DBConnector = new MySqlConnection();
-//	DBConnection DBConnector = new OracleConnection();
+//	 DBConnection DBConnector = new MySqlConnection();
+	DBConnection DBConnector = new OracleConnection();
 
 	public List<AbilityBbs> allAbilityList() {
 
@@ -190,6 +190,71 @@ public class AbilityDao implements AbilityDaoImpl {
 			DBClose.close(stmt, conn, rs);
 		}
 		return searchlist;
+	}
+
+	@Override
+	public boolean DeleteAbilityBbsByAdmin(AbilityBbs ability) {
+		String sql = " update item_bbs set state = 3 where seq="+ability.getSeq();
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+
+		int count = -1;
+
+		try {
+
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
+	}
+
+	@Override
+	public boolean CompleteAbilityBbsByAdmin(AbilityBbs ability) {
+		// TODO Auto-generated method stub
+		String sql = " update item_bbs set state = 1 where seq="+ability.getSeq();
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+
+		int count = -1;
+
+		try {
+
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
+	}
+
+	@Override
+	public boolean ContinueAbilityBbsByAdmin(AbilityBbs ability) {
+		// TODO Auto-generated method stub
+		String sql = " update item_bbs set state = 0 where seq="+ability.getSeq();
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+
+		int count = -1;
+
+		try {
+
+			ptmt = conn.prepareStatement(sql);
+			count = ptmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (count > 0) ? true : false;
 	}
 
 }

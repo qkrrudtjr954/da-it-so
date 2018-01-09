@@ -198,11 +198,16 @@ public class Login extends JFrame implements ActionListener {
 				pwd.setText("");
 			}else {
 				Person person = delegator.personController.signIn(id.getText(), pwd.getPassword());
-				System.out.println(person);
+				
 				if(person != null) {
 					//	login success
-					delegator.mainController.Main();
-					this.dispose();
+					if(person.getId().equals("admin")) {
+						delegator.adminController.AdminMain();
+						this.dispose();
+					}else {
+						delegator.mainController.Main();
+						this.dispose();						
+					}
 					
 				}else {
 					//	login fail
