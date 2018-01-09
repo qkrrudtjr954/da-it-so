@@ -50,4 +50,10 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 		return itemDao.SelectAbilityCategories(category_id);
 	}
 
+	@Override
+	public List<ItemBbs> AdminSearch(String search) {
+		// TODO Auto-generated method stub
+		return itemDao.AdminSearch(search);
+	}
+
 }

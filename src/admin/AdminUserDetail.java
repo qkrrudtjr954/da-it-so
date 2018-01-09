@@ -161,6 +161,10 @@ public class AdminUserDetail extends JFrame implements ActionListener {
 		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
+		searchBtn.addActionListener((ActionEvent e)->{
+			delegator.adminController.SerarchUserList(searchTextF.getText());
+			dispose();
+		});
 		// searchBtn.setBackground();
 
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x

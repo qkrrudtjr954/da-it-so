@@ -11,4 +11,5 @@ public interface PersonServiceImpl {
 	public Person insert(Person person);
 	public boolean checkId(String id);
 	public List<Person> getAllPerson();
+	public List<Person> AdminSearch(String search);
 }

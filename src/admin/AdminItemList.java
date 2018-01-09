@@ -3,6 +3,7 @@ package admin;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
+import dto.AbilityBbs;
 import dto.ItemBbs;
 
 public class AdminItemList extends JFrame implements ActionListener {
@@ -29,7 +31,7 @@ public class AdminItemList extends JFrame implements ActionListener {
 	private JButton searchBtn;
 	private JTextField searchTextF;
 	private JPanel headerLogo;
-	
+	private JButton loginBtn, logoutBtn, signupBtn;
 	List<ItemBbs> itemList;
 	
 	JButton itemListBtn, abilityListBtn, userListBtn, chatBtn;
@@ -82,6 +84,42 @@ public class AdminItemList extends JFrame implements ActionListener {
 		// headerlogo
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerPn.add(headerLogo);
+		
+		Delegator delegator = Delegator.getInstance();
+
+		if (delegator.getCurrent_user() == null) {
+			// loginBtn
+			loginBtn = new JButton("로그인");
+			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setOpaque(false); // 투명하게
+			loginBtn.setBorderPainted(false);// 외곽선 없애줌
+			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
+			loginBtn.setBackground(commonRedColor);
+			loginBtn.setForeground(Color.white);
+			loginBtn.addActionListener(this);
+			headerPn.add(loginBtn);
+
+			// SignBtn
+			signupBtn = new JButton("회원가입");
+			signupBtn.setBounds(1130, 20, 100, 30);
+			signupBtn.setOpaque(false); // 투명하게
+			signupBtn.setBorderPainted(false);// 외곽선 없애줌
+			signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signupBtn.setBackground(commonRedColor);
+			signupBtn.setForeground(Color.white);
+			signupBtn.addActionListener(this);
+			headerPn.add(signupBtn);
+		} else {
+			// logoutBtn
+			logoutBtn = new JButton("로그아웃");
+			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setOpaque(false); // 투명하게
+			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
+			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
+			logoutBtn.setBackground(commonRedColor);
+			logoutBtn.setForeground(Color.white);
+			headerPn.add(logoutBtn);
+		}
 
 		// sidePn
 		Color sideC = new Color(250, 250, 250);
@@ -107,6 +145,10 @@ public class AdminItemList extends JFrame implements ActionListener {
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
+		searchBtn.addActionListener((ActionEvent e)->{
+			delegator.adminController.SerarchItemList(searchTextF.getText());
+			dispose();
+		});
 		sidePn.add(searchBtn);
 
 		// btnPanel
@@ -234,6 +276,15 @@ public class AdminItemList extends JFrame implements ActionListener {
 			this.dispose();
 		} else if(obj == chatBtn) {
 			delegator.roomController.RoomList();
+		} else if(obj == loginBtn) {
+			delegator.personController.Login();
+			this.dispose();
+		} else if(obj == logoutBtn) {
+			delegator.personController.Logout();
+			this.dispose();
+		} else if(obj == signupBtn) {
+			delegator.personController.SignUp();
+			this.dispose();
 		}
 	}
 	

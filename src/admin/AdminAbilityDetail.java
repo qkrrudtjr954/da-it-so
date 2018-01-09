@@ -26,14 +26,13 @@ import dto.AbilityBbs;
 import dto.Person;
 
 public class AdminAbilityDetail extends JFrame implements ActionListener, MouseListener {
-	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
-			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
+	private JPanel headerPn, headerLogo, sidePn, logoPn, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
 			subimage4;
 	private JButton loginBtn, logoutBtn, signupBtn, searchBtn, backBtn, delBtn;
 	private JButton itemListBtn, userListBtn, abilityListBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
-	private JButton completeBtn, continueBtn, undoBtn, chatBtn;
+	private JButton completeBtn, continueBtn, chatBtn;
 
 	// String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	String iconImgUrl = "E:\\icon/";
@@ -83,33 +82,42 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
-		// logoutBtn
-		logoutBtn = new JButton("로그아웃");
-		logoutBtn.setBounds(1250, 20, 100, 30);
-		logoutBtn.setOpaque(false); // 투명하게
-		logoutBtn.setBorderPainted(false);// 외곽선 없애줌
-		logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
-		logoutBtn.setBackground(commonRedColor);
-		logoutBtn.setForeground(Color.white);
+		
+		Delegator delegator = Delegator.getInstance();
 
-		// loginBtn
-		loginBtn = new JButton("로그인");
-		loginBtn.setBounds(1190, 20, 100, 30);
-		loginBtn.setOpaque(false); // 투명하게
-		loginBtn.setBorderPainted(false);// 외곽선 없애줌
-		loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
-		loginBtn.setBackground(commonRedColor);
-		loginBtn.setForeground(Color.white);
+		if (delegator.getCurrent_user() == null) {
+			// loginBtn
+			loginBtn = new JButton("로그인");
+			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setOpaque(false); // 투명하게
+			loginBtn.setBorderPainted(false);// 외곽선 없애줌
+			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
+			loginBtn.setBackground(commonRedColor);
+			loginBtn.setForeground(Color.white);
+			loginBtn.addActionListener(this);
+			headerPn.add(loginBtn);
 
-		// SignBtn
-
-		signupBtn = new JButton("회원가입");
-		signupBtn.setBounds(1130, 20, 100, 30);
-		signupBtn.setOpaque(false); // 투명하게
-		signupBtn.setBorderPainted(false);// 외곽선 없애줌
-		signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
-		signupBtn.setBackground(commonRedColor);
-		signupBtn.setForeground(Color.white);
+			// SignBtn
+			signupBtn = new JButton("회원가입");
+			signupBtn.setBounds(1130, 20, 100, 30);
+			signupBtn.setOpaque(false); // 투명하게
+			signupBtn.setBorderPainted(false);// 외곽선 없애줌
+			signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signupBtn.setBackground(commonRedColor);
+			signupBtn.setForeground(Color.white);
+			signupBtn.addActionListener(this);
+			headerPn.add(signupBtn);
+		} else {
+			// logoutBtn
+			logoutBtn = new JButton("로그아웃");
+			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setOpaque(false); // 투명하게
+			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
+			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
+			logoutBtn.setBackground(commonRedColor);
+			logoutBtn.setForeground(Color.white);
+			headerPn.add(logoutBtn);
+		}
 
 		headerPn.add(logoutBtn);
 		headerPn.add(loginBtn);
@@ -146,6 +154,10 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
+		searchBtn.addActionListener((ActionEvent e)->{
+			delegator.adminController.SerarchAbilityList(searchTextF.getText());
+			dispose();
+		});
 		// searchBtn.setBackground();
 
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x

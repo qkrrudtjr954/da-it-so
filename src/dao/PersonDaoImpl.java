@@ -16,4 +16,6 @@ public interface PersonDaoImpl {
 
 	List<Person> getAllPerson();
 
+	List<Person> AdminSearch(String search);
+
 }

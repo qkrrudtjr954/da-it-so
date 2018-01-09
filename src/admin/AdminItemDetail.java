@@ -32,7 +32,7 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 	private JButton itemListBtn, userListBtn, abilityListBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
-	private JButton completeBtn, continueBtn, undoBtn, chatBtn;
+	private JButton completeBtn, continueBtn, chatBtn;
 
 	// String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	String iconImgUrl = "E:\\icon/";
@@ -149,6 +149,10 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
+		searchBtn.addActionListener((ActionEvent e)->{
+			delegator.adminController.SerarchItemList(searchTextF.getText());
+			dispose();
+		});
 		// searchBtn.setBackground();
 
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x

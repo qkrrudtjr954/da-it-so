@@ -52,4 +52,12 @@ public class PersonService implements PersonServiceImpl{
 		return personDao.getAllPerson();
 	}
 
+	
+	// 관리자 전용 
+	@Override
+	public List<Person> AdminSearch(String search) {
+		// TODO Auto-generated method stub
+		return personDao.AdminSearch(search);
+	}
+
 }
