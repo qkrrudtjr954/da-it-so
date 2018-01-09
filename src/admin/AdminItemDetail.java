@@ -373,6 +373,7 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 			completeBtn = new JButton("완료 상태로 변경");
 			completeBtn.setBounds(630, 600, 240, 35);
 			completeBtn.setBorder(new LineBorder(commonRedColor));
+			completeBtn.addActionListener(this);
 			detailPn.add(completeBtn);
 
 			delBtn = new JButton("관리자 권한 삭제");
