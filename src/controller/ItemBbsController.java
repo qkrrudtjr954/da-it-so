@@ -53,13 +53,6 @@ public class ItemBbsController {
 		   List<ItemBbs> itemList = itemService.SelectItemCategories(category_id);
 		   List<Category> categoryList = categoryService.getAllCategories(0);
 		   new ItemMain(itemList, categoryList);
-	   }	
-	   
-	   
-	   public void SelectAbilityCategories(int category_id){
-		   List<AbilityBbs> abilityList = itemService.SelectAbilityCategories(category_id);
-		   List<Category> categoryList = categoryService.getAllCategories(1);
-		   new AbilityMain(abilityList);
 	   }
 
 	   public void searchList(String searchWord){

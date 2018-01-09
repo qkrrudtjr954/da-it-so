@@ -27,37 +27,40 @@ import javax.swing.border.LineBorder;
 import controller.ItemBbsController;
 import delegator.Delegator;
 import dto.AbilityBbs;
+import dto.Category;
 import dto.ItemBbs;
 import dto.Person;
 
 public class AbilityDetail extends JFrame implements ActionListener,MouseListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
-			subimage4, keywordPanel;
-	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
+			subimage4;
+	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
 	private JTextField searchTextF;
-	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
+	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 
 	String iconImgUrl = "C:\\icon\\";
 	AbilityBbs m_abilityDto = null;
+	List<Category> m_categoryList = null;
 	
 	//삭제버튼추가필요
 	//완료 버튼 추가 시 STATE 1로 변경 STATE = 0 등록시 STATE = 1 완료 STATE = 2 삭제 STATE = 3 관리자에의한 삭제
-	public AbilityDetail(AbilityBbs abilityDto) {
+	public AbilityDetail(AbilityBbs abilityDto, List<Category> categoryList) {
 
 		Delegator delegator = Delegator.getInstance();
 		this.m_abilityDto = abilityDto;
+		this.m_categoryList = categoryList;
 		
 		Container cn = getContentPane();
 		
-		cn.setBounds(0, 0, 1680, 900);
+		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
 		// Header
 		Color commonColor = new Color(218, 0, 0);
 		headerPn = new JPanel();
 		headerPn.setBackground(commonColor);
-		headerPn.setSize(1680, 60);
+		headerPn.setSize(1350, 60);
 		headerPn.setLayout(null);
 
 		// detailPn
@@ -89,37 +92,38 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		if(delegator.getCurrent_user()==null) {
 			// loginBtn
 			loginBtn = new JButton("로그인");
-			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setBounds(1240, 20, 100, 30);
 			loginBtn.setOpaque(false); // 투명하게
 			loginBtn.setBorderPainted(false);// 외곽선 없애줌
 			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
 			loginBtn.setBackground(commonColor);
 			loginBtn.setForeground(Color.white);
+			loginBtn.addActionListener(this);
 			headerPn.add(loginBtn);
 			
 			// SignBtn
-			signBtn = new JButton("회원가입");
-			signBtn.setBounds(1130, 20, 100, 30);
-			signBtn.setOpaque(false); // 투명하게
-			signBtn.setBorderPainted(false);// 외곽선 없애줌
-			signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
-			signBtn.setBackground(commonColor);
-			signBtn.setForeground(Color.white);
-			signBtn.addActionListener(this);
-			headerPn.add(signBtn);			
+			signupBtn = new JButton("회원가입");
+			signupBtn.setBounds(1180, 20, 100, 30);
+			signupBtn.setOpaque(false); // 투명하게
+			signupBtn.setBorderPainted(false);// 외곽선 없애줌
+			signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signupBtn.setBackground(commonColor);
+			signupBtn.setForeground(Color.white);
+			signupBtn.addActionListener(this);
+			headerPn.add(signupBtn);			
 		}else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
-			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setBounds(1240, 20, 100, 30);
 			logoutBtn.setOpaque(false); // 투명하게
 			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
 			logoutBtn.setBackground(commonColor);
 			logoutBtn.setForeground(Color.white);
+			logoutBtn.addActionListener(this);
 			headerPn.add(logoutBtn);			
 		}
 
-		// 1050
 		// sidePn
 		Color sideC = new Color(250, 250, 250);
 		sidePn = new JPanel();
@@ -161,12 +165,15 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		catePn.setLayout(new GridLayout(3, 3, 10, 10));
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
-
-		// 카터고리
+		
+		String category_id[] = new String[9];
+		
+		for (int i = 0; i < m_categoryList.size(); i++) {
+			category_id[i] = String.valueOf(m_categoryList.get(i).getSeq()); 
+		}
 
 		ImageIcon cate1Image = new ImageIcon(iconImgUrl + "1.png");
 		cate1 = new JPanel() {
-			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate1Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -174,11 +181,16 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 			}
 		};
 		cate1.setBorder(new LineBorder(commonColor, 3));
-		cate1.addMouseListener(this);
-		// 카테고리 2
+		
+		if(category_id[0] != null) {
+			cate1.setName(category_id[0]);
+			cate1.addMouseListener(this);
+		}
+
+		//  2
 		ImageIcon cate2Image = new ImageIcon(iconImgUrl + "2.png");
 		cate2 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate2Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -186,11 +198,14 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 			}
 		};
 		cate2.setBorder(new LineBorder(commonColor, 3));
-		cate2.addMouseListener(this);
-		// 카테고리 3
+		if(category_id[1] != null) {
+			cate2.setName(category_id[1]);
+			cate2.addMouseListener(this);
+		}
+		//  3
 		ImageIcon cate3Image = new ImageIcon(iconImgUrl + "3.png");
 		cate3 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate3Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -198,11 +213,14 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 			}
 		};
 		cate3.setBorder(new LineBorder(commonColor, 3));
-		cate3.addMouseListener(this);
-		// 카테고리4
+		if(category_id[2] != null) {
+			cate3.setName(category_id[2]);
+			cate3.addMouseListener(this);
+		}
+		// 4
 		ImageIcon cate4Image = new ImageIcon(iconImgUrl + "4.png");
 		cate4 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate4Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -210,11 +228,16 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 			}
 		};
 		cate4.setBorder(new LineBorder(commonColor, 3));
-		cate4.addMouseListener(this);
-		// 카테고리 5
+
+		if(category_id[3] != null) {
+			cate4.setName(category_id[3]);
+			cate4.addMouseListener(this);
+		}
+		
+		//  5
 		ImageIcon cate5Image = new ImageIcon(iconImgUrl + "5.png");
 		cate5 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate5Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -222,11 +245,14 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 			}
 		};
 		cate5.setBorder(new LineBorder(commonColor, 3));
-		cate5.addMouseListener(this);
-		// 카테고리 6
+		if(category_id[4] != null) {
+			cate5.setName(category_id[4]);
+			cate5.addMouseListener(this);
+		}
+		//  6
 		ImageIcon cate6Image = new ImageIcon(iconImgUrl + "6.png");
 		cate6 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate6Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -234,11 +260,14 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 			}
 		};
 		cate6.setBorder(new LineBorder(commonColor, 3));
-		cate6.addMouseListener(this);
-		// 카테고리7
+		if(category_id[5] != null) {
+			cate6.setName(category_id[5]);
+			cate6.addMouseListener(this);
+		}
+		// 7
 		ImageIcon cate7Image = new ImageIcon(iconImgUrl + "7.png");
 		cate7 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate7Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -246,11 +275,14 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 			}
 		};
 		cate7.setBorder(new LineBorder(commonColor, 3));
-		cate7.addMouseListener(this);
-		// 카테고리8
+		
+		if(category_id[6] != null) {
+			cate7.setName(category_id[6]);
+			cate7.addMouseListener(this);
+		}
+
 		ImageIcon cate8Image = new ImageIcon(iconImgUrl + "8.png");
 		cate8 = new JPanel() {
-			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate8Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -258,11 +290,14 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 			}
 		};
 		cate8.setBorder(new LineBorder(commonColor, 3));
-		cate8.addMouseListener(this);
-		// 카테고리9
+		
+		if(category_id[7] != null) {
+			cate8.setName(category_id[7]);
+			cate8.addMouseListener(this);
+		}
+		// 9
 		ImageIcon cate9Image = new ImageIcon(iconImgUrl + "9.png");
 		cate9 = new JPanel() {
-			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate9Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -270,7 +305,11 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 			}
 		};
 		cate9.setBorder(new LineBorder(commonColor, 3));
-		cate9.addMouseListener(this);
+		if(category_id[8] != null) {
+			cate9.setName(category_id[8]);
+			cate9.addMouseListener(this);
+		}
+		
 		catePn.add(cate1);
 		catePn.add(cate2);
 		catePn.add(cate3);
@@ -283,7 +322,6 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 
 		sidePn.add(catePn);
 
-		// sidePn.setBounds(0, 60, 400, 1000);
 		// imagePannel
 		imagePannel = new JPanel();
 		imagePannel.setBounds(70, 20, 420, 650);
@@ -300,7 +338,8 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		imagePannel.add(titleLb);
 		
 		// Seller
-		sellLb = new JLabel(m_abilityDto.getUser_id());
+		
+		sellLb = new JLabel("작성자 : "+m_abilityDto.getUser_id());
 		sellLb.setBounds(10, 75, 400, 20);
 		sellLb.setFont(new Font(m_abilityDto.getUser_id(), Font.BOLD, 12));
 		sellLb.setOpaque(false);
@@ -379,7 +418,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 
 		iteminfoPn = new JPanel();
 		iteminfoPn.setLayout(null);
-		iteminfoPn.setBounds(580, 135, 340, 400);
+		iteminfoPn.setBounds(550, 135, 340, 400);
 		iteminfoPn.setBackground(Color.white);
 		iteminfoPn.setBorder(new LineBorder(Color.red,2));
 
@@ -397,8 +436,6 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		String[] keyarray;
 		keyarray = new String[rowSize * 3]; 
 		keyarray = key.split("-key-");
-		System.out.println("keyarray:"+keyarray[0]);
-		System.out.println("keyarraylength :"+keyarray.length);
 	
 		if(keyarray.length%3 == 0) {
 			rowSize = keyarray.length/3;
@@ -414,8 +451,6 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
 
-		
-		
 		int k=0;
 		for(int i=0; i<rowSize; i++) {
 			for(int j=0; j<keyarray.length; j++) {
@@ -427,7 +462,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 				keywordLabel[i][j].setText("#"+keyarray[k]);
 				keywordLabel[i][j].setSize(70, 30);
 				keywordLabel[i][j].setLocation((j*80), (i*40));
-				System.out.println(keywordLabel[i][j].getBounds());
+				
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
 			}
@@ -465,7 +500,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		add(sidePn);
 		add(headerPn);
 		add(scrollPane);
-		setBounds(0, 0, 1680, 730);
+		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
 
@@ -474,36 +509,80 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		JButton btn = (JButton) e.getSource();
+		Object obj = e.getSource();
 		Delegator delegator = Delegator.getInstance();
 		
 
-		if (btn == talkBtn) {
+		if (obj == talkBtn) {
 			if (delegator.getCurrent_user() == null) {
 				delegator.roomController.checkRoom(sellLb.getText());
 				dispose();
 			}
-
-		} else if (btn == signBtn) {
-
-			
-			dispose();
-		} else if (btn == loginBtn) {
-
-			
-			dispose();
+		} else if(obj == loginBtn) {
+			delegator.personController.Login();
+			this.dispose();
+		}else if(obj == signupBtn) {
+			delegator.personController.SignUp();
+			this.dispose();
+		}else if(obj == logoutBtn) {
+			delegator.personController.Logout();
+			this.dispose();
+		}else if(obj == searchBtn) {
+			System.out.println("searchBtn Click");
+			String searchWord = searchTextF.getText();
+			delegator.abilityBbsController.searchList(searchWord);
 		}
 
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//headerLogo 클릭 시 Main페이지로
-		JPanel headerLogo = (JPanel)e.getComponent();
+		Delegator delegator = Delegator.getInstance();
+		Object obj = e.getSource();
+		int category_id = 99;
 		
-		if(e.getComponent().equals(headerLogo)) {
-			Delegator delegator = Delegator.getInstance();
-			delegator.abilityBbsController.main();
+		//Header event
+		if(obj == headerLogo){
+			delegator.mainController.Main();
+			this.dispose();
+		}
+
+		//Side Category event
+		if(obj == cate1){
+			category_id = Integer.parseInt(cate1.getName());
+			delegator.abilityBbsController.SelectAbilityCategories(category_id);
+			this.dispose();
+		}else if(obj == cate2) {
+			category_id = Integer.parseInt(cate2.getName());
+			delegator.abilityBbsController.SelectAbilityCategories(category_id);
+			this.dispose();
+		}else if(obj == cate3) {
+			category_id = Integer.parseInt(cate3.getName());
+			delegator.abilityBbsController.SelectAbilityCategories(category_id);
+			this.dispose();
+		}else if(obj == cate4) {
+			category_id = Integer.parseInt(cate4.getName());
+			delegator.abilityBbsController.SelectAbilityCategories(category_id);
+			this.dispose();
+		}else if(obj == cate5) {
+			category_id = Integer.parseInt(cate5.getName());
+			delegator.abilityBbsController.SelectAbilityCategories(category_id);
+			this.dispose();
+		}else if(obj == cate6) {
+			category_id = Integer.parseInt(cate6.getName());
+			delegator.abilityBbsController.SelectAbilityCategories(category_id);
+			this.dispose();
+		}else if(obj == cate7) {
+			category_id = Integer.parseInt(cate7.getName());
+			delegator.abilityBbsController.SelectAbilityCategories(category_id);
+			this.dispose();
+		}else if(obj == cate8) {
+			category_id = Integer.parseInt(cate8.getName());
+			delegator.abilityBbsController.SelectAbilityCategories(category_id);
+			this.dispose();
+		}else if(obj == cate9) {
+			category_id = Integer.parseInt(cate9.getName());
+			delegator.abilityBbsController.SelectAbilityCategories(category_id);
 			this.dispose();
 		}
 		

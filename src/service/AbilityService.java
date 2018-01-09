@@ -29,6 +29,11 @@ public class AbilityService implements AbilityServiceImpl {
 	public List<AbilityBbs> getAbilityBbsByUserId(String user_id){
 		return abilityDao.getAbilityBbsByUserId(user_id);
 	}
+	
+	public List<AbilityBbs> SelectAbilityCategories(int category_id) {
+		return abilityDao.SelectAbilityCategories(category_id);
+	}
+
 
 	@Override
 	public boolean DeleteAbilityBbsByAdmin(AbilityBbs ability) {

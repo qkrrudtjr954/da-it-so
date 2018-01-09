@@ -501,6 +501,8 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 
 			ItemBbs itemDto = new ItemBbs();
 			
+			String id = delegator.getCurrent_user().getId();
+			
 			int categoryIndex = cateCombo.getSelectedIndex();
 			itemDto.setCategory_id(this.m_categoryList.get(categoryIndex).getSeq());
 			itemDto.setTitle(titleTextF.getText());
@@ -511,6 +513,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			itemDto.setKeyword(keywordTextF.getText());
 			itemDto.setPrice(Integer.parseInt(priceTextF.getText()));
 			itemDto.setContent(contentTextPn.getText());
+			itemDto.setUser_id(id);
 
 			/* delegator 에 현재 로그인된 유저 정보를 받아오도록 수정 */
 			ItemBbsService itemservice = new ItemBbsService();

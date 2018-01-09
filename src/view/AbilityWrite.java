@@ -33,13 +33,13 @@ import service.ItemBbsService;
 
 public class AbilityWrite extends JFrame implements ActionListener, MouseListener{
 
-	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn;
+	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn;
 	private JTextField searchTextF, titleTextF, img1TextF, img2TextF, img3TextF, img4TextF, abilityTextF;
 	private JTextPane contentTextPn;
-	private JPanel headerLogo;
+	private JPanel headerLogo, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8, cate9;
 	private JComboBox cateCombo;
 	
-	String icomImgimgUrl = "C:\\icon\\";
+	String iconImgUrl = "C:\\icon\\";
 	
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1,filename2,filename3,filename4;
@@ -58,7 +58,7 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		
 		//header 
 		headerLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon(icomImgimgUrl+"headerlogo.png");
+			ImageIcon headerimage = new ImageIcon(iconImgUrl+"headerlogo.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(headerimage.getImage(), 0, 0, null);
@@ -69,100 +69,10 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		
 		//logo
 		logoPn = new JPanel() {
-			ImageIcon image = new ImageIcon(icomImgimgUrl+"logo.png");
+			ImageIcon image = new ImageIcon(iconImgUrl+"logo.png");
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		//category 1
-		cate1 = new JPanel() {
-			ImageIcon cate1Image = new ImageIcon(icomImgimgUrl+"1.png");
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate1Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		//category 2
-		cate2 = new JPanel() {
-			ImageIcon cate2Image = new ImageIcon(icomImgimgUrl+"2.png");
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate2Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		//category 3
-		cate3 = new JPanel() {
-			ImageIcon cate3Image = new ImageIcon(icomImgimgUrl+"3.png");
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate3Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		//category 4
-		cate4 = new JPanel() {
-			ImageIcon cate4Image = new ImageIcon(icomImgimgUrl+"4.png");
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate4Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		//category 5
-		cate5 = new JPanel() {
-			ImageIcon cate5Image = new ImageIcon(icomImgimgUrl+"5.png");
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate5Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		//category 6
-		cate6 = new JPanel() {
-			ImageIcon cate6Image = new ImageIcon(icomImgimgUrl+"6.png");
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate6Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		//category 7
-		cate7 = new JPanel() {
-			ImageIcon cate7Image = new ImageIcon(icomImgimgUrl+"7.png");
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate7Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		//category 8
-		cate8 = new JPanel() {
-			ImageIcon cate8Image = new ImageIcon(icomImgimgUrl+"8.png");
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate8Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		//category 9
-		cate9 = new JPanel() {
-			ImageIcon cate9Image = new ImageIcon(icomImgimgUrl+"9.png");
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate9Image.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -171,10 +81,10 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		//mainView
 		Container cn = getContentPane();
 
-		cn.setBounds(0, 0, 1680, 1050);
+		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
-		setBounds(0, 0, 1680, 1050);
+		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
 
@@ -182,7 +92,7 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		Color commonColor = new Color(218, 0, 0);
 		headerPn = new JPanel();
 		headerPn.setBackground(commonColor);
-		headerPn.setSize(1680, 60);
+		headerPn.setSize(1350, 60);
 		headerPn.setLayout(null);
 
 		// headerlogo
@@ -193,33 +103,35 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		if(delegator.getCurrent_user()==null) {
 			// loginBtn
 			loginBtn = new JButton("로그인");
-			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setBounds(1240, 20, 100, 30);
 			loginBtn.setOpaque(false); // 투명하게
 			loginBtn.setBorderPainted(false);// 외곽선 없애줌
 			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
 			loginBtn.setBackground(commonColor);
 			loginBtn.setForeground(Color.white);
+			loginBtn.addActionListener(this);
 			headerPn.add(loginBtn);
 			
 			// SignBtn
-			signBtn = new JButton("회원가입");
-			signBtn.setBounds(1130, 20, 100, 30);
-			signBtn.setOpaque(false); // 투명하게
-			signBtn.setBorderPainted(false);// 외곽선 없애줌
-			signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
-			signBtn.setBackground(commonColor);
-			signBtn.setForeground(Color.white);
-			signBtn.addActionListener(this);
-			headerPn.add(signBtn);			
+			signupBtn = new JButton("회원가입");
+			signupBtn.setBounds(1180, 20, 100, 30);
+			signupBtn.setOpaque(false); // 투명하게
+			signupBtn.setBorderPainted(false);// 외곽선 없애줌
+			signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signupBtn.setBackground(commonColor);
+			signupBtn.setForeground(Color.white);
+			signupBtn.addActionListener(this);
+			headerPn.add(signupBtn);			
 		}else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
-			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setBounds(1240, 20, 100, 30);
 			logoutBtn.setOpaque(false); // 투명하게
 			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
 			logoutBtn.setBackground(commonColor);
 			logoutBtn.setForeground(Color.white);
+			logoutBtn.addActionListener(this);
 			headerPn.add(logoutBtn);			
 		}
 		
@@ -241,7 +153,7 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		sidePn.add(searchTextF);
 
 		// searchBtn
-		searchBtn = new JButton(new ImageIcon(icomImgimgUrl+"search.png"));
+		searchBtn = new JButton(new ImageIcon(iconImgUrl+"search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
@@ -252,17 +164,150 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		catePn.setLayout(new GridLayout(3, 3, 10, 10));
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
+		
+		String category_id[] = new String[9];
+		
+		for (int i = 0; i < m_categoryList.size(); i++) {
+			category_id[i] = String.valueOf(m_categoryList.get(i).getSeq()); 
+		}
 
-		//category
+		ImageIcon cate1Image = new ImageIcon(iconImgUrl + "1.png");
+		cate1 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate1Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
 		cate1.setBorder(new LineBorder(commonColor, 3));
+		
+		if(category_id[0] != null) {
+			cate1.setName(category_id[0]);
+			cate1.addMouseListener(this);
+		}
+
+		//  2
+		ImageIcon cate2Image = new ImageIcon(iconImgUrl + "2.png");
+		cate2 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate2Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
 		cate2.setBorder(new LineBorder(commonColor, 3));
+		if(category_id[1] != null) {
+			cate2.setName(category_id[1]);
+			cate2.addMouseListener(this);
+		}
+		//  3
+		ImageIcon cate3Image = new ImageIcon(iconImgUrl + "3.png");
+		cate3 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate3Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
 		cate3.setBorder(new LineBorder(commonColor, 3));
+		if(category_id[2] != null) {
+			cate3.setName(category_id[2]);
+			cate3.addMouseListener(this);
+		}
+		// 4
+		ImageIcon cate4Image = new ImageIcon(iconImgUrl + "4.png");
+		cate4 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate4Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
 		cate4.setBorder(new LineBorder(commonColor, 3));
+
+		if(category_id[3] != null) {
+			cate4.setName(category_id[3]);
+			cate4.addMouseListener(this);
+		}
+		
+		//  5
+		ImageIcon cate5Image = new ImageIcon(iconImgUrl + "5.png");
+		cate5 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate5Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
 		cate5.setBorder(new LineBorder(commonColor, 3));
+		if(category_id[4] != null) {
+			cate5.setName(category_id[4]);
+			cate5.addMouseListener(this);
+		}
+		//  6
+		ImageIcon cate6Image = new ImageIcon(iconImgUrl + "6.png");
+		cate6 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate6Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
 		cate6.setBorder(new LineBorder(commonColor, 3));
+		if(category_id[5] != null) {
+			cate6.setName(category_id[5]);
+			cate6.addMouseListener(this);
+		}
+		// 7
+		ImageIcon cate7Image = new ImageIcon(iconImgUrl + "7.png");
+		cate7 = new JPanel() {
+			
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate7Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
 		cate7.setBorder(new LineBorder(commonColor, 3));
+		
+		if(category_id[6] != null) {
+			cate7.setName(category_id[6]);
+			cate7.addMouseListener(this);
+		}
+
+		ImageIcon cate8Image = new ImageIcon(iconImgUrl + "8.png");
+		cate8 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate8Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
 		cate8.setBorder(new LineBorder(commonColor, 3));
+		
+		if(category_id[7] != null) {
+			cate8.setName(category_id[7]);
+			cate8.addMouseListener(this);
+		}
+		// 9
+		ImageIcon cate9Image = new ImageIcon(iconImgUrl + "9.png");
+		cate9 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(cate9Image.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
 		cate9.setBorder(new LineBorder(commonColor, 3));
+		if(category_id[8] != null) {
+			cate9.setName(category_id[8]);
+			cate9.addMouseListener(this);
+		}
 		
 		catePn.add(cate1);
 		catePn.add(cate2);
@@ -275,7 +320,6 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		catePn.add(cate9);
 
 		sidePn.add(catePn);
-
 		
 		//listPn
 		writePn = new JPanel();
@@ -391,60 +435,66 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		System.out.println("==>"+e.getActionCommand());
-		if(e.getActionCommand().equals("회원가입")) {
+			System.out.println("==>" + e.getActionCommand());
+			Delegator delegator = Delegator.getInstance();
 			
-		}
-		
-		if (e.getActionCommand().equals("이미지 1")) {
-			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
-				img1TextF.setText(jfc.getSelectedFile().toString());
-				filename1 = jfc.getSelectedFile().getName();
-
+			Object obj = e.getSource();
+			
+			if(obj == loginBtn) {
+				delegator.personController.Login();
+				this.dispose();
+			}else if(obj == signupBtn) {
+				delegator.personController.SignUp();
+				this.dispose();
+			}else if(obj == logoutBtn) {
+				delegator.personController.Logout();
+				this.dispose();
+			}else if (obj == imgAdd1) {
+				if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+					// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+					img1TextF.setText(jfc.getSelectedFile().toString());
+					filename1 = jfc.getSelectedFile().getName();
+				}
 			}
-		}
-
-		if (e.getActionCommand().equals("이미지 2")) {
-			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
-				img2TextF.setText(jfc.getSelectedFile().toString());
-				filename2 = jfc.getSelectedFile().getName();
+			if (obj == imgAdd2) {
+				if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+					// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+					img2TextF.setText(jfc.getSelectedFile().toString());
+					filename2 = jfc.getSelectedFile().getName();
+				}
 			}
-		}
-
-		if (e.getActionCommand().equals("이미지 3")) {
-			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
-				img3TextF.setText(jfc.getSelectedFile().toString());
-				filename3 = jfc.getSelectedFile().getName();
+			if (obj == imgAdd3) {
+				if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+					// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+					img3TextF.setText(jfc.getSelectedFile().toString());
+					filename3 = jfc.getSelectedFile().getName();
+				}
 			}
-		}
-
-		if (e.getActionCommand().equals("이미지 4")) {
-			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
-				img4TextF.setText(jfc.getSelectedFile().toString());
-				filename4 = jfc.getSelectedFile().getName();
+			if (obj == imgAdd4) {
+				if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+					// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+					img4TextF.setText(jfc.getSelectedFile().toString());
+					filename4 = jfc.getSelectedFile().getName();
+				}
 			}
-		}
 		
 		if(e.getActionCommand().equals("등록")) {
 			
-			if(!img1TextF.getText().isEmpty()) {
+			if (!img1TextF.getText().isEmpty()) {
 				filesend fs = new filesend(img1TextF.getText());
 			}
-			if(!img2TextF.getText().isEmpty()) {
+			if (!img2TextF.getText().isEmpty()) {
 				filesend fs = new filesend(img2TextF.getText());
 			}
-			if(!img3TextF.getText().isEmpty()) {
+			if (!img3TextF.getText().isEmpty()) {
 				filesend fs = new filesend(img3TextF.getText());
 			}
-			if(!img4TextF.getText().isEmpty()) {
+			if (!img4TextF.getText().isEmpty()) {
 				filesend fs = new filesend(img4TextF.getText());
 			}
 			
 			AbilityBbs abilityDto = new AbilityBbs();
+			String id = delegator.getCurrent_user().getId();
 			
 			int categoryIndex = cateCombo.getSelectedIndex();
 			abilityDto.setCategory_id(m_categoryList.get(categoryIndex).getSeq());
@@ -455,9 +505,9 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 			abilityDto.setImgurl4(img4TextF.getText());
 			abilityDto.setAbility(abilityTextF.getText());
 			abilityDto.setContent(contentTextPn.getText());
+			abilityDto.setUser_id(id);
 			
 			/* delegator 에 현재 로그인된 유저 정보를 받아오도록 수정 */
-			Delegator delegator = Delegator.getInstance();
 			AbilityService abilityService = new AbilityService();
 
 			//Person personDto = delegator.getCurrent_user();
@@ -475,13 +525,54 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			//headerLogo 클릭 시 Main페이지로
-			JPanel headerLogo = (JPanel)e.getComponent();
+			Object obj = e.getSource();
 			
-			if(e.getComponent().equals(headerLogo)) {
-				Delegator delegator = Delegator.getInstance();
-				delegator.abilityBbsController.main();
-				dispose();
+			Delegator delegator = Delegator.getInstance();
+			int category_id = 99;
+			
+			//Header event
+			if(obj == headerLogo){
+				delegator.mainController.Main();
+				this.dispose();
+			}
+
+			//Side Category event
+			if(obj == cate1){
+				category_id = Integer.parseInt(cate1.getName());
+				delegator.abilityBbsController.SelectAbilityCategories(category_id);
+				this.dispose();
+			}else if(obj == cate2) {
+				category_id = Integer.parseInt(cate2.getName());
+				delegator.abilityBbsController.SelectAbilityCategories(category_id);
+				this.dispose();
+			}else if(obj == cate3) {
+				category_id = Integer.parseInt(cate3.getName());
+				delegator.abilityBbsController.SelectAbilityCategories(category_id);
+				this.dispose();
+			}else if(obj == cate4) {
+				category_id = Integer.parseInt(cate4.getName());
+				delegator.abilityBbsController.SelectAbilityCategories(category_id);
+				this.dispose();
+			}else if(obj == cate5) {
+				category_id = Integer.parseInt(cate5.getName());
+				delegator.abilityBbsController.SelectAbilityCategories(category_id);
+				this.dispose();
+			}else if(obj == cate6) {
+				category_id = Integer.parseInt(cate6.getName());
+				delegator.abilityBbsController.SelectAbilityCategories(category_id);
+				this.dispose();
+			}else if(obj == cate7) {
+				category_id = Integer.parseInt(cate7.getName());
+				delegator.abilityBbsController.SelectAbilityCategories(category_id);
+				this.dispose();
+			}else if(obj == cate8) {
+				category_id = Integer.parseInt(cate8.getName());
+				delegator.abilityBbsController.SelectAbilityCategories(category_id);
+				this.dispose();
+			}else if(obj == cate9) {
+				category_id = Integer.parseInt(cate9.getName());
+				delegator.abilityBbsController.SelectAbilityCategories(category_id);
+				this.dispose();
 			}
 			
 		}

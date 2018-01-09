@@ -46,9 +46,6 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 	public List<ItemBbs> SelectItemCategories(int category_id){
 		return itemDao.SelectItemCategories(category_id);
 	}
-	public List<AbilityBbs> SelectAbilityCategories(int category_id){
-		return itemDao.SelectAbilityCategories(category_id);
-	}
 
 	@Override
 	public List<ItemBbs> AdminSearch(String search) {

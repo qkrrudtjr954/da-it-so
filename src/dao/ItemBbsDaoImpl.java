@@ -10,7 +10,6 @@ public interface ItemBbsDaoImpl {
 	public boolean addItem(ItemBbs itemDto);
 	public List<ItemBbs> allItemList();
 	public List<ItemBbs> SelectItemCategories(int category_id);
-	public List<AbilityBbs> SelectAbilityCategories(int category_id);
 	public List<ItemBbs> getAllItemBbs();
 	public List<ItemBbs> searchList(String searchWord);
 	public List<ItemBbs> getItemBbsByUserId(String user_id);

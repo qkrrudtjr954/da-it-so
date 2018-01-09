@@ -9,20 +9,20 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
-import db.MySqlConnection;
+import db.OracleConnection;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl {
 
-	 DBConnection DBConnector = new MySqlConnection();
-//	DBConnection DBConnector = new OracleConnection();
+//	 DBConnection DBConnector = new MySqlConnection();
+	DBConnection DBConnector = new OracleConnection();
 
 	public List<AbilityBbs> allAbilityList() {
 
 
-		String sql = "SELECT * FROM ABILITY_BBS ORDER BY CREATED_AT WHERE STATE = 0 OR STATE = 1";
+		String sql = "SELECT * FROM ABILITY_BBS  WHERE STATE = 0 OR STATE = 1 ORDER BY CREATED_AT";
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
@@ -116,7 +116,7 @@ public class AbilityDao implements AbilityDaoImpl {
 
 	public boolean addAbility(AbilityBbs abilityDto) {
 		Delegator delegator = Delegator.getInstance();
-		Person personDto = delegator.getCurrent_user();
+		String id = delegator.getCurrent_user().getId();
 
 		String sql;
 
@@ -128,7 +128,7 @@ public class AbilityDao implements AbilityDaoImpl {
 					+ abilityDto.getAbility() + "', '" + abilityDto.getContent() + "', 0, now());";
 		} else {
 			sql ="INSERT INTO ABILITY_BBS(SEQ, CATEGORY_ID, TITLE, IMGURL1, IMGURL2, IMGURL3, IMGURL4, ABILITY, CONTENT, STATE, CREATED_AT, USER_ID)"
-					+" VALUES(SEQ_ABILITY_BBS.NEXTVAL,'"+abilityDto.getCategory_id()+"','"+abilityDto.getTitle()+"','"+abilityDto.getImgurl1()+"','"+abilityDto.getImgurl2()+"','"+abilityDto.getImgurl3()+"','"+abilityDto.getImgurl4()+"','"+abilityDto.getAbility()+"','"+abilityDto.getContent()+"', 0, SYSDATE, '"+personDto.getId()+"')";
+					+" VALUES(SEQ_ABILITY_BBS.NEXTVAL,'"+abilityDto.getCategory_id()+"','"+abilityDto.getTitle()+"','"+abilityDto.getImgurl1()+"','"+abilityDto.getImgurl2()+"','"+abilityDto.getImgurl3()+"','"+abilityDto.getImgurl4()+"','"+abilityDto.getAbility()+"','"+abilityDto.getContent()+"', 0, SYSDATE, '"+id+"')";
 
 		}
 
@@ -154,7 +154,59 @@ public class AbilityDao implements AbilityDaoImpl {
 		return count > 0 ? true : false;
 	}
 
+	public List<AbilityBbs> SelectAbilityCategories(int category_id) {
 
+		String sql;
+		
+		if(DBConnector.getClass().getName().equals("db.mysql")) {
+			sql = "";
+		}else {
+			sql = "SELECT * FROM ABILITY_BBS WHERE CATEGORY_ID = "+ category_id;
+		}
+		
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+
+		List<AbilityBbs> abilityList = new ArrayList<>();
+		ResultSet rs = null;
+
+		System.out.println(">>>	CategoryDao .SelectCategories() sql : " + sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
+
+			while (rs.next()) {
+			AbilityBbs abilityBbs = new AbilityBbs();
+			
+			abilityBbs.setSeq(rs.getInt("SEQ"));
+			abilityBbs.setCategory_id(rs.getInt("CATEGORY_ID"));
+			abilityBbs.setTitle(rs.getString("TITLE"));
+			abilityBbs.setImgurl1(rs.getString("IMGURL1"));
+			abilityBbs.setImgurl2(rs.getString("IMGURL2"));
+			abilityBbs.setImgurl3(rs.getString("IMGURL3"));
+			abilityBbs.setImgurl4(rs.getString("IMGURL4"));
+			abilityBbs.setAbility(rs.getString("ABILITY"));
+			abilityBbs.setContent(rs.getString("CONTENT"));
+			abilityBbs.setCreated_at(rs.getString("CREATED_AT"));
+			abilityBbs.setUser_id(rs.getString("USER_ID"));
+			abilityBbs.setState(rs.getInt("STATE"));
+			
+			
+
+			abilityList.add(abilityBbs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+
+		return abilityList;
+	}
+	
 	@Override
 	public List<AbilityBbs> searchList(String searchWord) {
 

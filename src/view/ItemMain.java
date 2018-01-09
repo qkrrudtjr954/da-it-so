@@ -33,7 +33,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 	private JTextField searchTextF;
 	
 	//list panel
-	private JPanel listPn, thumPn, thumPn1;
+	private JPanel listPn, thumPn, thumPn1, thumPn2;
 	private JLabel imgLa, txtLa;
 	private JButton addBtn;
 
@@ -445,8 +445,12 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		JPanel thumPn1 = (JPanel)e.getComponent();
+		this.thumPn1 = thumPn1;
 		
 		Object obj = e.getSource();
+
+		
 		
 		Delegator delegator = Delegator.getInstance();
 		ItemBbs itemSelect = null;
@@ -454,7 +458,8 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		int category_id = 99;
 
 		//List event
-		if(obj == thumPn1) {
+		if(obj == thumPn1 && obj != headerLogo && obj != cate1 && obj != cate2 && obj != cate3 && obj != cate4
+				&& obj != cate5 && obj != cate6 && obj != cate7 && obj != cate8 && obj != cate9) {
 			System.out.println("thumPn1 GetName==>"+thumPn1.getName());
 			itemNum = Integer.parseInt(thumPn1.getName());			
 			
