@@ -49,7 +49,7 @@ public class AbilityDao implements AbilityDaoImpl{
 				abilityDto.setImgurl4(rs.getString("IMGURL4"));
 				abilityDto.setAbility(rs.getString("ABILITY"));
 				abilityDto.setContent(rs.getString("CONTENT"));
-				abilityDto.setCreated_at(rs.getString("CREATE_AT"));
+				abilityDto.setCreated_at(rs.getString("CREATED_AT"));
 				abilityDto.setUser_id(rs.getString("USER_ID"));
 				
 				AbilityList.add(abilityDto);
@@ -145,7 +145,7 @@ public class AbilityDao implements AbilityDaoImpl{
 		List<AbilityBbs> list = new ArrayList<AbilityBbs>();
 		String sql = "SELECT "+ 
 				" SEQ, CATEGORY_ID, USER_ID, TITLE, "+ 
-				" IMGURL1, IMGURL2, IMGURL3, IMGURL4, MAINIMGURL" + 
+				" IMGURL1, IMGURL2, IMGURL3, IMGURL4" + 
 				" ABILITY, CONTENT, CREATED_AT, STATE" + 
 				" FROM ABILITY_BBS";
 		System.out.println("sql: " + sql);
@@ -201,14 +201,51 @@ public class AbilityDao implements AbilityDaoImpl{
 		}
 		return null;
 	}
-	
-	public List<AbilityBbs> search(AbilityBbs Adto){
+
+	@Override
+	public List<AbilityBbs> searchList(String searchWord) {
+		java.sql.Statement stmt = null;
+		ResultSet rs = null;
+		List<AbilityBbs> searchlist = new ArrayList<AbilityBbs>();
 		
 		String sql = " SELECT * FROM ABILITY_BBS "
-				+ " WHERE TITLE = '" + Adto.getTitle() +"'" ;
+				+ " WHERE TITLE LIKE %'" + searchWord +"'%"
+				+ " OR CONTENT LIKE %'" + searchWord + "'%"
+				+ " OR ABILITY LIKE %'" + searchWord + "'%";//제목 컨텐츠 키워드 
+		//select * from item_bbs where title like %something% or content like %something% or ability like %something%;
 		
-		return null;
+		java.sql.Connection conn = DBConnector.makeConnection();
+		System.out.println("conn success");
 		
+		try {
+			stmt = conn.createStatement();
+			System.out.println("stmt success");
+
+			rs = stmt.executeQuery(sql);
+			System.out.println("rs success");
+			
+			while(rs.next()) {
+
+				String title = rs.getString("TITLE");
+				String ability = rs.getString("ABILITY");
+				String content = rs.getString("CONTENT");
+				
+				AbilityBbs dto = new AbilityBbs();
+				
+				dto.setTitle(title);
+				dto.setAbility(ability);
+				dto.setContent(content);
+				
+				searchlist.add(dto);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBClose.close(stmt, conn, rs);
+		}
+		return searchlist;
 	}
 
 	

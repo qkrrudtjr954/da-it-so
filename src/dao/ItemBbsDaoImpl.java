@@ -7,5 +7,7 @@ import dto.ItemBbs;
 public interface ItemBbsDaoImpl {
 	
 	public List<ItemBbs> list(ItemBbs Idto);
+	public List<ItemBbs> searchList(String searchWord);
+	
 
 }

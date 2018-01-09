@@ -47,21 +47,21 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 		this.state = Cdto.getState();
 
 		if (state == 0) {
-			// ¹°°Ç¸®½ºÆ®¸¦ ¶ç¿î´Ù
-			// controller ÅëÇØ¼­ daoÀÇ ItemList ¸Þ¼Òµå·Î º¸³½´Ù(ÀÎÀÚ°ª ItemBbs)
+			// ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// controller ï¿½ï¿½ï¿½Ø¼ï¿½ daoï¿½ï¿½ ItemList ï¿½Þ¼Òµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ú°ï¿½ ItemBbs)
 		showIList();
 			
 			
 		} else if (state == 1) {
-			// ÀÎ·Â¸®½ºÆ®¸¦ ¶ç¿î´Ù
-			// controller ÅëÇØ¼­ daoÀÇ AbilityList ¸Þ¼Òµå·Î º¸³½´Ù(ÀÎÀÚ°ª AbilityBbs)			
+			// ï¿½Î·Â¸ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// controller ï¿½ï¿½ï¿½Ø¼ï¿½ daoï¿½ï¿½ AbilityList ï¿½Þ¼Òµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ú°ï¿½ AbilityBbs)			
 		showAList();
 		}
 	}
 
 	public ItemBbs showIList() {
-		
-			List<ItemBbs>list = de.itemBbsController.list(Idto);
+	
+//		List<ItemBbs>list = de.itemBbsController.list(Idto);
 		
 		listPn = new JPanel();
 		listPn.setLayout(null);
@@ -82,19 +82,22 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 		thumPn.add(addBtn);
 		
 		int j = 0;
-		for (int i = 0; i < list.size(); i++) {
-
+	//	for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < 100; i++) {
+	
 			thumPn1 = new JPanel();
 			thumPn1.setLayout(null);
 
 			thumPn2 = new JPanel();
 			thumPn2.setLayout(null);
 
-			if (i % 2 == 0) { // Â¦¼öÀÏ¶§(»õ·Î¿î ÁÙ·Î ³Ñ¾î°¥¶§)
+			if (i % 2 == 0) { // Â¦ï¿½ï¿½ï¿½Ï¶ï¿½(ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½Ù·ï¿½ ï¿½Ñ¾î°¥ï¿½ï¿½)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
+				imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/icebear.png"));
+		//		imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
 				imgLa.addMouseListener(this);
-				txtLa = new JLabel(Idto.getTitle() + "\n" + list.get(i).getContent());
+				txtLa = new JLabel("ice ice bear");
+		//		txtLa = new JLabel(Idto.getTitle() + "\n" + list.get(i).getContent());
 				txtLa.addMouseListener(this);
 				
 				imgLa.setBounds(0, 0, 200, 120);
@@ -103,13 +106,16 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 				thumPn1.add(txtLa);
 				thumPn1.add(imgLa);
 				thumPn1.addMouseListener(this);
-
 				j++;
+				
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
+		//		imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
+				imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/icebear.png"));
 				imgLa.addMouseListener(this);
-				txtLa = new JLabel(Idto.getTitle() + "\n" + list.get(i).getContent());
+		//		txtLa = new JLabel(Idto.getTitle() + "\n" + list.get(i).getContent());
+				txtLa = new JLabel("ice ice bear");
+
 				txtLa.addMouseListener(this);
 				
 				imgLa.setBounds(0, 0, 200, 120);
@@ -170,7 +176,7 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 			thumPn2 = new JPanel();
 			thumPn2.setLayout(null);
 
-			if (i % 2 == 0) { // Â¦¼öÀÏ¶§(»õ·Î¿î ÁÙ·Î ³Ñ¾î°¥¶§)
+			if (i % 2 == 0) { // Â¦ï¿½ï¿½ï¿½Ï¶ï¿½(ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½Ù·ï¿½ ï¿½Ñ¾î°¥ï¿½ï¿½)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
 				imgLa = new JLabel(new ImageIcon(list.get(i).getImgurl1()));
 				imgLa.addMouseListener(this);
@@ -225,7 +231,6 @@ public class ListVIew extends JFrame implements ActionListener, MouseListener {
 		Person Pdto =  new Person();
 		Pdto.setId("asd");
 		
-	//Idto = delegator ÅëÇØ¼­ ÄÁÆ®·Ñ·¯ ÅëÇØ¼­ ¼­ºñ½º ÅëÇØ¼­ dao  
 		new DetailPageView(Idto, Pdto);
 		System.out.println("iddto :"+Idto.getContent());
 	}

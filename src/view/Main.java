@@ -26,6 +26,7 @@ import dto.ItemBbs;
 
 public class Main extends JFrame implements ActionListener {
 
+	
 	private JButton loginBtn, logoutBtn, signupBtn;
 	private JTextField id;
 	private JPasswordField pwd;

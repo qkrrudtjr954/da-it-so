@@ -11,7 +11,6 @@ public class ItemBbs implements Serializable{
 	private String imgurl2;
 	private String imgurl3;
 	private String imgurl4;
-	private String mainimgurl;
 	private int price;
 	private String keyword;	// 검색 키워드 ( 해쉬 태크 )
 	private String content;
@@ -23,10 +22,11 @@ public class ItemBbs implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	public ItemBbs(int category_id, String user_id, String title, String imgurl1, String imgurl2, String imgurl3,
-			String imgurl4, int price, String keyword, String content, int state) {
+
+	public ItemBbs(int seq, int category_id, String user_id, String title, String imgurl1, String imgurl2,
+			String imgurl3, String imgurl4, int price, String keyword, String content, String created_at, int state) {
 		super();
+		this.seq = seq;
 		this.category_id = category_id;
 		this.user_id = user_id;
 		this.title = title;
@@ -37,10 +37,9 @@ public class ItemBbs implements Serializable{
 		this.price = price;
 		this.keyword = keyword;
 		this.content = content;
+		this.created_at = created_at;
 		this.state = state;
 	}
-
-
 
 
 	public int getSeq() {
@@ -48,13 +47,9 @@ public class ItemBbs implements Serializable{
 	}
 
 
-
-
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
-
-
 
 
 	public int getCategory_id() {
@@ -62,13 +57,9 @@ public class ItemBbs implements Serializable{
 	}
 
 
-
-
 	public void setCategory_id(int category_id) {
 		this.category_id = category_id;
 	}
-
-
 
 
 	public String getUser_id() {
@@ -76,13 +67,9 @@ public class ItemBbs implements Serializable{
 	}
 
 
-
-
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-
-
 
 
 	public String getTitle() {
@@ -90,13 +77,9 @@ public class ItemBbs implements Serializable{
 	}
 
 
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
 
 
 	public String getImgurl1() {
@@ -104,13 +87,9 @@ public class ItemBbs implements Serializable{
 	}
 
 
-
-
 	public void setImgurl1(String imgurl1) {
 		this.imgurl1 = imgurl1;
 	}
-
-
 
 
 	public String getImgurl2() {
@@ -118,13 +97,9 @@ public class ItemBbs implements Serializable{
 	}
 
 
-
-
 	public void setImgurl2(String imgurl2) {
 		this.imgurl2 = imgurl2;
 	}
-
-
 
 
 	public String getImgurl3() {
@@ -132,12 +107,11 @@ public class ItemBbs implements Serializable{
 	}
 
 
-
-
 	public void setImgurl3(String imgurl3) {
 		this.imgurl3 = imgurl3;
 	}
-	
+
+
 	public String getImgurl4() {
 		return imgurl4;
 	}
@@ -148,74 +122,6 @@ public class ItemBbs implements Serializable{
 	}
 
 
-	public String getKeyword() {
-		return keyword;
-	}
-
-
-
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-
-
-
-
-	public String getContent() {
-		return content;
-	}
-
-
-
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-
-
-
-	public String getCreated_at() {
-		return created_at;
-	}
-
-
-
-
-	public void setCreated_at(String created_at) {
-		this.created_at = created_at;
-	}
-
-
-
-
-	public int getState() {
-		return state;
-	}
-
-
-
-
-	public void setState(int state) {
-		this.state = state;
-	}
-
-
-
-	
-
-	@Override
-	public String toString() {
-		return "ItemBbs [seq=" + seq + ", category_id=" + category_id + ", user_id=" + user_id + ", title=" + title
-				+ ", imgurl1=" + imgurl1 + ", imgurl2=" + imgurl2 + ", imgurl3=" + imgurl3 + ", imgurl4=" + imgurl4
-				+ ", mainimgurl=" + mainimgurl + ", price=" + price + ", keyword=" + keyword + ", content=" + content
-				+ ", created_at=" + created_at + ", state=" + state + "]";
-	}
-
-
-
-
 	public int getPrice() {
 		return price;
 	}
@@ -224,8 +130,56 @@ public class ItemBbs implements Serializable{
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
-	
+
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+
+	public String getContent() {
+		return content;
+	}
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+	public String getCreated_at() {
+		return created_at;
+	}
+
+
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
+	}
+
+
+	public int getState() {
+		return state;
+	}
+
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+
+	@Override
+	public String toString() {
+		return "ItemBbs [seq=" + seq + ", category_id=" + category_id + ", user_id=" + user_id + ", title=" + title
+				+ ", imgurl1=" + imgurl1 + ", imgurl2=" + imgurl2 + ", imgurl3=" + imgurl3 + ", imgurl4=" + imgurl4
+				+ ", price=" + price + ", keyword=" + keyword + ", content=" + content + ", created_at=" + created_at
+				+ ", state=" + state + "]";
+	}
+
 	
 	
 }

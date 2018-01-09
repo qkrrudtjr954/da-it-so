@@ -22,4 +22,10 @@ public class AbilityService implements AbilityServiceImpl {
 		// TODO Auto-generated method stub
 		return abilityDao.list(Adto);
 	}
+
+	@Override
+	public List<AbilityBbs> searchList(String searchWord) {
+		// TODO Auto-generated method stub
+		return abilityDao.searchList(searchWord);
+	}
 }

@@ -29,11 +29,10 @@ import dto.ItemBbs;
 
 public class mainView extends JFrame implements ActionListener {
 
-	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
-	cate9;
+	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8, cate9;
 	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn;
 	private JTextField searchTextF;
-
+	
 	private JPanel listPn;
 	Color mainPink = new Color(255, 174, 174);
 	Color commonColor = new Color(218, 0, 0);
@@ -53,7 +52,7 @@ public class mainView extends JFrame implements ActionListener {
 		// headerlogo
 		ImageIcon headerimage = new ImageIcon("/Users/leeseoone/Desktop/icon/headerlogo.png");
 		headerLogo = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(headerimage.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -63,27 +62,27 @@ public class mainView extends JFrame implements ActionListener {
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerPn.add(headerLogo);
 		// logoutBtn
-		logoutBtn = new JButton("·Î±×¾Æ¿ô");
+		logoutBtn = new JButton("ï¿½Î±×¾Æ¿ï¿½");
 		logoutBtn.setBounds(1250, 20, 100, 30);
-		logoutBtn.setOpaque(false); // Åõ¸íÇÏ°Ô
-		logoutBtn.setBorderPainted(false);// ¿Ü°û¼± ¾ø¾ÖÁÜ
-		logoutBtn.setFont(new Font("·Î±×¾Æ¿ô", Font.BOLD, 12));
+		logoutBtn.setOpaque(false); // ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+		logoutBtn.setBorderPainted(false);// ï¿½Ü°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		logoutBtn.setFont(new Font("ï¿½Î±×¾Æ¿ï¿½", Font.BOLD, 12));
 		logoutBtn.setBackground(commonColor);
 		logoutBtn.setForeground(Color.white);
 		// loginBtn
-		loginBtn = new JButton("·Î±×ÀÎ");
+		loginBtn = new JButton("ï¿½Î±ï¿½ï¿½ï¿½");
 		loginBtn.setBounds(1190, 20, 100, 30);
-		loginBtn.setOpaque(false); // Åõ¸íÇÏ°Ô
-		loginBtn.setBorderPainted(false);// ¿Ü°û¼± ¾ø¾ÖÁÜ
-		loginBtn.setFont(new Font("·Î±×ÀÎ", Font.BOLD, 12));
+		loginBtn.setOpaque(false); // ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+		loginBtn.setBorderPainted(false);// ï¿½Ü°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		loginBtn.setFont(new Font("ï¿½Î±ï¿½ï¿½ï¿½", Font.BOLD, 12));
 		loginBtn.setBackground(commonColor);
 		loginBtn.setForeground(Color.white);
 		// SignBtn
-		signBtn = new JButton("È¸¿ø°¡ÀÔ");
+		signBtn = new JButton("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		signBtn.setBounds(1130, 20, 100, 30);
-		signBtn.setOpaque(false); // Åõ¸íÇÏ°Ô
-		signBtn.setBorderPainted(false);// ¿Ü°û¼± ¾ø¾ÖÁÜ
-		signBtn.setFont(new Font("È¸¿ø°¡ÀÔ", Font.BOLD, 12));
+		signBtn.setOpaque(false); // ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+		signBtn.setBorderPainted(false);// ï¿½Ü°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		signBtn.setFont(new Font("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 12));
 		signBtn.setBackground(commonColor);
 		signBtn.setForeground(Color.white);
 		
@@ -101,7 +100,7 @@ public class mainView extends JFrame implements ActionListener {
 		
 		ImageIcon image = new ImageIcon("/Users/leeseoone/Desktop/icon/logo.png");
 		logoPn = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -112,26 +111,26 @@ public class mainView extends JFrame implements ActionListener {
 		sidePn.add(logoPn);
 		
 		// SearchText
-		searchTextF = new JTextField("°Ë»ö¾î");
+		searchTextF = new JTextField("ï¿½Ë»ï¿½ï¿½ï¿½");
 		searchTextF.setBounds(40, 160, 260, 40);
 		searchTextF.setBorder(new LineBorder(commonColor, 5));
 		sidePn.add(searchTextF);
 		// searchBtn
 		searchBtn = new JButton(new ImageIcon("/Users/leeseoone/Desktop/icon/search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
-		searchBtn.setOpaque(false); // Åõ¸íÇÏ°Ô
+		searchBtn.setOpaque(false); // ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
 		// searchBtn.setBackground();
-		searchBtn.setContentAreaFilled(false);// ³»¿ë¿µ¿ª Ã¤¿ì±âx
+		searchBtn.setContentAreaFilled(false);// ï¿½ï¿½ï¿½ë¿µï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½x
 		sidePn.add(searchBtn);
 		// catePn
 		catePn = new JPanel();
 		catePn.setLayout(new GridLayout(3, 3, 10, 10));
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
-		// Ä«ÅÍ°í¸®
+		// Ä«ï¿½Í°ï¿½
 		ImageIcon cate1Image = new ImageIcon("/Users/leeseoone/Desktop/icon/1.png");
 		cate1 = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate1Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -139,10 +138,10 @@ public class mainView extends JFrame implements ActionListener {
 			}
 		};
 		cate1.setBorder(new LineBorder(commonColor, 3));
-		// Ä«Å×°í¸® 2
+		// Ä«ï¿½×°ï¿½ 2
 		ImageIcon cate2Image = new ImageIcon("/Users/leeseoone/Desktop/icon/2.png");
 		cate2 = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate2Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -150,10 +149,10 @@ public class mainView extends JFrame implements ActionListener {
 			}
 		};
 		cate2.setBorder(new LineBorder(commonColor, 3));
-		// Ä«Å×°í¸® 3
+		// Ä«ï¿½×°ï¿½ 3
 		ImageIcon cate3Image = new ImageIcon("/Users/leeseoone/Desktop/icon/3.png");
 		cate3 = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate3Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -161,10 +160,10 @@ public class mainView extends JFrame implements ActionListener {
 			}
 		};
 		cate3.setBorder(new LineBorder(commonColor, 3));
-		// Ä«Å×°í¸®4
+		// Ä«ï¿½×°ï¿½4
 		ImageIcon cate4Image = new ImageIcon("/Users/leeseoone/Desktop/icon/4.png");
 		cate4 = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate4Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -172,10 +171,10 @@ public class mainView extends JFrame implements ActionListener {
 			}
 		};
 		cate4.setBorder(new LineBorder(commonColor, 3));
-		// Ä«Å×°í¸® 5
+		// Ä«ï¿½×°ï¿½ 5
 		ImageIcon cate5Image = new ImageIcon("/Users/leeseoone/Desktop/icon/5.png");
 		cate5 = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate5Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -183,10 +182,10 @@ public class mainView extends JFrame implements ActionListener {
 			}
 		};
 		cate5.setBorder(new LineBorder(commonColor, 3));
-		// Ä«Å×°í¸® 6
+		// Ä«ï¿½×°ï¿½ 6
 		ImageIcon cate6Image = new ImageIcon("/Users/leeseoone/Desktop/icon/6.png");
 		cate6 = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate6Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -194,10 +193,10 @@ public class mainView extends JFrame implements ActionListener {
 			}
 		};
 		cate6.setBorder(new LineBorder(commonColor, 3));
-		// Ä«Å×°í¸®7
+		// Ä«ï¿½×°ï¿½7
 		ImageIcon cate7Image = new ImageIcon("/Users/leeseoone/Desktop/icon/7.png");
 		cate7 = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate7Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -205,10 +204,10 @@ public class mainView extends JFrame implements ActionListener {
 			}
 		};
 		cate7.setBorder(new LineBorder(commonColor, 3));
-		// Ä«Å×°í¸®8
+		// Ä«ï¿½×°ï¿½8
 		ImageIcon cate8Image = new ImageIcon("/Users/leeseoone/Desktop/icon/8.png");
 		cate8 = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate8Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -216,10 +215,10 @@ public class mainView extends JFrame implements ActionListener {
 			}
 		};
 		cate8.setBorder(new LineBorder(commonColor, 3));
-		// Ä«Å×°í¸®9
+		// Ä«ï¿½×°ï¿½9
 		ImageIcon cate9Image = new ImageIcon("/Users/leeseoone/Desktop/icon/9.png");
 		cate9 = new JPanel() {
-			// »çÀÌÁî¸Â°Ô ¹è°æ»ðÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate9Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -227,6 +226,7 @@ public class mainView extends JFrame implements ActionListener {
 			}
 		};
 		cate9.setBorder(new LineBorder(commonColor, 3));
+		
 		catePn.add(cate1);
 		catePn.add(cate2);
 		catePn.add(cate3);
@@ -237,22 +237,7 @@ public class mainView extends JFrame implements ActionListener {
 		catePn.add(cate8);
 		catePn.add(cate9);
 		sidePn.add(catePn);
-		
-		listPn = new JPanel();
-		listPn.setLayout(null);
-		listPn.setBounds(400, 60, 1280, 1000);
-		listPn.setBackground(mainPink);
 
-		Category Cdto = new Category("", "", 0);
-		listPn.add(new ListVIew(Cdto));
-		
-		add(headerPn);
-		add(sidePn);
-		
-        add(listPn);
-		setLayout(null);
-		setBounds(0,0,1680,1050);
-		setVisible(true);
 	}
 
 

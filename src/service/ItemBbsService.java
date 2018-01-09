@@ -21,4 +21,9 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 	public List<ItemBbs>list(ItemBbs Idto) {
 		return itemDao.list(Idto);
 	}
+
+	@Override
+	public List<ItemBbs> searchList(String searchWord) {
+		return itemDao.searchList(searchWord);
+	}
 }
