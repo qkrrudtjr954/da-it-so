@@ -141,7 +141,7 @@ public class Main extends JFrame implements ActionListener {
 		
 		contentPane.add(center);
 		
-		setBounds(0, 0, 1680, 1050);
+		setBounds(0, 0, 1680, 730);
 		setLayout(null);
 		setVisible(true);
 
@@ -151,7 +151,6 @@ public class Main extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Delegator delegator = Delegator.getInstance();
 		Object obj = e.getSource();
-		System.out.println(obj);
 		
 		if(obj == loginBtn) {
 			delegator.personController.Login();

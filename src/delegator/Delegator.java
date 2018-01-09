@@ -1,6 +1,7 @@
 package delegator;
 
 import controller.AbilityBbsController;
+import controller.AdminController;
 import controller.CategoryController;
 import controller.ChatController;
 import controller.ItemBbsController;
@@ -20,6 +21,7 @@ public class Delegator {
 	public PersonController personController;
 	public RoomController roomController;
 	public MainController mainController;
+	public AdminController adminController;
 	
 	private Delegator() {
 		
@@ -30,6 +32,8 @@ public class Delegator {
 		personController = new PersonController();
 		roomController = new RoomController();
 		mainController = new MainController();
+		adminController = new AdminController();
+		
 	}
 	
 	public static Delegator getInstance() {

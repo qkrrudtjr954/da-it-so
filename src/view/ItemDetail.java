@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,41 +10,40 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import controller.ItemBbsController;
+import delegator.Delegator;
 import dto.ItemBbs;
 import dto.Person;
 
-public class ItemDetail extends JFrame implements ActionListener,MouseListener {
+public class ItemDetail extends JFrame implements ActionListener, MouseListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
 			subimage4, keywordPanel;
-	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
+	private JButton  logoutBtn, signBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
 	String iconImgUrl = "C:\\icon\\";
-	Person m_personDto = null;
-	ItemBbs m_itemDto = null; 
-	public ItemDetail(ItemBbs itemDto, Person PersonDto) {
-	
+
+	ItemBbs m_itemDto = null;
+
+	public ItemDetail(ItemBbs itemDto) {
+		Delegator delegator = Delegator.getInstance();
 		this.m_itemDto = itemDto;
-		this.m_personDto = PersonDto;
-		
+
 		Container cn = getContentPane();
-		
+
 		cn.setBounds(0, 0, 1680, 900);
 		cn.setBackground(Color.white);
 
@@ -89,19 +87,18 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		logoutBtn.setBackground(commonColor);
 		logoutBtn.setForeground(Color.white);
 
-		// loginBtn
-		loginBtn = new JButton("로그인");
-		loginBtn.setBounds(1190, 20, 100, 30);
-		loginBtn.setOpaque(false); // 투명하게
-		loginBtn.setBorderPainted(false);// 외곽선 없애줌
-		loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
-		loginBtn.setBackground(commonColor);
-		loginBtn.setForeground(Color.white);
-
+/*		
+		  loginBtn = new JButton("로그인"); 
+		  loginBtn.setBounds(1190, 20, 100,30);
+		  loginBtn.setOpaque(false); // 투명하게 loginBtn.setBorderPainted(false);//
+		  loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
+		  loginBtn.setBackground(commonColor);
+		  loginBtn.setForeground(Color.white);
+		 */
 		// SignBtn
 
 		signBtn = new JButton("회원가입");
-		signBtn.setBounds(1130, 20, 100, 30);
+		signBtn.setBounds(1190, 20, 100,30);
 		signBtn.setOpaque(false); // 투명하게
 		signBtn.setBorderPainted(false);// 외곽선 없애줌
 		signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
@@ -109,7 +106,7 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		signBtn.setForeground(Color.white);
 
 		headerPn.add(logoutBtn);
-		headerPn.add(loginBtn);
+
 		headerPn.add(signBtn);
 
 		// 1050
@@ -292,10 +289,10 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 
 		imagePannel.add(titleLb);
 		// Seller
-		
-		sellLb = new JLabel(m_personDto.getId());
+
+		sellLb = new JLabel(m_itemDto.getUser_id());
 		sellLb.setBounds(10, 75, 400, 20);
-		sellLb.setFont(new Font(PersonDto.getId(), Font.BOLD, 12));
+		sellLb.setFont(new Font(m_itemDto.getUser_id(), Font.BOLD, 12));
 		sellLb.setOpaque(false);
 
 		imagePannel.add(sellLb);
@@ -374,14 +371,13 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		iteminfoPn.setLayout(null);
 		iteminfoPn.setBounds(580, 135, 340, 400);
 		iteminfoPn.setBackground(Color.white);
-		iteminfoPn.setBorder(new LineBorder(Color.red,2));
+		iteminfoPn.setBorder(new LineBorder(Color.red, 2));
 
 		// detailtitleLb
 		detailtitleLb = new JLabel(m_itemDto.getTitle());
 		detailtitleLb.setBounds(10, 10, 340, 30);
 		detailtitleLb.setFont(new Font(m_itemDto.getTitle(), Font.BOLD, 20));
 		iteminfoPn.add(detailtitleLb);
-	
 
 		// detailprice
 		priceLb = new JLabel(m_itemDto.getPrice() + "");
@@ -390,65 +386,63 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 		iteminfoPn.add(priceLb);
 
 		// keyword
-		
+
 		String key = m_itemDto.getKeyword();
-		System.out.println("key값 : "+key);
+		System.out.println("key값 : " + key);
 		int rowSize = 0;
 		String[] keyarray;
-		keyarray = new String[rowSize * 3]; 
+		keyarray = new String[rowSize * 3];
 		keyarray = key.split("-key-");
-		System.out.println("keyarray:"+keyarray[0]);
-		System.out.println("keyarraylength :"+keyarray.length);
-	
-		if(keyarray.length%3 == 0) {
-			rowSize = keyarray.length/3;
-		}else {
-			rowSize = keyarray.length/3+1;
+		System.out.println("keyarray:" + keyarray[0]);
+		System.out.println("keyarraylength :" + keyarray.length);
+
+		if (keyarray.length % 3 == 0) {
+			rowSize = keyarray.length / 3;
+		} else {
+			rowSize = keyarray.length / 3 + 1;
 		}
-		
+
 		JPanel keywordPanel = new JPanel();
 		keywordPanel.setLocation(10, 70);
-		keywordPanel.setSize(240, 30*rowSize);
+		keywordPanel.setSize(240, 30 * rowSize);
 		keywordPanel.setBackground(Color.white);
 		keywordPanel.setLayout(null);
-		
+
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
-	
-		int k=0;
-		for(int i=0; i<rowSize; i++) {
-			for(int j=0; j<keyarray.length; j++) {
-			
-				keywordLabel[i][j]= new JLabel();
+
+		int k = 0;
+		for (int i = 0; i < rowSize; i++) {
+			for (int j = 0; j < keyarray.length; j++) {
+
+				keywordLabel[i][j] = new JLabel();
 				keywordLabel[i][j].setOpaque(true);
 				keywordLabel[i][j].setBackground(Color.pink);
 				keywordLabel[i][j].setHorizontalAlignment(SwingConstants.LEFT);
-				keywordLabel[i][j].setText("#"+keyarray[k]);
+				keywordLabel[i][j].setText("#" + keyarray[k]);
 				keywordLabel[i][j].setSize(70, 30);
-				keywordLabel[i][j].setLocation((j*80), (i*40));
+				keywordLabel[i][j].setLocation((j * 80), (i * 40));
 				System.out.println(keywordLabel[i][j].getBounds());
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
 			}
 		}
-		
+
 		iteminfoPn.add(keywordPanel);
-		
-		//categori
-		cateLb = new JLabel("카테고리 : "+m_itemDto.getCategory_id()); 
+
+		// categori
+		cateLb = new JLabel("카테고리 : " + m_itemDto.getCategory_id());
 		cateLb.setBounds(10, 100, 80, 30);
 		cateLb.setOpaque(true);
 		cateLb.setBackground(Color.white);
 		iteminfoPn.add(cateLb);
 
-		//item explanation
-		explanationLb = new JLabel("저품 설명 : "+m_itemDto.getContent());
-		explanationLb.setBounds(10,150 , 300, 10*m_itemDto.getContent().length());
+		// item explanation
+		explanationLb = new JLabel("저품 설명 : " + m_itemDto.getContent());
+		explanationLb.setBounds(10, 150, 300, 10 * m_itemDto.getContent().length());
 		explanationLb.setOpaque(true);
 		explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
 		iteminfoPn.add(explanationLb);
-		
-		
 
 		// chatBtn
 		chatBtn = new JButton(new ImageIcon(iconImgUrl + "chatting.png"));
@@ -471,23 +465,30 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		Delegator delegator = Delegator.getInstance();
 		JButton btn = (JButton) e.getSource();
 
 		if (btn == talkBtn) {
-			if (this.m_personDto != null) {
+			if (delegator.getCurrent_user() != null) {
 
-				dispose();
+				// de.chatController 현재 로그인된 상태이면 채팅창 띄움
+
+			} else {
+				JOptionPane.showMessageDialog(null, "로그인 해주세요");
+				delegator.personController.Login();
+				this.dispose();
 			}
 
 		} else if (btn == signBtn) {
+			delegator.personController.SignUp();
+			this.dispose();
 
-			
-			dispose();
-		} else if (btn == loginBtn) {
+		} else if (btn == searchBtn) {
+			// delegator.itemBbsController. search 결과
+		} else if (btn == logoutBtn) {
 
-			
-			dispose();
+			delegator.setCurrent_user(null);
+			delegator.mainController.Main();
 		}
 
 	}
@@ -495,31 +496,39 @@ public class ItemDetail extends JFrame implements ActionListener,MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		// headerLogo 클릭 시 Main페이지로
+		JPanel headerLogo = (JPanel) e.getComponent();
+
+		if (e.getComponent().equals(headerLogo)) {
+			Delegator delegator = Delegator.getInstance();
+			delegator.itemBbsController.main();
+			this.dispose();
+		}
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("프레스확인");
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

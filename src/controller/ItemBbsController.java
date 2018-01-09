@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -32,16 +33,23 @@ public class ItemBbsController {
 	   
 	   public void allItemList() {
 		   List<ItemBbs> itemdto = itemService.allItemList();
+		   
+		   if(itemdto == null) {
+			   itemdto = new ArrayList<>();
+		   }
+		   
 		   new ItemMain(itemdto);
 	   }
 	   
 	   public void itemWrite(Person personDto) {
-		   List<Category> categoryList = categoryService.getAllCategories();
+		   //getAllCategories == 0 Ability 
+		   //getAllCategories == 1 item 
+		   List<Category> categoryList = categoryService.getAllCategories(0);
 		   new ItemWrite(categoryList);
 	   }
 	   
-	   public void itemDetail(ItemBbs itemDto, Person personDto) {
-		   new ItemDetail(itemDto, personDto);
+	   public void itemDetail(ItemBbs itemDto) {
+		   new ItemDetail(itemDto);
 	   }
 	   public void searchList(String searchWord){
 		   List<ItemBbs> itemList = itemService.searchList(searchWord);

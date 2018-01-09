@@ -13,8 +13,8 @@ public class AbilityService implements AbilityServiceImpl {
 		return abilityDao.allAbilityList();
 	}
 
-	public boolean addAbility(AbilityBbs abilityDto, Person personDto) {
-		return abilityDao.addAbility(abilityDto, personDto) ? true : false;
+	public List<AbilityBbs> getAllAbilityList() {
+		return abilityDao.getAllAbilityList();
 	}
 
 	@Override
@@ -27,5 +27,8 @@ public class AbilityService implements AbilityServiceImpl {
 	public List<AbilityBbs> searchList(String searchWord) {
 		// TODO Auto-generated method stub
 		return abilityDao.searchList(searchWord);
+	}
+	public boolean addAbility(AbilityBbs abilityDto) {
+		return abilityDao.addAbility(abilityDto) ? true : false;
 	}
 }

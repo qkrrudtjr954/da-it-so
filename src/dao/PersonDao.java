@@ -4,16 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
-import db.OracleConnection;
+import db.MySqlConnection;
 import dto.Person;
 
 public class PersonDao implements PersonDaoImpl {
 
-	//DBConnection DBConnector = new MySqlConnection();
-	DBConnection DBConnector = new OracleConnection();
+	DBConnection DBConnector = new MySqlConnection();
+//	DBConnection DBConnector = new OracleConnection();
 
 	/* 
 	 * 2018-01-04 init by Parker.
@@ -54,6 +56,35 @@ public class PersonDao implements PersonDaoImpl {
 		}
 		return person;
 	}
+	
+	public Person getPersonById(String id) {
+		String sql = " SELECT * FROM PERSON WHERE ID ='"+id+"'";
+		
+		Person person = null;
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		
+		ResultSet rs = null;
+		
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+			
+			if(rs.next()) {
+				person = new Person();
+				person.setCreated_at(rs.getString("created_at"));
+				person.setId(rs.getString("id"));
+				person.setNick(rs.getString("nick"));
+				person.setPhone(rs.getString("phone"));
+				person.setSeq(rs.getInt("seq"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return person;
+	}
 
 	public boolean insert(Person person) {
 		// TODO Auto-generated method stub
@@ -66,8 +97,8 @@ public class PersonDao implements PersonDaoImpl {
 			sql = " insert into person(id, pwd, phone, nick, create_at) "
 					+ " values('"+person.getId()+"', '"+pwds+"', '"+person.getPhone()+"', '"+person.getNick()+"', now()) ";
 		} else {
-			sql = "INSERT INTO PERSON(SEQ, ID, PWD, PHONE, NICK, CREATE_AT)"
-					+"VALUES (SEQ.NEXTVAL,'"+person.getId()+"','"+pwds+"','"+person.getPhone()+"','"+person.getNick()+"',SYSDATE);";
+			sql = "INSERT INTO PERSON(SEQ, ID, PASSWORD, PHONE, NICK, CREATED_AT)"
+					+" VALUES (PERSON_SEQ.NEXTVAL, '"+person.getId()+"','"+pwds+"','"+person.getPhone()+"','"+person.getNick()+"',SYSDATE)";
 		}
 		
 
@@ -121,6 +152,42 @@ public class PersonDao implements PersonDaoImpl {
 			DBClose.close(pstmt, conn, rs);
 		}
 		return result;
+	}
+
+	@Override
+	public List<Person> getAllPerson() {
+		// TODO Auto-generated method stub
+		
+		String sql = " select * from person ";
+		
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		
+		ResultSet rs = null;
+		
+		List<Person> userList = new ArrayList<>();
+		
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+			
+			while(rs.next()) {
+				Person person = new Person();
+				
+				person.setCreated_at(rs.getString("created_at"));
+				person.setId(rs.getString("id"));
+				person.setNick(rs.getString("nick"));
+				person.setPhone(rs.getString("phone"));
+				person.setSeq(rs.getInt("seq"));
+				
+				userList.add(person);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return userList;
 	}
 
 }

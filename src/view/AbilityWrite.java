@@ -44,13 +44,14 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1,filename2,filename3,filename4;
 	
-	List<Category> categoryList = null;
+	List<Category> m_categoryList = null;
 	
 	public AbilityWrite(List<Category> categoryList) {
+
+		Delegator delegator = Delegator.getInstance();
+		this.m_categoryList = categoryList;
 		
-		this.categoryList = categoryList;
-		
-		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, abilityLb, contentLb;
+		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, abilityLb, contentLb;
 		
 		JPanel headerPn, sidePn, logoPn, catePn, writePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 		cate9;
@@ -188,36 +189,39 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
-		// logoutBtn
-		logoutBtn = new JButton("로그아웃");
-		logoutBtn.setBounds(1250, 20, 100, 30);
-		logoutBtn.setOpaque(false); // 투명하게
-		logoutBtn.setBorderPainted(false);// 외곽선 없애줌
-		logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
-		logoutBtn.setBackground(commonColor);
-		logoutBtn.setForeground(Color.white);
-		headerPn.add(logoutBtn);
-
-		// loginBtn
-		loginBtn = new JButton("로그인");
-		loginBtn.setBounds(1190, 20, 100, 30);
-		loginBtn.setOpaque(false); // 투명하게
-		loginBtn.setBorderPainted(false);// 외곽선 없애줌
-		loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
-		loginBtn.setBackground(commonColor);
-		loginBtn.setForeground(Color.white);
-		headerPn.add(loginBtn);
-
-		// SignBtn
-		signBtn = new JButton("회원가입");
-		signBtn.setBounds(1130, 20, 100, 30);
-		signBtn.setOpaque(false); // 투명하게
-		signBtn.setBorderPainted(false);// 외곽선 없애줌
-		signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
-		signBtn.setBackground(commonColor);
-		signBtn.setForeground(Color.white);
-		signBtn.addActionListener(this);
-		headerPn.add(signBtn);
+		
+		if(delegator.getCurrent_user()==null) {
+			// loginBtn
+			loginBtn = new JButton("로그인");
+			loginBtn.setBounds(1190, 20, 100, 30);
+			loginBtn.setOpaque(false); // 투명하게
+			loginBtn.setBorderPainted(false);// 외곽선 없애줌
+			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
+			loginBtn.setBackground(commonColor);
+			loginBtn.setForeground(Color.white);
+			headerPn.add(loginBtn);
+			
+			// SignBtn
+			signBtn = new JButton("회원가입");
+			signBtn.setBounds(1130, 20, 100, 30);
+			signBtn.setOpaque(false); // 투명하게
+			signBtn.setBorderPainted(false);// 외곽선 없애줌
+			signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signBtn.setBackground(commonColor);
+			signBtn.setForeground(Color.white);
+			signBtn.addActionListener(this);
+			headerPn.add(signBtn);			
+		}else {
+			// logoutBtn
+			logoutBtn = new JButton("로그아웃");
+			logoutBtn.setBounds(1250, 20, 100, 30);
+			logoutBtn.setOpaque(false); // 투명하게
+			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
+			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
+			logoutBtn.setBackground(commonColor);
+			logoutBtn.setForeground(Color.white);
+			headerPn.add(logoutBtn);			
+		}
 		
 		// sidePn
 		Color sideC = new Color(250, 250, 250);
@@ -283,10 +287,10 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		cateLb.setBounds(100, 100, 100, 30);		
 		writePn.add(cateLb);
 		
-		String category[] = new String[categoryList.size()];
+		String category[] = new String[m_categoryList.size()];
 
 		for (int i = 0; i < category.length; i++) {
-			category[i] = categoryList.get(i).getTitle();
+			category[i] = m_categoryList.get(i).getTitle();
 		}
 		
 		cateCombo = new JComboBox(category);
@@ -443,7 +447,7 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 			AbilityBbs abilityDto = new AbilityBbs();
 			
 			int categoryIndex = cateCombo.getSelectedIndex();
-			abilityDto.setCategory_id(this.categoryList.get(categoryIndex).getSeq());
+			abilityDto.setCategory_id(m_categoryList.get(categoryIndex).getSeq());
 			abilityDto.setTitle(titleTextF.getText());
 			abilityDto.setImgurl1(img1TextF.getText());
 			abilityDto.setImgurl2(img2TextF.getText());
@@ -456,20 +460,17 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 			Delegator delegator = Delegator.getInstance();
 			AbilityService abilityService = new AbilityService();
 
-			Person personDto = delegator.getCurrent_user();
+			//Person personDto = delegator.getCurrent_user();
 
-			boolean addAbilityCK = abilityService.addAbility(abilityDto, personDto);
+			boolean addAbilityCK = abilityService.addAbility(abilityDto);
 			System.out.println("addAbilityCK" + addAbilityCK);
 			if (addAbilityCK) {
-				delegator.abilityBbsController.AbilityDetail(abilityDto, personDto);
+				delegator.abilityBbsController.AbilityDetail(abilityDto);
 				this.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, "글작성 실패");
 			}
-			
-
 		}
-
 	}
 
 		@Override

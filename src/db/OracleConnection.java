@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class OracleConnection implements DBConnection{
-	
+
 	public void initConnect() {
 		try {
-			
+
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("Driver Loading Success!!");
 		} catch (ClassNotFoundException e) {
@@ -16,17 +16,17 @@ public class OracleConnection implements DBConnection{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Connection makeConnection() {
 		Connection conn = null;
-		
+
 		try {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.10.34:1521:xe", "hr", "hr");
 			System.out.println("Data Base is connected.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return conn;
 	}
 }

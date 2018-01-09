@@ -220,7 +220,7 @@ public class SignUp extends JFrame implements ActionListener {
 		main.add(login);
 		contentPane.add(main);
 		
-		setBounds(0, 0, 1680, 1050);
+		setBounds(0, 0, 1680, 730);
 		setLayout(null);
 		setVisible(true);
 
