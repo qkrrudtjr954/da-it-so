@@ -309,8 +309,12 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
-				txtLa = new JLabel(itemList.get(i).getContent());
+				if(itemList.get(i).getImgurl1() == null) {
+					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
+				}else {
+					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
+				}
+				txtLa = new JLabel(itemList.get(i).getTitle());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -320,8 +324,12 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
-				txtLa = new JLabel(itemList.get(i).getContent());
+				if(itemList.get(i).getImgurl1() == null) {
+					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
+				}else {
+					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
+				}
+				txtLa = new JLabel(itemList.get(i).getTitle());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);

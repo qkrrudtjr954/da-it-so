@@ -119,7 +119,6 @@ public class Main extends JFrame implements ActionListener {
 		main.setLayout(null);
 		main.setBackground(new Color(250, 250, 250));
 		main.setBounds(0, 60, 1680, 990);
-				
 		
 		JPanel center = new JPanel();
 		center.setLayout(null);

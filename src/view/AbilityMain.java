@@ -73,7 +73,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		// headerlogo
 		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
 		headerLogo = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(headerimage.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -86,32 +86,32 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		
 		if(delegator.getCurrent_user()==null) {
 			// loginBtn
-			loginBtn = new JButton("로그인");
+			loginBtn = new JButton("濡쒓렇�씤");
 			loginBtn.setBounds(1190, 20, 100, 30);
-			loginBtn.setOpaque(false); // 투명하게
-			loginBtn.setBorderPainted(false);// 외곽선 없애줌
-			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
+			loginBtn.setOpaque(false); // �닾紐낇븯寃�
+			loginBtn.setBorderPainted(false);// �쇅怨쎌꽑 �뾾�븷以�
+			loginBtn.setFont(new Font("濡쒓렇�씤", Font.BOLD, 12));
 			loginBtn.setBackground(commonColor);
 			loginBtn.setForeground(Color.white);
 			headerPn.add(loginBtn);
 			
 			// SignBtn
-			signBtn = new JButton("회원가입");
+			signBtn = new JButton("�쉶�썝媛��엯");
 			signBtn.setBounds(1130, 20, 100, 30);
-			signBtn.setOpaque(false); // 투명하게
-			signBtn.setBorderPainted(false);// 외곽선 없애줌
-			signBtn.setFont(new Font("회원가입", Font.BOLD, 12));
+			signBtn.setOpaque(false); // �닾紐낇븯寃�
+			signBtn.setBorderPainted(false);// �쇅怨쎌꽑 �뾾�븷以�
+			signBtn.setFont(new Font("�쉶�썝媛��엯", Font.BOLD, 12));
 			signBtn.setBackground(commonColor);
 			signBtn.setForeground(Color.white);
 			signBtn.addActionListener(this);
 			headerPn.add(signBtn);			
 		}else {
 			// logoutBtn
-			logoutBtn = new JButton("로그아웃");
+			logoutBtn = new JButton("濡쒓렇�븘�썐");
 			logoutBtn.setBounds(1250, 20, 100, 30);
-			logoutBtn.setOpaque(false); // 투명하게
-			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
-			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
+			logoutBtn.setOpaque(false); // �닾紐낇븯寃�
+			logoutBtn.setBorderPainted(false);// �쇅怨쎌꽑 �뾾�븷以�
+			logoutBtn.setFont(new Font("濡쒓렇�븘�썐", Font.BOLD, 12));
 			logoutBtn.setBackground(commonColor);
 			logoutBtn.setForeground(Color.white);
 			headerPn.add(logoutBtn);			
@@ -127,7 +127,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 
 		ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
 		logoPn = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -139,7 +139,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		sidePn.add(logoPn);
 
 		// SearchText
-		searchTextF = new JTextField("검색어");
+		searchTextF = new JTextField("寃��깋�뼱");
 		searchTextF.setBounds(40, 160, 260, 40);
 		searchTextF.setBorder(new LineBorder(commonColor, 5));
 		sidePn.add(searchTextF);
@@ -147,10 +147,10 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		// searchBtn
 		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
-		searchBtn.setOpaque(false); // 투명하게
+		searchBtn.setOpaque(false); // �닾紐낇븯寃�
 		// searchBtn.setBackground();
 
-		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
+		searchBtn.setContentAreaFilled(false);// �궡�슜�쁺�뿭 梨꾩슦湲컓
 		searchBtn.addActionListener(this);
 		
 		sidePn.add(searchBtn);
@@ -161,11 +161,11 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
 
-		// 카터고리
+		// 移댄꽣怨좊━
 
 		ImageIcon cate1Image = new ImageIcon(iconImgUrl + "1.png");
 		cate1 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate1Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -174,10 +174,10 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		};
 		cate1.setBorder(new LineBorder(commonColor, 3));
 		cate1.addMouseListener(this);
-		// 카테고리 2
+		// 移댄뀒怨좊━ 2
 		ImageIcon cate2Image = new ImageIcon(iconImgUrl + "2.png");
 		cate2 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate2Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -186,10 +186,10 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		};
 		cate2.setBorder(new LineBorder(commonColor, 3));
 		cate2.addMouseListener(this);
-		// 카테고리 3
+		// 移댄뀒怨좊━ 3
 		ImageIcon cate3Image = new ImageIcon(iconImgUrl + "3.png");
 		cate3 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate3Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -198,10 +198,10 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		};
 		cate3.setBorder(new LineBorder(commonColor, 3));
 		cate3.addMouseListener(this);
-		// 카테고리4
+		// 移댄뀒怨좊━4
 		ImageIcon cate4Image = new ImageIcon(iconImgUrl + "4.png");
 		cate4 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate4Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -210,10 +210,10 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		};
 		cate4.setBorder(new LineBorder(commonColor, 3));
 		cate4.addMouseListener(this);
-		// 카테고리 5
+		// 移댄뀒怨좊━ 5
 		ImageIcon cate5Image = new ImageIcon(iconImgUrl + "5.png");
 		cate5 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate5Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -222,10 +222,10 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		};
 		cate5.setBorder(new LineBorder(commonColor, 3));
 		cate5.addMouseListener(this);
-		// 카테고리 6
+		// 移댄뀒怨좊━ 6
 		ImageIcon cate6Image = new ImageIcon(iconImgUrl + "6.png");
 		cate6 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate6Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -234,10 +234,10 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		};
 		cate6.setBorder(new LineBorder(commonColor, 3));
 		cate6.addMouseListener(this);
-		// 카테고리7
+		// 移댄뀒怨좊━7
 		ImageIcon cate7Image = new ImageIcon(iconImgUrl + "7.png");
 		cate7 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate7Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -246,10 +246,10 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		};
 		cate7.setBorder(new LineBorder(commonColor, 3));
 		cate7.addMouseListener(this);
-		// 카테고리8
+		// 移댄뀒怨좊━8
 		ImageIcon cate8Image = new ImageIcon(iconImgUrl + "8.png");
 		cate8 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate8Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -258,10 +258,10 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		};
 		cate8.setBorder(new LineBorder(commonColor, 3));
 		cate8.addMouseListener(this);
-		// 카테고리9
+		// 移댄뀒怨좊━9
 		ImageIcon cate9Image = new ImageIcon(iconImgUrl + "9.png");
 		cate9 = new JPanel() {
-			// 사이즈맞게 배경삽임
+			// �궗�씠利덈쭪寃� 諛곌꼍�궫�엫
 			public void paintComponent(Graphics g) {
 				g.drawImage(cate9Image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -312,10 +312,15 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 			thumPn2 = new JPanel();
 			thumPn2.setLayout(null);
 			
-			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
+			if (i % 2 == 0) { // 吏앹닔�씪�븣(�깉濡쒖슫 以꾨줈 �꽆�뼱媛덈븣)
 				thumPn1.setBounds(525, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon("+ dto.getImgurl1() +"));
-				txtLa = new JLabel(m_abilityList.get(i).getContent());
+				if(abilityList.get(i).getImgurl1() == null) {
+					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
+				}else {
+					imgLa = new JLabel(new ImageIcon(abilityList.get(i).getImgurl1()));
+				}
+				txtLa = new JLabel(m_abilityList.get(i).getTitle()+"<html> <br>"+ 
+								m_abilityList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -325,8 +330,12 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 				
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 500, 120);
-				imgLa = new JLabel(new ImageIcon(m_abilityList.get(i).getImgurl1()));
-				txtLa = new JLabel(m_abilityList.get(i).getContent());
+				if(abilityList.get(i).getImgurl1() == null) {
+					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
+				}else {
+					imgLa = new JLabel(new ImageIcon(abilityList.get(i).getImgurl1()));
+				}
+				txtLa = new JLabel(m_abilityList.get(i).getTitle());
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);

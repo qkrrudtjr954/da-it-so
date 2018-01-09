@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 import db.DBClose;
 import db.DBConnection;
 import db.MySqlConnection;
@@ -17,31 +19,37 @@ import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl {
 
-//	 DBConnection DBConnector = new MySqlConnection();
+	// DBConnection DBConnector = new MySqlConnection();
 	DBConnection DBConnector = new OracleConnection();
 
 	public List<AbilityBbs> allAbilityList() {
 
-		String sql = "SELECT * FROM ABILITY_BBS";
+		String sql = " SELECT * FROM ABILITY_BBS";
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
-
 		ResultSet rs = null;
+		
 		List<AbilityBbs> AbilityList = new ArrayList<>();
 
 		System.out.println(">>>	AbilityBbsDao .allItemList() sql : " + sql);
 
 		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
-
-			while (rs.next()) {
+		
+			pstmt = conn.prepareStatement(sql);			
+			rs = pstmt.executeQuery(); // query 瑜� �떎�뻾�븯�씪 洹몃━怨� 洹� 媛믪쓣 rs�뿉 ���옣�빐�씪.
+			System.out.println("1-6 ssuc");
+			
+			
+			while(rs.next()) {
+				
+				System.out.println("2-6 suc");
 				AbilityBbs abilityDto = new AbilityBbs();
 
 				abilityDto.setSeq(Integer.parseInt(rs.getString("SEQ")));
 				abilityDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
 				abilityDto.setTitle(rs.getString("TITLE"));
+				
 				abilityDto.setImgurl1(rs.getString("IMGURL1"));
 				abilityDto.setImgurl2(rs.getString("IMGURL2"));
 				abilityDto.setImgurl3(rs.getString("IMGURL3"));
@@ -78,7 +86,7 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
+			rs = pstmt.executeQuery(sql); // query 瑜� �떎�뻾�븯�씪 洹몃━怨� 洹� 媛믪쓣 rs�뿉 ���옣�빐�씪.
 
 			while (rs.next()) {
 				AbilityBbs abilityDto = new AbilityBbs();
@@ -134,7 +142,7 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			count = pstmt.executeUpdate(); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
+			count = pstmt.executeUpdate(); // query 瑜� �떎�뻾�븯�씪 洹몃━怨� 洹� 媛믪쓣 rs�뿉 ���옣�빐�씪.
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -151,28 +159,30 @@ public class AbilityDao implements AbilityDaoImpl {
 	public List<AbilityBbs> searchList(String searchWord) {
 
 		List<AbilityBbs> searchlist = new ArrayList<AbilityBbs>();
+		Connection conn = DBConnector.makeConnection();
 		ResultSet rs = null;
 		PreparedStatement psmt = null;
 
 		String sql = " SELECT * FROM ABILITY_BBS "
 				+ " WHERE TITLE LIKE '%" + searchWord +"%'"
 				+ " OR CONTENT LIKE '%" + searchWord + "%'"
-				+ " OR ABILITY LIKE '%" + searchWord + "%'";//제목 컨텐츠 키워드
+				+ " OR ABILITY LIKE '%" + searchWord + "%'";//�젣紐� 而⑦뀗痢� �궎�썙�뱶
 		
 		System.out.println(">>> AbilityDao.searchList()sql: " + sql);
 		//select * from item_bbs where title like %something% or content like %something% or ability like %something%;
 
-		java.sql.Connection conn = DBConnector.makeConnection();
+
 		System.out.println("conn success");
 
 		try {
 			psmt = conn.prepareStatement(sql);
 			System.out.println("psmt success");
 
-			rs = psmt.executeQuery();
+			rs = psmt.executeQuery(sql);
 			System.out.println("rs success");
 
 			while(rs.next()) {
+				
 				int seq = rs.getInt("SEQ");
 				int category_id = rs.getInt("CATEGORY_ID");
 				String user_id = rs.getString("USER_ID");
