@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,28 +24,30 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
+import dto.Category;
 import dto.ItemBbs;
-import dto.Person;
 
 public class ItemDetail extends JFrame implements ActionListener, MouseListener {
-	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
-			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
+	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
 			subimage4, keywordPanel;
 	private JButton  loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
-
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	private JLabel SidecategoryPn[][];
+	
+	String iconImgUrl = "c:\\icon\\";
 
 	ItemBbs m_itemDto = null;
-
-	public ItemDetail(ItemBbs itemDto) {
+	List<Category> m_categoryList = null;
+	
+	public ItemDetail(ItemBbs itemDto, List<Category> categoryList) {
 		Delegator delegator = Delegator.getInstance();
 		this.m_itemDto = itemDto;
+		this.m_categoryList = categoryList;
 
 		Container cn = getContentPane();
 
-		cn.setBounds(0, 0, 1680, 900);
+		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
 		// Header
@@ -58,11 +61,11 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		detailPn = new JPanel();
 		detailPn.setBackground(Color.white);
 		detailPn.setLocation(0, 0);
-		detailPn.setPreferredSize(new Dimension(1005, 1500));
+		detailPn.setPreferredSize(new Dimension(1015, 1500));
 		detailPn.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane(detailPn);
-		scrollPane.setBounds(400, 60, 1100, 900);
+		scrollPane.setBounds(400, 60, 935, 900);
 
 		// headerlogo
 		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
@@ -149,131 +152,38 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 
 		sidePn.add(searchBtn);
 
+		// 카터고리
 		// catePn
 		catePn = new JPanel();
 		catePn.setLayout(new GridLayout(3, 3, 10, 10));
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
 
-		// 카터고리
+		int rowSize = 0;
+		SidecategoryPn = new JLabel[m_categoryList.size()][3];
 
-		ImageIcon cate1Image = new ImageIcon(iconImgUrl + "1.png");
-		cate1 = new JPanel() {
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate1Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate1.setBorder(new LineBorder(commonColor, 3));
-		cate1.addMouseListener(this);
-		// 카테고리 2
-		ImageIcon cate2Image = new ImageIcon(iconImgUrl + "2.png");
-		cate2 = new JPanel() {
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate2Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate2.setBorder(new LineBorder(commonColor, 3));
-		cate2.addMouseListener(this);
-		// 카테고리 3
-		ImageIcon cate3Image = new ImageIcon(iconImgUrl + "3.png");
-		cate3 = new JPanel() {
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate3Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate3.setBorder(new LineBorder(commonColor, 3));
-		cate3.addMouseListener(this);
-		// 카테고리4
-		ImageIcon cate4Image = new ImageIcon(iconImgUrl + "4.png");
-		cate4 = new JPanel() {
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate4Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate4.setBorder(new LineBorder(commonColor, 3));
-		cate4.addMouseListener(this);
-		// 카테고리 5
-		ImageIcon cate5Image = new ImageIcon(iconImgUrl + "5.png");
-		cate5 = new JPanel() {
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate5Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate5.setBorder(new LineBorder(commonColor, 3));
-		cate5.addMouseListener(this);
-		// 카테고리 6
-		ImageIcon cate6Image = new ImageIcon(iconImgUrl + "6.png");
-		cate6 = new JPanel() {
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate6Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate6.setBorder(new LineBorder(commonColor, 3));
-		cate6.addMouseListener(this);
-		// 카테고리7
-		ImageIcon cate7Image = new ImageIcon(iconImgUrl + "7.png");
-		cate7 = new JPanel() {
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate7Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate7.setBorder(new LineBorder(commonColor, 3));
-		cate7.addMouseListener(this);
-		// 카테고리8
-		ImageIcon cate8Image = new ImageIcon(iconImgUrl + "8.png");
-		cate8 = new JPanel() {
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate8Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate8.setBorder(new LineBorder(commonColor, 3));
-		cate8.addMouseListener(this);
-		// 카테고리9
-		ImageIcon cate9Image = new ImageIcon(iconImgUrl + "9.png");
-		cate9 = new JPanel() {
-			// 사이즈맞게 배경삽임
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate9Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate9.setBorder(new LineBorder(commonColor, 3));
-		cate9.addMouseListener(this);
-		catePn.add(cate1);
-		catePn.add(cate2);
-		catePn.add(cate3);
-		catePn.add(cate4);
-		catePn.add(cate5);
-		catePn.add(cate6);
-		catePn.add(cate7);
-		catePn.add(cate8);
-		catePn.add(cate9);
+		if (categoryList.size() % 3 == 0) {
+			rowSize = categoryList.size() / 3;
+		} else {
+			rowSize = categoryList.size() / 3 + 1;
+		}
 
+		int k = 0;
+		for (int i = 0; i < rowSize; i++) {
+			
+			for (int j = 0; j < categoryList.size(); j++) {
+				String imgURL = "C:\\icon\\";
+				ImageIcon imgIcon = new ImageIcon(imgURL + k + ".png");
+				SidecategoryPn[i][j] = new JLabel(imgIcon);
+				SidecategoryPn[i][j].setOpaque(true);
+				SidecategoryPn[i][j].setSize(110, 110);
+				SidecategoryPn[i][j].setLocation((j * 120), (i * 120));
+				SidecategoryPn[i][j].addMouseListener(this);
+
+				catePn.add(SidecategoryPn[i][j]);
+				k++;
+			}
+		}
 		sidePn.add(catePn);
 
 		// sidePn.setBounds(0, 60, 400, 1000);
@@ -293,7 +203,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		imagePannel.add(titleLb);
 		// Seller
 
-		sellLb = new JLabel(m_itemDto.getUser_id());
+		sellLb = new JLabel("작성자 : "+m_itemDto.getUser_id());
 		sellLb.setBounds(10, 75, 400, 20);
 		sellLb.setFont(new Font(m_itemDto.getUser_id(), Font.BOLD, 12));
 		sellLb.setOpaque(false);
@@ -372,7 +282,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 
 		iteminfoPn = new JPanel();
 		iteminfoPn.setLayout(null);
-		iteminfoPn.setBounds(580, 135, 340, 400);
+		iteminfoPn.setBounds(550, 135, 340, 400);
 		iteminfoPn.setBackground(Color.white);
 		iteminfoPn.setBorder(new LineBorder(Color.red, 2));
 
@@ -392,12 +302,12 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 
 		String key = m_itemDto.getKeyword();
 		System.out.println("key값 : " + key);
-		int rowSize = 0;
+		rowSize = 0;
 		String[] keyarray;
 		keyarray = new String[rowSize * 3];
 		keyarray = key.split("-key-");
 		System.out.println("keyarray:" + keyarray[0]);
-		System.out.println("keyarraylength :" + keyarray.length);
+		//System.out.println("keyarraylength :" + keyarray.length);
 
 		if (keyarray.length % 3 == 0) {
 			rowSize = keyarray.length / 3;
@@ -413,7 +323,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
 
-		int k = 0;
+		k = 0;
 		for (int i = 0; i < rowSize; i++) {
 			for (int j = 0; j < keyarray.length; j++) {
 
@@ -461,7 +371,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		add(sidePn);
 		add(headerPn);
 		add(scrollPane);
-		setBounds(0, 0, 1680, 730);
+		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
 

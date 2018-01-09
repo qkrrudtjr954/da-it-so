@@ -2,27 +2,19 @@ package view;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
-import dto.ItemBbs;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -33,7 +25,6 @@ public class Main extends JFrame implements ActionListener {
 	public Main() {
 
 		String commonImgUrl = "c:\\icon\\";
-
 		JPanel headerPn;
 
 		// header
@@ -58,7 +49,7 @@ public class Main extends JFrame implements ActionListener {
 		
 		headerPn = new JPanel();
 		headerPn.setBackground(commonRedColor);
-		headerPn.setSize(1680, 60);
+		headerPn.setSize(1350, 60);
 		headerPn.setLayout(null);
 
 		// headerlogo
@@ -101,9 +92,7 @@ public class Main extends JFrame implements ActionListener {
 			headerPn.add(logoutBtn);			
 		}
 
-		
 		contentPane.add(headerPn);
-		
 
 		// main area
 		JPanel main = new JPanel();
@@ -117,7 +106,6 @@ public class Main extends JFrame implements ActionListener {
 		center.setBorder(new LineBorder(commonRedColor, 3));
 		center.setLocation(170, 110);
 		center.setSize(1000, 550);
-		
 		
 		item = new JButton("item");
 		item.setBounds(90, 100, 400, 350);
@@ -159,7 +147,6 @@ public class Main extends JFrame implements ActionListener {
 			delegator.itemBbsController.allItemList();
 			this.dispose();
 		}
-		
 		//select AbilityMain 
 		if(obj == ability){
 			System.out.println("==abilityMain select==");
