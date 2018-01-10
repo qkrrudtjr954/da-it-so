@@ -29,12 +29,12 @@ import dto.Category;
 import dto.ItemBbs;
 import service.ItemBbsService;
 
-public class ItemWrite extends JFrame implements ActionListener, MouseListener {
+public class ItemWrite extends JFrame implements ActionListener {
 
-	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn, listBtn;
+	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn, listBtn;
 	private JTextField searchTextF, titleTextF, img1TextF, img2TextF, img3TextF, img4TextF, keywordTextF, priceTextF;
 	private JTextPane contentTextPn;
-	private JPanel headerLogo, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8, cate9;
+	private JPanel headerLogo;
 	private JComboBox cateCombo;
 
 	JPanel category;
@@ -101,7 +101,15 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 
 		// headerlogo
 		headerLogo.setBounds(15, 25, 71, 15);
-		headerLogo.addMouseListener(this);
+		headerLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.mainController.Main();
+				dispose();
+			}
+		});
 		headerPn.add(headerLogo);
 
 		if(delegator.getCurrent_user()==null) {
@@ -222,7 +230,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		listBtn = new JButton("목록으로 돌아가기");
 		listBtn.setBounds(500, 100, 120, 30);
 		listBtn.setOpaque(false);
-		listBtn.setForeground(commonColor);
+		listBtn.setForeground(commonRedColor);
 		listBtn.addActionListener(this);
 		writePn.add(listBtn);
 
@@ -329,14 +337,17 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton) e.getSource();
-		if (btn == listBtn) {
-			new ItemMain();
-			this.dispose();
-		}
+		
+		
 		System.out.println("==>" + e.getActionCommand());
 		Delegator delegator = Delegator.getInstance();
 
 		Object obj = e.getSource();
+		
+		if (obj == listBtn) {
+			delegator.itemBbsController.allItemList();
+			this.dispose();
+		}
 
 		if(obj == loginBtn) {
 			delegator.personController.Login();
@@ -425,70 +436,4 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		}
 
 	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		Delegator delegator = Delegator.getInstance();
-		Object obj = e.getSource();
-		int category_id = 99;
-
-		//Header event
-		if(obj == headerLogo){
-			delegator.mainController.Main();
-			this.dispose();
-		}
-
-		//Side Category event
-		if(obj == cate1){
-			category_id = Integer.parseInt(cate1.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate2) {
-			category_id = Integer.parseInt(cate2.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate3) {
-			category_id = Integer.parseInt(cate3.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate4) {
-			category_id = Integer.parseInt(cate4.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate5) {
-			category_id = Integer.parseInt(cate5.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate6) {
-			category_id = Integer.parseInt(cate6.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate7) {
-			category_id = Integer.parseInt(cate7.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate8) {
-			category_id = Integer.parseInt(cate8.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate9) {
-			category_id = Integer.parseInt(cate9.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-
-	@Override
-	public void mouseExited(MouseEvent e) {}
-
 }

@@ -32,7 +32,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
 			subimage4, keywordPanel;
-	private JButton  logoutBtn, signBtn, MypageBtn, searchBtn, talkBtn, chatBtn, listBtn;
+	private JButton  logoutBtn, signupBtn, MypageBtn, searchBtn, loginBtn, chatBtn, listBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
@@ -347,7 +347,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		listBtn = new JButton("목록으로 돌아가기");
 		listBtn.setBounds(200, 10, 120, 30);
 		listBtn.setOpaque(false);
-		listBtn.setForeground(commonColor);
+		listBtn.setForeground(commonRedColor);
 		listBtn.addActionListener(this);
 		iteminfoPn.add(listBtn);
 
@@ -410,7 +410,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 			delegator.setCurrent_user(null);
 			delegator.mainController.Main();
 		} else if (btn == listBtn) {
-			new ItemMain();
+			delegator.itemBbsController.allItemList();
 			this.dispose();
 		}
 
