@@ -408,4 +408,102 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		
 		return searchList;
 	}
+
+	@Override
+	public List<ItemBbs> DeleteItemList(ItemBbs itemDto) {
+		// TODO Auto-generated method stub
+		//0=진행중 1=완료 2=삭제 3=관리자삭제
+		String sql = " UPDATE ITEM_BBS SET STATE = 2 WHERE USER_ID = '"+ itemDto.getUser_id() +"' AND SEQ = "+itemDto.getSeq();
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		List<ItemBbs> itemList = new ArrayList<>();
+
+		System.out.println(">>>	itemBbsDao .DeleteItemList() sql : " + sql);
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(); // query
+
+
+			while(rs.next()) {
+				itemDto = new ItemBbs();
+
+				itemDto.setSeq(Integer.parseInt(rs.getString("SEQ")));
+				itemDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				itemDto.setTitle(rs.getString("TITLE"));
+				itemDto.setImgurl1(rs.getString("IMGURL1"));
+				itemDto.setImgurl2(rs.getString("IMGURL2"));
+				itemDto.setImgurl3(rs.getString("IMGURL3"));
+				itemDto.setImgurl4(rs.getString("IMGURL4"));
+				itemDto.setKeyword(rs.getString("KEYWORD"));
+				itemDto.setPrice(rs.getInt("PRICE"));
+				itemDto.setContent(rs.getString("CONTENT"));
+				itemDto.setState(Integer.parseInt(rs.getString("STATE")));
+				itemDto.setCreated_at(rs.getString("CREATED_AT"));
+				itemDto.setUser_id(rs.getString("USER_ID"));
+
+				itemList.add(itemDto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+
+		return itemList;
+	}
+
+	@Override
+	public List<ItemBbs> CompleteItemList(ItemBbs itemDto) {
+		// TODO Auto-generated method stub
+		//0=진행중 1=완료 2=삭제 3=관리자삭제
+		String sql = " UPDATE ITEM_BBS SET STATE = 1 WHERE USER_ID = '"+ itemDto.getUser_id() +"' AND SEQ = "+itemDto.getSeq();
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		List<ItemBbs> itemList = new ArrayList<>();
+
+		System.out.println(">>>	itemBbsDao .CompleteAbilityList() sql : " + sql);
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(); // query
+
+			while(rs.next()) {
+				itemDto = new ItemBbs();
+
+				itemDto.setSeq(Integer.parseInt(rs.getString("SEQ")));
+				itemDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				itemDto.setTitle(rs.getString("TITLE"));
+				itemDto.setImgurl1(rs.getString("IMGURL1"));
+				itemDto.setImgurl2(rs.getString("IMGURL2"));
+				itemDto.setImgurl3(rs.getString("IMGURL3"));
+				itemDto.setImgurl4(rs.getString("IMGURL4"));
+				itemDto.setKeyword(rs.getString("KEYWORD"));
+				itemDto.setPrice(rs.getInt("PRICE"));
+				itemDto.setContent(rs.getString("CONTENT"));
+				itemDto.setState(Integer.parseInt(rs.getString("STATE")));
+				itemDto.setCreated_at(rs.getString("CREATED_AT"));
+				itemDto.setUser_id(rs.getString("USER_ID"));
+				
+				itemList.add(itemDto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+
+		return itemList;
+	}
+
 }

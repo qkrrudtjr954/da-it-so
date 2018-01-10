@@ -12,6 +12,8 @@ public interface AbilityDaoImpl {
 	public boolean addAbility(AbilityBbs abilityDto);
 	public List<AbilityBbs> getAbilityBbsByUserId(String user_id);
 	public List<AbilityBbs> SelectAbilityCategories(int category_id);
+	public List<AbilityBbs> DeleteAbilityList(AbilityBbs abilityDto);
+	public List<AbilityBbs> CompleteAbilityList(AbilityBbs abilityDto);
 	
 	public boolean DeleteAbilityBbsByAdmin(AbilityBbs ability);
 	public boolean CompleteAbilityBbsByAdmin(AbilityBbs ability);

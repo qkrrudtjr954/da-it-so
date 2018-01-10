@@ -32,16 +32,17 @@ import dto.AbilityBbs;
 import dto.Category;
 import dto.ItemBbs;
 import dto.Person;
+import service.AbilityService;
 
 public class AbilityDetail extends JFrame implements ActionListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, imagePannel, iteminfoPn, itemImagePn, subimagePn,
 			detailPn, subimage1, subimage2, subimage3, subimage4;
-	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn, listBtn;
+	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn, listBtn, deleteBtn, completeBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 
-	// String iconImgUrl = "C:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	  String iconImgUrl = "C:\\icon\\";
+	//String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	
 	AbilityBbs abilityDto = null;
 	List<Category> categoryList = null;
@@ -354,14 +355,6 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		}
 		iteminfoPn.add(keywordPanel);
 
-		// go back to list button
-		listBtn = new JButton("목록으로 돌아가기");
-		listBtn.setBounds(200, 10, 120, 30);
-		listBtn.setOpaque(false);
-		listBtn.setForeground(commonRedColor);
-		listBtn.addActionListener(this);
-		iteminfoPn.add(listBtn);
-		// iteminfoPn.setBounds(580, 135, 340, 400);
 
 		// category
 		cateLb = new JLabel("카테고리 : " + abilityDto.getCategory_id());
@@ -371,21 +364,46 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		iteminfoPn.add(cateLb);
 
 		// item explanation
-		explanationLb = new JLabel("저품 설명 : " + abilityDto.getContent());
+		explanationLb = new JLabel("제품 설명 : " + abilityDto.getContent());
 		explanationLb.setBounds(10, 150, 300, 10 * abilityDto.getContent().length());
 		explanationLb.setOpaque(true);
 		explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
 		iteminfoPn.add(explanationLb);
-
+		
 		// chatBtn
 		chatBtn = new JButton(new ImageIcon(iconImgUrl + "chatting.png"));
-		chatBtn.setBounds(630, 555, 240, 34);
+		chatBtn.setBounds(550, 55, 340, 50);
 		chatBtn.setOpaque(false);
 		chatBtn.setBorderPainted(false);
 		chatBtn.setFocusPainted(false);
 		chatBtn.addActionListener(this);
+		
+		//deleteBtn
+		deleteBtn = new JButton("게시물 삭제");
+		deleteBtn.setBounds(550, 555, 165, 35);
+		deleteBtn.setOpaque(false);
+		deleteBtn.addActionListener(this);
+		
+		//go back to list button
+		listBtn = new JButton("목록으로 돌아가기");
+		//listBtn.setBounds(200, 10, 120, 30);
+		listBtn.setBounds(720, 555, 170, 35);
+		listBtn.setOpaque(false);
+		listBtn.setForeground(commonRedColor);
+		listBtn.addActionListener(this);
+		//iteminfoPn.add(listBtn);
+		// iteminfoPn.setBounds(580, 135, 340, 400);
 
+		//completeBtn
+		completeBtn = new JButton("완료");
+		completeBtn.setBounds(550, 620, 340, 40);
+		completeBtn.setOpaque(false);
+		completeBtn.addActionListener(this);
+		
+		detailPn.add(listBtn);
+		detailPn.add(deleteBtn);
+		detailPn.add(completeBtn);
 		detailPn.add(chatBtn);
 		detailPn.add(iteminfoPn);
 
@@ -429,6 +447,46 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		} else if (obj == listBtn) {
 			delegator.abilityBbsController.allAbilityList();
 			this.dispose();
+		} else if(obj == deleteBtn) {			
+			if(delegator.getCurrent_user() != null) {
+				System.out.println("login Success");
+				String WriteId = abilityDto.getUser_id();
+				String ViewId = delegator.getCurrent_user().getId();
+
+				if(ViewId.equals(WriteId)) {
+					AbilityService abilityservice = new AbilityService();
+					abilityservice.DeleteAbilityList(abilityDto);
+					JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
+					delegator.abilityBbsController.allAbilityList();
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
+				delegator.personController.Login();
+				this.dispose();
+			}
+		} else if(obj == completeBtn) {
+			if(delegator.getCurrent_user() != null) {
+				System.out.println("login Success");
+				String WriteId = abilityDto.getUser_id();
+				String ViewId = delegator.getCurrent_user().getId();
+
+				if(ViewId.equals(WriteId) == true) {
+					AbilityService abilityservice = new AbilityService();
+					abilityservice.CompleteAbilityList(abilityDto);
+					JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
+					delegator.abilityBbsController.allAbilityList();
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "작성자만이 완료 할 수 있습니다.");
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
+				delegator.personController.Login();
+				this.dispose();
+			}
 		}
 	}
 }

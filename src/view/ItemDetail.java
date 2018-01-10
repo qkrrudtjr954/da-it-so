@@ -27,12 +27,14 @@ import javax.swing.border.LineBorder;
 import delegator.Delegator;
 import dto.Category;
 import dto.ItemBbs;
+import service.AbilityService;
+import service.ItemBbsService;
 
 public class ItemDetail extends JFrame implements ActionListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
 			subimage4, keywordPanel;
-	private JButton  logoutBtn, signupBtn, MypageBtn, searchBtn, loginBtn, chatBtn, listBtn;
+	private JButton  logoutBtn, signupBtn, MypageBtn, searchBtn, loginBtn, chatBtn, listBtn, deleteBtn, completeBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
@@ -353,14 +355,6 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		iteminfoPn.add(keywordPanel);
 
-		// go back to list button
-		listBtn = new JButton("목록으로 돌아가기");
-		listBtn.setBounds(200, 10, 120, 30);
-		listBtn.setOpaque(false);
-		listBtn.setForeground(commonRedColor);
-		listBtn.addActionListener(this);
-		iteminfoPn.add(listBtn);
-
 		// categori
 		cateLb = new JLabel("카테고리 : " + m_itemDto.getCategory_id());
 		cateLb.setBounds(10, 100, 80, 30);
@@ -378,12 +372,37 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		// chatBtn
 		chatBtn = new JButton(new ImageIcon(iconImgUrl + "chatting.png"));
-		chatBtn.setBounds(630, 555, 240, 34);
+		chatBtn.setBounds(550, 55, 340, 50);
 		chatBtn.setOpaque(false);
 		chatBtn.setBorderPainted(false);
 		chatBtn.setFocusPainted(false);
 		chatBtn.addActionListener(this);
+		
+		//deleteBtn
+		deleteBtn = new JButton("게시물 삭제");
+		deleteBtn.setBounds(550, 555, 165, 35);
+		deleteBtn.setOpaque(false);
+		deleteBtn.addActionListener(this);
+		
+		//go back to list button
+		listBtn = new JButton("목록으로 돌아가기");
+		//listBtn.setBounds(200, 10, 120, 30);
+		listBtn.setBounds(720, 555, 170, 35);
+		listBtn.setOpaque(false);
+		listBtn.setForeground(commonRedColor);
+		listBtn.addActionListener(this);
+		//iteminfoPn.add(listBtn);
+		// iteminfoPn.setBounds(580, 135, 340, 400);
 
+		//completeBtn
+		completeBtn = new JButton("완료");
+		completeBtn.setBounds(550, 620, 340, 40);
+		completeBtn.setOpaque(false);
+		completeBtn.addActionListener(this);
+		
+		detailPn.add(listBtn);
+		detailPn.add(deleteBtn);
+		detailPn.add(completeBtn);
 		detailPn.add(chatBtn);
 		detailPn.add(iteminfoPn);
 
@@ -425,6 +444,46 @@ public class ItemDetail extends JFrame implements ActionListener {
 		} else if (obj == listBtn) {
 			delegator.itemBbsController.allItemList();
 			this.dispose();
+		} else if(obj == deleteBtn) {			
+			if(delegator.getCurrent_user() != null) {
+				System.out.println("login Success");
+				String WriteId = m_itemDto.getUser_id();
+				String ViewId = delegator.getCurrent_user().getId();
+
+				if(ViewId.equals(WriteId)) {
+					ItemBbsService itemservice = new ItemBbsService();
+					itemservice.DeleteItemList(m_itemDto);
+					JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
+					delegator.itemBbsController.allItemList();
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
+				delegator.personController.Login();
+				this.dispose();
+			}
+		} else if(obj == completeBtn) {
+			if(delegator.getCurrent_user() != null) {
+				System.out.println("login Success");
+				String WriteId = m_itemDto.getUser_id();
+				String ViewId = delegator.getCurrent_user().getId();
+
+				if(ViewId.equals(WriteId)) {
+					ItemBbsService itemservice = new ItemBbsService();
+					itemservice.CompleteItemList(m_itemDto);
+					JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
+					delegator.itemBbsController.allItemList();
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "작성자만이 완료 할 수 있습니다.");
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
+				delegator.personController.Login();
+				this.dispose();
+			}
 		}
 
 	}

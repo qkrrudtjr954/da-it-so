@@ -46,9 +46,14 @@ public class AbilityBbsController {
 	   new AbilityMain(abilityList, categoryList);
    }
 
-   public void AbilityDetail(AbilityBbs abilityDto) {
+   public void AbilityDetail(AbilityBbs abilityList) {
 	   List<Category> categoryList = categoryService.getAllCategories(1);
-	   new AbilityDetail(abilityDto, categoryList);
+	   new AbilityDetail(abilityList, categoryList);
+   }
+   
+   public void AbilityDetailComplete(AbilityBbs abilityList) {
+	   List<Category> categoryList = categoryService.getAllCategories(1);
+	   new AbilityDetail(abilityList, categoryList);
    }
 
    public void searchList(String searchWord){

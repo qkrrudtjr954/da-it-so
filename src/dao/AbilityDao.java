@@ -407,4 +407,100 @@ public class AbilityDao implements AbilityDaoImpl {
 		return abilityList;
 	}
 
+	@Override
+	public List<AbilityBbs> DeleteAbilityList(AbilityBbs abilityDto) {
+		// TODO Auto-generated method stub
+		//0=진행중 1=완료 2=삭제 3=관리자삭제
+		String sql = " UPDATE ABILITY_BBS SET STATE = 2 WHERE USER_ID = '"+ abilityDto.getUser_id() +"' AND SEQ = "+abilityDto.getSeq();
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		List<AbilityBbs> abilityList = new ArrayList<>();
+
+		System.out.println(">>>	AbilityBbsDao .DeleteAbilityList() sql : " + sql);
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(); // query
+
+
+			while(rs.next()) {
+				abilityDto = new AbilityBbs();
+
+				abilityDto.setSeq(Integer.parseInt(rs.getString("SEQ")));
+				abilityDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				abilityDto.setTitle(rs.getString("TITLE"));
+				abilityDto.setImgurl1(rs.getString("IMGURL1"));
+				abilityDto.setImgurl2(rs.getString("IMGURL2"));
+				abilityDto.setImgurl3(rs.getString("IMGURL3"));
+				abilityDto.setImgurl4(rs.getString("IMGURL4"));
+				abilityDto.setAbility(rs.getString("ABILITY"));
+				abilityDto.setContent(rs.getString("CONTENT"));
+				abilityDto.setState(Integer.parseInt(rs.getString("STATE")));
+				abilityDto.setCreated_at(rs.getString("CREATED_AT"));
+				abilityDto.setUser_id(rs.getString("USER_ID"));
+
+				abilityList.add(abilityDto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+
+		return abilityList;
+	}
+
+	@Override
+	public List<AbilityBbs> CompleteAbilityList(AbilityBbs abilityDto) {
+		// TODO Auto-generated method stub
+		//0=진행중 1=완료 2=삭제 3=관리자삭제
+		String sql = " UPDATE ABILITY_BBS SET STATE = 1 WHERE USER_ID = '"+ abilityDto.getUser_id() +"' AND SEQ = "+abilityDto.getSeq();
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		List<AbilityBbs> abilityList = new ArrayList<>();
+
+		System.out.println(">>>	AbilityBbsDao .CompleteAbilityList() sql : " + sql);
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(); // query
+
+			while(rs.next()) {
+				abilityDto = new AbilityBbs();
+
+				abilityDto.setSeq(Integer.parseInt(rs.getString("SEQ")));
+				abilityDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				abilityDto.setTitle(rs.getString("TITLE"));
+				abilityDto.setImgurl1(rs.getString("IMGURL1"));
+				abilityDto.setImgurl2(rs.getString("IMGURL2"));
+				abilityDto.setImgurl3(rs.getString("IMGURL3"));
+				abilityDto.setImgurl4(rs.getString("IMGURL4"));
+				abilityDto.setAbility(rs.getString("ABILITY"));
+				abilityDto.setContent(rs.getString("CONTENT"));
+				abilityDto.setState(Integer.parseInt(rs.getString("STATE")));
+				abilityDto.setCreated_at(rs.getString("CREATED_AT"));
+				abilityDto.setUser_id(rs.getString("USER_ID"));
+
+				abilityList.add(abilityDto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+
+		return abilityList;
+	}
+	
+
 }

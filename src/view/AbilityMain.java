@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -25,7 +24,6 @@ import javax.swing.border.LineBorder;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Category;
-import dto.ItemBbs;
 import dto.Person;
 
 public class AbilityMain extends JFrame implements ActionListener{
@@ -164,7 +162,6 @@ public class AbilityMain extends JFrame implements ActionListener{
 		searchBtn.setOpaque(false);
 		searchBtn.setContentAreaFilled(false);
 		searchBtn.addActionListener(this);
-
 		sidePn.add(searchBtn);
 
 		// catePn
@@ -248,7 +245,6 @@ public class AbilityMain extends JFrame implements ActionListener{
 				thumPn1.add(txtLa);
 				thumPn1.add(imgLa);
 				j++;
-
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
@@ -273,6 +269,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
 					int index = Integer.parseInt(thumPn1.getName());
+					int state = abilityList.get(index).getState();
 
 					Delegator delegator = Delegator.getInstance();
 					delegator.abilityBbsController.AbilityDetail(abilityList.get(index));

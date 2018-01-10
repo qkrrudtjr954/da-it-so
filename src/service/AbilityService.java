@@ -59,4 +59,18 @@ public class AbilityService implements AbilityServiceImpl {
 		// TODO Auto-generated method stub
 		return abilityDao.AdminSearch(search);
 	}
+
+	@Override
+	public List<AbilityBbs> DeleteAbilityList(AbilityBbs abilityDto) {
+		// TODO Auto-generated method stub
+		return abilityDao.DeleteAbilityList(abilityDto);
+	}
+
+	@Override
+	public List<AbilityBbs> CompleteAbilityList(AbilityBbs abilityDto) {
+		// TODO Auto-generated method stub
+		return abilityDao.CompleteAbilityList(abilityDto);
+	}
+	
+	
 }

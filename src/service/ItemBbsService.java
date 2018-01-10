@@ -53,4 +53,18 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 		return itemDao.AdminSearch(search);
 	}
 
+	@Override
+	public List<ItemBbs> DeleteItemList(ItemBbs itemDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemBbs> CompleteItemList(ItemBbs itemDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
 }
