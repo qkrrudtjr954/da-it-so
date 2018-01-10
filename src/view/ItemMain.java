@@ -289,7 +289,7 @@ public class ItemMain extends JFrame implements ActionListener {
 		listPn.add(thumPn);
 		JScrollPane scroll;
 		scroll = new JScrollPane(listPn);
-		scroll.setBounds(400, 60, 935, 990);
+		scroll.setBounds(400, 60, 935, 680);
 		scroll.setBackground(mainPink);
 		add(sidePn);
 		add(headerPn);

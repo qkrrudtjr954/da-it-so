@@ -286,7 +286,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 
 		JScrollPane scroll;
 		scroll = new JScrollPane(listPn);
-		scroll.setBounds(400, 60, 935, 990);
+		scroll.setBounds(400, 60, 935, 680);
 		scroll.setBackground(mainPink);
 		add(scroll);
 		add(sidePn);
