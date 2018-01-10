@@ -53,14 +53,18 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
-		if (itemDto.getImgurl1().equals("") || itemDto.getImgurl1()==null) {
+		
+		if (itemDto.getImgurl1()==null || itemDto.getImgurl1().equals("")) {
 			itemDto.setImgurl1(noImgUrl);
 		}
-		if (itemDto.getImgurl2().equals("") || itemDto.getImgurl2()==null) {
+		if (itemDto.getImgurl2()==null || itemDto.getImgurl2().equals("")) {
+			itemDto.setImgurl2(noImgUrl);
 		}
-		if (itemDto.getImgurl3().equals("") || itemDto.getImgurl3()==null) {
+		if (itemDto.getImgurl3()==null || itemDto.getImgurl3().equals("")) {
+			itemDto.setImgurl3(noImgUrl);
 		}
-		if (itemDto.getImgurl4().equals("") || itemDto.getImgurl4()==null) {
+		if (itemDto.getImgurl4()==null || itemDto.getImgurl4().equals("")) {
+			itemDto.setImgurl4(noImgUrl);
 		}
 
 		// Header

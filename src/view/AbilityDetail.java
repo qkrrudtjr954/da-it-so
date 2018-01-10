@@ -52,17 +52,17 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
-		if (abilityDto.getImgurl1().equals("") || abilityDto.getImgurl1()==null) {
+		if (abilityDto.getImgurl1()==null || abilityDto.getImgurl1().equals("")) {
 			abilityDto.setImgurl1(noImgUrl);
 		}
-		if (abilityDto.getImgurl2().equals("") || abilityDto.getImgurl2()==null) {
-			abilityDto.setImgurl1(noImgUrl);
+		if (abilityDto.getImgurl2()==null || abilityDto.getImgurl2().equals("")) {
+			abilityDto.setImgurl2(noImgUrl);
 		}
-		if (abilityDto.getImgurl3().equals("") || abilityDto.getImgurl3()==null) {
-			abilityDto.setImgurl1(noImgUrl);
+		if (abilityDto.getImgurl3()==null || abilityDto.getImgurl3().equals("")) {
+			abilityDto.setImgurl3(noImgUrl);
 		}
-		if (abilityDto.getImgurl4().equals("") || abilityDto.getImgurl4()==null) {
-			abilityDto.setImgurl1(noImgUrl);
+		if (abilityDto.getImgurl4()==null || abilityDto.getImgurl4().equals("")) {
+			abilityDto.setImgurl4(noImgUrl);
 		}
 		
 		// Header

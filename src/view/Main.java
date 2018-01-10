@@ -22,7 +22,7 @@ public class Main extends JFrame implements ActionListener {
 
 	
 	private JButton loginBtn, logoutBtn, signupBtn;
-	private JButton item, ability;
+	private JButton item, ability, adminContact;
 	
 	JButton test;
 	
@@ -119,6 +119,8 @@ public class Main extends JFrame implements ActionListener {
 		ability.setBounds(510, 100, 400, 350);
 		ability.addActionListener(this);
 		center.add(ability);
+		
+		adminContact = new JButton("관리자에게 문의하기.")
 		
 		contentPane.add(center);
 
