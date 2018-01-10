@@ -162,6 +162,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
+		searchBtn.addActionListener(this);
 		sidePn.add(searchBtn);
 
 		// catePn

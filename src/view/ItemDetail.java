@@ -150,6 +150,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
+		searchBtn.addActionListener(this);
 		// searchBtn.setBackground();
 
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
@@ -399,59 +400,8 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		} else if (btn == logoutBtn) {
 			delegator.personController.Logout();
 			this.dispose();
-		}
-
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		Delegator delegator = Delegator.getInstance();
-		Object obj = e.getSource();
-		int category_id = 99;
-		
-		//Header event
-		if(obj == headerLogo){
-			delegator.mainController.Main();
-			this.dispose();
-		}
-
-		//Side Category event
-		if(obj == cate1){
-			category_id = Integer.parseInt(cate1.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate2) {
-			category_id = Integer.parseInt(cate2.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate3) {
-			category_id = Integer.parseInt(cate3.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate4) {
-			category_id = Integer.parseInt(cate4.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate5) {
-			category_id = Integer.parseInt(cate5.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate6) {
-			category_id = Integer.parseInt(cate6.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate7) {
-			category_id = Integer.parseInt(cate7.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate8) {
-			category_id = Integer.parseInt(cate8.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate9) {
-			category_id = Integer.parseInt(cate9.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
+		} else if( btn == searchBtn) {
+			
 		}
 
 	}

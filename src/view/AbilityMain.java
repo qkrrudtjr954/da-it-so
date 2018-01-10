@@ -28,15 +28,14 @@ import dto.Category;
 import dto.ItemBbs;
 import dto.Person;
 
-public class AbilityMain extends JFrame implements ActionListener, MouseListener{
+public class AbilityMain extends JFrame implements ActionListener{
 	//list panel
-	private JPanel listPn, thumPn, thumPn1, thumPn2;
+	private JPanel listPn, thumPn;
 	private JLabel imgLa, txtLa;
 	private JButton addBtn;
 	
 	//side panel
-	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
-	cate9, detailPn;
+	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, detailPn;
 	private JButton loginBtn, logoutBtn, signupBtn, searchBtn;
 	private JTextField searchTextF;
 
@@ -87,7 +86,15 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 			}
 		};
 		headerLogo.setBounds(15, 25, 71, 15);
-		headerLogo.addMouseListener(this);
+		headerLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.mainController.Main();
+				dispose();
+			}
+		});
 		headerPn.add(headerLogo);
 		
 		if(delegator.getCurrent_user()==null) {
@@ -155,7 +162,6 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); 
-
 		searchBtn.setContentAreaFilled(false);
 		searchBtn.addActionListener(this);
 		
@@ -220,17 +226,17 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		int j = 0;
 		for (int i = 0; i < m_abilityList.size(); i++) {
 
-			thumPn1 = new JPanel();
+			JPanel thumPn1 = new JPanel();
 			thumPn1.setLayout(null);
 
-			thumPn2 = new JPanel();
+			JPanel thumPn2 = new JPanel();
 			thumPn2.setLayout(null);
 			
 			if (i % 2 == 0) { 
 				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
 				if(abilityList.get(i).getImgurl1() == null) {
-					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
+					imgLa = new JLabel(new ImageIcon(iconImgUrl+"noimage.png"));
 				}else {
 					imgLa = new JLabel(new ImageIcon(abilityList.get(i).getImgurl1()));
 				}
@@ -247,7 +253,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
 				if(abilityList.get(i).getImgurl1() == null) {
-					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
+					imgLa = new JLabel(new ImageIcon(iconImgUrl+"noimage.png"));
 				}else {
 					imgLa = new JLabel(new ImageIcon(abilityList.get(i).getImgurl1()));
 				}
@@ -261,7 +267,17 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 
 			thumPn1.setBorder(new LineBorder(mainRed, 1));
 			thumPn1.setBackground(Color.white);
-			thumPn1.addMouseListener(this);
+			thumPn1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					int index = Integer.parseInt(thumPn1.getName());
+					
+					Delegator delegator = Delegator.getInstance();
+					delegator.abilityBbsController.AbilityDetail(abilityList.get(index));
+					dispose();
+				}
+			});
 
 			listPn.add(thumPn1);
 		}
@@ -287,8 +303,6 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 		Object obj = e.getSource();
 		
 		if( obj== addBtn ) {
-			System.out.println("Ability AddBtn Click");
-			
 			personDto = delegator.getCurrent_user();
 			
 			if(personDto == null) {
@@ -309,91 +323,8 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 			delegator.personController.Logout();
 			this.dispose();
 		}else if(obj == searchBtn) {
-			System.out.println("searchBtn Click");
 			String searchWord = searchTextF.getText();
 			delegator.abilityBbsController.searchList(searchWord);
 		}
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		JPanel thumPn1 = (JPanel)e.getComponent();
-		this.thumPn1 = thumPn1;
-
-		Object obj = e.getSource();
-		
-		Delegator delegator = Delegator.getInstance();
-		AbilityBbs abilitySelect = null;
-		int abilityNum = 0;
-		int category_id = 99;
-		
-		//Header event
-		if(obj == headerLogo){
-			delegator.mainController.Main();
-			this.dispose();
-		}
-
-		//List event
-		if(obj == thumPn1 && obj != headerLogo && obj != cate1 && obj != cate2 && obj != cate3 && obj != cate4
-				&& obj != cate5 && obj != cate6 && obj != cate7 && obj != cate8 && obj != cate9) {
-			System.out.println("thumPn1 GetName==>"+thumPn1.getName());
-			abilityNum = Integer.parseInt(thumPn1.getName());			
-			
-			if(!m_abilityList.isEmpty()) {
-				abilitySelect = m_abilityList.get(abilityNum);
-				delegator.abilityBbsController.AbilityDetail(abilitySelect);
-				this.dispose();
-			}
-		
-		}
-		//Side Category event
-		if(obj == cate1){
-			category_id = Integer.parseInt(cate1.getName());
-			delegator.abilityBbsController.SelectAbilityCategories(category_id);
-			this.dispose();
-		}else if(obj == cate2) {
-			category_id = Integer.parseInt(cate2.getName());
-			delegator.abilityBbsController.SelectAbilityCategories(category_id);
-			this.dispose();
-		}else if(obj == cate3) {
-			category_id = Integer.parseInt(cate3.getName());
-			delegator.abilityBbsController.SelectAbilityCategories(category_id);
-			this.dispose();
-		}else if(obj == cate4) {
-			category_id = Integer.parseInt(cate4.getName());
-			delegator.abilityBbsController.SelectAbilityCategories(category_id);
-			this.dispose();
-		}else if(obj == cate5) {
-			category_id = Integer.parseInt(cate5.getName());
-			delegator.abilityBbsController.SelectAbilityCategories(category_id);
-			this.dispose();
-		}else if(obj == cate6) {
-			category_id = Integer.parseInt(cate6.getName());
-			delegator.abilityBbsController.SelectAbilityCategories(category_id);
-			this.dispose();
-		}else if(obj == cate7) {
-			category_id = Integer.parseInt(cate7.getName());
-			delegator.abilityBbsController.SelectAbilityCategories(category_id);
-			this.dispose();
-		}else if(obj == cate8) {
-			category_id = Integer.parseInt(cate8.getName());
-			delegator.abilityBbsController.SelectAbilityCategories(category_id);
-			this.dispose();
-		}else if(obj == cate9) {
-			category_id = Integer.parseInt(cate9.getName());
-			delegator.abilityBbsController.SelectAbilityCategories(category_id);
-			this.dispose();
-		}
-
-		
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-	@Override
-	public void mouseExited(MouseEvent e) {}
-	
-
 }
