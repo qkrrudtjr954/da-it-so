@@ -31,7 +31,7 @@ import service.ItemBbsService;
 
 public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 
-	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn;
+	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn, listBtn;
 	private JTextField searchTextF, titleTextF, img1TextF, img2TextF, img3TextF, img4TextF, keywordTextF, priceTextF;
 	private JTextPane contentTextPn;
 	private JPanel headerLogo;
@@ -51,7 +51,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, keywLb, contentLb, priceLb;
 
 		JPanel headerPn, sidePn, logoPn, catePn, writePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8, cate9;
-
+		
 		// header
 		headerLogo = new JPanel() {
 			ImageIcon headerimage = new ImageIcon(icomImgimgUrl + "headerlogo.png");
@@ -301,6 +301,15 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		cateCombo.setBounds(210, 100, 150, 30);
 		writePn.add(cateCombo);
 
+		// go back to list button
+		listBtn = new JButton("목록으로 돌아가기");
+		listBtn.setBounds(500, 100, 120, 30);
+		listBtn.setOpaque(false);
+		listBtn.setForeground(commonColor);
+		listBtn.addActionListener(this);
+		writePn.add(listBtn);
+		
+		// iteminfoPn.setBounds(580, 135, 340, 400);
 		// title
 		titleLb = new JLabel("제목");
 		titleLb.setBounds(100, 150, 150, 30);
@@ -402,6 +411,11 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		JButton btn = (JButton) e.getSource();
+		if (btn == listBtn) {
+			new ItemMain();
+			this.dispose();
+		}
 		System.out.println("==>" + e.getActionCommand());
 		if (e.getActionCommand().equals("회원가입")) {
 

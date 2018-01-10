@@ -33,7 +33,7 @@ import service.ItemBbsService;
 
 public class AbilityWrite extends JFrame implements ActionListener, MouseListener{
 
-	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn;
+	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn, listBtn;
 	private JTextField searchTextF, titleTextF, img1TextF, img2TextF, img3TextF, img4TextF, abilityTextF;
 	private JTextPane contentTextPn;
 	private JPanel headerLogo;
@@ -282,6 +282,14 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		writePn.setLayout(null);
 		writePn.setBounds(380, 30, 1050, 670);
 		
+		// go back to list button
+		listBtn = new JButton("목록으로 돌아가기");
+		listBtn.setBounds(500, 100, 120, 30);
+		listBtn.setOpaque(false);
+		listBtn.setForeground(commonColor);
+		listBtn.addActionListener(this);
+		writePn.add(listBtn);
+		
 		//category
 		cateLb = new JLabel("카테고리");
 		cateLb.setBounds(100, 100, 100, 30);		
@@ -391,6 +399,13 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+
+		JButton btn = (JButton) e.getSource();
+		if (btn == listBtn) {
+			new AbilityMain();
+			this.dispose();
+		}
+
 		System.out.println("==>"+e.getActionCommand());
 		if(e.getActionCommand().equals("회원가입")) {
 			

@@ -44,6 +44,10 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 	Color mainPink = new Color(255, 174, 174);
 
 	List<AbilityBbs> m_abilityList = null;
+
+	public AbilityMain() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public AbilityMain(List<AbilityBbs> abilityList) {
 		
@@ -319,7 +323,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 				}else {
 					imgLa = new JLabel(new ImageIcon(abilityList.get(i).getImgurl1()));
 				}
-				txtLa = new JLabel(m_abilityList.get(i).getTitle()+"<html> <br>"+ 
+				txtLa = new JLabel("<html>"+ m_abilityList.get(i).getTitle() +"<br/>"+ 
 								m_abilityList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
@@ -335,7 +339,8 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 				}else {
 					imgLa = new JLabel(new ImageIcon(abilityList.get(i).getImgurl1()));
 				}
-				txtLa = new JLabel(m_abilityList.get(i).getTitle());
+				txtLa = new JLabel("<html>"+ m_abilityList.get(i).getTitle() +"<br/>"+ 
+						m_abilityList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);

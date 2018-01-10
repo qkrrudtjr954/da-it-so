@@ -46,6 +46,10 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 	List<ItemBbs> itemList;
 	List<ItemBbs> itemSearchList;
+	
+	public ItemMain() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public ItemMain(List<ItemBbs> itemList) {
 		Delegator delegator = Delegator.getInstance();
@@ -71,7 +75,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		// scrollPane.add(detailPn);
 
 		// headerlogo
-		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
+		ImageIcon headerimage = new ImageIcon("/Users/leefrances/Desktop/icon/headerlogo.png");
 		headerLogo = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -314,7 +318,8 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 				}else {
 					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
 				}
-				txtLa = new JLabel(itemList.get(i).getTitle());
+				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+ 
+						itemList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -329,7 +334,8 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 				}else {
 					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
 				}
-				txtLa = new JLabel(itemList.get(i).getTitle());
+				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+ 
+						itemList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);

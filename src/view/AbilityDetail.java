@@ -34,7 +34,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
 			subimage4, keywordPanel;
-	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
+	private JButton loginBtn, logoutBtn, signBtn, MypageBtn, searchBtn, talkBtn, chatBtn, listBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
@@ -432,10 +432,18 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 				k++;
 			}
 		}
-		
 		iteminfoPn.add(keywordPanel);
 		
-		//categori
+		//go back to list button
+		listBtn = new JButton("목록으로 돌아가기");
+		listBtn.setBounds(200, 10, 120, 30);
+		listBtn.setOpaque(false);
+		listBtn.setForeground(commonColor);
+		listBtn.addActionListener(this);
+		iteminfoPn.add(listBtn);
+		//iteminfoPn.setBounds(580, 135, 340, 400);
+		
+		//category
 		cateLb = new JLabel("카테고리 : "+m_abilityDto.getCategory_id()); 
 		cateLb.setBounds(10, 100, 80, 30);
 		cateLb.setOpaque(true);
@@ -449,8 +457,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 		explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
 		iteminfoPn.add(explanationLb);
-		
-		
+
 
 		// chatBtn
 		chatBtn = new JButton(new ImageIcon(iconImgUrl + "chatting.png"));
@@ -464,6 +471,7 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 
 		add(sidePn);
 		add(headerPn);
+	
 		add(scrollPane);
 		setBounds(0, 0, 1680, 730);
 		setLayout(null);
@@ -492,6 +500,9 @@ public class AbilityDetail extends JFrame implements ActionListener,MouseListene
 
 			
 			dispose();
+		} else if (btn == listBtn) {
+			new AbilityMain();
+			this.dispose();
 		}
 
 	}
