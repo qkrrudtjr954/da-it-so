@@ -198,7 +198,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 		listPn = new JPanel();
 		listPn.setLayout(null);
-		int thumPnCount = (100 / 2) + 1;
+		int thumPnCount = (itemList.size() / 2) + 1;
 
 		listPn.setPreferredSize(new Dimension(1280, 170 * thumPnCount));
 		listPn.setLocation(0, 0);

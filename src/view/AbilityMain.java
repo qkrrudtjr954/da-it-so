@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -196,7 +197,8 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 
 		listPn = new JPanel();
 		listPn.setLayout(null);
-		int thumPnCount = (100 / 2) + 1;
+		
+		int thumPnCount = (abilityList.size() / 2) + 1;
 
 		listPn.setPreferredSize(new Dimension(1280, 170 * thumPnCount));
 		listPn.setLocation(0, 0);
@@ -265,6 +267,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 			listPn.add(thumPn1);
 		}
 		listPn.add(thumPn);
+		
 		JScrollPane scroll;
 		scroll = new JScrollPane(listPn);
 		scroll.setBounds(400, 60, 935, 990);
@@ -290,6 +293,7 @@ public class AbilityMain extends JFrame implements ActionListener, MouseListener
 			personDto = delegator.getCurrent_user();
 
 			if(personDto == null) {
+				JOptionPane.showMessageDialog(null, "로그인 해주세요.");
 				delegator.personController.Login();
 				this.dispose();
 			}else {
