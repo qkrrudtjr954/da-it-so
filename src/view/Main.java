@@ -2,17 +2,19 @@ package view;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
@@ -22,7 +24,8 @@ public class Main extends JFrame implements ActionListener {
 
 	
 	private JButton loginBtn, logoutBtn, signupBtn;
-	private JButton item, ability, adminContact;
+	private JButton item, ability;
+	private JLabel adminContact;
 	
 	JButton test;
 	
@@ -92,6 +95,7 @@ public class Main extends JFrame implements ActionListener {
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
 			logoutBtn.setBackground(commonRedColor);
 			logoutBtn.setForeground(Color.white);
+			logoutBtn.addActionListener(this);
 			headerPn.add(logoutBtn);			
 		}
 
@@ -120,7 +124,24 @@ public class Main extends JFrame implements ActionListener {
 		ability.addActionListener(this);
 		center.add(ability);
 		
-		adminContact = new JButton("관리자에게 문의하기.")
+		adminContact = new JLabel("관리자에게 문의하기");
+		adminContact.setLayout(new FlowLayout());
+		adminContact.setLocation(600, 675);
+		adminContact.setForeground(commonRedColor);
+		adminContact.setSize(200, 20);
+		adminContact.setFont(new Font("admin", Font.BOLD, 15));
+		adminContact.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(delegator.getCurrent_user() == null) {
+					JOptionPane.showMessageDialog(null, "로그인 후 이용 가능합니다.");
+				}else {
+					delegator.roomController.checkRoom("admin");					
+				}
+			}
+		});
+		contentPane.add(adminContact);
 		
 		contentPane.add(center);
 

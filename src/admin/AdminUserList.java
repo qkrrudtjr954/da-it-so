@@ -248,6 +248,15 @@ public class AdminUserList extends JFrame implements ActionListener {
 			this.dispose();
 		} else if (obj == chatBtn) {
 			delegator.roomController.RoomList();
+		} else if(obj == loginBtn) {
+			delegator.personController.Login();
+			this.dispose();
+		} else if(obj == logoutBtn) {
+			delegator.personController.Logout();
+			this.dispose();
+		} else if(obj == signupBtn) {
+			delegator.personController.SignUp();
+			this.dispose();
 		}
 	}
 

@@ -53,8 +53,13 @@ public class RoomDao implements RoomDaoImpl{
 	public boolean makeRoom(String user, String target) {
 		// TODO Auto-generated method stub
 		
-		String sql = " insert into room values(room_seq.nextval, '"+user+"', '"+target+"','"+user+"와 "+target+"의 대화 "+"' , sysdate)";
+		String sql;
 		
+		if (DBConnector.getClass().getName().equals("db.MySqlConnection")) {
+			sql = " insert into room(user_id, target_id, description, created_at) values('"+user+"', '"+target+"','"+user+"와 "+target+"의 대화 "+"' , now())";
+		}else {
+			sql = " insert into room values(room_seq.nextval, '"+user+"', '"+target+"','"+user+"와 "+target+"의 대화 "+"' , sysdate)";
+		}
 		
 		System.out.println(">>> RoomDao .makeRoom() sql: "+sql);
 		Connection conn = DBConnector.makeConnection();

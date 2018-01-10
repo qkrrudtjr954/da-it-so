@@ -374,17 +374,26 @@ public class AdminUserDetail extends JFrame implements ActionListener {
 		Delegator delegator = Delegator.getInstance();
 		Object obj = e.getSource();
 		
-		if(obj == itemListBtn) {
+		if (obj == itemListBtn) {
 			delegator.adminController.ItemList();
 			this.dispose();
-		}else if(obj == abilityListBtn) {
+		} else if (obj == abilityListBtn) {
 			delegator.adminController.AbilityList();
 			this.dispose();
-		}else if(obj == userListBtn) {
+		} else if (obj == userListBtn) {
 			delegator.adminController.UserList();
 			this.dispose();
-		} else if(obj == chatBtn) {
+		} else if (obj == chatBtn) {
 			delegator.roomController.RoomList();
+		} else if(obj == loginBtn) {
+			delegator.personController.Login();
+			this.dispose();
+		} else if(obj == logoutBtn) {
+			delegator.personController.Logout();
+			this.dispose();
+		} else if(obj == signupBtn) {
+			delegator.personController.SignUp();
+			this.dispose();
 		}
 	}
 }
