@@ -50,11 +50,6 @@ public class AbilityBbsController {
 	   List<Category> categoryList = categoryService.getAllCategories(1);
 	   new AbilityDetail(abilityList, categoryList);
    }
-   
-   public void AbilityDetailComplete(AbilityBbs abilityList) {
-	   List<Category> categoryList = categoryService.getAllCategories(1);
-	   new AbilityDetail(abilityList, categoryList);
-   }
 
    public void searchList(String searchWord){
 	   List<AbilityBbs> searchList = abilityService.searchList(searchWord);

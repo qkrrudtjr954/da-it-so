@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -27,7 +26,6 @@ import javax.swing.border.LineBorder;
 import delegator.Delegator;
 import dto.Category;
 import dto.ItemBbs;
-import service.AbilityService;
 import service.ItemBbsService;
 
 public class ItemDetail extends JFrame implements ActionListener {
