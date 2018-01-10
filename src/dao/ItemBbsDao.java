@@ -69,11 +69,14 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		String id = delegator.getCurrent_user().getId();
 
 		String sql;
+		
+		String keyword = itemDto.getKeyword().replaceAll(" ", "");
+		keyword = keyword.replaceAll("#", "-key-");
 
 		if (DBConnector.getClass().getName().equals("db.MySqlConnection")) {
 			sql = " insert into item_bbs(category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, keyword, content, state, created_at) "
 					+ " values( "+itemDto.getCategory_id()+", '"+delegator.getCurrent_user().getId()+"', '"+itemDto.getTitle()+"', '"
-					+ itemDto.getImgurl1() +"', '"+itemDto.getImgurl2()+"', '"+itemDto.getImgurl3()+"', '"+itemDto.getImgurl4()+"', '"+itemDto.getKeyword()+"', '"+itemDto.getContent()+"', 1, now());";
+					+ itemDto.getImgurl1() +"', '"+itemDto.getImgurl2()+"', '"+itemDto.getImgurl3()+"', '"+itemDto.getImgurl4()+"', '"+keyword+"', '"+itemDto.getContent()+"', 1, now());";
 		} else {
 			sql ="INSERT INTO ITEM_BBS(SEQ, CATEGORY_ID, TITLE, IMGURL1, IMGURL2, IMGURL3, IMGURL4, PRICE, KEYWORD, CONTENT, STATE, CREATED_AT, USER_ID)"
 					+" VALUES(IBBS_SEQ.NEXTVAL, '"+itemDto.getCategory_id()+"','"+itemDto.getTitle()+"','"+itemDto.getImgurl1()+"','"+itemDto.getImgurl2()+"','"+itemDto.getImgurl3()+"','"+itemDto.getImgurl4()+"','"+itemDto.getPrice()+"','"+itemDto.getKeyword()+"','"+itemDto.getContent()+"', 0, SYSDATE, '"+id+"')";

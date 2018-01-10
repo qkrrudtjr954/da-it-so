@@ -114,15 +114,18 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		String sql;
 
+		String ability = abilityDto.getAbility().replaceAll(" ", "");
+		ability = ability.replaceAll("#", "-key-");
+		
 		if (DBConnector.getClass().getName().equals("db.MySqlConnection")) {
 			sql = " insert into ability_bbs(category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, ability, content, state, created_at) "
 					+ " values( " + abilityDto.getCategory_id() + ", '" + delegator.getCurrent_user().getId() + "', '"
 					+ abilityDto.getTitle() + "', '" + abilityDto.getImgurl1() + "', '" + abilityDto.getImgurl2()
 					+ "', '" + abilityDto.getImgurl3() + "', '" + abilityDto.getImgurl4() + "', '"
-					+ abilityDto.getAbility() + "', '" + abilityDto.getContent() + "', 0, now());";
+					+ ability + "', '" + abilityDto.getContent() + "', 0, now());";
 		} else {
 			sql ="INSERT INTO ABILITY_BBS(SEQ, CATEGORY_ID, TITLE, IMGURL1, IMGURL2, IMGURL3, IMGURL4, ABILITY, CONTENT, STATE, CREATED_AT, USER_ID)"
-					+" VALUES(SEQ_ABILITY_BBS.NEXTVAL,'"+abilityDto.getCategory_id()+"','"+abilityDto.getTitle()+"','"+abilityDto.getImgurl1()+"','"+abilityDto.getImgurl2()+"','"+abilityDto.getImgurl3()+"','"+abilityDto.getImgurl4()+"','"+abilityDto.getAbility()+"','"+abilityDto.getContent()+"', 0, SYSDATE, '"+personDto.getId()+"')";
+					+" VALUES(SEQ_ABILITY_BBS.NEXTVAL,'"+abilityDto.getCategory_id()+"','"+abilityDto.getTitle()+"','"+abilityDto.getImgurl1()+"','"+abilityDto.getImgurl2()+"','"+abilityDto.getImgurl3()+"','"+abilityDto.getImgurl4()+"','"+ability+"','"+abilityDto.getContent()+"', 0, SYSDATE, '"+personDto.getId()+"')";
 
 		}
 

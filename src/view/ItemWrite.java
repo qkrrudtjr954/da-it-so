@@ -293,35 +293,40 @@ public class ItemWrite extends JFrame implements ActionListener {
 		img4TextF.setBounds(210, 310, 300, 30);
 		writePn.add(img4TextF);
 
-		imgAdd3 = new JButton("이미지 4");
-		imgAdd3.setBounds(520, 310, 100, 30);
-		imgAdd3.addActionListener(this);
-		writePn.add(imgAdd3);
+		imgAdd4 = new JButton("이미지 4");
+		imgAdd4.setBounds(520, 310, 100, 30);
+		imgAdd4.addActionListener(this);
+		writePn.add(imgAdd4);
 
 		// keywLb
 		keywLb = new JLabel("키워드");
 		keywLb.setBounds(100, 350, 100, 30);
 		writePn.add(keywLb);
+		
+		JLabel infoLabel = new JLabel("검색 가능한 키워드를 등록해주세요.");
+		infoLabel.setBounds(220, 380, 300, 20);
+		writePn.add(infoLabel);
 
 		keywordTextF = new JTextField();
 		keywordTextF.setBounds(210, 350, 300, 30);
+		keywordTextF.setText("ex) #중고 #컴퓨터 #노트");
 		writePn.add(keywordTextF);
 
 		// content
 		contentLb = new JLabel("내용");
-		contentLb.setBounds(100, 390, 100, 30);
+		contentLb.setBounds(100, 410, 100, 30);
 		writePn.add(contentLb);
 
 		contentTextPn = new JTextPane();
-		contentTextPn.setBounds(210, 390, 410, 150);
+		contentTextPn.setBounds(210, 410, 410, 150);
 		writePn.add(contentTextPn);
 
 		priceLb = new JLabel("가격");
-		priceLb.setBounds(100, 550, 100, 30);
+		priceLb.setBounds(100, 570, 100, 30);
 		writePn.add(priceLb);
 
 		priceTextF = new JTextField();
-		priceTextF.setBounds(210, 550, 300, 30);
+		priceTextF.setBounds(210, 570, 300, 30);
 		writePn.add(priceTextF);
 
 		writeBtn = new JButton("등록");
@@ -337,10 +342,6 @@ public class ItemWrite extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton btn = (JButton) e.getSource();
-		
-		
-		System.out.println("==>" + e.getActionCommand());
 		Delegator delegator = Delegator.getInstance();
 
 		Object obj = e.getSource();
@@ -357,17 +358,19 @@ public class ItemWrite extends JFrame implements ActionListener {
 		} else if(obj == logoutBtn) {
 			delegator.personController.Logout();
 			this.dispose();
-		} else if (obj == imgAdd1) {
-			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
-				img1TextF.setText(jfc.getSelectedFile().toString());
-				filename1 = jfc.getSelectedFile().getName();
-			}
 		} else if(obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.itemBbsController.searchList(searchWord);
 			this.dispose();
 		}
+		
+		if (obj == imgAdd1) {
+			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+				img1TextF.setText(jfc.getSelectedFile().toString());
+				filename1 = jfc.getSelectedFile().getName();
+			}
+		} 
 		if (obj == imgAdd2) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
@@ -389,6 +392,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 				filename4 = jfc.getSelectedFile().getName();
 			}
 		}
+		
 		if (obj == writeBtn) {
 			if (!img1TextF.getText().isEmpty()) {
 				filesend fs = new filesend(img1TextF.getText());
@@ -414,7 +418,11 @@ public class ItemWrite extends JFrame implements ActionListener {
 			itemDto.setImgurl2(img2TextF.getText());
 			itemDto.setImgurl3(img3TextF.getText());
 			itemDto.setImgurl4(img4TextF.getText());
-			itemDto.setKeyword(keywordTextF.getText());
+			if(keywordTextF.getText().equals("ex) #중고 #컴퓨터 #노트")) {
+				itemDto.setKeyword("");
+			}else {
+				itemDto.setKeyword(keywordTextF.getText());
+			}
 			itemDto.setPrice(Integer.parseInt(priceTextF.getText()));
 			itemDto.setContent(contentTextPn.getText());
 			itemDto.setUser_id(id);

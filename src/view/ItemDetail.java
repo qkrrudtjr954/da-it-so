@@ -247,7 +247,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			ImageIcon itemImage = new ImageIcon(m_itemDto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(itemImage.getImage(), 0, 0, null);
+				g.drawImage(itemImage.getImage(), 0, 0, 400, 400, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -257,20 +257,27 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		// itemsub
 		subimagePn = new JPanel();
-		subimagePn.setLayout(new GridLayout(1, 4, 10, 5));
-		subimagePn.setBounds(10, 530, 400, 90);
+		subimagePn.setLayout(new GridLayout(1, 4));
+		subimagePn.setBounds(0, 550, 420, 100);
+		
 		// subimagePn.setBackground(Color.PINK);
 
+		int compX = subimagePn.getWidth()/4;
+		int compY = subimagePn.getHeight();
+		
+		
+		
 		// 서브 이미지1
 		subimage1 = new JPanel() {
 			ImageIcon image1 = new ImageIcon(m_itemDto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(image1.getImage(), 0, 0, null);
+				g.drawImage(image1.getImage(), 0, 0, compX, compY,  null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
+		subimage1.setBorder(new LineBorder(commonRedColor, 2));
 		subimagePn.add(subimage1);
 
 		// 서브이미지2
@@ -278,22 +285,24 @@ public class ItemDetail extends JFrame implements ActionListener {
 			ImageIcon image2 = new ImageIcon(m_itemDto.getImgurl2());
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(image2.getImage(), 0, 0, null);
+				g.drawImage(image2.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
+		subimage2.setBorder(new LineBorder(commonRedColor, 2));
 		subimagePn.add(subimage2);
 		// 서브이미지3
 		subimage3 = new JPanel() {
 			ImageIcon image3 = new ImageIcon(m_itemDto.getImgurl3());
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(image3.getImage(), 0, 0, null);
+				g.drawImage(image3.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
+		subimage3.setBorder(new LineBorder(commonRedColor, 2));
 		subimagePn.add(subimage3);
 
 		// 서브이미지4
@@ -301,11 +310,12 @@ public class ItemDetail extends JFrame implements ActionListener {
 			ImageIcon image4 = new ImageIcon(m_itemDto.getImgurl4());
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(image4.getImage(), 0, 0, null);
+				g.drawImage(image4.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
+		subimage4.setBorder(new LineBorder(commonRedColor, 2));
 		subimagePn.add(subimage4);
 
 		imagePannel.add(subimagePn);
