@@ -31,7 +31,7 @@ public class RoomService implements RoomServiceImpl{
 		if(result) {
 			room = roomDao.checkRoom(user, target);
 		}
-		
+		System.out.println(room);
 		return room;
 	}
 

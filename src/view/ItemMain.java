@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -36,9 +37,11 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 	private JPanel listPn, thumPn, thumPn1, thumPn2;
 	private JLabel imgLa, txtLa;
 	private JButton addBtn;
+	
+	JPanel category;
 
-	Color commonColor = new Color(218, 0, 0);
-	String iconImgUrl = "C:\\icon\\";
+//	String iconImgUrl = "C:\\icon\\";
+	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	Color mainRed = new Color(218, 0, 0);
 	Color mainGray = new Color(250, 250, 250);
@@ -50,13 +53,14 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 	public ItemMain(List<ItemBbs> itemList, List<Category> categoryList) {
 		Delegator delegator = Delegator.getInstance();
+		
 		this.m_itemList = itemList;
 		this.m_categoryList = categoryList;
 
 		// Header
-		Color commonColor = new Color(218, 0, 0);
+		Color commonRedColor = new Color(218, 0, 0);
 		headerPn = new JPanel();
-		headerPn.setBackground(commonColor);
+		headerPn.setBackground(commonRedColor);
 		headerPn.setSize(1350, 60);
 		headerPn.setLayout(null);
 
@@ -145,7 +149,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		// SearchText
 		searchTextF = new JTextField("검색어");
 		searchTextF.setBounds(40, 160, 260, 40);
-		searchTextF.setBorder(new LineBorder(commonColor, 5));
+		searchTextF.setBorder(new LineBorder(commonRedColor, 5));
 		sidePn.add(searchTextF);
 
 		// searchBtn
@@ -164,160 +168,32 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
 		
-		String category_id[] = new String[9];
-		
-		for (int i = 0; i < m_categoryList.size(); i++) {
-			category_id[i] = String.valueOf(m_categoryList.get(i).getSeq()); 
-		}
-
-		ImageIcon cate1Image = new ImageIcon(iconImgUrl + "1.png");
-		cate1 = new JPanel() {
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate1Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate1.setBorder(new LineBorder(commonColor, 3));
-		
-		if(category_id[0] != null) {
-			cate1.setName(category_id[0]);
-			cate1.addMouseListener(this);
-		}
-
-		//  2
-		ImageIcon cate2Image = new ImageIcon(iconImgUrl + "2.png");
-		cate2 = new JPanel() {
+		for(int i=0; i < categoryList.size(); i++) {
+			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() +".png");
 			
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate2Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate2.setBorder(new LineBorder(commonColor, 3));
-		if(category_id[1] != null) {
-			cate2.setName(category_id[1]);
-			cate2.addMouseListener(this);
-		}
-		//  3
-		ImageIcon cate3Image = new ImageIcon(iconImgUrl + "3.png");
-		cate3 = new JPanel() {
-			
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate3Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate3.setBorder(new LineBorder(commonColor, 3));
-		if(category_id[2] != null) {
-			cate3.setName(category_id[2]);
-			cate3.addMouseListener(this);
-		}
-		// 4
-		ImageIcon cate4Image = new ImageIcon(iconImgUrl + "4.png");
-		cate4 = new JPanel() {
-			
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate4Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate4.setBorder(new LineBorder(commonColor, 3));
-
-		if(category_id[3] != null) {
-			cate4.setName(category_id[3]);
-			cate4.addMouseListener(this);
+			JPanel category = new JPanel() {
+				public void paintComponent(Graphics g) {
+					g.drawImage(categoryImage.getImage(), 0, 0, null);
+					setOpaque(false);
+					super.paintComponents(g);
+				}
+			};
+			category.setBorder(new LineBorder(commonRedColor, 2));
+			category.setName(categoryList.get(i).getSeq()+"");
+			category.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					int seq = Integer.parseInt(category.getName());
+					
+					Delegator delegator = Delegator.getInstance();
+					delegator.itemBbsController.SelectItemCategories(seq);
+					dispose();
+				}
+			});
+			catePn.add(category);
 		}
 		
-		//  5
-		ImageIcon cate5Image = new ImageIcon(iconImgUrl + "5.png");
-		cate5 = new JPanel() {
-			
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate5Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate5.setBorder(new LineBorder(commonColor, 3));
-		if(category_id[4] != null) {
-			cate5.setName(category_id[4]);
-			cate5.addMouseListener(this);
-		}
-		//  6
-		ImageIcon cate6Image = new ImageIcon(iconImgUrl + "6.png");
-		cate6 = new JPanel() {
-			
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate6Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate6.setBorder(new LineBorder(commonColor, 3));
-		if(category_id[5] != null) {
-			cate6.setName(category_id[5]);
-			cate6.addMouseListener(this);
-		}
-		// 7
-		ImageIcon cate7Image = new ImageIcon(iconImgUrl + "7.png");
-		cate7 = new JPanel() {
-			
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate7Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate7.setBorder(new LineBorder(commonColor, 3));
-		
-		if(category_id[6] != null) {
-			cate7.setName(category_id[6]);
-			cate7.addMouseListener(this);
-		}
-
-		ImageIcon cate8Image = new ImageIcon(iconImgUrl + "8.png");
-		cate8 = new JPanel() {
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate8Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate8.setBorder(new LineBorder(commonColor, 3));
-		
-		if(category_id[7] != null) {
-			cate8.setName(category_id[7]);
-			cate8.addMouseListener(this);
-		}
-		// 9
-		ImageIcon cate9Image = new ImageIcon(iconImgUrl + "9.png");
-		cate9 = new JPanel() {
-			public void paintComponent(Graphics g) {
-				g.drawImage(cate9Image.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		cate9.setBorder(new LineBorder(commonColor, 3));
-		if(category_id[8] != null) {
-			cate9.setName(category_id[8]);
-			cate9.addMouseListener(this);
-		}
-		
-		catePn.add(cate1);
-		catePn.add(cate2);
-		catePn.add(cate3);
-		catePn.add(cate4);
-		catePn.add(cate5);
-		catePn.add(cate6);
-		catePn.add(cate7);
-		catePn.add(cate8);
-		catePn.add(cate9);
-
 		sidePn.add(catePn);
 
 		listPn = new JPanel();

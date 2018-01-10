@@ -28,12 +28,12 @@ public class Main extends JFrame implements ActionListener {
 	
 	public Main() {
 
-		String commonImgUrl = "c:\\icon\\";
+		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 		JPanel headerPn;
 
 		// header
 		JPanel headerLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon(commonImgUrl + "headerlogo.png");
+			ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
 
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {

@@ -33,13 +33,14 @@ public class Login extends JFrame implements ActionListener {
 
 	public Login() {
 
-		String icomImgimgUrl = "c:\\icon\\";
+//		String iconImgUrl = "c:\\icon\\";
+		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 		JPanel headerPn;
 
 		// header
 		JPanel headerLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon(icomImgimgUrl + "headerlogo.png");
+			ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
 
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -103,7 +104,7 @@ public class Login extends JFrame implements ActionListener {
 		login.setSize(1000, 550);
 		
 		JPanel loginLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon(icomImgimgUrl + "logo.png");
+			ImageIcon headerimage = new ImageIcon(iconImgUrl + "logo.png");
 
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {

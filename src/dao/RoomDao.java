@@ -13,13 +13,14 @@ import db.OracleConnection;
 import dto.RoomDto;
 
 public class RoomDao implements RoomDaoImpl{
-//	DBConnection DBConnector = new OracleConnection();
-	DBConnection DBConnector = new MySqlConnection();
+	DBConnection DBConnector = new OracleConnection();
+//	DBConnection DBConnector = new MySqlConnection();
 	
 	public List<RoomDto> getRoomByUesrId(String user_id) {
 		
         String sql = "select * from room where user_id='"+user_id+"' or target_id='"+user_id+"'";
 
+        System.out.println(">>> RoomDao .makeRoom() sql: "+sql);
         Connection conn = null;
         PreparedStatement ptmt = null;
         ResultSet rs = null;
@@ -54,6 +55,7 @@ public class RoomDao implements RoomDaoImpl{
 		// TODO Auto-generated method stub
 		String sql = " insert into room values(room_seq.nextval, '"+user+"', '"+target+"','"+user+"와 "+target+"의 대화 "+"' , sysdate)";
 		
+		System.out.println(">>> RoomDao .makeRoom() sql: "+sql);
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 		int count = -1;
@@ -74,6 +76,7 @@ public class RoomDao implements RoomDaoImpl{
 		// TODO Auto-generated method stub
 		String sql = " select * from room where user_id='"+user+"' and target_id='"+target+"'";
 		
+		System.out.println(">>> RoomDao .checkRoom() sql: "+sql);
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 		ResultSet rs = null;

@@ -29,8 +29,8 @@ public class AdminMain extends JFrame implements ActionListener {
 	
 	JButton itemListBtn, abilityListBtn, userListBtn, chatBtn;
 
-//	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
-	String icomImgimgUrl = "E:\\icon/";
+	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+//	String iconImgUrl = "E:\\icon/";
 
 	public AdminMain() {
 
@@ -41,7 +41,7 @@ public class AdminMain extends JFrame implements ActionListener {
 		
 		// header
 		headerLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon(icomImgimgUrl + "headerlogo.png");
+			ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
 
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -53,7 +53,7 @@ public class AdminMain extends JFrame implements ActionListener {
 
 		// logo
 		JPanel logoPn = new JPanel() {
-			ImageIcon image = new ImageIcon(icomImgimgUrl + "logo.png");
+			ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
 
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -93,7 +93,7 @@ public class AdminMain extends JFrame implements ActionListener {
 //		sidePn.add(searchTextF);
 //
 //		// searchBtn
-//		searchBtn = new JButton(new ImageIcon(icomImgimgUrl + "search.png"));
+//		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
 //		searchBtn.setBounds(300, 160, 40, 40);
 //		searchBtn.setOpaque(false); // 투명하게
 //		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x

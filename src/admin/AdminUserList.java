@@ -210,19 +210,6 @@ public class AdminUserList extends JFrame implements ActionListener {
 			itemTitle.setBounds(140, 20, 200, 20);
 			itemPanel.add(itemTitle);
 
-			// JLabel itemState = new JLabel();
-			// if(itemList.get(i).getState() == 0) {
-			// itemState.setText("게시중");
-			// } else if(itemList.get(i).getState() == 1) {
-			// itemState.setText("완료됨");
-			// } else if(itemList.get(i).getState() == 2) {
-			// itemState.setText("삭제됨");
-			// } else if(itemList.get(i).getState() == 3) {
-			// itemState.setText("관리자에 의해 삭제됨");
-			// }
-			// itemState.setBounds(630, 20, 150, 20);
-			// itemPanel.add(itemState);
-
 			JLabel itemCreated = new JLabel();
 			itemCreated.setText(userList.get(i).getCreated_at());
 			itemCreated.setBounds(780, 20, 150, 20);
