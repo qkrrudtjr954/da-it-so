@@ -204,7 +204,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		// sidePn.setBounds(0, 60, 400, 1000);
 		// imagePannel
 		imagePannel = new JPanel();
-		imagePannel.setBounds(70, 20, 420, 650);
+		imagePannel.setBounds(70, 20, 420, 630);
 		imagePannel.setLayout(null);
 		imagePannel.setBorder(new LineBorder(Color.red, 2));
 		imagePannel.setBackground(Color.white);
@@ -229,12 +229,12 @@ public class ItemDetail extends JFrame implements ActionListener {
 			ImageIcon itemImage = new ImageIcon(m_itemDto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(itemImage.getImage(), 0, 0, null);
+				g.drawImage(itemImage.getImage(), 0, 0, 300, 400, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
-		itemImagePn.setBounds(10, 115, 400, 500);
+		itemImagePn.setBounds(60, 115, 400, 500);
 		imagePannel.add(itemImagePn);
 
 		// itemsub
@@ -244,51 +244,55 @@ public class ItemDetail extends JFrame implements ActionListener {
 		// subimagePn.setBackground(Color.PINK);
 
 		// 서브 이미지1
-		subimage1 = new JPanel() {
-			ImageIcon image1 = new ImageIcon(m_itemDto.getImgurl1());
+				subimage1 = new JPanel() {
+					ImageIcon image1 = new ImageIcon(m_itemDto.getImgurl1());
 
-			public void paintComponent(Graphics g) {
-				g.drawImage(image1.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		subimagePn.add(subimage1);
+					public void paintComponent(Graphics g) {
+						g.drawImage(image1.getImage(), 0, 0, null);
+						setOpaque(false);
+						super.paintComponents(g);
+					} 
+				};
+				subimage1.setBorder(new LineBorder(Color.red,2));
+			   subimagePn.add(subimage1);
 
-		// 서브이미지2
-		subimage2 = new JPanel() {
-			ImageIcon image2 = new ImageIcon(m_itemDto.getImgurl2());
+				// 서브이미지2
+				subimage2 = new JPanel() {
+					ImageIcon image2 = new ImageIcon(m_itemDto.getImgurl2());
 
-			public void paintComponent(Graphics g) {
-				g.drawImage(image2.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		subimagePn.add(subimage2);
-		// 서브이미지3
-		subimage3 = new JPanel() {
-			ImageIcon image3 = new ImageIcon(m_itemDto.getImgurl3());
+					public void paintComponent(Graphics g) {
+						g.drawImage(image2.getImage(), 0, 0, null);
+						setOpaque(false);
+						super.paintComponents(g);
+					}
+				};
+				subimage2.setBorder(new LineBorder(Color.red,2));
+				subimagePn.add(subimage2);
+				// 서브이미지3
+				subimage3 = new JPanel() {
+					ImageIcon image3 = new ImageIcon(m_itemDto.getImgurl3());
 
-			public void paintComponent(Graphics g) {
-				g.drawImage(image3.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		subimagePn.add(subimage3);
+					public void paintComponent(Graphics g) {
+						g.drawImage(image3.getImage(), 0, 0, null);
+						setOpaque(false);
+						super.paintComponents(g);
+					}
+				};
+				subimage3.setBorder(new LineBorder(Color.red,2));
+				subimagePn.add(subimage3);
 
-		// 서브이미지4
-		subimage4 = new JPanel() {
-			ImageIcon image4 = new ImageIcon(m_itemDto.getImgurl4());
+				// 서브이미지4
+				subimage4 = new JPanel() {
+					ImageIcon image4 = new ImageIcon(m_itemDto.getImgurl4());
 
-			public void paintComponent(Graphics g) {
-				g.drawImage(image4.getImage(), 0, 0, null);
-				setOpaque(false);
-				super.paintComponents(g);
-			}
-		};
-		subimagePn.add(subimage4);
+					public void paintComponent(Graphics g) {
+						g.drawImage(image4.getImage(), 0, 0, null);
+						setOpaque(false);
+						super.paintComponents(g);
+					}
+				};
+				subimage4.setBorder(new LineBorder(Color.red,2));
+				subimagePn.add(subimage4);
 
 		imagePannel.add(subimagePn);
 		detailPn.add(imagePannel);
@@ -315,7 +319,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		// keyword
 
-		String key = m_itemDto.getKeyword();
+		String key = m_itemDto.getKeyword().replace(",", "-key-");		 			// --수정 
 		int rowSize = 0;
 		String[] keyarray;
 		keyarray = new String[rowSize * 3];
