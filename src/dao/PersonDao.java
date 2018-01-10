@@ -64,6 +64,8 @@ public class PersonDao implements PersonDaoImpl {
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
+		
+		System.out.println(">>>	PersonDao .getPersonById() sql : " + sql);
 
 		ResultSet rs = null;
 

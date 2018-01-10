@@ -21,7 +21,6 @@ public class AbilityDao implements AbilityDaoImpl {
 
 	public List<AbilityBbs> allAbilityList() {
 
-
 		String sql = "SELECT * FROM ABILITY_BBS WHERE STATE = 0 OR STATE = 1 ORDER BY CREATED_AT ";
 
 		Connection conn = DBConnector.makeConnection();
@@ -36,12 +35,9 @@ public class AbilityDao implements AbilityDaoImpl {
 
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery(); // query
-			System.out.println("1-6 ssuc");
 
 
 			while(rs.next()) {
-
-				System.out.println("2-6 suc");
 				AbilityBbs abilityDto = new AbilityBbs();
 
 				abilityDto.setSeq(Integer.parseInt(rs.getString("SEQ")));
@@ -164,41 +160,34 @@ public class AbilityDao implements AbilityDaoImpl {
 		PreparedStatement psmt = null;
 
 		String sql = " SELECT * FROM ABILITY_BBS "
-				+ " WHERE TITLE LIKE '%" + searchWord +"%'"
+				+ " WHERE ( TITLE LIKE '%" + searchWord +"%'"
 				+ " OR CONTENT LIKE '%" + searchWord + "%'"
-				+ " OR ABILITY LIKE '%" + searchWord + "%'";
+				+ " OR ABILITY LIKE '%" + searchWord + "%')"
+				+ " AND (STATE=0 OR STATE=1)";
 
 		System.out.println(">>> AbilityDao.searchList()sql: " + sql);
 		//select * from item_bbs where title like %something% or content like %something% or ability like %something%;
 
-
-		System.out.println("conn success");
-
 		try {
 			psmt = conn.prepareStatement(sql);
-			System.out.println("psmt success");
-
 			rs = psmt.executeQuery(sql);
-			System.out.println("rs success");
 
 			while(rs.next()) {
+				AbilityBbs abilityDto = new AbilityBbs();
 
-				int seq = rs.getInt("SEQ");
-				int category_id = rs.getInt("CATEGORY_ID");
-				String user_id = rs.getString("USER_ID");
-				String title = rs.getString("TITLE");
-				String imgurl1 = rs.getString("IMGURL1");
-				String imgurl2 = rs.getString("IMGURL2");
-				String imgurl3 = rs.getString("IMGURL3");
-				String imgurl4 = rs.getString("IMGURL4");
-				String ability = rs.getString("ABILITY");
-				String content = rs.getString("CONTENT");
-				int state = rs.getInt("STATE");
-				String created_at = rs.getString("CREATED_AT");
-
-				AbilityBbs dto = new AbilityBbs(seq, category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, ability, content, state, created_at);
+				abilityDto.setSeq(rs.getInt("SEQ"));
+				abilityDto.setCategory_id(rs.getInt("CATEGORY_ID"));
+				abilityDto.setTitle(rs.getString("TITLE"));
+				abilityDto.setImgurl1(rs.getString("IMGURL1"));
+				abilityDto.setImgurl2(rs.getString("IMGURL2"));
+				abilityDto.setImgurl3(rs.getString("IMGURL3"));
+				abilityDto.setImgurl4(rs.getString("IMGURL4"));
+				abilityDto.setAbility(rs.getString("ABILITY"));
+				abilityDto.setContent(rs.getString("CONTENT"));
+				abilityDto.setCreated_at(rs.getString("CREATED_AT"));
+				abilityDto.setUser_id(rs.getString("USER_ID"));
 				
-				searchlist.add(dto);
+				searchlist.add(abilityDto);
 			}
 
 		} catch (SQLException e) {
@@ -212,8 +201,8 @@ public class AbilityDao implements AbilityDaoImpl {
 	}
 	
 	public List<AbilityBbs> getAbilityBbsByUserId(String user_id){
-		
-		String sql = " select * from ability_bbs where user_id='"+user_id+"'";
+
+		String sql = " SELECT * FROM ABILITY_BBS WHERE USER_ID='"+user_id+"' WHERE STATE=0 OR STATE=1";
 		
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
@@ -257,7 +246,7 @@ public class AbilityDao implements AbilityDaoImpl {
 
 	@Override
 	public boolean DeleteAbilityBbsByAdmin(AbilityBbs ability) {
-		String sql = " update item_bbs set state = 3 where seq="+ability.getSeq();
+		String sql = " UPDATE ITEM_BBS SET STATE = 3 WHERE SEQ= "+ability.getSeq();
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
@@ -279,7 +268,7 @@ public class AbilityDao implements AbilityDaoImpl {
 	@Override
 	public boolean CompleteAbilityBbsByAdmin(AbilityBbs ability) {
 		// TODO Auto-generated method stub
-		String sql = " update item_bbs set state = 1 where seq="+ability.getSeq();
+		String sql = " UPDATE ITEM_BBS SET STATE = 1 WHERE SEQ="+ability.getSeq();
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
@@ -301,7 +290,7 @@ public class AbilityDao implements AbilityDaoImpl {
 	@Override
 	public boolean ContinueAbilityBbsByAdmin(AbilityBbs ability) {
 		// TODO Auto-generated method stub
-		String sql = " update item_bbs set state = 0 where seq="+ability.getSeq();
+		String sql = " UPDATE ITEM_BBS SET STATE = 0 WHERE SEQ="+ability.getSeq();
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
@@ -343,23 +332,23 @@ public class AbilityDao implements AbilityDaoImpl {
 			rs = ptmt.executeQuery();
 			
 			while(rs.next()) {
+				AbilityBbs abilityDto = new AbilityBbs();
 
-				int seq = rs.getInt("SEQ");
-				int category_id = rs.getInt("CATEGORY_ID");
-				String user_id = rs.getString("USER_ID");
-				String title = rs.getString("TITLE");
-				String imgurl1 = rs.getString("IMGURL1");
-				String imgurl2 = rs.getString("IMGURL2");
-				String imgurl3 = rs.getString("IMGURL3");
-				String imgurl4 = rs.getString("IMGURL4");
-				String ability = rs.getString("ABILITY");
-				String content = rs.getString("CONTENT");
-				int state = rs.getInt("STATE");
-				String created_at = rs.getString("CREATED_AT");
+				abilityDto.setSeq(Integer.parseInt(rs.getString("SEQ")));
+				abilityDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				abilityDto.setTitle(rs.getString("TITLE"));
 
-				AbilityBbs dto = new AbilityBbs(seq, category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, ability, content, state, created_at);
-				
-				searchList.add(dto);
+				abilityDto.setImgurl1(rs.getString("IMGURL1"));
+				abilityDto.setImgurl2(rs.getString("IMGURL2"));
+				abilityDto.setImgurl3(rs.getString("IMGURL3"));
+				abilityDto.setImgurl4(rs.getString("IMGURL4"));
+				abilityDto.setAbility(rs.getString("ABILITY"));
+				abilityDto.setContent(rs.getString("CONTENT"));
+				abilityDto.setState(Integer.parseInt(rs.getString("STATE")));
+				abilityDto.setCreated_at(rs.getString("CREATED_AT"));
+				abilityDto.setUser_id(rs.getString("USER_ID"));
+
+				searchList.add(abilityDto);
 			}
 			
 		} catch (SQLException e) {
@@ -373,7 +362,7 @@ public class AbilityDao implements AbilityDaoImpl {
 	@Override
 	public List<AbilityBbs> SelectAbilityCategories(int category_id) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM ABILITY_BBS WHERE CATEGORY_ID="+category_id;
+		String sql = "SELECT * FROM ABILITY_BBS WHERE CATEGORY_ID="+category_id+" AND (STATE=0 OR STATE=1) ";
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;

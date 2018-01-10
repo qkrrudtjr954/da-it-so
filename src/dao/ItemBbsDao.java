@@ -9,12 +9,9 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
-import db.MySqlConnection;
 import db.OracleConnection;
 import delegator.Delegator;
-import dto.AbilityBbs;
 import dto.ItemBbs;
-import dto.Person;
 
 public class ItemBbsDao implements ItemBbsDaoImpl{
 
@@ -102,20 +99,13 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 			DBClose.close(pstmt, conn, rs);
 		}
 
-		return count > 0 ? true : false;
+		return (count > 0) ? true : false;
 	}
 
 	public List<ItemBbs> SelectItemCategories(int category_id) {
 
-		String sql;
+		String sql = "SELECT * FROM ITEM_BBS WHERE CATEGORY_ID = "+ category_id;
 		
-		if(DBConnector.getClass().getName().equals("db.mysql")) {
-			sql = "";
-		}else {
-			sql = "SELECT * FROM ITEM_BBS WHERE CATEGORY_ID = "+ category_id;
-		}
-		
-
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 
@@ -129,25 +119,25 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
 
 			while (rs.next()) {
-			ItemBbs itemBbs = new ItemBbs();
-			
-			itemBbs.setSeq(rs.getInt("SEQ"));
-			itemBbs.setCategory_id(rs.getInt("CATEGORY_ID"));
-			itemBbs.setTitle(rs.getString("TITLE"));
-			itemBbs.setImgurl1(rs.getString("IMGURL1"));
-			itemBbs.setImgurl2(rs.getString("IMGURL2"));
-			itemBbs.setImgurl3(rs.getString("IMGURL3"));
-			itemBbs.setImgurl4(rs.getString("IMGURL4"));
-			itemBbs.setPrice(rs.getInt("PRICE"));
-			itemBbs.setKeyword(rs.getString("KEYWORD"));
-			itemBbs.setContent(rs.getString("CONTENT"));
-			itemBbs.setCreated_at(rs.getString("CREATED_AT"));
-			itemBbs.setUser_id(rs.getString("USER_ID"));
-			itemBbs.setState(rs.getInt("STATE"));
-			
-			
-
-			itemList.add(itemBbs);
+				ItemBbs itemBbs = new ItemBbs();
+				
+				itemBbs.setSeq(rs.getInt("SEQ"));
+				itemBbs.setCategory_id(rs.getInt("CATEGORY_ID"));
+				itemBbs.setTitle(rs.getString("TITLE"));
+				itemBbs.setImgurl1(rs.getString("IMGURL1"));
+				itemBbs.setImgurl2(rs.getString("IMGURL2"));
+				itemBbs.setImgurl3(rs.getString("IMGURL3"));
+				itemBbs.setImgurl4(rs.getString("IMGURL4"));
+				itemBbs.setPrice(rs.getInt("PRICE"));
+				itemBbs.setKeyword(rs.getString("KEYWORD"));
+				itemBbs.setContent(rs.getString("CONTENT"));
+				itemBbs.setCreated_at(rs.getString("CREATED_AT"));
+				itemBbs.setUser_id(rs.getString("USER_ID"));
+				itemBbs.setState(rs.getInt("STATE"));
+				
+				
+	
+				itemList.add(itemBbs);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -162,46 +152,46 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 	@Override
 	public List<ItemBbs> searchList(String searchWord) {
 
-		List<ItemBbs> searchlist = new ArrayList<ItemBbs>();
+		List<ItemBbs> searchList = new ArrayList<ItemBbs>();
 
 		ResultSet rs = null;
 		PreparedStatement ptmt = null;
 
 		String sql = " SELECT * FROM ITEM_BBS "
-				+ " WHERE TITLE LIKE '%" + searchWord +"%'"
+				+ " WHERE (TITLE LIKE '%" + searchWord +"%'"
 				+ " OR CONTENT LIKE '%" + searchWord + "%'"
-				+ " OR KEYWORD LIKE '%" + searchWord + "%'";//제목 컨텐츠 키워드
+				+ " OR KEYWORD LIKE '%" + searchWord + "%')"//제목 컨텐츠 키워드
+				+ " AND (STATE=0 OR STATE=1)";
 
 		System.out.println(">>>	ItemBbsDao .searchList() sql : " + sql);
 		//select * from item_bbs where title like %something% or content like %something% or ability like %something%;
 
-		java.sql.Connection conn = DBConnector.makeConnection();
-		System.out.println("conn success");
+		Connection conn = DBConnector.makeConnection();
 
 		try {
 			ptmt = conn.prepareStatement(sql);
-			System.out.println("psmt success");
-
 			rs = ptmt.executeQuery();
-			System.out.println("rs success");
 
 			while(rs.next()) {
-				int seq = rs.getInt("SEQ");
-				int category_id = rs.getInt("CATEGORY_ID");
-				String user_id = rs.getString("USER_ID");
-				String title = rs.getString("TITLE");
-				String imgurl1 = rs.getString("IMGURL1");
-				String imgurl2 = rs.getString("IMGURL2");
-				String imgurl3 = rs.getString("IMGURL3");
-				String imgurl4 = rs.getString("IMGURL4");
-				int price = rs.getInt("PRICE");
-				String keyword = rs.getString("KEYWORD");
-				String content = rs.getString("CONTENT");
-				String created_at = rs.getString("CREATED_AT");
-				int state = rs.getInt("STATE");
-
-				ItemBbs dto = new ItemBbs(seq, category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, price, keyword, content, created_at, state);
-				searchlist.add(dto);
+				ItemBbs itemBbs = new ItemBbs();
+				
+				itemBbs.setSeq(rs.getInt("SEQ"));
+				itemBbs.setCategory_id(rs.getInt("CATEGORY_ID"));
+				itemBbs.setTitle(rs.getString("TITLE"));
+				itemBbs.setImgurl1(rs.getString("IMGURL1"));
+				itemBbs.setImgurl2(rs.getString("IMGURL2"));
+				itemBbs.setImgurl3(rs.getString("IMGURL3"));
+				itemBbs.setImgurl4(rs.getString("IMGURL4"));
+				itemBbs.setPrice(rs.getInt("PRICE"));
+				itemBbs.setKeyword(rs.getString("KEYWORD"));
+				itemBbs.setContent(rs.getString("CONTENT"));
+				itemBbs.setCreated_at(rs.getString("CREATED_AT"));
+				itemBbs.setUser_id(rs.getString("USER_ID"));
+				itemBbs.setState(rs.getInt("STATE"));
+				
+				
+	
+				searchList.add(itemBbs);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -209,9 +199,10 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		} finally {
 			DBClose.close(ptmt, conn, rs);
 		}
-		return searchlist;
+		return searchList;
 	}
 
+	// 관리자 전용  
 	public List<ItemBbs> getAllItemBbs() {
 
 		String sql = " SELECT * FROM ITEM_BBS ";

@@ -20,7 +20,7 @@ public class RoomDao implements RoomDaoImpl{
 		
         String sql = "select * from room where user_id='"+user_id+"' or target_id='"+user_id+"'";
 
-        System.out.println(">>> RoomDao .makeRoom() sql: "+sql);
+        System.out.println(">>> RoomDao .getRoomByUesrId() sql: "+sql);
         Connection conn = null;
         PreparedStatement ptmt = null;
         ResultSet rs = null;
