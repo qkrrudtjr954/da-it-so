@@ -34,11 +34,6 @@ public class AbilityBbsController {
 		new AbilityMain(abilityDto, categoryList);
 	}
 
-   public void AbilityDetail(AbilityBbs abilityList) {
-	   List<Category> categoryList = categoryService.getAllCategories(1);
-	   new AbilityDetail(abilityList, categoryList);
-   }
-
 	public void AbilityWrite(Person personDto) {
 		// getAllCategories == 0 Ability
 		// getAllCategories == 1 item
