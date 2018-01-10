@@ -44,6 +44,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 	JPanel category;
 	// String iconImgUrl = "C:\\icon\\";
 	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String nullImgURL = "C:\\icon\\nullimg.png";
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
@@ -302,7 +303,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		abilityLb.setBounds(100, 350, 100, 30);
 		writePn.add(abilityLb);
 
-		abilityTextF = new JTextField();
+		abilityTextF = new JTextField("ex) 자바5년차,일러스트자격증보유");
 		abilityTextF.setBounds(210, 350, 300, 30);
 		writePn.add(abilityTextF);
 
@@ -395,16 +396,44 @@ public class AbilityWrite extends JFrame implements ActionListener {
 					filesend fs = new filesend(img4TextF.getText());
 				}
 
+				// -------------------------------- null 이미지 수정
+
 				AbilityBbs abilityDto = new AbilityBbs();
+
+				if (img1TextF.getText().equals("")) {
+					
+					abilityDto.setImgurl1(nullImgURL);
+				} else {
+					abilityDto.setImgurl1(img1TextF.getText());
+				}
+				if (img2TextF.getText().equals("")) {
+					
+					abilityDto.setImgurl2(nullImgURL);
+				} else {
+					abilityDto.setImgurl2(img2TextF.getText());
+				}
+				if (img3TextF.getText().equals("")) {
+				
+					abilityDto.setImgurl3(nullImgURL);
+				} else {
+					abilityDto.setImgurl3(img3TextF.getText());
+				}
+				if (img4TextF.getText().equals("")) {
+					
+					abilityDto.setImgurl4(nullImgURL);
+				} else {
+					abilityDto.setImgurl4(img4TextF.getText());
+				}
+
 				String id = delegator.getCurrent_user().getId();
 
 				int categoryIndex = cateCombo.getSelectedIndex();
 				abilityDto.setCategory_id(m_categoryList.get(categoryIndex).getSeq());
 				abilityDto.setTitle(titleTextF.getText());
-				abilityDto.setImgurl1(img1TextF.getText());
-				abilityDto.setImgurl2(img2TextF.getText());
-				abilityDto.setImgurl3(img3TextF.getText());
-				abilityDto.setImgurl4(img4TextF.getText());
+				// abilityDto.setImgurl1(img1TextF.getText());
+				// abilityDto.setImgurl2(img2TextF.getText());
+				// abilityDto.setImgurl3(img3TextF.getText());
+				// abilityDto.setImgurl4(img4TextF.getText());
 				abilityDto.setAbility(abilityTextF.getText());
 				abilityDto.setContent(contentTextPn.getText());
 				abilityDto.setUser_id(id);
