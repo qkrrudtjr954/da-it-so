@@ -38,8 +38,8 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 	JPanel category;
 
-//	String iconImgUrl = "c:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "E:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	ItemBbs m_itemDto = null;
 	List<Category> m_categoryList = null;
@@ -53,6 +53,19 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
+		
+		if (itemDto.getImgurl1().equals("") || itemDto.getImgurl1()==null) {
+			itemDto.setImgurl1(noImgUrl);
+		}
+		if (itemDto.getImgurl2().equals("") || itemDto.getImgurl2()==null) {
+			itemDto.setImgurl1(noImgUrl);
+		}
+		if (itemDto.getImgurl3().equals("") || itemDto.getImgurl3()==null) {
+			itemDto.setImgurl1(noImgUrl);
+		}
+		if (itemDto.getImgurl4().equals("") || itemDto.getImgurl4()==null) {
+			itemDto.setImgurl1(noImgUrl);
+		}
 
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
@@ -69,7 +82,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		detailPn.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane(detailPn);
-		scrollPane.setBounds(400, 60, 935, 900);
+		scrollPane.setBounds(400, 60, 935, 680);
 
 		// headerlogo
 		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
@@ -174,7 +187,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for(int i=0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() +".png");
+			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "item/" + categoryList.get(i).getTitle() +".png");
 
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
@@ -439,6 +452,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		} else if (obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.itemBbsController.searchList(searchWord);
+			this.dispose();
 		} else if (obj == listBtn) {
 			delegator.itemBbsController.allItemList();
 			this.dispose();

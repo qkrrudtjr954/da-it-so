@@ -35,11 +35,11 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 
-	  String iconImgUrl = "C:\\icon\\";
-	//String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	 String iconImgUrl = "E:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	
-	AbilityBbs abilityDto = null;
-	List<Category> categoryList = null;
+	AbilityBbs m_abilityDto = null;
+	List<Category> m_categoryList = null;
 
 	// 삭제버튼추가필요
 	// 완료 버튼 추가 시 STATE 1로 변경 STATE = 0 등록시 STATE = 1 완료 STATE = 2 삭제 STATE = 3
@@ -47,8 +47,8 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	public AbilityDetail(AbilityBbs abilityDto, List<Category> categoryList) {
 
 		Delegator delegator = Delegator.getInstance();
-		this.abilityDto = abilityDto;
-		this.categoryList = categoryList;
+		this.m_abilityDto = abilityDto;
+		this.m_categoryList = categoryList;
 
 		Container cn = getContentPane();
 
@@ -70,7 +70,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		detailPn.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane(detailPn);
-		scrollPane.setBounds(400, 60, 1100, 900);
+		scrollPane.setBounds(400, 60, 1100, 680);
 		scrollPane.setBackground(Color.black);
 		// scrollPane.add(detailPn);
 
@@ -175,7 +175,8 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for (int i = 0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() + ".png");
+			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "ability/" + categoryList.get(i).getTitle() +".png");
+			
 			System.out.println(iconImgUrl + categoryList.get(i).getTitle() + ".png");
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
@@ -244,6 +245,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		subimagePn.setBounds(10, 530, 400, 90);
 		// subimagePn.setBackground(Color.PINK);
 
+		
 		// 서브 이미지1
 		subimage1 = new JPanel() {
 			ImageIcon image1 = new ImageIcon(abilityDto.getImgurl1());
@@ -444,12 +446,12 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		} else if(obj == deleteBtn) {			
 			if(delegator.getCurrent_user() != null) {
 				System.out.println("login Success");
-				String WriteId = abilityDto.getUser_id();
+				String WriteId = m_abilityDto.getUser_id();
 				String ViewId = delegator.getCurrent_user().getId();
 
 				if(ViewId.equals(WriteId)) {
 					AbilityService abilityservice = new AbilityService();
-					abilityservice.DeleteAbilityList(abilityDto);
+					abilityservice.DeleteAbilityList(m_abilityDto);
 					JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
 					delegator.abilityBbsController.allAbilityList();
 					this.dispose();
@@ -464,12 +466,12 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		} else if(obj == completeBtn) {
 			if(delegator.getCurrent_user() != null) {
 				System.out.println("login Success");
-				String WriteId = abilityDto.getUser_id();
+				String WriteId = m_abilityDto.getUser_id();
 				String ViewId = delegator.getCurrent_user().getId();
 
 				if(ViewId.equals(WriteId) == true) {
 					AbilityService abilityservice = new AbilityService();
-					abilityservice.CompleteAbilityList(abilityDto);
+					abilityservice.CompleteAbilityList(m_abilityDto);
 					JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
 					delegator.abilityBbsController.allAbilityList();
 					this.dispose();

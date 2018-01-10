@@ -39,7 +39,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 
 	JPanel category;
 
-//	String iconImgUrl = "C:\\icon\\";
+//	String iconImgUrl = "E:\\icon\\";
 	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	private JFileChooser jfc = new JFileChooser();
@@ -180,7 +180,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for(int i=0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() +".png");
+			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "item/" + categoryList.get(i).getTitle() +".png");
 
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
@@ -220,7 +220,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		String category[] = new String[categoryList.size()];
 
 		for (int i = 0; i < category.length; i++) {
-			category[i] = categoryList.get(i).getTitle();
+			category[i] = categoryList.get(i).getDescription();
 		}
 
 		cateCombo = new JComboBox(category);
@@ -348,23 +348,25 @@ public class ItemWrite extends JFrame implements ActionListener {
 		if (obj == listBtn) {
 			delegator.itemBbsController.allItemList();
 			this.dispose();
-		}
-
-		if(obj == loginBtn) {
+		} else if(obj == loginBtn) {
 			delegator.personController.Login();
 			this.dispose();
-		}else if(obj == signupBtn) {
+		} else if(obj == signupBtn) {
 			delegator.personController.SignUp();
 			this.dispose();
-		}else if(obj == logoutBtn) {
+		} else if(obj == logoutBtn) {
 			delegator.personController.Logout();
 			this.dispose();
-		}else if (obj == imgAdd1) {
+		} else if (obj == imgAdd1) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
 				img1TextF.setText(jfc.getSelectedFile().toString());
 				filename1 = jfc.getSelectedFile().getName();
 			}
+		} else if(obj == searchBtn) {
+			String searchWord = searchTextF.getText();
+			delegator.itemBbsController.searchList(searchWord);
+			this.dispose();
 		}
 		if (obj == imgAdd2) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {

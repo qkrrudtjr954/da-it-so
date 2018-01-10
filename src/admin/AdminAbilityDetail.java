@@ -116,6 +116,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
 			logoutBtn.setBackground(commonRedColor);
 			logoutBtn.setForeground(Color.white);
+			logoutBtn.addActionListener(this);
 			headerPn.add(logoutBtn);
 		}
 
