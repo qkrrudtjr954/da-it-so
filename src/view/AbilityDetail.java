@@ -40,8 +40,9 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 
-	 String iconImgUrl = "E:\\icon\\";
-//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+//	 String iconImgUrl = "E:\\icon\\";
+	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	 String noImgUrl = iconImgUrl+"noimg.png";
 	
 	AbilityBbs abilityDto = null;
 	List<Category> categoryList = null;
@@ -60,6 +61,19 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
+		if (abilityDto.getImgurl1().equals("") || abilityDto.getImgurl1()==null) {
+			abilityDto.setImgurl1(noImgUrl);
+		}
+		if (abilityDto.getImgurl2().equals("") || abilityDto.getImgurl2()==null) {
+			abilityDto.setImgurl1(noImgUrl);
+		}
+		if (abilityDto.getImgurl3().equals("") || abilityDto.getImgurl3()==null) {
+			abilityDto.setImgurl1(noImgUrl);
+		}
+		if (abilityDto.getImgurl4().equals("") || abilityDto.getImgurl4()==null) {
+			abilityDto.setImgurl1(noImgUrl);
+		}
+		
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		headerPn = new JPanel();

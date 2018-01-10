@@ -37,7 +37,7 @@ public class AbilityBbsController {
 	public void AbilityWrite(Person personDto) {
 		// getAllCategories == 0 Ability
 		// getAllCategories == 1 item
-		List<Category> categoryList = categoryService.getAllCategories(0);
+		List<Category> categoryList = categoryService.getAllCategories(1);
 		new AbilityWrite(categoryList);
 	}
 
