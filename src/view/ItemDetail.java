@@ -26,15 +26,15 @@ import javax.swing.border.LineBorder;
 import delegator.Delegator;
 import dto.Category;
 import dto.ItemBbs;
+import dto.Person;
 import service.ItemBbsService;
 
 public class ItemDetail extends JFrame implements ActionListener {
-	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
-			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
-			subimage4, keywordPanel;
-	private JButton  logoutBtn, signupBtn, MypageBtn, searchBtn, loginBtn, chatBtn, listBtn, deleteBtn, completeBtn;
+	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
+			subimage4;
+	private JButton  logoutBtn, signupBtn, searchBtn, loginBtn, chatBtn, listBtn, deleteBtn, completeBtn, continueBtn;
 	private JTextField searchTextF;
-	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
+	private JLabel titleLb, sellLb, detailtitleLb, priceLb, cateLb, explanationLb;
 
 	JPanel category;
 
@@ -224,6 +224,11 @@ public class ItemDetail extends JFrame implements ActionListener {
 		imagePannel.setBackground(Color.white);
 		// titleLb
 		titleLb = new JLabel(m_itemDto.getTitle());
+
+		
+		if(itemDto.getState()==1) {
+			titleLb.setText(m_itemDto.getTitle()+" - 판매 완료 - ");
+		}
 		titleLb.setFont(new Font(m_itemDto.getTitle(), Font.BOLD, 25));
 		titleLb.setBounds(10, 30, 400, 30);
 		titleLb.setOpaque(false);
@@ -317,6 +322,11 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		// detailtitleLb
 		detailtitleLb = new JLabel(m_itemDto.getTitle());
+		
+		if(itemDto.getState()==1) {
+			detailtitleLb.setText(m_itemDto.getTitle()+" - 판매 완료 - ");
+		}
+		
 		detailtitleLb.setBounds(10, 10, 340, 30);
 		detailtitleLb.setFont(new Font(m_itemDto.getTitle(), Font.BOLD, 20));
 		iteminfoPn.add(detailtitleLb);
@@ -406,15 +416,16 @@ public class ItemDetail extends JFrame implements ActionListener {
 		//iteminfoPn.add(listBtn);
 		// iteminfoPn.setBounds(580, 135, 340, 400);
 
-		//completeBtn
+		
+		// completeBtn
 		completeBtn = new JButton("완료");
 		completeBtn.setBounds(550, 620, 340, 40);
 		completeBtn.setOpaque(false);
 		completeBtn.addActionListener(this);
-		
+
+		detailPn.add(completeBtn);
 		detailPn.add(listBtn);
 		detailPn.add(deleteBtn);
-		detailPn.add(completeBtn);
 		detailPn.add(chatBtn);
 		detailPn.add(iteminfoPn);
 
@@ -484,11 +495,15 @@ public class ItemDetail extends JFrame implements ActionListener {
 				String ViewId = delegator.getCurrent_user().getId();
 
 				if(ViewId.equals(WriteId)) {
-					ItemBbsService itemservice = new ItemBbsService();
-					itemservice.CompleteItemList(m_itemDto);
-					JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
-					delegator.itemBbsController.allItemList();
-					this.dispose();
+					boolean result = delegator.itemBbsController.setCompleteItemBbs(m_itemDto);
+					
+					if(result) {
+						JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
+						delegator.itemBbsController.allItemList();
+						this.dispose();						
+					} else {
+						JOptionPane.showMessageDialog(null, "완료 처리할 수 없습니다.");
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "작성자만이 완료 할 수 있습니다.");
 				}

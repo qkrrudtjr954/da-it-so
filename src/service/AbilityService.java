@@ -42,9 +42,9 @@ public class AbilityService implements AbilityServiceImpl {
 	}
 
 	@Override
-	public boolean CompleteAbilityBbsByAdmin(AbilityBbs ability) {
+	public boolean CompleteAbilityBbs(AbilityBbs ability) {
 		// TODO Auto-generated method stub
-		return abilityDao.CompleteAbilityBbsByAdmin(ability);
+		return abilityDao.CompleteAbilityBbs(ability);
 	}
 
 	@Override

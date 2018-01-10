@@ -314,7 +314,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 	}
 
 	@Override
-	public boolean CompleteItemBbsByAdmin(ItemBbs item) {
+	public boolean CompleteItemBbs(ItemBbs item) {
 		// TODO Auto-generated method stub
 		// state가 3이면 관리자에 의한 삭제.
 		String sql = " update item_bbs set state = 1 where seq="+item.getSeq();
@@ -506,5 +506,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		return itemList;
 	}
+
+
 
 }

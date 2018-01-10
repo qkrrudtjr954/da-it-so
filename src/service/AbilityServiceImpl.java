@@ -17,7 +17,7 @@ public interface AbilityServiceImpl {
 	public List<AbilityBbs> CompleteAbilityList(AbilityBbs abilityDto);
 	
 	public boolean DeleteAbilityBbsByAdmin(AbilityBbs ability);
-	public boolean CompleteAbilityBbsByAdmin(AbilityBbs ability);
+	public boolean CompleteAbilityBbs(AbilityBbs ability);
 	public boolean ContinueAbilityBbsByAdmin(AbilityBbs ability);
 	public List<AbilityBbs> AdminSearch(String search);
 }

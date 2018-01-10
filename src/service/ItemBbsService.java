@@ -36,8 +36,8 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 		return itemDao.DeleteItemBbsByAdmin(item);
 	}
 
-	public boolean CompleteItemBbsByAdmin(ItemBbs item) {
-		return itemDao.CompleteItemBbsByAdmin(item);
+	public boolean CompleteItemBbs(ItemBbs item) {
+		return itemDao.CompleteItemBbs(item);
 	}
 	public boolean ContinueItemBbsByAdmin(ItemBbs item) {
 		return itemDao.ContinueItemBbsByAdmin(item);
@@ -64,6 +64,7 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
 	
 

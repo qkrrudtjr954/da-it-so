@@ -266,7 +266,7 @@ public class AbilityDao implements AbilityDaoImpl {
 	}
 
 	@Override
-	public boolean CompleteAbilityBbsByAdmin(AbilityBbs ability) {
+	public boolean CompleteAbilityBbs(AbilityBbs ability) {
 		// TODO Auto-generated method stub
 		String sql = " UPDATE ITEM_BBS SET STATE = 1 WHERE SEQ="+ability.getSeq();
 

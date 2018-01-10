@@ -464,11 +464,15 @@ public class AbilityDetail extends JFrame implements ActionListener {
 				String ViewId = delegator.getCurrent_user().getId();
 
 				if(ViewId.equals(WriteId)) {
-					AbilityService abilityservice = new AbilityService();
-					abilityservice.DeleteAbilityList(m_abilityDto);
-					JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
-					delegator.abilityBbsController.allAbilityList();
-					this.dispose();
+					boolean result = delegator.abilityBbsController.setCompleteAbilityBbs(m_abilityDto);
+					
+					if(result) {
+						JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
+						delegator.abilityBbsController.allAbilityList();
+						this.dispose();						
+					} else {
+						JOptionPane.showMessageDialog(null, "완료 처리할 수 없습니다.");
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
 				}

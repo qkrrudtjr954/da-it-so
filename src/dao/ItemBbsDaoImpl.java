@@ -17,9 +17,8 @@ public interface ItemBbsDaoImpl {
 	
 	public List<ItemBbs> getItemBbsByUserId(String user_id);
 	public boolean DeleteItemBbsByAdmin(ItemBbs item);
-	public boolean CompleteItemBbsByAdmin(ItemBbs item);
+	public boolean CompleteItemBbs(ItemBbs item);
 	public boolean ContinueItemBbsByAdmin(ItemBbs item) ;
 	public List<ItemBbs> AdminSearch(String search);
-
 
 }

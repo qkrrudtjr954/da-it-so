@@ -63,4 +63,9 @@ public class AbilityBbsController {
 			new AbilityMain(searchList, categoryList);
 		}
 	}
+
+	public boolean setCompleteAbilityBbs(AbilityBbs abilityDto) {
+		// TODO Auto-generated method stub
+		return abilityService.CompleteAbilityBbs(abilityDto);
+	}
 }
