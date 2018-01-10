@@ -30,7 +30,7 @@ import service.AbilityService;
 
 public class AbilityWrite extends JFrame implements ActionListener {
 
-	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn,
+	private JButton loginBtn, logoutBtn, signupBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn,
 			listBtn;
 	private JTextField searchTextF, titleTextF, img1TextF, img2TextF, img3TextF, img4TextF, abilityTextF;
 	private JTextPane contentTextPn;
@@ -38,22 +38,23 @@ public class AbilityWrite extends JFrame implements ActionListener {
 	private JComboBox cateCombo;
 
 	JPanel category;
-	String iconImgUrl = "E:\\icon\\";
-//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+//	String iconImgUrl = "E:\\icon\\";
+	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
 
-	List<Category> m_categoryList = null;
+	JPanel headerPn, sidePn, logoPn, catePn, writePn;
+	JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, abilityLb, contentLb;
+
+	List<Category> categoryList = null;
 
 	public AbilityWrite(List<Category> categoryList) {
 
 		Delegator delegator = Delegator.getInstance();
-		this.m_categoryList = categoryList;
+		this.categoryList = categoryList;
 
-		JLabel cateLb, titleLb, imgLb1, imgLb2, imgLb3, imgLb4, abilityLb, contentLb;
 
-		JPanel headerPn, sidePn, logoPn, catePn, writePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8, cate9;
 
 		// header
 		headerLogo = new JPanel() {
@@ -175,9 +176,9 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
 
-		for (int i = 0; i < categoryList.size(); i++) {
+		for(int i=0; i < categoryList.size(); i++) {
 			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "ability/" + categoryList.get(i).getTitle() +".png");
-
+			
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryImage.getImage(), 0, 0, null);
@@ -186,7 +187,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 				}
 			};
 			category.setBorder(new LineBorder(commonRedColor, 2));
-			category.setName(categoryList.get(i).getSeq() + "");
+			category.setName(categoryList.get(i).getSeq()+"");
 			category.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -221,10 +222,10 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		cateLb.setBounds(100, 100, 100, 30);
 		writePn.add(cateLb);
 
-		String category[] = new String[m_categoryList.size()];
+		String category[] = new String[categoryList.size()];
 
 		for (int i = 0; i < category.length; i++) {
-			category[i] = m_categoryList.get(i).getDescription();
+			category[i] = categoryList.get(i).getDescription();
 		}
 
 		cateCombo = new JComboBox(category);
@@ -354,6 +355,10 @@ public class AbilityWrite extends JFrame implements ActionListener {
 					filename1 = jfc.getSelectedFile().getName();
 				}
 			}
+		} else if(btn == searchBtn) {
+			String searchWord = searchTextF.getText();
+			delegator.itemBbsController.searchList(searchWord);
+			this.dispose();
 		}
 		if (btn == imgAdd2) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -395,7 +400,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 				String id = delegator.getCurrent_user().getId();
 
 				int categoryIndex = cateCombo.getSelectedIndex();
-				abilityDto.setCategory_id(m_categoryList.get(categoryIndex).getSeq());
+				abilityDto.setCategory_id(categoryList.get(categoryIndex).getSeq());
 				abilityDto.setTitle(titleTextF.getText());
 				abilityDto.setImgurl1(img1TextF.getText());
 				abilityDto.setImgurl2(img2TextF.getText());
