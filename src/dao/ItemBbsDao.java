@@ -9,14 +9,14 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
-import db.OracleConnection;
+import db.MySqlConnection;
 import delegator.Delegator;
 import dto.ItemBbs;
 
 public class ItemBbsDao implements ItemBbsDaoImpl{
 
-	DBConnection DBConnector = new OracleConnection();
-//	DBConnection DBConnector = new MySqlConnection();
+//	DBConnection DBConnector = new OracleConnection();
+	DBConnection DBConnector = new MySqlConnection();
 
 
 	public List<ItemBbs> allItemList() {
