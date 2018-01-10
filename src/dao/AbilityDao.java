@@ -9,13 +9,14 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
+import db.MySqlConnection;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl {
 
-
+	DBConnection DBConnector = new MySqlConnection();
 	public List<AbilityBbs> allAbilityList() {
 
 		String sql = "SELECT * FROM ABILITY_BBS WHERE STATE = 0 OR STATE = 1 ORDER BY CREATED_AT ";
