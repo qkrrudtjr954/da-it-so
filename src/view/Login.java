@@ -33,8 +33,8 @@ public class Login extends JFrame implements ActionListener {
 
 	public Login() {
 
-		String iconImgUrl = "E:\\icon\\";
-//		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+//		String iconImgUrl = "E:\\icon\\";
+		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 		JPanel headerPn;
 

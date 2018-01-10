@@ -9,15 +9,15 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
-import db.OracleConnection;
+import db.MySqlConnection;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl {
 
-//	 DBConnection DBConnector = new MySqlConnection();
-	DBConnection DBConnector = new OracleConnection();
+	 DBConnection DBConnector = new MySqlConnection();
+//	DBConnection DBConnector = new OracleConnection();
 
 	public List<AbilityBbs> allAbilityList() {
 

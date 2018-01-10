@@ -9,12 +9,11 @@ import java.util.List;
 
 import db.DBConnection;
 import db.MySqlConnection;
-import db.OracleConnection;
 import dto.RoomDto;
 
 public class RoomDao implements RoomDaoImpl{
-	DBConnection DBConnector = new OracleConnection();
-//	DBConnection DBConnector = new MySqlConnection();
+//	DBConnection DBConnector = new OracleConnection();
+	DBConnection DBConnector = new MySqlConnection();
 	
 	public List<RoomDto> getRoomByUesrId(String user_id) {
 		
@@ -53,7 +52,9 @@ public class RoomDao implements RoomDaoImpl{
 
 	public boolean makeRoom(String user, String target) {
 		// TODO Auto-generated method stub
+		
 		String sql = " insert into room values(room_seq.nextval, '"+user+"', '"+target+"','"+user+"와 "+target+"의 대화 "+"' , sysdate)";
+		
 		
 		System.out.println(">>> RoomDao .makeRoom() sql: "+sql);
 		Connection conn = DBConnector.makeConnection();
