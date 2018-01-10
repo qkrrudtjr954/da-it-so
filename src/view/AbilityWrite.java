@@ -180,7 +180,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for (int i = 0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() + ".png");
+			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "ability/" + categoryList.get(i).getTitle() +".png");
 
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
@@ -228,7 +228,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		String category[] = new String[m_categoryList.size()];
 
 		for (int i = 0; i < category.length; i++) {
-			category[i] = m_categoryList.get(i).getTitle();
+			category[i] = m_categoryList.get(i).getDescription();
 		}
 
 		cateCombo = new JComboBox(category);

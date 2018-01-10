@@ -180,7 +180,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for (int i = 0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() + ".png");
+			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "ability/" + categoryList.get(i).getTitle() +".png");
 			
 			System.out.println(iconImgUrl + categoryList.get(i).getTitle() + ".png");
 			JPanel category = new JPanel() {

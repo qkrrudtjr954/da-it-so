@@ -40,6 +40,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 				ItemBbs itemdto = new ItemBbs();
 
 				itemdto.setSeq(rs.getInt("SEQ"));
+				itemdto.setState(rs.getInt("state"));
 				itemdto.setCategory_id(rs.getInt("CATEGORY_ID"));
 				itemdto.setTitle(rs.getString("TITLE"));
 				itemdto.setImgurl1(rs.getString("IMGURL1"));

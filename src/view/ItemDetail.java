@@ -53,6 +53,19 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
+		
+		if (itemDto.getImgurl1().equals("") || itemDto.getImgurl1()==null) {
+			itemDto.setImgurl1(noImgUrl);
+		}
+		if (itemDto.getImgurl2().equals("") || itemDto.getImgurl2()==null) {
+			itemDto.setImgurl1(noImgUrl);
+		}
+		if (itemDto.getImgurl3().equals("") || itemDto.getImgurl3()==null) {
+			itemDto.setImgurl1(noImgUrl);
+		}
+		if (itemDto.getImgurl4().equals("") || itemDto.getImgurl4()==null) {
+			itemDto.setImgurl1(noImgUrl);
+		}
 
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
@@ -174,7 +187,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for(int i=0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() +".png");
+			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "item/" + categoryList.get(i).getTitle() +".png");
 
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {

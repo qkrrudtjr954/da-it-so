@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -26,6 +25,7 @@ import delegator.Delegator;
 import dto.Category;
 import dto.ItemBbs;
 import dto.Person;
+import oracle.net.aso.i;
 
 public class ItemMain extends JFrame implements ActionListener {
 	//side panel
@@ -40,12 +40,14 @@ public class ItemMain extends JFrame implements ActionListener {
 
 	JPanel category;
 
-	String iconImgUrl = "E:\\icon\\";
-//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+//	String iconImgUrl = "E:\\icon\\";
+	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String smallNoImgUrl = iconImgUrl+"smallNoimg.png";
 
 	Color mainRed = new Color(218, 0, 0);
 	Color mainGray = new Color(250, 250, 250);
 	Color mainPink = new Color(255, 174, 174);
+	Color mainBlack = Color.black;
 
 	List<ItemBbs> m_itemList;
 	List<ItemBbs> itemSearchList;
@@ -177,7 +179,7 @@ public class ItemMain extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for(int i=0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() +".png");
+			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "item/" + categoryList.get(i).getTitle() +".png");
 
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
@@ -229,21 +231,56 @@ public class ItemMain extends JFrame implements ActionListener {
 
 			JPanel thumPn1 = new JPanel();
 			thumPn1.setLayout(null);
-
+			
+			JLabel stateLabel = new JLabel();
+			stateLabel.setSize(100, 20);
+			stateLabel.setFont(new Font("stateLabel", Font.BOLD, 15));
+			
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
-
-				if(itemList.get(i).getImgurl1() == null) {
-					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
+				
+				
+				if(itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
+					ImageIcon img = new ImageIcon(smallNoImgUrl);
+					imgLa = new JLabel() {
+						@Override
+						protected void paintComponent(Graphics g) {
+							// TODO Auto-generated method stub
+							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
+							setOpaque(false);
+							super.paintComponents(g);
+						}
+					};
 				}else {
-					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
+					ImageIcon img = new ImageIcon(itemList.get(i).getImgurl1());
+					imgLa = new JLabel() {
+						@Override
+						protected void paintComponent(Graphics g) {
+							// TODO Auto-generated method stub
+							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
+							setOpaque(false);
+							super.paintComponents(g);
+						}
+					};
 				}
-				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+
-						itemList.get(i).getContent()+"</html>");
+				
+				stateLabel.setLocation(380, 10);
+				if(itemList.get(i).getState()==0) {
+					imgLa.setBorder(new LineBorder(mainRed, 1));
+					stateLabel.setForeground(commonRedColor);
+					stateLabel.setText("진행중");
+					
+				} else if(itemList.get(i).getState()==1) {
+					imgLa.setBorder(new LineBorder(mainBlack, 2));
+					stateLabel.setText("완료됨");
+				}
+				
+				
 				imgLa.setBounds(0, 0, 200, 120);
-				imgLa.setBorder(new LineBorder(mainRed, 1));
+				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+ itemList.get(i).getContent()+"</html>");
 				txtLa.setBounds(200, 0, 300, 120);
+				thumPn1.add(stateLabel);
 				thumPn1.add(txtLa);
 				thumPn1.add(imgLa);
 				j++;
@@ -251,16 +288,43 @@ public class ItemMain extends JFrame implements ActionListener {
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
-				if(itemList.get(i).getImgurl1() == null) {
-					imgLa = new JLabel(new ImageIcon("/Users/leefrances/Desktop/noimage.png"));
+				
+				if(itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
+					ImageIcon img = new ImageIcon(smallNoImgUrl);
+					imgLa = new JLabel() {
+						@Override
+						protected void paintComponent(Graphics g) {
+							// TODO Auto-generated method stub
+							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
+							setOpaque(false);
+							super.paintComponents(g);
+						}
+					};
 				}else {
-					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
+					ImageIcon img = new ImageIcon(itemList.get(i).getImgurl1());
+					imgLa = new JLabel() {
+						@Override
+						protected void paintComponent(Graphics g) {
+							// TODO Auto-generated method stub
+							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
+							setOpaque(false);
+							super.paintComponents(g);
+						}
+					};
 				}
-				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+
-						itemList.get(i).getContent()+"</html>");
+				stateLabel.setLocation(380, 10);
+				if(itemList.get(i).getState()==0) {
+					imgLa.setBorder(new LineBorder(mainRed, 1));		
+					stateLabel.setForeground(commonRedColor);
+					stateLabel.setText("진행중");
+				} else if(itemList.get(i).getState()==1) {
+					imgLa.setBorder(new LineBorder(mainBlack, 2));
+					stateLabel.setText("완료됨");
+				}
+				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+ itemList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
-				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
+				thumPn1.add(stateLabel);
 				thumPn1.add(txtLa);
 				thumPn1.add(imgLa);
 			}
