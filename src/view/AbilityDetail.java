@@ -352,10 +352,18 @@ public class AbilityDetail extends JFrame implements ActionListener {
 				k++;
 			}
 		}
-
 		iteminfoPn.add(keywordPanel);
 
-		// categori
+		// go back to list button
+		listBtn = new JButton("목록으로 돌아가기");
+		listBtn.setBounds(200, 10, 120, 30);
+		listBtn.setOpaque(false);
+		listBtn.setForeground(commonRedColor);
+		listBtn.addActionListener(this);
+		iteminfoPn.add(listBtn);
+		// iteminfoPn.setBounds(580, 135, 340, 400);
+
+		// category
 		cateLb = new JLabel("카테고리 : " + abilityDto.getCategory_id());
 		cateLb.setBounds(10, 100, 80, 30);
 		cateLb.setOpaque(true);
@@ -383,6 +391,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		add(sidePn);
 		add(headerPn);
+
 		add(scrollPane);
 		setBounds(0, 0, 1350, 750);
 		setLayout(null);
@@ -418,7 +427,9 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			System.out.println("searchBtn Click");
 			String searchWord = searchTextF.getText();
 			delegator.abilityBbsController.searchList(searchWord);
+		} else if (obj == listBtn) {
+			delegator.abilityBbsController.allAbilityList();
+			this.dispose();
 		}
-
 	}
 }

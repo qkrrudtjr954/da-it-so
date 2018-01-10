@@ -32,12 +32,12 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 	cate9, detailPn;
 	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn;
 	private JTextField searchTextF;
-	
+
 	//list panel
 	private JPanel listPn, thumPn, thumPn1, thumPn2;
 	private JLabel imgLa, txtLa;
 	private JButton addBtn;
-	
+
 	JPanel category;
 
 //	String iconImgUrl = "C:\\icon\\";
@@ -53,7 +53,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 	public ItemMain(List<ItemBbs> itemList, List<Category> categoryList) {
 		Delegator delegator = Delegator.getInstance();
-		
+
 		this.m_itemList = itemList;
 		this.m_categoryList = categoryList;
 
@@ -77,7 +77,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		// scrollPane.add(detailPn);
 
 		// headerlogo
-		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
+		ImageIcon headerimage = new ImageIcon("/Users/leefrances/Desktop/icon/headerlogo.png");
 		headerLogo = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -111,7 +111,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			signupBtn.setBackground(mainRed);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
-			headerPn.add(signupBtn);			
+			headerPn.add(signupBtn);
 		}else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
@@ -167,10 +167,10 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		catePn.setLayout(new GridLayout(3, 3, 10, 10));
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
-		
+
 		for(int i=0; i < categoryList.size(); i++) {
 			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() +".png");
-			
+
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryImage.getImage(), 0, 0, null);
@@ -185,7 +185,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
 					int seq = Integer.parseInt(category.getName());
-					
+
 					Delegator delegator = Delegator.getInstance();
 					delegator.itemBbsController.SelectItemCategories(seq);
 					dispose();
@@ -193,7 +193,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			});
 			catePn.add(category);
 		}
-		
+
 		sidePn.add(catePn);
 
 		listPn = new JPanel();
@@ -231,8 +231,8 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 				}else {
 					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
 				}
-				txtLa = new JLabel(itemList.get(i).getTitle());
-
+				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+
+						itemList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -248,8 +248,8 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 				}else {
 					imgLa = new JLabel(new ImageIcon(itemList.get(i).getImgurl1()));
 				}
-				txtLa = new JLabel(itemList.get(i).getTitle());
-
+				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+
+						itemList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -264,7 +264,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			listPn.add(thumPn1);
 		}
 
-			
+
 		add(sidePn);
 		add(headerPn);
 
@@ -300,7 +300,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			}else {
 				delegator.itemBbsController.itemWrite(personDto);
 				this.dispose();
-			}	
+			}
 		}else if(obj == loginBtn) {
 			delegator.personController.Login();
 			this.dispose();
@@ -314,7 +314,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			System.out.println("searchBtn Click");
 			String searchWord = searchTextF.getText();
 			System.out.println("searchTextF :" + searchTextF);
-			
+
 			delegator.itemBbsController.searchList(searchWord);
 
 		}
@@ -323,11 +323,11 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		JPanel thumPn1 = (JPanel)e.getComponent();
 		this.thumPn1 = thumPn1;
-		
+
 		Object obj = e.getSource();
 
-		
-		
+
+
 		Delegator delegator = Delegator.getInstance();
 		ItemBbs itemSelect = null;
 		int itemNum = 0;
@@ -337,15 +337,15 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		if(obj == thumPn1 && obj != headerLogo && obj != cate1 && obj != cate2 && obj != cate3 && obj != cate4
 				&& obj != cate5 && obj != cate6 && obj != cate7 && obj != cate8 && obj != cate9) {
 			System.out.println("thumPn1 GetName==>"+thumPn1.getName());
-			itemNum = Integer.parseInt(thumPn1.getName());			
-			
+			itemNum = Integer.parseInt(thumPn1.getName());
+
 			if(!m_itemList.isEmpty()) {
 				itemSelect = m_itemList.get(itemNum);
 				delegator.itemBbsController.itemDetail(itemSelect);
 				this.dispose();
 			}
 		}
-		
+
 		//Header event
 		if(obj == headerLogo){
 			delegator.mainController.Main();
@@ -390,7 +390,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			delegator.itemBbsController.SelectItemCategories(category_id);
 			this.dispose();
 		}
-		
+
 
 	}
 	@Override

@@ -33,7 +33,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 	private JPanel listPn, thumPn;
 	private JLabel imgLa, txtLa;
 	private JButton addBtn;
-	
+
 	//side panel
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, detailPn;
 	private JButton loginBtn, logoutBtn, signupBtn, searchBtn;
@@ -50,12 +50,12 @@ public class AbilityMain extends JFrame implements ActionListener{
 
 	List<AbilityBbs> m_abilityList = null;
 	List<Category> m_categoryList = null;
-	
+
 	public AbilityMain(List<AbilityBbs> abilityList, List<Category> categoryList) {
 		Delegator delegator = Delegator.getInstance();
 		this.m_abilityList = abilityList;
 		this.m_categoryList = categoryList;
-		
+
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		headerPn = new JPanel();
@@ -78,7 +78,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 		// headerlogo
 		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
 		headerLogo = new JPanel() {
-			
+
 			public void paintComponent(Graphics g) {
 				g.drawImage(headerimage.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -96,7 +96,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 			}
 		});
 		headerPn.add(headerLogo);
-		
+
 		if(delegator.getCurrent_user()==null) {
 			// loginBtn
 			loginBtn = new JButton("로그인");
@@ -118,7 +118,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 			signupBtn.setBackground(mainRed);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
-			headerPn.add(signupBtn);			
+			headerPn.add(signupBtn);
 		}else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
@@ -131,7 +131,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 			logoutBtn.addActionListener(this);
 			headerPn.add(logoutBtn);
 		}
-		
+
 		// sidePn
 		Color sideC = new Color(250, 250, 250);
 		sidePn = new JPanel();
@@ -141,7 +141,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 
 		ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
 		logoPn = new JPanel() {
-			
+
 			public void paintComponent(Graphics g) {
 				g.drawImage(image.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -161,10 +161,10 @@ public class AbilityMain extends JFrame implements ActionListener{
 		// searchBtn
 		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
 		searchBtn.setBounds(300, 160, 40, 40);
-		searchBtn.setOpaque(false); 
+		searchBtn.setOpaque(false);
 		searchBtn.setContentAreaFilled(false);
 		searchBtn.addActionListener(this);
-		
+
 		sidePn.add(searchBtn);
 
 		// catePn
@@ -172,10 +172,10 @@ public class AbilityMain extends JFrame implements ActionListener{
 		catePn.setLayout(new GridLayout(3, 3, 10, 10));
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
-		
+
 		for(int i=0; i < categoryList.size(); i++) {
 			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() +".png");
-			
+
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryImage.getImage(), 0, 0, null);
@@ -190,7 +190,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
 					int seq = Integer.parseInt(category.getName());
-					
+
 					Delegator delegator = Delegator.getInstance();
 					delegator.abilityBbsController.SelectAbilityCategories(seq);
 					dispose();
@@ -198,23 +198,23 @@ public class AbilityMain extends JFrame implements ActionListener{
 			});
 			catePn.add(category);
 		}
-		
+
 		sidePn.add(catePn);
-		
+
 		listPn = new JPanel();
 		listPn.setLayout(null);
-		
+
 		int thumPnCount = (abilityList.size() / 2) + 1;
 
 		listPn.setPreferredSize(new Dimension(1280, 170 * thumPnCount));
 		listPn.setLocation(0, 0);
 		listPn.setBackground(mainPink);
-		
+
 
 		addBtn = new JButton("+");
 		addBtn.setBounds(170, 35, 100, 50);
 		addBtn.addActionListener(this);
-		
+
 		// thumPn
 		thumPn = new JPanel();
 		thumPn.setLayout(null);
@@ -222,7 +222,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 		thumPn.setBorder(new LineBorder(mainRed, 1));
 		thumPn.setBackground(Color.white);
 		thumPn.add(addBtn);
-		
+
 		int j = 0;
 		for (int i = 0; i < m_abilityList.size(); i++) {
 
@@ -231,8 +231,8 @@ public class AbilityMain extends JFrame implements ActionListener{
 
 			JPanel thumPn2 = new JPanel();
 			thumPn2.setLayout(null);
-			
-			if (i % 2 == 0) { 
+
+			if (i % 2 == 0) {
 				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
 				if(abilityList.get(i).getImgurl1() == null) {
@@ -240,7 +240,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 				}else {
 					imgLa = new JLabel(new ImageIcon(abilityList.get(i).getImgurl1()));
 				}
-				txtLa = new JLabel(m_abilityList.get(i).getTitle()+"<html> <br>"+ 
+				txtLa = new JLabel("<html>"+ m_abilityList.get(i).getTitle() +"<br/>"+
 								m_abilityList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
@@ -248,7 +248,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 				thumPn1.add(txtLa);
 				thumPn1.add(imgLa);
 				j++;
-				
+
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
@@ -257,7 +257,8 @@ public class AbilityMain extends JFrame implements ActionListener{
 				}else {
 					imgLa = new JLabel(new ImageIcon(abilityList.get(i).getImgurl1()));
 				}
-				txtLa = new JLabel(m_abilityList.get(i).getTitle());
+				txtLa = new JLabel("<html>"+ m_abilityList.get(i).getTitle() +"<br/>"+
+						m_abilityList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
 				imgLa.setBorder(new LineBorder(mainRed, 1));
 				txtLa.setBounds(200, 0, 300, 120);
@@ -272,7 +273,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
 					int index = Integer.parseInt(thumPn1.getName());
-					
+
 					Delegator delegator = Delegator.getInstance();
 					delegator.abilityBbsController.AbilityDetail(abilityList.get(index));
 					dispose();
@@ -282,7 +283,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 			listPn.add(thumPn1);
 		}
 		listPn.add(thumPn);
-		
+
 		JScrollPane scroll;
 		scroll = new JScrollPane(listPn);
 		scroll.setBounds(400, 60, 935, 990);
@@ -292,19 +293,19 @@ public class AbilityMain extends JFrame implements ActionListener{
 		add(headerPn);
 		setBounds(0, 0, 1350, 750);
 		setLayout(null);
-		setVisible(true);	
-		
+		setVisible(true);
+
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Delegator delegator = Delegator.getInstance();
 		Person personDto = null;
-		
+
 		Object obj = e.getSource();
-		
+
 		if( obj== addBtn ) {
 			personDto = delegator.getCurrent_user();
-			
+
 			if(personDto == null) {
 				JOptionPane.showMessageDialog(null, "로그인 해주세요.");
 				delegator.personController.Login();
@@ -312,7 +313,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 			}else {
 				delegator.abilityBbsController.AbilityWrite(personDto);
 				this.dispose();
-			}	
+			}
 		}else if(obj == loginBtn) {
 			delegator.personController.Login();
 			this.dispose();

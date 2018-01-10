@@ -32,12 +32,13 @@ import dto.Person;
 import service.AbilityService;
 import service.ItemBbsService;
 
-public class AbilityWrite extends JFrame implements ActionListener, MouseListener {
+public class AbilityWrite extends JFrame implements ActionListener {
 
-	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn;
+	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn,
+			listBtn;
 	private JTextField searchTextF, titleTextF, img1TextF, img2TextF, img3TextF, img4TextF, abilityTextF;
 	private JTextPane contentTextPn;
-	private JPanel headerLogo, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8, cate9;
+	private JPanel headerLogo;
 	private JComboBox cateCombo;
 
 	JPanel category;
@@ -101,7 +102,15 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 
 		// headerlogo
 		headerLogo.setBounds(15, 25, 71, 15);
-		headerLogo.addMouseListener(this);
+		headerLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.mainController.Main();
+				dispose();
+			}
+		});
 		headerPn.add(headerLogo);
 
 		if (delegator.getCurrent_user() == null) {
@@ -202,6 +211,14 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 		writePn = new JPanel();
 		writePn.setLayout(null);
 		writePn.setBounds(380, 30, 1050, 670);
+
+		// go back to list button
+		listBtn = new JButton("목록으로 돌아가기");
+		listBtn.setBounds(500, 100, 120, 30);
+		listBtn.setOpaque(false);
+		listBtn.setForeground(commonRedColor);
+		listBtn.addActionListener(this);
+		writePn.add(listBtn);
 
 		// category
 		cateLb = new JLabel("카테고리");
@@ -311,25 +328,35 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("==>" + e.getActionCommand());
+
+		JButton btn = (JButton) e.getSource();
+
 		Delegator delegator = Delegator.getInstance();
 
-		Object obj = e.getSource();
+		if (btn == listBtn) {
+			delegator.abilityBbsController.allAbilityList();
+			this.dispose();
+		}
 
-		if (obj == loginBtn) {
-			delegator.personController.Login();
-			this.dispose();
-		} else if (obj == signupBtn) {
-			delegator.personController.SignUp();
-			this.dispose();
-		} else if (obj == logoutBtn) {
-			delegator.personController.Logout();
-			this.dispose();
-		} else if (obj == imgAdd1) {
-			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
-				img1TextF.setText(jfc.getSelectedFile().toString());
-				filename1 = jfc.getSelectedFile().getName();
+		if (e.getActionCommand().equals("회원가입")) {
+
+			Object obj = e.getSource();
+
+			if (obj == loginBtn) {
+				delegator.personController.Login();
+				this.dispose();
+			} else if (obj == signupBtn) {
+				delegator.personController.SignUp();
+				this.dispose();
+			} else if (obj == logoutBtn) {
+				delegator.personController.Logout();
+				this.dispose();
+			} else if (obj == imgAdd1) {
+				if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+					// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
+					img1TextF.setText(jfc.getSelectedFile().toString());
+					filename1 = jfc.getSelectedFile().getName();
+				}
 			}
 		}
 		if (obj == imgAdd2) {
@@ -352,49 +379,49 @@ public class AbilityWrite extends JFrame implements ActionListener, MouseListene
 				img4TextF.setText(jfc.getSelectedFile().toString());
 				filename4 = jfc.getSelectedFile().getName();
 			}
-		}
 
-		if (e.getActionCommand().equals("등록")) {
+			if (e.getActionCommand().equals("등록")) {
 
-			if (!img1TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img1TextF.getText());
-			}
-			if (!img2TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img2TextF.getText());
-			}
-			if (!img3TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img3TextF.getText());
-			}
-			if (!img4TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img4TextF.getText());
-			}
+				if (!img1TextF.getText().isEmpty()) {
+					filesend fs = new filesend(img1TextF.getText());
+				}
+				if (!img2TextF.getText().isEmpty()) {
+					filesend fs = new filesend(img2TextF.getText());
+				}
+				if (!img3TextF.getText().isEmpty()) {
+					filesend fs = new filesend(img3TextF.getText());
+				}
+				if (!img4TextF.getText().isEmpty()) {
+					filesend fs = new filesend(img4TextF.getText());
+				}
 
-			AbilityBbs abilityDto = new AbilityBbs();
-			String id = delegator.getCurrent_user().getId();
+				AbilityBbs abilityDto = new AbilityBbs();
+				String id = delegator.getCurrent_user().getId();
 
-			int categoryIndex = cateCombo.getSelectedIndex();
-			abilityDto.setCategory_id(m_categoryList.get(categoryIndex).getSeq());
-			abilityDto.setTitle(titleTextF.getText());
-			abilityDto.setImgurl1(img1TextF.getText());
-			abilityDto.setImgurl2(img2TextF.getText());
-			abilityDto.setImgurl3(img3TextF.getText());
-			abilityDto.setImgurl4(img4TextF.getText());
-			abilityDto.setAbility(abilityTextF.getText());
-			abilityDto.setContent(contentTextPn.getText());
-			abilityDto.setUser_id(id);
+				int categoryIndex = cateCombo.getSelectedIndex();
+				abilityDto.setCategory_id(m_categoryList.get(categoryIndex).getSeq());
+				abilityDto.setTitle(titleTextF.getText());
+				abilityDto.setImgurl1(img1TextF.getText());
+				abilityDto.setImgurl2(img2TextF.getText());
+				abilityDto.setImgurl3(img3TextF.getText());
+				abilityDto.setImgurl4(img4TextF.getText());
+				abilityDto.setAbility(abilityTextF.getText());
+				abilityDto.setContent(contentTextPn.getText());
+				abilityDto.setUser_id(id);
 
-			/* delegator 에 현재 로그인된 유저 정보를 받아오도록 수정 */
-			AbilityService abilityService = new AbilityService();
+				/* delegator 에 현재 로그인된 유저 정보를 받아오도록 수정 */
+				AbilityService abilityService = new AbilityService();
 
-			// Person personDto = delegator.getCurrent_user();
+				// Person personDto = delegator.getCurrent_user();
 
-			boolean addAbilityCK = abilityService.addAbility(abilityDto);
-			System.out.println("addAbilityCK" + addAbilityCK);
-			if (addAbilityCK) {
-				delegator.abilityBbsController.AbilityDetail(abilityDto);
-				this.dispose();
-			} else {
-				JOptionPane.showMessageDialog(null, "글작성 실패");
+				boolean addAbilityCK = abilityService.addAbility(abilityDto);
+				System.out.println("addAbilityCK" + addAbilityCK);
+				if (addAbilityCK) {
+					delegator.abilityBbsController.AbilityDetail(abilityDto);
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "글작성 실패");
+				}
 			}
 		}
 	}

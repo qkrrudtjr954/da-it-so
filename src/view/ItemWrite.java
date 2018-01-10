@@ -29,23 +29,23 @@ import dto.Category;
 import dto.ItemBbs;
 import service.ItemBbsService;
 
-public class ItemWrite extends JFrame implements ActionListener, MouseListener {
+public class ItemWrite extends JFrame implements ActionListener {
 
-	private JButton loginBtn, logoutBtn, signupBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn;
+	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, imgAdd1, imgAdd2, imgAdd3, imgAdd4, writeBtn, listBtn;
 	private JTextField searchTextF, titleTextF, img1TextF, img2TextF, img3TextF, img4TextF, keywordTextF, priceTextF;
 	private JTextPane contentTextPn;
-	private JPanel headerLogo, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8, cate9;
+	private JPanel headerLogo;
 	private JComboBox cateCombo;
-	
+
 	JPanel category;
-	
+
 //	String iconImgUrl = "C:\\icon\\";
 	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-	
+
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
 	private JLabel SidecategoryPn[][];
-	
+
 	List<Category> m_categoryList = null;
 
 	public ItemWrite(List<Category> categoryList) {
@@ -79,7 +79,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 				super.paintComponents(g);
 			}
 		};
-		
+
 
 
 		// mainView
@@ -101,7 +101,15 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 
 		// headerlogo
 		headerLogo.setBounds(15, 25, 71, 15);
-		headerLogo.addMouseListener(this);
+		headerLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.mainController.Main();
+				dispose();
+			}
+		});
 		headerPn.add(headerLogo);
 
 		if(delegator.getCurrent_user()==null) {
@@ -115,7 +123,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			loginBtn.setForeground(Color.white);
 			loginBtn.addActionListener(this);
 			headerPn.add(loginBtn);
-			
+
 			// SignBtn
 			signupBtn = new JButton("회원가입");
 			signupBtn.setBounds(1180, 20, 100, 30);
@@ -125,7 +133,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			signupBtn.setBackground(commonRedColor);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
-			headerPn.add(signupBtn);			
+			headerPn.add(signupBtn);
 		}else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
@@ -136,7 +144,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			logoutBtn.setBackground(commonRedColor);
 			logoutBtn.setForeground(Color.white);
 			logoutBtn.addActionListener(this);
-			headerPn.add(logoutBtn);			
+			headerPn.add(logoutBtn);
 		}
 
 
@@ -170,10 +178,10 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		catePn.setLayout(new GridLayout(3, 3, 10, 10));
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
-		
+
 		for(int i=0; i < categoryList.size(); i++) {
 			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() +".png");
-			
+
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryImage.getImage(), 0, 0, null);
@@ -188,7 +196,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
 					int seq = Integer.parseInt(category.getName());
-					
+
 					Delegator delegator = Delegator.getInstance();
 					delegator.itemBbsController.SelectItemCategories(seq);
 					dispose();
@@ -196,7 +204,7 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			});
 			catePn.add(category);
 		}
-		
+
 		sidePn.add(catePn);
 
 		// listPn
@@ -219,6 +227,15 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		cateCombo.setBounds(210, 100, 150, 30);
 		writePn.add(cateCombo);
 
+		// go back to list button
+		listBtn = new JButton("목록으로 돌아가기");
+		listBtn.setBounds(500, 100, 120, 30);
+		listBtn.setOpaque(false);
+		listBtn.setForeground(commonRedColor);
+		listBtn.addActionListener(this);
+		writePn.add(listBtn);
+
+		// iteminfoPn.setBounds(580, 135, 340, 400);
 		// title
 		titleLb = new JLabel("제목");
 		titleLb.setBounds(100, 150, 150, 30);
@@ -320,11 +337,19 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		JButton btn = (JButton) e.getSource();
+		
+		
 		System.out.println("==>" + e.getActionCommand());
 		Delegator delegator = Delegator.getInstance();
-		
+
 		Object obj = e.getSource();
 		
+		if (obj == listBtn) {
+			delegator.itemBbsController.allItemList();
+			this.dispose();
+		}
+
 		if(obj == loginBtn) {
 			delegator.personController.Login();
 			this.dispose();
@@ -377,9 +402,9 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			}
 
 			ItemBbs itemDto = new ItemBbs();
-			
+
 			String id = delegator.getCurrent_user().getId();
-			
+
 			int categoryIndex = cateCombo.getSelectedIndex();
 			itemDto.setCategory_id(this.m_categoryList.get(categoryIndex).getSeq());
 			itemDto.setTitle(titleTextF.getText());
@@ -396,12 +421,12 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 			ItemBbsService itemservice = new ItemBbsService();
 
 			boolean addItemCK = itemservice.addItem(itemDto);
-			boolean priceCK = false; 
+			boolean priceCK = false;
 			System.out.println("addItemCK" + addItemCK);
 			if (addItemCK) {
 				delegator.itemBbsController.itemDetail(itemDto);
 				this.dispose();
-			} else if( priceCK ) { 
+			} else if( priceCK ) {
 				JOptionPane.showMessageDialog(null, "금액은 숫자만 입력 가능합니다.");
 				return;
 			}else {
@@ -412,70 +437,4 @@ public class ItemWrite extends JFrame implements ActionListener, MouseListener {
 		}
 
 	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		Delegator delegator = Delegator.getInstance();
-		Object obj = e.getSource();
-		int category_id = 99;
-		
-		//Header event
-		if(obj == headerLogo){
-			delegator.mainController.Main();
-			this.dispose();
-		}
-
-		//Side Category event
-		if(obj == cate1){
-			category_id = Integer.parseInt(cate1.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate2) {
-			category_id = Integer.parseInt(cate2.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate3) {
-			category_id = Integer.parseInt(cate3.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate4) {
-			category_id = Integer.parseInt(cate4.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate5) {
-			category_id = Integer.parseInt(cate5.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate6) {
-			category_id = Integer.parseInt(cate6.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate7) {
-			category_id = Integer.parseInt(cate7.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate8) {
-			category_id = Integer.parseInt(cate8.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate9) {
-			category_id = Integer.parseInt(cate9.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-
-	@Override
-	public void mouseExited(MouseEvent e) {}
-
 }

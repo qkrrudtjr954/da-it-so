@@ -29,20 +29,21 @@ import dto.Category;
 import dto.ItemBbs;
 
 public class ItemDetail extends JFrame implements ActionListener, MouseListener {
-	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
-			subimage4, keywordPanel, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8, cate9;
-	private JButton  loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
+	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
+			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
+			subimage4, keywordPanel;
+	private JButton  logoutBtn, signupBtn, MypageBtn, searchBtn, loginBtn, chatBtn, listBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 
 	JPanel category;
-	
+
 //	String iconImgUrl = "c:\\icon\\";
 	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	ItemBbs m_itemDto = null;
 	List<Category> m_categoryList = null;
-	
+
 	public ItemDetail(ItemBbs itemDto, List<Category> categoryList) {
 		Delegator delegator = Delegator.getInstance();
 		this.m_itemDto = itemDto;
@@ -83,7 +84,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
-		
+
 		if(delegator.getCurrent_user()==null) {
 			// loginBtn
 			loginBtn = new JButton("로그인");
@@ -95,7 +96,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 			loginBtn.setForeground(Color.white);
 			loginBtn.addActionListener(this);
 			headerPn.add(loginBtn);
-			
+
 			// SignBtn
 			signupBtn = new JButton("회원가입");
 			signupBtn.setBounds(1180, 20, 100, 30);
@@ -105,7 +106,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 			signupBtn.setBackground(commonRedColor);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
-			headerPn.add(signupBtn);			
+			headerPn.add(signupBtn);
 		}else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
@@ -116,7 +117,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 			logoutBtn.setBackground(commonRedColor);
 			logoutBtn.setForeground(Color.white);
 			logoutBtn.addActionListener(this);
-			headerPn.add(logoutBtn);			
+			headerPn.add(logoutBtn);
 		}
 
 		// 1050
@@ -162,10 +163,10 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		catePn.setLayout(new GridLayout(3, 3, 10, 10));
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
-		
+
 		for(int i=0; i < categoryList.size(); i++) {
 			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() +".png");
-			
+
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryImage.getImage(), 0, 0, null);
@@ -180,7 +181,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
 					int seq = Integer.parseInt(category.getName());
-					
+
 					Delegator delegator = Delegator.getInstance();
 					delegator.itemBbsController.SelectItemCategories(seq);
 					dispose();
@@ -188,7 +189,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 			});
 			catePn.add(category);
 		}
-		
+
 		sidePn.add(catePn);
 
 		// sidePn.setBounds(0, 60, 400, 1000);
@@ -304,7 +305,7 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		iteminfoPn.add(priceLb);
 
 		// keyword
-		
+
 		String key = m_itemDto.getKeyword();
 		int rowSize = 0;
 		String[] keyarray;
@@ -342,6 +343,14 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		}
 
 		iteminfoPn.add(keywordPanel);
+
+		// go back to list button
+		listBtn = new JButton("목록으로 돌아가기");
+		listBtn.setBounds(200, 10, 120, 30);
+		listBtn.setOpaque(false);
+		listBtn.setForeground(commonRedColor);
+		listBtn.addActionListener(this);
+		iteminfoPn.add(listBtn);
 
 		// categori
 		cateLb = new JLabel("카테고리 : " + m_itemDto.getCategory_id());
@@ -398,10 +407,14 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 		} else if (btn == searchBtn) {
 			// delegator.itemBbsController. search 결과
 		} else if (btn == logoutBtn) {
-			delegator.personController.Logout();
+
+			delegator.setCurrent_user(null);
+			delegator.mainController.Main();
+		} else if (btn == listBtn) {
+			delegator.itemBbsController.allItemList();
 			this.dispose();
 		} else if( btn == searchBtn) {
-			
+
 		}
 
 	}
