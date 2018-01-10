@@ -27,10 +27,10 @@ public class AdminMain extends JFrame implements ActionListener {
 	private JTextField searchTextF;
 	private JPanel headerLogo;
 	
-	JButton itemListBtn, abilityListBtn, userListBtn;
+	JButton itemListBtn, abilityListBtn, userListBtn, chatBtn;
 
-//	String icomImgimgUrl = "/Users/parker/Desktop/img/icon/";
-	String icomImgimgUrl = "E:\\icon/";
+	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+//	String iconImgUrl = "E:\\icon/";
 
 	public AdminMain() {
 
@@ -41,7 +41,7 @@ public class AdminMain extends JFrame implements ActionListener {
 		
 		// header
 		headerLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon(icomImgimgUrl + "headerlogo.png");
+			ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
 
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -53,7 +53,7 @@ public class AdminMain extends JFrame implements ActionListener {
 
 		// logo
 		JPanel logoPn = new JPanel() {
-			ImageIcon image = new ImageIcon(icomImgimgUrl + "logo.png");
+			ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
 
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -86,46 +86,58 @@ public class AdminMain extends JFrame implements ActionListener {
 		logoPn.setBounds(40, 30, 300, 66);
 		sidePn.add(logoPn);
 
-		// SearchText
-		searchTextF = new JTextField("검색어");
-		searchTextF.setBounds(40, 160, 260, 40);
-		searchTextF.setBorder(new LineBorder(commonRedColor, 5));
-		sidePn.add(searchTextF);
-
-		// searchBtn
-		searchBtn = new JButton(new ImageIcon(icomImgimgUrl + "search.png"));
-		searchBtn.setBounds(300, 160, 40, 40);
-		searchBtn.setOpaque(false); // 투명하게
-		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
-		sidePn.add(searchBtn);
+//		// SearchText
+//		searchTextF = new JTextField("검색어");
+//		searchTextF.setBounds(40, 160, 260, 40);
+//		searchTextF.setBorder(new LineBorder(commonRedColor, 5));
+//		sidePn.add(searchTextF);
+//
+//		// searchBtn
+//		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
+//		searchBtn.setBounds(300, 160, 40, 40);
+//		searchBtn.setOpaque(false); // 투명하게
+//		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
+//		sidePn.add(searchBtn);
+		
+		JLabel adminLabel = new JLabel();
+		adminLabel.setText("관리자 페이지");
+		adminLabel.setFont(new Font("font", Font.BOLD, 25));
+		adminLabel.setForeground(commonRedColor);
+		adminLabel.setBounds(130, 180, 260, 25);
+		sidePn.add(adminLabel);
 
 		// btnPanel
 		JPanel btnPanel = new JPanel();
-		btnPanel.setLayout(new GridLayout(3, 1, 10, 10));
+		btnPanel.setLayout(new GridLayout(4, 1, 10, 10));
 		btnPanel.setBounds(25, 290, 350, 350);
 		btnPanel.setBackground(Color.WHITE);
 
-		itemListBtn = new JButton("All Item BBS");
+		itemListBtn = new JButton("모든 상품글 보기 ");
 		itemListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		itemListBtn.addActionListener(this);
 		btnPanel.add(itemListBtn);
 
-		abilityListBtn = new JButton("All Ability BBS");
+		abilityListBtn = new JButton("모든 인력글 보기 ");
 		abilityListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		abilityListBtn.addActionListener(this);
 		btnPanel.add(abilityListBtn);
 
-		userListBtn = new JButton("All User");
+		userListBtn = new JButton("모든 유저 정보 보기 ");
 		userListBtn.setBorder(new LineBorder(commonRedColor, 2));
 		userListBtn.addActionListener(this);
 		btnPanel.add(userListBtn);
+		
+		chatBtn = new JButton("관리자 채팅 열기 ");
+		chatBtn.setBorder(new LineBorder(commonRedColor, 2));
+		chatBtn.addActionListener(this);
+		btnPanel.add(chatBtn);
 
 		sidePn.add(btnPanel);
 
 		contentPane.add(sidePn);
 		contentPane.add(headerPn);
 
-		setBounds(0, 0, 1680, 1050);
+		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
 
@@ -145,6 +157,8 @@ public class AdminMain extends JFrame implements ActionListener {
 		}else if(obj == userListBtn) {
 			delegator.adminController.UserList();
 			this.dispose();
+		} else if(obj == chatBtn) {
+			delegator.roomController.RoomList();
 		}
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.ItemBbsDao;
 import dao.ItemBbsDaoImpl;
+import dto.AbilityBbs;
 import dto.ItemBbs;
 import dto.Person;
 
@@ -40,6 +41,16 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 	}
 	public boolean ContinueItemBbsByAdmin(ItemBbs item) {
 		return itemDao.ContinueItemBbsByAdmin(item);
+	}
+	
+	public List<ItemBbs> SelectItemCategories(int category_id){
+		return itemDao.SelectItemCategories(category_id);
+	}
+
+	@Override
+	public List<ItemBbs> AdminSearch(String search) {
+		// TODO Auto-generated method stub
+		return itemDao.AdminSearch(search);
 	}
 
 }

@@ -26,11 +26,12 @@ public class AbilityBbsController {
 
    public void allAbilityList() {
 	   List<AbilityBbs> abilityDto = abilityService.allAbilityList();
+	   List<Category> categoryList = categoryService.getAllCategories(1);
 	   if(abilityDto.isEmpty()) {
 		  abilityDto = new ArrayList<>();
 		    
 	   }
-	  new AbilityMain(abilityDto);
+	  new AbilityMain(abilityDto, categoryList);
    }
 
    public void AbilityWrite(Person personDto) {
@@ -39,19 +40,26 @@ public class AbilityBbsController {
 	   List<Category> categoryList = categoryService.getAllCategories(0);
 	   new AbilityWrite(categoryList);
    }
+   public void SelectAbilityCategories(int category_id){
+	   List<AbilityBbs> abilityList = abilityService.SelectAbilityCategories(category_id);
+	   List<Category> categoryList = categoryService.getAllCategories(1);
+	   new AbilityMain(abilityList, categoryList);
+   }
 
    public void AbilityDetail(AbilityBbs abilityDto) {
-	   new AbilityDetail(abilityDto);
+	   List<Category> categoryList = categoryService.getAllCategories(1);
+	   new AbilityDetail(abilityDto, categoryList);
    }
 
    public void searchList(String searchWord){
 	   List<AbilityBbs> searchList = abilityService.searchList(searchWord);
+	   List<Category> categoryList = categoryService.getAllCategories(1);
 	   if(searchList.size() == 0) {
 		   JOptionPane.showMessageDialog(null, "검색 결과가 없습니다. ");
 		   searchList = abilityService.allAbilityList();
-		   new AbilityMain(searchList);
+		   new AbilityMain(searchList, categoryList);
 	   }else {
-		   new AbilityMain(searchList);		   
+		   new AbilityMain(searchList, categoryList);		   
 	   }
    }
 }

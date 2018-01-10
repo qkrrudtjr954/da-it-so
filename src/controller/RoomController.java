@@ -33,6 +33,8 @@ public class RoomController {
 			list = new ArrayList<>();			
 		}
 		
+		System.out.println(room);
+		
         new Room(list, room);
 		
 	}
@@ -48,6 +50,7 @@ public class RoomController {
             new RoomList(list);
         }
 	}
+	
 	public void Chat(RoomDto room) {
 		List<ChatDto> list = chatService.getChatByRoomSeq(room.getSeq());
 		

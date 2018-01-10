@@ -19,11 +19,12 @@ import dto.Person;
 public class ItemBbsDao implements ItemBbsDaoImpl{
 
 	DBConnection DBConnector = new OracleConnection();
-	// DBConnection DBConnector = new MySqlConnection();
+//	DBConnection DBConnector = new MySqlConnection();
+
 
 	public List<ItemBbs> allItemList() {
 
-		String sql = "SELECT * FROM ITEM_BBS";
+		String sql = "SELECT * FROM ITEM_BBS WHERE STATE=0 OR STATE=1 ORDER BY CREATED_AT";
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
@@ -41,7 +42,8 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 			while (rs.next()) {
 				ItemBbs itemdto = new ItemBbs();
 
-				itemdto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				itemdto.setSeq(rs.getInt("SEQ"));
+				itemdto.setCategory_id(rs.getInt("CATEGORY_ID"));
 				itemdto.setTitle(rs.getString("TITLE"));
 				itemdto.setImgurl1(rs.getString("IMGURL1"));
 				itemdto.setImgurl2(rs.getString("IMGURL2"));
@@ -103,6 +105,60 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		return count > 0 ? true : false;
 	}
 
+	public List<ItemBbs> SelectItemCategories(int category_id) {
+
+		String sql;
+		
+		if(DBConnector.getClass().getName().equals("db.mysql")) {
+			sql = "";
+		}else {
+			sql = "SELECT * FROM ITEM_BBS WHERE CATEGORY_ID = "+ category_id;
+		}
+		
+
+		Connection conn = DBConnector.makeConnection();
+		PreparedStatement pstmt = null;
+
+		List<ItemBbs> itemList = new ArrayList<>();
+		ResultSet rs = null;
+
+		System.out.println(">>>	CategoryDao .SelectItemCategories() sql : " + sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(sql); // query 를 실행하라 그리고 그 값을 rs에 저장해라.
+
+			while (rs.next()) {
+			ItemBbs itemBbs = new ItemBbs();
+			
+			itemBbs.setSeq(rs.getInt("SEQ"));
+			itemBbs.setCategory_id(rs.getInt("CATEGORY_ID"));
+			itemBbs.setTitle(rs.getString("TITLE"));
+			itemBbs.setImgurl1(rs.getString("IMGURL1"));
+			itemBbs.setImgurl2(rs.getString("IMGURL2"));
+			itemBbs.setImgurl3(rs.getString("IMGURL3"));
+			itemBbs.setImgurl4(rs.getString("IMGURL4"));
+			itemBbs.setPrice(rs.getInt("PRICE"));
+			itemBbs.setKeyword(rs.getString("KEYWORD"));
+			itemBbs.setContent(rs.getString("CONTENT"));
+			itemBbs.setCreated_at(rs.getString("CREATED_AT"));
+			itemBbs.setUser_id(rs.getString("USER_ID"));
+			itemBbs.setState(rs.getInt("STATE"));
+			
+			
+
+			itemList.add(itemBbs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(pstmt, conn, rs);
+		}
+
+		return itemList;
+	}
+
 	@Override
 	public List<ItemBbs> searchList(String searchWord) {
 
@@ -150,16 +206,11 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBClose.close(ptmt, conn, rs);
 		}
-
-		searchlist.stream().forEach(System.out::println);
-
 		return searchlist;
 	}
-
-
 
 	public List<ItemBbs> getAllItemBbs() {
 
@@ -314,5 +365,56 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 			e.printStackTrace();
 		}
 		return (count > 0) ? true : false;
+	}
+
+	// 관리자 전용 
+	@Override
+	public List<ItemBbs> AdminSearch(String search) {
+		// TODO Auto-generated method stub
+		List<ItemBbs> searchList = new ArrayList<ItemBbs>();
+
+		ResultSet rs = null;
+		PreparedStatement ptmt = null;
+
+		String sql = " SELECT * FROM ITEM_BBS "
+				+ " WHERE TITLE LIKE '%" + search +"%'"
+				+ " OR CONTENT LIKE '%" + search + "%'"
+				+ " OR KEYWORD LIKE '%" + search + "%'";//제목 컨텐츠 키워드
+
+		System.out.println(">>>	ItemBbsDao .AdminSearch() sql : " + sql);
+
+		Connection conn = DBConnector.makeConnection();
+
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+
+			while(rs.next()) {
+				ItemBbs item = new ItemBbs();
+				
+				item.setSeq(rs.getInt("seq"));
+				item.setCategory_id(rs.getInt("category_id"));
+				item.setContent(rs.getString("content"));
+				item.setCreated_at(rs.getString("created_at"));
+				item.setImgurl1(rs.getString("imgurl1"));
+				item.setImgurl2(rs.getString("imgurl2"));
+				item.setImgurl3(rs.getString("imgurl3"));
+				item.setImgurl4(rs.getString("imgurl4"));
+				item.setKeyword(rs.getString("keyword"));
+				item.setPrice(rs.getInt("price"));
+				item.setState(rs.getInt("state"));
+				item.setTitle(rs.getString("title"));
+				item.setUser_id(rs.getString("user_id"));
+				
+				searchList.add(item);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(ptmt, conn, rs);
+		}
+		
+		return searchList;
 	}
 }

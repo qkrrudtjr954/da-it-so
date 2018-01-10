@@ -9,6 +9,7 @@ import admin.AdminAbilityList;
 import admin.AdminItemDetail;
 import admin.AdminItemList;
 import admin.AdminMain;
+import admin.AdminUserDetail;
 import admin.AdminUserList;
 import dto.AbilityBbs;
 import dto.ItemBbs;
@@ -65,7 +66,9 @@ public class AdminController {
 	
 	public void AdminUserDetail(Person person) {
 		List<ItemBbs> itemList = itemBbsService.getItemBbsByUserId(person.getId());
-//		List<AbilityBbs> abilityList = abilityService.getAbilityBbsByUserId(person.getId());
+		List<AbilityBbs> abilityList = abilityService.getAbilityBbsByUserId(person.getId());
+		
+		new AdminUserDetail(person, itemList, abilityList);
 	}
 	
 	public void DeleteItemBbsByAdmin(ItemBbs item) {
@@ -150,5 +153,39 @@ public class AdminController {
 			Person person = personService.getPersonById(ability.getUser_id());
 			new AdminAbilityDetail(ability, person);
 		}
+	}
+
+	public void SerarchAbilityList(String search) {
+		// TODO Auto-generated method stub
+		List<AbilityBbs> abilityList = abilityService.AdminSearch(search);
+		
+		if(abilityList.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "검색 결과가 없습니다.");
+			abilityList = abilityService.getAllAbilityList();
+		}
+		new AdminAbilityList(abilityList);
+	}
+
+	public void SerarchItemList(String search) {
+		// TODO Auto-generated method stub
+		List<ItemBbs> itemList = itemBbsService.AdminSearch(search);
+		
+		if(itemList.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "검색 결과가 없습니다.");
+			itemList = itemBbsService.getAllItemBbs();
+		}
+		new AdminItemList(itemList);
+		
+	}
+
+	public void SerarchUserList(String search) {
+		// TODO Auto-generated method stub
+		List<Person> personList = personService.AdminSearch(search);
+		
+		if(personList.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "검색 결과가 없습니다.");
+			personList = personService.getAllPerson();
+		}
+		new AdminUserList(personList);
 	}
 }
