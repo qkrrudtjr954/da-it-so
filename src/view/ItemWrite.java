@@ -39,9 +39,9 @@ public class ItemWrite extends JFrame implements ActionListener {
 
 	JPanel category;
 
-//	String iconImgUrl = "C:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-	String nullImgURL = "C:\\icon\\nullimg.png";
+	String iconImgUrl = "E:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
 	private JLabel SidecategoryPn[][];
@@ -348,23 +348,25 @@ public class ItemWrite extends JFrame implements ActionListener {
 		if (obj == listBtn) {
 			delegator.itemBbsController.allItemList();
 			this.dispose();
-		}
-
-		if(obj == loginBtn) {
+		} else if(obj == loginBtn) {
 			delegator.personController.Login();
 			this.dispose();
-		}else if(obj == signupBtn) {
+		} else if(obj == signupBtn) {
 			delegator.personController.SignUp();
 			this.dispose();
-		}else if(obj == logoutBtn) {
+		} else if(obj == logoutBtn) {
 			delegator.personController.Logout();
 			this.dispose();
-		}else if (obj == imgAdd1) {
+		} else if (obj == imgAdd1) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
 				img1TextF.setText(jfc.getSelectedFile().toString());
 				filename1 = jfc.getSelectedFile().getName();
 			}
+		} else if(obj == searchBtn) {
+			String searchWord = searchTextF.getText();
+			delegator.itemBbsController.searchList(searchWord);
+			this.dispose();
 		}
 		if (obj == imgAdd2) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -404,56 +406,14 @@ public class ItemWrite extends JFrame implements ActionListener {
 			ItemBbs itemDto = new ItemBbs();
 
 			String id = delegator.getCurrent_user().getId();
-			
-			// -------------------------------- null 이미지 수정 	
-			
-			
-				if (img1TextF.getText().equals("")) {
-					
-					itemDto.setImgurl1(nullImgURL);
-				}
-				else {
-					itemDto.setImgurl1(img1TextF.getText());	
-				}
-				if (img2TextF.getText().equals("")) {
-					
-					itemDto.setImgurl2(nullImgURL);
-				}
-				else {
-					itemDto.setImgurl2(img2TextF.getText());	
-				}
-				if (img3TextF.getText().equals("")) {
-					
-					itemDto.setImgurl3(nullImgURL);
-				}
-				else {
-					itemDto.setImgurl3(img3TextF.getText());	
-				}
-				if (img4TextF.getText().equals("")) {
-					
-					itemDto.setImgurl4(nullImgURL);
-				}
-				else {
-					itemDto.setImgurl4(img4TextF.getText());	
-				}
-				
-			// numberformat
-			String str = priceTextF.getText();
-			for(int i=0 ; i < str.length() ; i++){
-				 char c = str.charAt(i);
-				 if(c<48 || c> 57){//숫자가 아닌 경우
-				  JOptionPane.showMessageDialog(null, "숫자만 입력가능합니다.");
-				  break;
-				 }
-			}
-			
+
 			int categoryIndex = cateCombo.getSelectedIndex();
 			itemDto.setCategory_id(this.m_categoryList.get(categoryIndex).getSeq());
 			itemDto.setTitle(titleTextF.getText());
-			//itemDto.setImgurl1(img1TextF.getText());
-			//itemDto.setImgurl2(img2TextF.getText());
-			//itemDto.setImgurl3(img3TextF.getText());
-			//itemDto.setImgurl4(img4TextF.getText());
+			itemDto.setImgurl1(img1TextF.getText());
+			itemDto.setImgurl2(img2TextF.getText());
+			itemDto.setImgurl3(img3TextF.getText());
+			itemDto.setImgurl4(img4TextF.getText());
 			itemDto.setKeyword(keywordTextF.getText());
 			itemDto.setPrice(Integer.parseInt(priceTextF.getText()));
 			itemDto.setContent(contentTextPn.getText());
@@ -472,17 +432,9 @@ public class ItemWrite extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "금액은 숫자만 입력 가능합니다.");
 				return;
 			}else {
-				JOptionPane.showMessageDialog(null, "공백이있습니다.");
+				JOptionPane.showMessageDialog(null, "글작성 실패");
 				return;
 			}
-			/*if (btn == writeBtn) {
-				
-				if ( titleTextF.getText().equals("") || contentTextPn.getText().equals("") || priceTextF.getText().equals("")) {
-					
-					JOptionPane.showMessageDialog(null, "공백이 있습니다. 공백을 입력해주세요");
-				}
-				
-			}*/
 
 		}
 

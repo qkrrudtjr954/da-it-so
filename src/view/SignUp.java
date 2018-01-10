@@ -34,8 +34,8 @@ public class SignUp extends JFrame implements ActionListener {
 
 	public SignUp() {
 
-//		String iconImgUrl = "c:\\icon\\";
-		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+		String iconImgUrl = "E:\\icon\\";
+//		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 		JPanel headerPn;
 

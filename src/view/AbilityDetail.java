@@ -40,8 +40,8 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 
-	// String iconImgUrl = "C:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	 String iconImgUrl = "E:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	
 	AbilityBbs abilityDto = null;
 	List<Category> categoryList = null;
@@ -75,7 +75,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		detailPn.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane(detailPn);
-		scrollPane.setBounds(400, 60, 1100, 900);
+		scrollPane.setBounds(400, 60, 1100, 680);
 		scrollPane.setBackground(Color.black);
 		// scrollPane.add(detailPn);
 
@@ -181,6 +181,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		for (int i = 0; i < categoryList.size(); i++) {
 			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() + ".png");
+			
 			System.out.println(iconImgUrl + categoryList.get(i).getTitle() + ".png");
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
@@ -240,7 +241,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-		itemImagePn.setBounds(60, 115, 400, 500);
+		itemImagePn.setBounds(10, 115, 400, 500);
 		imagePannel.add(itemImagePn);
 
 		// itemsub
@@ -249,17 +250,17 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		subimagePn.setBounds(10, 530, 400, 90);
 		// subimagePn.setBackground(Color.PINK);
 
+		
 		// 서브 이미지1
 		subimage1 = new JPanel() {
 			ImageIcon image1 = new ImageIcon(abilityDto.getImgurl1());
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(image1.getImage(), 0, 0, 0, 0, null);
+				g.drawImage(image1.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
-		subimage1.setBorder(new LineBorder(Color.red,2));
 		subimagePn.add(subimage1);
 
 		// 서브이미지2
@@ -267,24 +268,22 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			ImageIcon image2 = new ImageIcon(abilityDto.getImgurl2());
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(image2.getImage(), 0, 0, 0, 0, null);
+				g.drawImage(image2.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
-		subimage2.setBorder(new LineBorder(Color.red,2));
 		subimagePn.add(subimage2);
 		// 서브이미지3
 		subimage3 = new JPanel() {
 			ImageIcon image3 = new ImageIcon(abilityDto.getImgurl3());
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(image3.getImage(), 0, 0, 0, 0, null);
+				g.drawImage(image3.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
-		subimage3.setBorder(new LineBorder(Color.red,2));
 		subimagePn.add(subimage3);
 
 		// 서브이미지4
@@ -292,12 +291,11 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			ImageIcon image4 = new ImageIcon(abilityDto.getImgurl4());
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(image4.getImage(), 0, 0, 0, 0, null);
+				g.drawImage(image4.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
-		subimage4.setBorder(new LineBorder(Color.red,2));
 		subimagePn.add(subimage4);
 
 		imagePannel.add(subimagePn);
@@ -319,7 +317,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		// Ability
 
-		String key = abilityDto.getAbility().replace(",", "-key-");
+		String key = abilityDto.getAbility();
 		System.out.println("key값 : " + key);
 		int rowSize = 0;
 		String[] keyarray;

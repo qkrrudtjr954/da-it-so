@@ -21,7 +21,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 	public List<ItemBbs> allItemList() {
 
-		String sql = "SELECT * FROM ITEM_BBS WHERE STATE=0 OR STATE=1 ORDER BY CREATED_AT";
+		String sql = "SELECT * FROM ITEM_BBS WHERE STATE=0 OR STATE=1 ORDER BY CREATED_AT DESC";
 
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
