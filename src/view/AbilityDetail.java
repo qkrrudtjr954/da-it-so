@@ -36,13 +36,13 @@ import dto.Person;
 public class AbilityDetail extends JFrame implements ActionListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, imagePannel, iteminfoPn, itemImagePn, subimagePn,
 			detailPn, subimage1, subimage2, subimage3, subimage4;
-	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn;
+	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn, listBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
-	private JPanel category;
 
 	// String iconImgUrl = "C:\\icon\\";
 	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	
 	AbilityBbs abilityDto = null;
 	List<Category> categoryList = null;
 
@@ -424,7 +424,6 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			delegator.personController.Logout();
 			this.dispose();
 		} else if (obj == searchBtn) {
-			System.out.println("searchBtn Click");
 			String searchWord = searchTextF.getText();
 			delegator.abilityBbsController.searchList(searchWord);
 		} else if (obj == listBtn) {

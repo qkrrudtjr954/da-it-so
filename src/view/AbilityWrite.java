@@ -359,21 +359,21 @@ public class AbilityWrite extends JFrame implements ActionListener {
 				}
 			}
 		}
-		if (obj == imgAdd2) {
+		if (btn == imgAdd2) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
 				img2TextF.setText(jfc.getSelectedFile().toString());
 				filename2 = jfc.getSelectedFile().getName();
 			}
 		}
-		if (obj == imgAdd3) {
+		if (btn == imgAdd3) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
 				img3TextF.setText(jfc.getSelectedFile().toString());
 				filename3 = jfc.getSelectedFile().getName();
 			}
 		}
-		if (obj == imgAdd4) {
+		if (btn == imgAdd4) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
 				img4TextF.setText(jfc.getSelectedFile().toString());

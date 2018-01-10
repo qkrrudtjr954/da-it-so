@@ -28,7 +28,7 @@ import delegator.Delegator;
 import dto.Category;
 import dto.ItemBbs;
 
-public class ItemDetail extends JFrame implements ActionListener, MouseListener {
+public class ItemDetail extends JFrame implements ActionListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
 			cate9, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn, subimage1, subimage2, subimage3,
 			subimage4, keywordPanel;
@@ -82,7 +82,16 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 			}
 		};
 		headerLogo.setBounds(15, 25, 71, 15);
-		headerLogo.addMouseListener(this);
+		headerLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.mainController.Main();
+				dispose();
+			}
+			
+		});
 		headerPn.add(headerLogo);
 
 		if(delegator.getCurrent_user()==null) {
@@ -390,9 +399,9 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Delegator delegator = Delegator.getInstance();
-		JButton btn = (JButton) e.getSource();
+		JButton obj = (JButton) e.getSource();
 
-		if (btn == chatBtn) {
+		if (obj == chatBtn) {
 			if (delegator.getCurrent_user() != null) {
 				String target_id = sellLb.getText().replaceAll("작성자 : ", "");
 				delegator.roomController.checkRoom(target_id);
@@ -401,33 +410,22 @@ public class ItemDetail extends JFrame implements ActionListener, MouseListener 
 				delegator.personController.Login();
 				this.dispose();
 			}
-		} else if (btn == signupBtn) {
+		} else if (obj == loginBtn) {
+			delegator.personController.Login();
+			this.dispose();
+		} else if (obj == signupBtn) {
 			delegator.personController.SignUp();
 			this.dispose();
-		} else if (btn == searchBtn) {
-			// delegator.itemBbsController. search 결과
-		} else if (btn == logoutBtn) {
-
-			delegator.setCurrent_user(null);
-			delegator.mainController.Main();
-		} else if (btn == listBtn) {
+		} else if (obj == logoutBtn) {
+			delegator.personController.Logout();
+			this.dispose();
+		} else if (obj == searchBtn) {
+			String searchWord = searchTextF.getText();
+			delegator.itemBbsController.searchList(searchWord);
+		} else if (obj == listBtn) {
 			delegator.itemBbsController.allItemList();
 			this.dispose();
-		} else if( btn == searchBtn) {
-
 		}
 
 	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-
-	@Override
-	public void mouseExited(MouseEvent e) {}
-
-	@Override
-	public void mousePressed(MouseEvent e) {}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {}
 }

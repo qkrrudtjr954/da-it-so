@@ -26,15 +26,14 @@ import dto.Category;
 import dto.ItemBbs;
 import dto.Person;
 
-public class ItemMain extends JFrame implements ActionListener, MouseListener {
+public class ItemMain extends JFrame implements ActionListener {
 	//side panel
-	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, cate1, cate2, cate3, cate4, cate5, cate6, cate7, cate8,
-	cate9, detailPn;
-	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn;
+	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, detailPn;
+	private JButton loginBtn, logoutBtn, signupBtn, searchBtn;
 	private JTextField searchTextF;
 
 	//list panel
-	private JPanel listPn, thumPn, thumPn1, thumPn2;
+	private JPanel listPn, thumPn;
 	private JLabel imgLa, txtLa;
 	private JButton addBtn;
 
@@ -87,7 +86,15 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			}
 		};
 		headerLogo.setBounds(15, 25, 71, 15);
-		headerLogo.addMouseListener(this);
+		headerLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.mainController.Main();
+				dispose();
+			}
+		});
 		headerPn.add(headerLogo);
 
 		if(delegator.getCurrent_user()==null) {
@@ -219,7 +226,7 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 		int j = 0;
 		for (int i = 0; i < itemList.size(); i++) {
 
-			thumPn1 = new JPanel();
+			JPanel thumPn1 = new JPanel();
 			thumPn1.setLayout(null);
 
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
@@ -259,7 +266,18 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 
 			thumPn1.setBorder(new LineBorder(mainRed, 1));
 			thumPn1.setBackground(Color.white);
-			thumPn1.addMouseListener(this);
+			thumPn1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					int index = Integer.parseInt(thumPn1.getName());
+
+					Delegator delegator = Delegator.getInstance();
+					delegator.itemBbsController.itemDetail(itemList.get(index));
+					dispose();
+				}
+			});
+
 
 			listPn.add(thumPn1);
 		}
@@ -311,95 +329,8 @@ public class ItemMain extends JFrame implements ActionListener, MouseListener {
 			delegator.personController.Logout();
 			this.dispose();
 		}else if(obj == searchBtn) {
-			System.out.println("searchBtn Click");
 			String searchWord = searchTextF.getText();
-			System.out.println("searchTextF :" + searchTextF);
-
 			delegator.itemBbsController.searchList(searchWord);
-
 		}
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		JPanel thumPn1 = (JPanel)e.getComponent();
-		this.thumPn1 = thumPn1;
-
-		Object obj = e.getSource();
-
-
-
-		Delegator delegator = Delegator.getInstance();
-		ItemBbs itemSelect = null;
-		int itemNum = 0;
-		int category_id = 99;
-
-		//List event
-		if(obj == thumPn1 && obj != headerLogo && obj != cate1 && obj != cate2 && obj != cate3 && obj != cate4
-				&& obj != cate5 && obj != cate6 && obj != cate7 && obj != cate8 && obj != cate9) {
-			System.out.println("thumPn1 GetName==>"+thumPn1.getName());
-			itemNum = Integer.parseInt(thumPn1.getName());
-
-			if(!m_itemList.isEmpty()) {
-				itemSelect = m_itemList.get(itemNum);
-				delegator.itemBbsController.itemDetail(itemSelect);
-				this.dispose();
-			}
-		}
-
-		//Header event
-		if(obj == headerLogo){
-			delegator.mainController.Main();
-			this.dispose();
-		}
-
-		//Side Category event
-		if(obj == cate1){
-			category_id = Integer.parseInt(cate1.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate2) {
-			category_id = Integer.parseInt(cate2.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate3) {
-			category_id = Integer.parseInt(cate3.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate4) {
-			category_id = Integer.parseInt(cate4.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate5) {
-			category_id = Integer.parseInt(cate5.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate6) {
-			category_id = Integer.parseInt(cate6.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate7) {
-			category_id = Integer.parseInt(cate7.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate8) {
-			category_id = Integer.parseInt(cate8.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}else if(obj == cate9) {
-			category_id = Integer.parseInt(cate9.getName());
-			delegator.itemBbsController.SelectItemCategories(category_id);
-			this.dispose();
-		}
-
-
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-	@Override
-	public void mouseExited(MouseEvent e) {}
-
 }
