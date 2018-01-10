@@ -12,8 +12,7 @@ public interface ItemBbsDaoImpl {
 	public List<ItemBbs> SelectItemCategories(int category_id);
 	public List<ItemBbs> getAllItemBbs();
 	public List<ItemBbs> searchList(String searchWord);
-	public List<ItemBbs> DeleteItemList(ItemBbs itemDto);
-	public List<ItemBbs> CompleteItemList(ItemBbs itemDto);
+	public boolean DeleteItemBbs(ItemBbs itemDto);
 	
 	public List<ItemBbs> getItemBbsByUserId(String user_id);
 	public boolean DeleteItemBbsByAdmin(ItemBbs item);

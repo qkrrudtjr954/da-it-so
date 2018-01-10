@@ -54,15 +54,9 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 	}
 
 	@Override
-	public List<ItemBbs> DeleteItemList(ItemBbs itemDto) {
+	public boolean DeleteItemBbs(ItemBbs itemDto) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ItemBbs> CompleteItemList(ItemBbs itemDto) {
-		// TODO Auto-generated method stub
-		return null;
+		return itemDao.DeleteItemBbs(itemDto);
 	}
 
 	

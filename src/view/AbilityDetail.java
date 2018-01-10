@@ -26,7 +26,6 @@ import javax.swing.border.LineBorder;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Category;
-import service.AbilityService;
 
 public class AbilityDetail extends JFrame implements ActionListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, imagePannel, iteminfoPn, itemImagePn, subimagePn,
@@ -37,14 +36,11 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 //	 String iconImgUrl = "E:\\icon\\";
 	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-	 String noImgUrl = iconImgUrl+"noimg.png";
+	String noImgUrl = iconImgUrl+"noimg.png";
 	
 	AbilityBbs m_abilityDto = null;
 	List<Category> m_categoryList = null;
 
-	// 삭제버튼추가필요
-	// 완료 버튼 추가 시 STATE 1로 변경 STATE = 0 등록시 STATE = 1 완료 STATE = 2 삭제 STATE = 3
-	// 관리자에의한 삭제
 	public AbilityDetail(AbilityBbs abilityDto, List<Category> categoryList) {
 
 		Delegator delegator = Delegator.getInstance();
@@ -464,14 +460,14 @@ public class AbilityDetail extends JFrame implements ActionListener {
 				String ViewId = delegator.getCurrent_user().getId();
 
 				if(ViewId.equals(WriteId)) {
-					boolean result = delegator.abilityBbsController.setCompleteAbilityBbs(m_abilityDto);
+					boolean deleteCK = delegator.abilityBbsController.setDeleteAbilityBbs(m_abilityDto);
 					
-					if(result) {
-						JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
+					if(deleteCK) {
+						JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
 						delegator.abilityBbsController.allAbilityList();
 						this.dispose();						
 					} else {
-						JOptionPane.showMessageDialog(null, "완료 처리할 수 없습니다.");
+						JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
@@ -488,11 +484,14 @@ public class AbilityDetail extends JFrame implements ActionListener {
 				String ViewId = delegator.getCurrent_user().getId();
 
 				if(ViewId.equals(WriteId) == true) {
-					AbilityService abilityservice = new AbilityService();
-					abilityservice.CompleteAbilityList(m_abilityDto);
-					JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
-					delegator.abilityBbsController.allAbilityList();
-					this.dispose();
+					boolean completeCK = delegator.abilityBbsController.setCompleteAbilityBbs(m_abilityDto);
+					if(completeCK) {
+						JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
+						delegator.abilityBbsController.allAbilityList();
+						this.dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "완료 되지 못했습니다.");
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "작성자만이 완료 할 수 있습니다.");
 				}

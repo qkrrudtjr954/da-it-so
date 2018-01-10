@@ -13,8 +13,7 @@ public interface AbilityServiceImpl {
 	public boolean addAbility(AbilityBbs abilityDto);
 	public List<AbilityBbs> getAbilityBbsByUserId(String user_id);
 	public List<AbilityBbs> SelectAbilityCategories(int category_id);
-	public List<AbilityBbs> DeleteAbilityList(AbilityBbs abilityDto);
-	public List<AbilityBbs> CompleteAbilityList(AbilityBbs abilityDto);
+	public boolean DeleteAbilityBbs(AbilityBbs abilityDto);
 	
 	public boolean DeleteAbilityBbsByAdmin(AbilityBbs ability);
 	public boolean CompleteAbilityBbs(AbilityBbs ability);

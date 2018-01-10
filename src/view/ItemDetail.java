@@ -38,8 +38,6 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 	JPanel category;
 
-//	String iconImgUrl = "E:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	String noImgUrl = iconImgUrl+"noimg.png";
 
 	ItemBbs m_itemDto = null;
@@ -54,18 +52,14 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
-		
 		if (itemDto.getImgurl1().equals("") || itemDto.getImgurl1()==null) {
 			itemDto.setImgurl1(noImgUrl);
 		}
 		if (itemDto.getImgurl2().equals("") || itemDto.getImgurl2()==null) {
-			itemDto.setImgurl1(noImgUrl);
 		}
 		if (itemDto.getImgurl3().equals("") || itemDto.getImgurl3()==null) {
-			itemDto.setImgurl1(noImgUrl);
 		}
 		if (itemDto.getImgurl4().equals("") || itemDto.getImgurl4()==null) {
-			itemDto.setImgurl1(noImgUrl);
 		}
 
 		// Header
@@ -475,11 +469,14 @@ public class ItemDetail extends JFrame implements ActionListener {
 				String ViewId = delegator.getCurrent_user().getId();
 
 				if(ViewId.equals(WriteId)) {
-					ItemBbsService itemservice = new ItemBbsService();
-					itemservice.DeleteItemList(m_itemDto);
-					JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
-					delegator.itemBbsController.allItemList();
-					this.dispose();
+					boolean deleteCK = delegator.itemBbsController.setDeleteItemBbs(m_itemDto);
+					if(deleteCK) {
+						JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
+						delegator.itemBbsController.allItemList();
+						this.dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
 				}
@@ -495,9 +492,9 @@ public class ItemDetail extends JFrame implements ActionListener {
 				String ViewId = delegator.getCurrent_user().getId();
 
 				if(ViewId.equals(WriteId)) {
-					boolean result = delegator.itemBbsController.setCompleteItemBbs(m_itemDto);
+					boolean completeCK = delegator.itemBbsController.setCompleteItemBbs(m_itemDto);
 					
-					if(result) {
+					if(completeCK) {
 						JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
 						delegator.itemBbsController.allItemList();
 						this.dispose();						

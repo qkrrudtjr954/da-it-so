@@ -14,7 +14,6 @@ public interface ItemBbsServiceImpl {
 	public boolean CompleteItemBbs(ItemBbs item);
 	public boolean ContinueItemBbsByAdmin(ItemBbs item);
 	public List<ItemBbs> SelectItemCategories(int Category_seq);
-	public List<ItemBbs> DeleteItemList(ItemBbs itemDto);
-	public List<ItemBbs> CompleteItemList(ItemBbs itemDto);
+	public boolean DeleteItemBbs(ItemBbs itemDto);
 	public List<ItemBbs> AdminSearch(String search);
 }

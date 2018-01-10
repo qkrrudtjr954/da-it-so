@@ -68,4 +68,9 @@ public class AbilityBbsController {
 		// TODO Auto-generated method stub
 		return abilityService.CompleteAbilityBbs(abilityDto);
 	}
+	
+	public boolean setDeleteAbilityBbs(AbilityBbs abilityDto) {
+		// TODO Auto-generated method stub
+		return abilityService.DeleteAbilityBbs(abilityDto);
+	}
 }

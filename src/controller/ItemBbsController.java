@@ -75,4 +75,9 @@ public class ItemBbsController {
 		return itemService.CompleteItemBbs(itemDto);
 	}
 
+	public boolean setDeleteItemBbs(ItemBbs itemDto) {
+		// TODO Auto-generated method stub
+		return itemService.DeleteItemBbs(itemDto);
+	}
+
 }

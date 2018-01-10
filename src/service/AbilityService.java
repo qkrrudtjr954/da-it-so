@@ -61,16 +61,9 @@ public class AbilityService implements AbilityServiceImpl {
 	}
 
 	@Override
-	public List<AbilityBbs> DeleteAbilityList(AbilityBbs abilityDto) {
+	public boolean DeleteAbilityBbs(AbilityBbs abilityDto) {
 		// TODO Auto-generated method stub
-		return abilityDao.DeleteAbilityList(abilityDto);
+		return abilityDao.DeleteAbilityBbs(abilityDto);
 	}
-
-	@Override
-	public List<AbilityBbs> CompleteAbilityList(AbilityBbs abilityDto) {
-		// TODO Auto-generated method stub
-		return abilityDao.CompleteAbilityList(abilityDto);
-	}
-	
 	
 }
