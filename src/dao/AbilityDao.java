@@ -200,7 +200,7 @@ public class AbilityDao implements AbilityDaoImpl {
 	
 	public List<AbilityBbs> getAbilityBbsByUserId(String user_id){
 
-		String sql = " SELECT * FROM ABILITY_BBS WHERE USER_ID='"+user_id+"' WHERE STATE=0 OR STATE=1";
+		String sql = " SELECT * FROM ABILITY_BBS WHERE (USER_ID='"+user_id+"') AND (STATE=0 OR STATE=1)";
 		
 		Connection conn = DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
