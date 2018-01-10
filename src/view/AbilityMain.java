@@ -41,8 +41,8 @@ public class AbilityMain extends JFrame implements ActionListener{
 
 	JPanel category;
 	//imgurl
-//	String iconImgUrl = "C:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "E:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	Color mainRed = new Color(218, 0, 0);
 	Color mainGray = new Color(250, 250, 250);
@@ -326,6 +326,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 		}else if(obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.abilityBbsController.searchList(searchWord);
+			this.dispose();
 		}
 	}
 }

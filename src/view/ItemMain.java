@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -39,8 +40,8 @@ public class ItemMain extends JFrame implements ActionListener {
 
 	JPanel category;
 
-//	String iconImgUrl = "C:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "E:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	Color mainRed = new Color(218, 0, 0);
 	Color mainGray = new Color(250, 250, 250);
@@ -76,7 +77,7 @@ public class ItemMain extends JFrame implements ActionListener {
 		// scrollPane.add(detailPn);
 
 		// headerlogo
-		ImageIcon headerimage = new ImageIcon("/Users/leefrances/Desktop/icon/headerlogo.png");
+		ImageIcon headerimage = new ImageIcon(iconImgUrl+"headerlogo.png");
 		headerLogo = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -313,6 +314,7 @@ public class ItemMain extends JFrame implements ActionListener {
 			personDto = delegator.getCurrent_user();
 
 			if(personDto == null) {
+				JOptionPane.showMessageDialog(null, "로그인 해주세요.");
 				delegator.personController.Login();
 				this.dispose();
 			}else {
@@ -331,6 +333,7 @@ public class ItemMain extends JFrame implements ActionListener {
 		}else if(obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.itemBbsController.searchList(searchWord);
+			this.dispose();
 		}
 	}
 }

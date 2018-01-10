@@ -42,8 +42,8 @@ public class AbilityWrite extends JFrame implements ActionListener {
 	private JComboBox cateCombo;
 
 	JPanel category;
-	// String iconImgUrl = "C:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "E:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;

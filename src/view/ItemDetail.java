@@ -38,8 +38,8 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 	JPanel category;
 
-//	String iconImgUrl = "c:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "E:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	ItemBbs m_itemDto = null;
 	List<Category> m_categoryList = null;
@@ -69,7 +69,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		detailPn.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane(detailPn);
-		scrollPane.setBounds(400, 60, 935, 900);
+		scrollPane.setBounds(400, 60, 935, 680);
 
 		// headerlogo
 		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
@@ -422,6 +422,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		} else if (obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.itemBbsController.searchList(searchWord);
+			this.dispose();
 		} else if (obj == listBtn) {
 			delegator.itemBbsController.allItemList();
 			this.dispose();

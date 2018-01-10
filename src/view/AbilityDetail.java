@@ -40,8 +40,8 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 
-	// String iconImgUrl = "C:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	 String iconImgUrl = "E:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	
 	AbilityBbs abilityDto = null;
 	List<Category> categoryList = null;
@@ -75,7 +75,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		detailPn.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane(detailPn);
-		scrollPane.setBounds(400, 60, 1100, 900);
+		scrollPane.setBounds(400, 60, 1100, 680);
 		scrollPane.setBackground(Color.black);
 		// scrollPane.add(detailPn);
 
@@ -181,6 +181,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		for (int i = 0; i < categoryList.size(); i++) {
 			ImageIcon categoryImage = new ImageIcon(iconImgUrl + categoryList.get(i).getTitle() + ".png");
+			
 			System.out.println(iconImgUrl + categoryList.get(i).getTitle() + ".png");
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
@@ -249,6 +250,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		subimagePn.setBounds(10, 530, 400, 90);
 		// subimagePn.setBackground(Color.PINK);
 
+		
 		// 서브 이미지1
 		subimage1 = new JPanel() {
 			ImageIcon image1 = new ImageIcon(abilityDto.getImgurl1());

@@ -27,8 +27,8 @@ public class Main extends JFrame implements ActionListener {
 	JButton test;
 	
 	public Main() {
-
-		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+		String iconImgUrl = "E:\\icon\\";
+//		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 		JPanel headerPn;
 
 		// header
