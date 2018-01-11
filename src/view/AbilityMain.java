@@ -30,7 +30,7 @@ import dto.Person;
 public class AbilityMain extends JFrame implements ActionListener{
 	//list panel
 	private JPanel listPn, thumPn;
-	private JLabel imgLa, txtLa;
+	private JLabel imgLa, txtLa, contentLabel;
 	private JButton addBtn;
 
 	//side panel
@@ -251,32 +251,25 @@ public class AbilityMain extends JFrame implements ActionListener{
 				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
 
-				if(abilityList.get(i).getImgurl1() == null || abilityList.get(i).getImgurl1().equals("")) {
-					ImageIcon img = new ImageIcon(smallNoImgUrl);
-					imgLa = new JLabel() {
-						@Override
-						protected void paintComponent(Graphics g) {
-							// TODO Auto-generated method stub
-							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
-							setOpaque(false);
-							super.paintComponents(g);
-						}
-					};
-				}else {
-					ImageIcon img = new ImageIcon(abilityList.get(i).getImgurl1());
-					imgLa = new JLabel() {
-						@Override
-						protected void paintComponent(Graphics g) {
-							// TODO Auto-generated method stub
-							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
-							setOpaque(false);
-							super.paintComponents(g);
-						}
-					};
+				BufferedImage image = delegator.getImage(abilityList.get(i).getImgurl1());
+				if(image == null) {
+					image = delegator.getImage(smallNoImgUrl); 
 				}
-				txtLa = new JLabel("<html>"+ abilityList.get(i).getTitle() +"<br/>"+
-								abilityList.get(i).getContent()+"</html>");
+				ImageIcon icon = new ImageIcon(image);
+				
+				imgLa = new JLabel() {
+					@Override
+					protected void paintComponent(Graphics g) {
+						// TODO Auto-generated method stub
+						g.drawImage(icon.getImage(), 0, 0, 200, 120, null);
+						setOpaque(false);
+						super.paintComponents(g);
+					}
+				};
 				imgLa.setBounds(0, 0, 200, 120);
+
+				txtLa = new JLabel(abilityList.get(i).getTitle().replaceAll("\n", " "));
+				contentLabel = new JLabel(abilityList.get(i).getContent());
 				
 				stateLabel.setLocation(380, 10);
 				if(abilityList.get(i).getState()==0) {
@@ -287,8 +280,14 @@ public class AbilityMain extends JFrame implements ActionListener{
 					imgLa.setBorder(new LineBorder(mainBlack, 2));
 					stateLabel.setText("완료됨");
 				}
-				txtLa.setBounds(200, 0, 300, 120);
+				
+				imgLa.setBounds(0, 0, 200, 120);
+				txtLa.setBounds(210, 10, 300, 50);
+				txtLa.setFont(new Font("font", Font.BOLD, 20));
+				contentLabel.setBounds(210, 30, 300, 70);
+				contentLabel.setForeground(Color.gray);
 				thumPn1.add(stateLabel);
+				thumPn1.add(contentLabel);
 				thumPn1.add(txtLa);
 				thumPn1.add(imgLa);
 				j++;
@@ -296,32 +295,24 @@ public class AbilityMain extends JFrame implements ActionListener{
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
 				
-				if(abilityList.get(i).getImgurl1() == null || abilityList.get(i).getImgurl1().equals("")) {
-					ImageIcon img = new ImageIcon(smallNoImgUrl);
-					imgLa = new JLabel() {
-						@Override
-						protected void paintComponent(Graphics g) {
-							// TODO Auto-generated method stub
-							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
-							setOpaque(false);
-							super.paintComponents(g);
-						}
-					};
-				}else {
-					ImageIcon img = new ImageIcon(abilityList.get(i).getImgurl1());
-					imgLa = new JLabel() {
-						@Override
-						protected void paintComponent(Graphics g) {
-							// TODO Auto-generated method stub
-							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
-							setOpaque(false);
-							super.paintComponents(g);
-						}
-					};
+				BufferedImage image = delegator.getImage(abilityList.get(i).getImgurl1());
+				if(image == null) {
+					image = delegator.getImage(smallNoImgUrl); 
 				}
+				ImageIcon icon = new ImageIcon(image);
 				
-				txtLa = new JLabel("<html>"+ abilityList.get(i).getTitle() +"<br/>"+
-						abilityList.get(i).getContent()+"</html>");
+				imgLa = new JLabel() {
+					@Override
+					protected void paintComponent(Graphics g) {
+						// TODO Auto-generated method stub
+						g.drawImage(icon.getImage(), 0, 0, 200, 120, null);
+						setOpaque(false);
+						super.paintComponents(g);
+					}
+				};
+				
+				txtLa = new JLabel(abilityList.get(i).getTitle().replaceAll("\n", " "));
+				contentLabel = new JLabel(abilityList.get(i).getContent());
 				
 				stateLabel.setLocation(380, 10);
 				if(abilityList.get(i).getState()==0) {
@@ -334,8 +325,12 @@ public class AbilityMain extends JFrame implements ActionListener{
 				}
 				
 				imgLa.setBounds(0, 0, 200, 120);
-				txtLa.setBounds(200, 0, 300, 120);
+				txtLa.setBounds(210, 10, 300, 50);
+				txtLa.setFont(new Font("font", Font.BOLD, 20));
+				contentLabel.setBounds(210, 30, 300, 70);
+				contentLabel.setForeground(Color.gray);
 				thumPn1.add(stateLabel);
+				thumPn1.add(contentLabel);
 				thumPn1.add(txtLa);
 				thumPn1.add(imgLa);
 			}

@@ -35,7 +35,7 @@ public class ItemMain extends JFrame implements ActionListener {
 
 	// list panel
 	private JPanel listPn, thumPn;
-	private JLabel imgLa, txtLa;
+	private JLabel imgLa, txtLa, contentLabel;
 	private JButton addBtn;
 
 	JPanel category;
@@ -182,11 +182,9 @@ public class ItemMain extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for (int i = 0; i < categoryList.size(); i++) {
-
-			BufferedImage categoryImage = delegator.getImage("item/"+ categoryList.get(i).getTitle() +".png");
-			System.out.println("ability/"+ categoryList.get(i).getTitle() +".png");
+			BufferedImage categoryImage = delegator.getImage("item/" + categoryList.get(i).getTitle() + ".png");
 			ImageIcon categoryIcon = new ImageIcon(categoryImage);
-			
+
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryIcon.getImage(), 0, 0, null);
@@ -203,7 +201,7 @@ public class ItemMain extends JFrame implements ActionListener {
 					int seq = Integer.parseInt(category.getName());
 
 					Delegator delegator = Delegator.getInstance();
-					delegator.abilityBbsController.SelectAbilityCategories(seq);
+					delegator.itemBbsController.SelectItemCategories(seq);
 					dispose();
 				}
 			});
@@ -241,34 +239,30 @@ public class ItemMain extends JFrame implements ActionListener {
 			JLabel stateLabel = new JLabel();
 			stateLabel.setSize(100, 20);
 			stateLabel.setFont(new Font("stateLabel", Font.BOLD, 15));
-
+			
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
 
-				if (itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
-					ImageIcon img = new ImageIcon(smallNoImgUrl);
-					imgLa = new JLabel() {
-						@Override
-						protected void paintComponent(Graphics g) {
-							// TODO Auto-generated method stub
-							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
-							setOpaque(false);
-							super.paintComponents(g);
-						}
-					};
-				} else {
-					ImageIcon img = new ImageIcon(itemList.get(i).getImgurl1());
-					imgLa = new JLabel() {
-						@Override
-						protected void paintComponent(Graphics g) {
-							// TODO Auto-generated method stub
-							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
-							setOpaque(false);
-							super.paintComponents(g);
-						}
-					};
+				
+				BufferedImage image = delegator.getImage(itemList.get(i).getImgurl1());
+				if(image == null) {
+					image = delegator.getImage(smallNoImgUrl); 
 				}
+				ImageIcon icon = new ImageIcon(image);
+				
+				imgLa = new JLabel() {
+					@Override
+					protected void paintComponent(Graphics g) {
+						// TODO Auto-generated method stub
+						g.drawImage(icon.getImage(), 0, 0, 200, 120, null);
+						setOpaque(false);
+						super.paintComponents(g);
+					}
+				};
+				
+				txtLa = new JLabel(itemList.get(i).getTitle().replaceAll("\n", " "));
+				contentLabel = new JLabel(itemList.get(i).getContent());
 
 				stateLabel.setLocation(380, 10);
 				if (itemList.get(i).getState() == 0) {
@@ -282,10 +276,12 @@ public class ItemMain extends JFrame implements ActionListener {
 				}
 
 				imgLa.setBounds(0, 0, 200, 120);
-				txtLa = new JLabel(
-						"<html>" + itemList.get(i).getTitle() + "<br/>" + itemList.get(i).getContent() + "</html>");
-				txtLa.setBounds(200, 0, 300, 120);
+				txtLa.setBounds(210, 10, 300, 50);
+				txtLa.setFont(new Font("font", Font.BOLD, 20));
+				contentLabel.setBounds(210, 30, 300, 70);
+				contentLabel.setForeground(Color.gray);
 				thumPn1.add(stateLabel);
+				thumPn1.add(contentLabel);
 				thumPn1.add(txtLa);
 				thumPn1.add(imgLa);
 				j++;
@@ -294,29 +290,25 @@ public class ItemMain extends JFrame implements ActionListener {
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
 
-				if (itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
-					ImageIcon img = new ImageIcon(smallNoImgUrl);
-					imgLa = new JLabel() {
-						@Override
-						protected void paintComponent(Graphics g) {
-							// TODO Auto-generated method stub
-							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
-							setOpaque(false);
-							super.paintComponents(g);
-						}
-					};
-				} else {
-					ImageIcon img = new ImageIcon(itemList.get(i).getImgurl1());
-					imgLa = new JLabel() {
-						@Override
-						protected void paintComponent(Graphics g) {
-							// TODO Auto-generated method stub
-							g.drawImage(img.getImage(), 0, 0, 200, 120, null);
-							setOpaque(false);
-							super.paintComponents(g);
-						}
-					};
+				BufferedImage image = delegator.getImage(itemList.get(i).getImgurl1());
+				if(image == null) {
+					image = delegator.getImage(smallNoImgUrl); 
 				}
+				ImageIcon icon = new ImageIcon(image);
+				
+				imgLa = new JLabel() {
+					@Override
+					protected void paintComponent(Graphics g) {
+						// TODO Auto-generated method stub
+						g.drawImage(icon.getImage(), 0, 0, 200, 120, null);
+						setOpaque(false);
+						super.paintComponents(g);
+					}
+				};
+				
+				txtLa = new JLabel(itemList.get(i).getTitle().replaceAll("\n", " "));
+				contentLabel = new JLabel(itemList.get(i).getContent());
+				
 				stateLabel.setLocation(380, 10);
 				if (itemList.get(i).getState() == 0) {
 					imgLa.setBorder(new LineBorder(mainRed, 1));
@@ -326,11 +318,14 @@ public class ItemMain extends JFrame implements ActionListener {
 					imgLa.setBorder(new LineBorder(mainBlack, 2));
 					stateLabel.setText("완료됨");
 				}
-				txtLa = new JLabel(
-						"<html>" + itemList.get(i).getTitle() + "<br/>" + itemList.get(i).getContent() + "</html>");
+				
 				imgLa.setBounds(0, 0, 200, 120);
-				txtLa.setBounds(200, 0, 300, 120);
+				txtLa.setBounds(210, 10, 300, 50);
+				txtLa.setFont(new Font("font", Font.BOLD, 20));
+				contentLabel.setBounds(210, 30, 300, 70);
+				contentLabel.setForeground(Color.gray);
 				thumPn1.add(stateLabel);
+				thumPn1.add(contentLabel);
 				thumPn1.add(txtLa);
 				thumPn1.add(imgLa);
 			}
@@ -396,12 +391,12 @@ public class ItemMain extends JFrame implements ActionListener {
 		} else if (obj == signupBtn) {
 			delegator.personController.SignUp();
 			this.dispose();
-		}else if(obj == logoutBtn) {
-			int result =delegator.personController.Logout();
+		} else if (obj == logoutBtn) {
+			int result = delegator.personController.Logout();
 			if (result == 0) {
 				this.dispose();
 			}
-		}else if(obj == searchBtn) {
+		} else if (obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.itemBbsController.searchList(searchWord);
 			this.dispose();

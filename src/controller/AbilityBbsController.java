@@ -50,7 +50,8 @@ public class AbilityBbsController {
 
 	public void AbilityDetail(AbilityBbs abilityDto) {
 		List<Category> categoryList = categoryService.getAllCategories(1);
-		new AbilityDetail(abilityDto, categoryList);
+		Category abilityCategory = categoryService.getCategory(abilityDto.getCategory_id());
+		new AbilityDetail(abilityDto, categoryList, abilityCategory);
 	}
 
 	public void searchList(String searchWord) {

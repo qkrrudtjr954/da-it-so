@@ -43,7 +43,6 @@ public class ItemWrite extends JFrame implements ActionListener {
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
-	private String filetype1, filetype2, filetype3, filetype4;
 
 	List<Category> m_categoryList = null;
 
@@ -176,10 +175,9 @@ public class ItemWrite extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for (int i = 0; i < categoryList.size(); i++) {
-
-			BufferedImage categoryImage = delegator.getImage("item/"+ categoryList.get(i).getTitle() +".png");
+			BufferedImage categoryImage = delegator.getImage("item/" + categoryList.get(i).getTitle() + ".png");
 			ImageIcon categoryIcon = new ImageIcon(categoryImage);
-			
+
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryIcon.getImage(), 0, 0, null);
@@ -196,7 +194,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 					int seq = Integer.parseInt(category.getName());
 
 					Delegator delegator = Delegator.getInstance();
-					delegator.abilityBbsController.SelectAbilityCategories(seq);
+					delegator.itemBbsController.SelectItemCategories(seq);
 					dispose();
 				}
 			});
@@ -341,6 +339,19 @@ public class ItemWrite extends JFrame implements ActionListener {
 		setVisible(true);
 
 	}
+	
+	
+	private boolean checkPrice() {
+		String _price = priceTextF.getText();
+
+		for (int i = 0; i < _price.length(); i++) {
+			char ch = _price.charAt(i);
+			if ((int) ch < 47 || (int) ch > 58) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -358,11 +369,10 @@ public class ItemWrite extends JFrame implements ActionListener {
 			delegator.personController.SignUp();
 			this.dispose();
 		} else if(obj == logoutBtn) {
-		int result =delegator.personController.Logout();
-		if (result == 0) {
-			this.dispose();
-		}
-
+			int result =delegator.personController.Logout();
+			if (result == 0) {
+				this.dispose();
+			}
 		} else if(obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.itemBbsController.searchList(searchWord);
@@ -400,56 +410,57 @@ public class ItemWrite extends JFrame implements ActionListener {
 		}
 
 		if (obj == writeBtn) {
-			if (!img1TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img1TextF.getText());
-			}
-			if (!img2TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img2TextF.getText());
-			}
-			if (!img3TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img3TextF.getText());
-			}
-			if (!img4TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img4TextF.getText());
-			}
-
-			ItemBbs itemDto = new ItemBbs();
-
-			String id = delegator.getCurrent_user().getId();
-
-			int categoryIndex = cateCombo.getSelectedIndex();
-			itemDto.setCategory_id(this.m_categoryList.get(categoryIndex).getSeq());
-			itemDto.setTitle(titleTextF.getText());
-			
-			itemDto.setImgurl1("userImg/"+filename1);
-			itemDto.setImgurl2("userImg/"+filename2);
-			itemDto.setImgurl3("userImg/"+filename3);
-			itemDto.setImgurl4("userImg/"+filename4);
-			
-			if (keywordTextF.getText().equals("ex) #중고 #컴퓨터 #노트")) {
-				itemDto.setKeyword("");
+			if(checkPrice()) {
+				
+				if (!img1TextF.getText().isEmpty()) {
+					filesend fs = new filesend(img1TextF.getText());
+				}
+				if (!img2TextF.getText().isEmpty()) {
+					filesend fs = new filesend(img2TextF.getText());
+				}
+				if (!img3TextF.getText().isEmpty()) {
+					filesend fs = new filesend(img3TextF.getText());
+				}
+				if (!img4TextF.getText().isEmpty()) {
+					filesend fs = new filesend(img4TextF.getText());
+				}
+				
+				ItemBbs itemDto = new ItemBbs();
+				
+				String id = delegator.getCurrent_user().getId();
+				
+				int categoryIndex = cateCombo.getSelectedIndex();
+				itemDto.setCategory_id(this.m_categoryList.get(categoryIndex).getSeq());
+				itemDto.setTitle(titleTextF.getText());
+				
+				itemDto.setImgurl1("userImg/"+filename1);
+				itemDto.setImgurl2("userImg/"+filename2);
+				itemDto.setImgurl3("userImg/"+filename3);
+				itemDto.setImgurl4("userImg/"+filename4);
+				
+				if (keywordTextF.getText().equals("ex) #중고 #컴퓨터 #노트")) {
+					itemDto.setKeyword("");
+				} else {
+					itemDto.setKeyword(keywordTextF.getText());
+				}
+				itemDto.setPrice(Integer.parseInt(priceTextF.getText()));
+				itemDto.setContent(contentTextPn.getText());
+				itemDto.setUser_id(id);
+				
+				/* delegator 에 현재 로그인된 유저 정보를 받아오도록 수정 */
+				ItemBbsService itemservice = new ItemBbsService();
+				
+				boolean addItemCK = itemservice.addItem(itemDto);
+				
+				if (addItemCK) {
+					delegator.itemBbsController.itemDetail(itemDto);
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "글작성 실패");
+					return;
+				}
 			} else {
-				itemDto.setKeyword(keywordTextF.getText());
-			}
-			itemDto.setPrice(Integer.parseInt(priceTextF.getText()));
-			itemDto.setContent(contentTextPn.getText());
-			itemDto.setUser_id(id);
-
-			/* delegator 에 현재 로그인된 유저 정보를 받아오도록 수정 */
-			ItemBbsService itemservice = new ItemBbsService();
-
-			boolean addItemCK = itemservice.addItem(itemDto);
-			boolean priceCK = false;
-			System.out.println("addItemCK" + addItemCK);
-			if (addItemCK) {
-				delegator.itemBbsController.itemDetail(itemDto);
-				this.dispose();
-			} else if (priceCK) {
 				JOptionPane.showMessageDialog(null, "금액은 숫자만 입력 가능합니다.");
-				return;
-			} else {
-				JOptionPane.showMessageDialog(null, "글작성 실패");
-				return;
 			}
 
 		}

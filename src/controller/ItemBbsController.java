@@ -3,7 +3,6 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.AbilityBbs;
 import javax.swing.JOptionPane;
 
 import dto.Category;
@@ -13,7 +12,6 @@ import service.CategoryService;
 import service.CategoryServiceImpl;
 import service.ItemBbsService;
 import service.ItemBbsServiceImpl;
-import view.AbilityMain;
 import view.ImageDetail;
 import view.ItemDetail;
 import view.ItemMain;
@@ -47,7 +45,9 @@ public class ItemBbsController {
 
 	public void itemDetail(ItemBbs itemDto) {
 		List<Category> categoryList = categoryService.getAllCategories(0);
-		new ItemDetail(itemDto, categoryList);
+		Category itemCategory = categoryService.getCategory(itemDto.getCategory_id());
+		
+		new ItemDetail(itemDto, categoryList, itemCategory);
 	}
 
 	public void SelectItemCategories(int category_id) {

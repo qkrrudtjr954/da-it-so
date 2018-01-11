@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -44,7 +45,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 	ItemBbs m_itemDto = null;
 	List<Category> m_categoryList = null;
 
-	public ItemDetail(ItemBbs itemDto, List<Category> categoryList) {
+	public ItemDetail(ItemBbs itemDto, List<Category> categoryList, Category itemCategory) {
 		Delegator delegator = Delegator.getInstance();
 		this.m_itemDto = itemDto;
 		this.m_categoryList = categoryList;
@@ -54,18 +55,22 @@ public class ItemDetail extends JFrame implements ActionListener {
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
-		if (itemDto.getImgurl1() == null || itemDto.getImgurl1().equals("userImg/null")) {
-			itemDto.setImgurl1(noImgUrl);
-		}
-		if (itemDto.getImgurl2() == null || itemDto.getImgurl2().equals("userImg/null")) {
-			itemDto.setImgurl2(noImgUrl);
-		}
-		if (itemDto.getImgurl3() == null || itemDto.getImgurl3().equals("userImg/null")) {
-			itemDto.setImgurl3(noImgUrl);
-		}
-		if (itemDto.getImgurl4() == null || itemDto.getImgurl4().equals("userImg/null")) {
-			itemDto.setImgurl4(noImgUrl);
-		}
+		// if (itemDto.getImgurl1() == null ||
+		// itemDto.getImgurl1().equals("userImg/null")) {
+		// itemDto.setImgurl1(noImgUrl);
+		// }
+		// if (itemDto.getImgurl2() == null ||
+		// itemDto.getImgurl2().equals("userImg/null")) {
+		// itemDto.setImgurl2(noImgUrl);
+		// }
+		// if (itemDto.getImgurl3() == null ||
+		// itemDto.getImgurl3().equals("userImg/null")) {
+		// itemDto.setImgurl3(noImgUrl);
+		// }
+		// if (itemDto.getImgurl4() == null ||
+		// itemDto.getImgurl4().equals("userImg/null")) {
+		// itemDto.setImgurl4(noImgUrl);
+		// }
 
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
@@ -210,7 +215,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 					int seq = Integer.parseInt(category.getName());
 
 					Delegator delegator = Delegator.getInstance();
-					delegator.abilityBbsController.SelectAbilityCategories(seq);
+					delegator.itemBbsController.SelectItemCategories(seq);
 					dispose();
 				}
 			});
@@ -247,12 +252,12 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		imagePannel.add(sellLb);
 		// itemImage
-		BufferedImage itemImage = delegator.getImage(itemDto.getImgurl1());	
-		if(itemImage == null) {
-			 itemImage = delegator.getImage(noImgUrl);
+		BufferedImage itemImage = delegator.getImage(itemDto.getImgurl1());
+		if (itemImage == null) {
+			itemImage = delegator.getImage(noImgUrl);
 		}
-		ImageIcon itemIcon = new ImageIcon(itemImage);	
-		
+		ImageIcon itemIcon = new ImageIcon(itemImage);
+
 		itemImagePn = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemIcon.getImage(), 0, 0, 400, 400, null);
@@ -266,7 +271,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
 				Delegator delegator = Delegator.getInstance();
-				delegator.abilityBbsController.ImageView(itemDto.getImgurl1());
+				delegator.itemBbsController.ImageView(itemDto.getImgurl1());
 			}
 		});
 		imagePannel.add(itemImagePn);
@@ -277,18 +282,18 @@ public class ItemDetail extends JFrame implements ActionListener {
 		subimagePn.setBounds(0, 550, 420, 100);
 		// subimagePn.setBackground(Color.PINK);
 
-		int compX = subimagePn.getWidth()/4;
+		int compX = subimagePn.getWidth() / 4;
 		int compY = subimagePn.getHeight();
-		
+
 		// 서브 이미지1
 		BufferedImage subItemImg1 = delegator.getImage(itemDto.getImgurl1());
-		if(subItemImg1 == null) {
+		if (subItemImg1 == null) {
 			subItemImg1 = delegator.getImage(noImgUrl);
 		}
-		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);		
+		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);
 		subimage1 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon1.getImage(), 0, 0, compX, compY,  null);
+				g.drawImage(subItemIcon1.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -300,20 +305,20 @@ public class ItemDetail extends JFrame implements ActionListener {
 				// TODO Auto-generated method stub
 				Delegator delegator = Delegator.getInstance();
 				String img = itemDto.getImgurl1();
-				delegator.abilityBbsController.ImageView(img);
+				delegator.itemBbsController.ImageView(img);
 			}
 		});
 		subimagePn.add(subimage1);
 
 		// 서브이미지2
 		BufferedImage subItemImg2 = delegator.getImage(itemDto.getImgurl2());
-		if(subItemImg2 == null) {
+		if (subItemImg2 == null) {
 			subItemImg2 = delegator.getImage(noImgUrl);
 		}
 		ImageIcon subItemIcon2 = new ImageIcon(subItemImg2);
 		subimage2 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon2.getImage(), 0, 0, compX, compY,  null);
+				g.drawImage(subItemIcon2.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -325,20 +330,20 @@ public class ItemDetail extends JFrame implements ActionListener {
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
 				Delegator delegator = Delegator.getInstance();
-				delegator.abilityBbsController.ImageView(itemDto.getImgurl2());
+				delegator.itemBbsController.ImageView(itemDto.getImgurl2());
 			}
 		});
 		subimagePn.add(subimage2);
 		// 서브이미지3
 
 		BufferedImage subItemImg3 = delegator.getImage(itemDto.getImgurl3());
-		if(subItemImg3 == null) {
+		if (subItemImg3 == null) {
 			subItemImg3 = delegator.getImage(noImgUrl);
 		}
 		ImageIcon subItemIcon3 = new ImageIcon(subItemImg3);
 		subimage3 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon3.getImage(), 0, 0, compX, compY,  null);
+				g.drawImage(subItemIcon3.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -349,20 +354,20 @@ public class ItemDetail extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				Delegator delegator = Delegator.getInstance();
-				delegator.abilityBbsController.ImageView(itemDto.getImgurl3());
+				delegator.itemBbsController.ImageView(itemDto.getImgurl3());
 			}
 		});
 		subimagePn.add(subimage3);
 
 		// 서브이미지4
 		BufferedImage subItemImg4 = delegator.getImage(itemDto.getImgurl4());
-		if(subItemImg4 == null) {
+		if (subItemImg4 == null) {
 			subItemImg4 = delegator.getImage(noImgUrl);
 		}
 		ImageIcon subItemIcon4 = new ImageIcon(subItemImg4);
 		subimage4 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon4.getImage(), 0, 0, compX, compY,  null);
+				g.drawImage(subItemIcon4.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -373,7 +378,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				Delegator delegator = Delegator.getInstance();
-				delegator.abilityBbsController.ImageView(itemDto.getImgurl4());
+				delegator.itemBbsController.ImageView(itemDto.getImgurl4());
 			}
 		});
 		subimagePn.add(subimage4);
@@ -401,18 +406,17 @@ public class ItemDetail extends JFrame implements ActionListener {
 		iteminfoPn.add(detailtitleLb);
 
 		// detailprice
-		priceLb = new JLabel(m_itemDto.getPrice() + "");
+		priceLb = new JLabel(m_itemDto.getPrice() + " 원");
 		priceLb.setBounds(10, 40, 340, 30);
-		priceLb.setFont(new Font(m_itemDto.getPrice() + "", Font.BOLD, 15));
+		priceLb.setFont(new Font(m_itemDto.getPrice() + " 원", Font.BOLD, 15));
 		iteminfoPn.add(priceLb);
 
 		// keyword
 
 		String key = m_itemDto.getKeyword();
-
 		int rowSize = 0;
+
 		String[] keyarray;
-		keyarray = new String[rowSize * 3];
 		keyarray = key.split("-key-");
 
 		if (keyarray.length % 3 == 0) {
@@ -423,15 +427,15 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		JPanel keywordPanel = new JPanel();
 		keywordPanel.setLocation(10, 70);
-		keywordPanel.setSize(240, 30 * rowSize);
+		keywordPanel.setSize(240, 40);
 		keywordPanel.setBackground(Color.white);
 		keywordPanel.setLayout(null);
 
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
-
+		
 		int k = 0;
 		for (int i = 0; i < rowSize; i++) {
-			for (int j = 0; j < keyarray.length; j++) {
+			for (int j = 0; j < 3; j++) {
 
 				keywordLabel[i][j] = new JLabel();
 				keywordLabel[i][j].setOpaque(true);
@@ -440,16 +444,19 @@ public class ItemDetail extends JFrame implements ActionListener {
 				keywordLabel[i][j].setText("#" + keyarray[k]);
 				keywordLabel[i][j].setSize(70, 30);
 				keywordLabel[i][j].setLocation((j * 80), (i * 40));
+
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
+				if (k == keyarray.length) {
+					break;
+				}
 			}
 		}
-
 		iteminfoPn.add(keywordPanel);
 
 		// categori
-		cateLb = new JLabel("카테고리 : " + m_itemDto.getCategory_id());
-		cateLb.setBounds(10, 100, 80, 30);
+		cateLb = new JLabel("카테고리 : " + itemCategory.getDescription());
+		cateLb.setBounds(10, 100, 200, 30);
 		cateLb.setOpaque(true);
 		cateLb.setBackground(Color.white);
 		iteminfoPn.add(cateLb);
@@ -543,56 +550,54 @@ public class ItemDetail extends JFrame implements ActionListener {
 			this.dispose();
 
 		} else if (obj == deleteBtn) {
-			if (delegator.getCurrent_user() != null) {
 
+			if (delegator.getCurrent_user() != null) {
 				System.out.println("login Success");
 				String WriteId = m_itemDto.getUser_id();
 				String ViewId = delegator.getCurrent_user().getId();
 
 				if (ViewId.equals(WriteId)) {
-					int result = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "", JOptionPane.YES_NO_OPTION,
-							JOptionPane.WARNING_MESSAGE);
-					if (result == 0) {
-						boolean deleteCK = delegator.itemBbsController.setDeleteItemBbs(m_itemDto);
-						if (deleteCK) {
-							JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
-							delegator.itemBbsController.allItemList();
-							this.dispose();
-						} else {
-							JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
-						}
+					boolean deleteCK = delegator.itemBbsController.setDeleteItemBbs(m_itemDto);
+					if (deleteCK) {
+						JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
+						delegator.itemBbsController.allItemList();
+						this.dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
+						JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
-					delegator.personController.Login();
-					this.dispose();
+					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
 				}
-			} else if (obj == completeBtn) {
-				if (delegator.getCurrent_user() != null) {
-					System.out.println("login Success");
-					String WriteId = m_itemDto.getUser_id();
-					String ViewId = delegator.getCurrent_user().getId();
 
-					if (ViewId.equals(WriteId)) {
-						boolean completeCK = delegator.itemBbsController.setCompleteItemBbs(m_itemDto);
+			} else {
+				JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
+				delegator.personController.Login();
+				this.dispose();
+			}
+		} else if (obj == completeBtn) {
+			if (delegator.getCurrent_user() != null) {
+				System.out.println("login Success");
+				String WriteId = m_itemDto.getUser_id();
+				String ViewId = delegator.getCurrent_user().getId();
 
-						if (completeCK) {
-							JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
-							delegator.itemBbsController.allItemList();
-							this.dispose();
-						} else {
-							JOptionPane.showMessageDialog(null, "완료 처리할 수 없습니다.");
-						}
+				if (ViewId.equals(WriteId)) {
+					boolean completeCK = delegator.itemBbsController.setCompleteItemBbs(m_itemDto);
+
+					if (completeCK) {
+						JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
+						delegator.itemBbsController.allItemList();
+						this.dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "작성자만이 완료 할 수 있습니다.");
+						JOptionPane.showMessageDialog(null, "완료 처리할 수 없습니다.");
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
-					delegator.personController.Login();
-					this.dispose();
+					JOptionPane.showMessageDialog(null, "작성자만이 완료 할 수 있습니다.");
 				}
+
+			} else {
+				JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
+				delegator.personController.Login();
+				this.dispose();
 			}
 
 		}

@@ -328,6 +328,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 
 	}
 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -351,7 +352,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 			}	
 		} else if (btn == searchBtn) {
 			String searchWord = searchTextF.getText();
-			delegator.itemBbsController.searchList(searchWord);
+			delegator.abilityBbsController.searchList(searchWord);
 			this.dispose();
 		}
 

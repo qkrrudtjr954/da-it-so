@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import controller.ItemBbsController;
 import delegator.Delegator;
 import dto.AbilityBbs;
 import dto.Category;
@@ -31,19 +32,20 @@ import dto.Category;
 public class AbilityDetail extends JFrame implements ActionListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, imagePannel, iteminfoPn, itemImagePn, subimagePn,
 			detailPn, subimage1, subimage2, subimage3, subimage4;
-	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn, listBtn, deleteBtn, completeBtn;
+	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn, listBtn, deleteBtn,
+			completeBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
-	
-	AbilityBbs m_abilityDto = null;
+
+	AbilityBbs abilityDto = null;
 	List<Category> m_categoryList = null;
 
 	String noImgUrl = "icon/noimg.png";
-	
-	public AbilityDetail(AbilityBbs abilityDto, List<Category> categoryList) {
+
+	public AbilityDetail(AbilityBbs abilityDto, List<Category> categoryList, Category abilityCategory) {
 
 		Delegator delegator = Delegator.getInstance();
-		this.m_abilityDto = abilityDto;
+		this.abilityDto = abilityDto;
 		this.m_categoryList = categoryList;
 
 		Container cn = getContentPane();
@@ -51,20 +53,24 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
-//		
-//		if (abilityDto.getImgurl1() == null || abilityDto.getImgurl1().equals("userImg/null")) {
-//			abilityDto.setImgurl1(noImgUrl);
-//		}
-//		if (abilityDto.getImgurl2() == null || abilityDto.getImgurl2().equals("userImg/null")) {
-//			abilityDto.setImgurl2(noImgUrl);
-//		}
-//		if (abilityDto.getImgurl3() == null || abilityDto.getImgurl3().equals("userImg/null")) {
-//			abilityDto.setImgurl3(noImgUrl);
-//		}
-//		if (abilityDto.getImgurl4() == null || abilityDto.getImgurl4().equals("userImg/null")) {
-//			abilityDto.setImgurl4(noImgUrl);
-//		}
-//		
+		//
+		// if (abilityDto.getImgurl1() == null ||
+		// abilityDto.getImgurl1().equals("userImg/null")) {
+		// abilityDto.setImgurl1(noImgUrl);
+		// }
+		// if (abilityDto.getImgurl2() == null ||
+		// abilityDto.getImgurl2().equals("userImg/null")) {
+		// abilityDto.setImgurl2(noImgUrl);
+		// }
+		// if (abilityDto.getImgurl3() == null ||
+		// abilityDto.getImgurl3().equals("userImg/null")) {
+		// abilityDto.setImgurl3(noImgUrl);
+		// }
+		// if (abilityDto.getImgurl4() == null ||
+		// abilityDto.getImgurl4().equals("userImg/null")) {
+		// abilityDto.setImgurl4(noImgUrl);
+		// }
+		//
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		headerPn = new JPanel();
@@ -84,7 +90,6 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		scrollPane.setBackground(Color.black);
 		// scrollPane.add(detailPn);
 
-
 		// headerlogo
 		BufferedImage headerImg = delegator.getImage("icon/headerlogo.png");
 		ImageIcon headerimage = new ImageIcon(headerImg);
@@ -96,7 +101,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-		
+
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -191,10 +196,10 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for (int i = 0; i < categoryList.size(); i++) {
-			
-			BufferedImage categoryImage = delegator.getImage("ability/"+ categoryList.get(i).getTitle() +".png");
+
+			BufferedImage categoryImage = delegator.getImage("ability/" + categoryList.get(i).getTitle() + ".png");
 			ImageIcon categoryIcon = new ImageIcon(categoryImage);
-			
+
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryIcon.getImage(), 0, 0, null);
@@ -244,13 +249,13 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		imagePannel.add(sellLb);
 		// itemImage
-		
-		BufferedImage itemImage = delegator.getImage(abilityDto.getImgurl1());		
-		if(itemImage == null) {
-			abilityDto.setImgurl1(noImgUrl);
+
+		BufferedImage itemImage = delegator.getImage(abilityDto.getImgurl1());
+		if (itemImage == null) {
+			itemImage = delegator.getImage(noImgUrl);
 		}
-		ImageIcon itemIcon = new ImageIcon(itemImage);	
-		
+		ImageIcon itemIcon = new ImageIcon(itemImage);
+
 		itemImagePn = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemIcon.getImage(), 0, 0, 400, 400, null);
@@ -275,18 +280,18 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		subimagePn.setBounds(0, 550, 420, 100);
 		// subimagePn.setBackground(Color.PINK);
 
-		int compX = subimagePn.getWidth()/4;
+		int compX = subimagePn.getWidth() / 4;
 		int compY = subimagePn.getHeight();
-		
+
 		// 서브 이미지1
 		BufferedImage subItemImg1 = delegator.getImage(abilityDto.getImgurl1());
-		if(subItemImg1 == null) {
+		if (subItemImg1 == null) {
 			subItemImg1 = delegator.getImage(noImgUrl);
 		}
-		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);		
+		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);
 		subimage1 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon1.getImage(), 0, 0, compX, compY,  null);
+				g.drawImage(subItemIcon1.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -305,19 +310,19 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		// 서브이미지2
 		BufferedImage subItemImg2 = delegator.getImage(abilityDto.getImgurl2());
-		if(subItemImg2 == null) {
-			abilityDto.setImgurl2(noImgUrl);
+		if (subItemImg2 == null) {
+			subItemImg2 = delegator.getImage(noImgUrl);
 		}
 		ImageIcon subItemIcon2 = new ImageIcon(subItemImg2);
 		subimage2 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon2.getImage(), 0, 0, compX, compY,  null);
+				g.drawImage(subItemIcon2.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
 		subimage2.setBorder(new LineBorder(commonRedColor, 2));
-		System.out.println("2");
+		
 		subimage2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -330,13 +335,13 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		// 서브이미지3
 
 		BufferedImage subItemImg3 = delegator.getImage(abilityDto.getImgurl3());
-		if(subItemImg3 == null) {
-			abilityDto.setImgurl3(noImgUrl);
+		if (subItemImg3 == null) {
+			subItemImg3 = delegator.getImage(noImgUrl);
 		}
 		ImageIcon subItemIcon3 = new ImageIcon(subItemImg3);
 		subimage3 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon3.getImage(), 0, 0, compX, compY,  null);
+				g.drawImage(subItemIcon3.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -354,13 +359,13 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		// 서브이미지4
 		BufferedImage subItemImg4 = delegator.getImage(abilityDto.getImgurl4());
-		if(subItemImg4 == null) {
-			abilityDto.setImgurl4(noImgUrl);
+		if (subItemImg4 == null) {
+			subItemImg4 = delegator.getImage(noImgUrl);
 		}
 		ImageIcon subItemIcon4 = new ImageIcon(subItemImg4);
 		subimage4 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon4.getImage(), 0, 0, compX, compY,  null);
+				g.drawImage(subItemIcon4.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -395,10 +400,10 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		// Ability
 
-		String key = abilityDto.getAbility();
-		System.out.println("key값 : " + key);
-		int rowSize = 0;
 		
+		String key = abilityDto.getAbility();
+		int rowSize = 0;
+
 		String[] keyarray;
 		keyarray = key.split("-key-");
 
@@ -409,7 +414,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		}
 
 		JPanel keywordPanel = new JPanel();
-		keywordPanel.setLocation(10, 60);
+		keywordPanel.setLocation(10, 70);
 		keywordPanel.setSize(240, 40);
 		keywordPanel.setBackground(Color.white);
 		keywordPanel.setLayout(null);
@@ -430,17 +435,16 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
-				if(k==keyarray.length) {
+				if (k == keyarray.length) {
 					break;
 				}
 			}
 		}
 		iteminfoPn.add(keywordPanel);
 
-
 		// category
-		cateLb = new JLabel("카테고리 : " + abilityDto.getCategory_id());
-		cateLb.setBounds(10, 100, 80, 30);
+		cateLb = new JLabel("카테고리 : " + abilityCategory.getDescription());
+		cateLb.setBounds(10, 100, 200, 30);
 		cateLb.setOpaque(true);
 		cateLb.setBackground(Color.white);
 		iteminfoPn.add(cateLb);
@@ -452,7 +456,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
 		iteminfoPn.add(explanationLb);
-		
+
 		// chatBtn
 		BufferedImage chatImage = delegator.getImage("icon/chatting.png");
 		ImageIcon chatIcon = new ImageIcon(chatImage);
@@ -462,29 +466,29 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		chatBtn.setBorderPainted(false);
 		chatBtn.setFocusPainted(false);
 		chatBtn.addActionListener(this);
-		
-		//deleteBtn
+
+		// deleteBtn
 		deleteBtn = new JButton("게시물 삭제");
 		deleteBtn.setBounds(550, 555, 165, 35);
 		deleteBtn.setOpaque(false);
 		deleteBtn.addActionListener(this);
-		
-		//go back to list button
+
+		// go back to list button
 		listBtn = new JButton("목록으로 돌아가기");
-		//listBtn.setBounds(200, 10, 120, 30);
+		// listBtn.setBounds(200, 10, 120, 30);
 		listBtn.setBounds(720, 555, 170, 35);
 		listBtn.setOpaque(false);
 		listBtn.setForeground(commonRedColor);
 		listBtn.addActionListener(this);
-		//iteminfoPn.add(listBtn);
+		// iteminfoPn.add(listBtn);
 		// iteminfoPn.setBounds(580, 135, 340, 400);
 
-		//completeBtn
+		// completeBtn
 		completeBtn = new JButton("완료");
 		completeBtn.setBounds(550, 620, 340, 40);
 		completeBtn.setOpaque(false);
 		completeBtn.addActionListener(this);
-		
+
 		detailPn.add(listBtn);
 		detailPn.add(deleteBtn);
 		detailPn.add(completeBtn);
@@ -523,7 +527,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			delegator.personController.SignUp();
 			this.dispose();
 		} else if (obj == logoutBtn) {
-			int result =delegator.personController.Logout();
+			int result = delegator.personController.Logout();
 			if (result == 0) {
 				this.dispose();
 			}
@@ -533,55 +537,55 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		} else if (obj == listBtn) {
 			delegator.abilityBbsController.allAbilityList();
 			this.dispose();
-		} else if(obj == deleteBtn) {
-			if(delegator.getCurrent_user() != null) {
-				System.out.println("login Success");
-				String WriteId = m_abilityDto.getUser_id();
+		}  else if (obj == deleteBtn) {
+
+			if (delegator.getCurrent_user() != null) {
+				String WriteId = abilityDto.getUser_id();
 				String ViewId = delegator.getCurrent_user().getId();
 
-				if(ViewId.equals(WriteId)) {
-					boolean deleteCK = delegator.abilityBbsController.setDeleteAbilityBbs(m_abilityDto);
-					int result = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-					 if(result == 0) {
-					if(deleteCK) {
-						JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
+				if (ViewId.equals(WriteId)) {
+					boolean deleteCK = delegator.abilityBbsController.setDeleteAbilityBbs(abilityDto);
+					if (deleteCK) {
+						JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
 						delegator.abilityBbsController.allAbilityList();
 						this.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
 					}
-				 }
 				} else {
 					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
 				}
+
 			} else {
 				JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
 				delegator.personController.Login();
 				this.dispose();
 			}
-		} else if(obj == completeBtn) {
-			if(delegator.getCurrent_user() != null) {
-				System.out.println("login Success");
-				String WriteId = m_abilityDto.getUser_id();
+		} else if (obj == completeBtn) {
+			if (delegator.getCurrent_user() != null) {
+				String WriteId = abilityDto.getUser_id();
 				String ViewId = delegator.getCurrent_user().getId();
 
-				if(ViewId.equals(WriteId) == true) {
-					boolean completeCK = delegator.abilityBbsController.setCompleteAbilityBbs(m_abilityDto);
-					if(completeCK) {
+				if (ViewId.equals(WriteId)) {
+					boolean completeCK = delegator.abilityBbsController.setCompleteAbilityBbs(abilityDto);
+
+					if (completeCK) {
 						JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
-						delegator.abilityBbsController.allAbilityList();
+						delegator.itemBbsController.allItemList();
 						this.dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "완료 되지 못했습니다.");
+						JOptionPane.showMessageDialog(null, "완료 처리할 수 없습니다.");
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "작성자만이 완료 할 수 있습니다.");
 				}
+
 			} else {
 				JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
 				delegator.personController.Login();
 				this.dispose();
 			}
+
 		}
 	}
 }
