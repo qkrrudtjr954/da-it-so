@@ -38,7 +38,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	AbilityBbs m_abilityDto = null;
 	List<Category> m_categoryList = null;
 
-	String noImgUrl = "icon/noimage.png";
+	String noImgUrl = "icon/noimg.png";
 	
 	public AbilityDetail(AbilityBbs abilityDto, List<Category> categoryList) {
 
@@ -51,20 +51,20 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
-		
-		if (abilityDto.getImgurl1() == null || abilityDto.getImgurl1().equals("userImg/null")) {
-			abilityDto.setImgurl1(noImgUrl);
-		}
-		if (abilityDto.getImgurl2() == null || abilityDto.getImgurl2().equals("userImg/null")) {
-			abilityDto.setImgurl2(noImgUrl);
-		}
-		if (abilityDto.getImgurl3() == null || abilityDto.getImgurl3().equals("userImg/null")) {
-			abilityDto.setImgurl3(noImgUrl);
-		}
-		if (abilityDto.getImgurl4() == null || abilityDto.getImgurl4().equals("userImg/null")) {
-			abilityDto.setImgurl4(noImgUrl);
-		}
-		
+//		
+//		if (abilityDto.getImgurl1() == null || abilityDto.getImgurl1().equals("userImg/null")) {
+//			abilityDto.setImgurl1(noImgUrl);
+//		}
+//		if (abilityDto.getImgurl2() == null || abilityDto.getImgurl2().equals("userImg/null")) {
+//			abilityDto.setImgurl2(noImgUrl);
+//		}
+//		if (abilityDto.getImgurl3() == null || abilityDto.getImgurl3().equals("userImg/null")) {
+//			abilityDto.setImgurl3(noImgUrl);
+//		}
+//		if (abilityDto.getImgurl4() == null || abilityDto.getImgurl4().equals("userImg/null")) {
+//			abilityDto.setImgurl4(noImgUrl);
+//		}
+//		
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		headerPn = new JPanel();
@@ -245,8 +245,12 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		imagePannel.add(sellLb);
 		// itemImage
 		
-		BufferedImage itemImage = delegator.getImage(abilityDto.getImgurl1());
-		ImageIcon itemIcon = new ImageIcon(itemImage);		
+		BufferedImage itemImage = delegator.getImage(abilityDto.getImgurl1());		
+		if(itemImage == null) {
+			abilityDto.setImgurl1(noImgUrl);
+		}
+		ImageIcon itemIcon = new ImageIcon(itemImage);	
+		
 		itemImagePn = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemIcon.getImage(), 0, 0, 400, 400, null);
@@ -276,6 +280,9 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		
 		// 서브 이미지1
 		BufferedImage subItemImg1 = delegator.getImage(abilityDto.getImgurl1());
+		if(subItemImg1 == null) {
+			subItemImg1 = delegator.getImage(noImgUrl);
+		}
 		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);		
 		subimage1 = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -298,6 +305,9 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		// 서브이미지2
 		BufferedImage subItemImg2 = delegator.getImage(abilityDto.getImgurl2());
+		if(subItemImg2 == null) {
+			abilityDto.setImgurl2(noImgUrl);
+		}
 		ImageIcon subItemIcon2 = new ImageIcon(subItemImg2);
 		subimage2 = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -320,6 +330,9 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		// 서브이미지3
 
 		BufferedImage subItemImg3 = delegator.getImage(abilityDto.getImgurl3());
+		if(subItemImg3 == null) {
+			abilityDto.setImgurl3(noImgUrl);
+		}
 		ImageIcon subItemIcon3 = new ImageIcon(subItemImg3);
 		subimage3 = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -341,6 +354,9 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		// 서브이미지4
 		BufferedImage subItemImg4 = delegator.getImage(abilityDto.getImgurl4());
+		if(subItemImg4 == null) {
+			abilityDto.setImgurl4(noImgUrl);
+		}
 		ImageIcon subItemIcon4 = new ImageIcon(subItemImg4);
 		subimage4 = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -382,8 +398,8 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		String key = abilityDto.getAbility();
 		System.out.println("key값 : " + key);
 		int rowSize = 0;
+		
 		String[] keyarray;
-		keyarray = new String[rowSize * 3];
 		keyarray = key.split("-key-");
 
 		if (keyarray.length % 3 == 0) {
@@ -393,8 +409,8 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		}
 
 		JPanel keywordPanel = new JPanel();
-		keywordPanel.setLocation(10, 70);
-		keywordPanel.setSize(240, 30 * rowSize);
+		keywordPanel.setLocation(10, 60);
+		keywordPanel.setSize(240, 40);
 		keywordPanel.setBackground(Color.white);
 		keywordPanel.setLayout(null);
 
@@ -402,7 +418,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		int k = 0;
 		for (int i = 0; i < rowSize; i++) {
-			for (int j = 0; j < keyarray.length; j++) {
+			for (int j = 0; j < 3; j++) {
 
 				keywordLabel[i][j] = new JLabel();
 				keywordLabel[i][j].setOpaque(true);
@@ -414,6 +430,9 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
+				if(k==keyarray.length) {
+					break;
+				}
 			}
 		}
 		iteminfoPn.add(keywordPanel);

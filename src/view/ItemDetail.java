@@ -247,8 +247,12 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		imagePannel.add(sellLb);
 		// itemImage
-		BufferedImage itemImage = delegator.getImage(itemDto.getImgurl1());
-		ImageIcon itemIcon = new ImageIcon(itemImage);
+		BufferedImage itemImage = delegator.getImage(itemDto.getImgurl1());	
+		if(itemImage == null) {
+			 itemImage = delegator.getImage(noImgUrl);
+		}
+		ImageIcon itemIcon = new ImageIcon(itemImage);	
+		
 		itemImagePn = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemIcon.getImage(), 0, 0, 400, 400, null);
@@ -259,10 +263,10 @@ public class ItemDetail extends JFrame implements ActionListener {
 		itemImagePn.setBounds(10, 115, 400, 400);
 		itemImagePn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
 				Delegator delegator = Delegator.getInstance();
-				delegator.itemBbsController.ImageView(itemDto.getImgurl1());
+				delegator.abilityBbsController.ImageView(itemDto.getImgurl1());
 			}
 		});
 		imagePannel.add(itemImagePn);
@@ -271,18 +275,20 @@ public class ItemDetail extends JFrame implements ActionListener {
 		subimagePn = new JPanel();
 		subimagePn.setLayout(new GridLayout(1, 4));
 		subimagePn.setBounds(0, 550, 420, 100);
-
 		// subimagePn.setBackground(Color.PINK);
 
-		int compX = subimagePn.getWidth() / 4;
+		int compX = subimagePn.getWidth()/4;
 		int compY = subimagePn.getHeight();
-
+		
 		// 서브 이미지1
 		BufferedImage subItemImg1 = delegator.getImage(itemDto.getImgurl1());
-		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);
+		if(subItemImg1 == null) {
+			subItemImg1 = delegator.getImage(noImgUrl);
+		}
+		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);		
 		subimage1 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon1.getImage(), 0, 0, compX, compY, null);
+				g.drawImage(subItemIcon1.getImage(), 0, 0, compX, compY,  null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -293,38 +299,46 @@ public class ItemDetail extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				Delegator delegator = Delegator.getInstance();
-				delegator.itemBbsController.ImageView(itemDto.getImgurl1());
+				String img = itemDto.getImgurl1();
+				delegator.abilityBbsController.ImageView(img);
 			}
 		});
 		subimagePn.add(subimage1);
 
 		// 서브이미지2
 		BufferedImage subItemImg2 = delegator.getImage(itemDto.getImgurl2());
+		if(subItemImg2 == null) {
+			subItemImg2 = delegator.getImage(noImgUrl);
+		}
 		ImageIcon subItemIcon2 = new ImageIcon(subItemImg2);
 		subimage2 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon2.getImage(), 0, 0, compX, compY, null);
+				g.drawImage(subItemIcon2.getImage(), 0, 0, compX, compY,  null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
 		subimage2.setBorder(new LineBorder(commonRedColor, 2));
+		System.out.println("2");
 		subimage2.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
 				Delegator delegator = Delegator.getInstance();
-				delegator.itemBbsController.ImageView(itemDto.getImgurl2());
+				delegator.abilityBbsController.ImageView(itemDto.getImgurl2());
 			}
 		});
 		subimagePn.add(subimage2);
 		// 서브이미지3
 
 		BufferedImage subItemImg3 = delegator.getImage(itemDto.getImgurl3());
+		if(subItemImg3 == null) {
+			subItemImg3 = delegator.getImage(noImgUrl);
+		}
 		ImageIcon subItemIcon3 = new ImageIcon(subItemImg3);
 		subimage3 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon3.getImage(), 0, 0, compX, compY, null);
+				g.drawImage(subItemIcon3.getImage(), 0, 0, compX, compY,  null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -342,10 +356,13 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		// 서브이미지4
 		BufferedImage subItemImg4 = delegator.getImage(itemDto.getImgurl4());
+		if(subItemImg4 == null) {
+			subItemImg4 = delegator.getImage(noImgUrl);
+		}
 		ImageIcon subItemIcon4 = new ImageIcon(subItemImg4);
 		subimage4 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(subItemIcon4.getImage(), 0, 0, compX, compY, null);
+				g.drawImage(subItemIcon4.getImage(), 0, 0, compX, compY,  null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -356,7 +373,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				Delegator delegator = Delegator.getInstance();
-				delegator.itemBbsController.ImageView(itemDto.getImgurl4());
+				delegator.abilityBbsController.ImageView(itemDto.getImgurl4());
 			}
 		});
 		subimagePn.add(subimage4);
