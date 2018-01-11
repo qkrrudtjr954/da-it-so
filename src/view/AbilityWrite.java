@@ -300,7 +300,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		JLabel infoLabel = new JLabel("보유 능력을 등록해주세요.");
 		infoLabel.setBounds(220, 380, 300, 20);
 		writePn.add(infoLabel);
-		
+
 		abilityTextF = new JTextField();
 		abilityTextF.setBounds(210, 350, 300, 30);
 		abilityTextF.setText("ex) #javascript #css #java");

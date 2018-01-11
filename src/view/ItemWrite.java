@@ -44,7 +44,6 @@ public class ItemWrite extends JFrame implements ActionListener {
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
-	private JLabel SidecategoryPn[][];
 
 	List<Category> m_categoryList = null;
 
@@ -302,7 +301,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		keywLb = new JLabel("키워드");
 		keywLb.setBounds(100, 350, 100, 30);
 		writePn.add(keywLb);
-		
+
 		JLabel infoLabel = new JLabel("검색 가능한 키워드를 등록해주세요.");
 		infoLabel.setBounds(220, 380, 300, 20);
 		writePn.add(infoLabel);
@@ -342,10 +341,12 @@ public class ItemWrite extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("==>" + e.getActionCommand());
+
 		Delegator delegator = Delegator.getInstance();
 
 		Object obj = e.getSource();
-		
+
 		if (obj == listBtn) {
 			delegator.itemBbsController.allItemList();
 			this.dispose();
@@ -363,14 +364,14 @@ public class ItemWrite extends JFrame implements ActionListener {
 			delegator.itemBbsController.searchList(searchWord);
 			this.dispose();
 		}
-		
+
 		if (obj == imgAdd1) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
 				img1TextF.setText(jfc.getSelectedFile().toString());
 				filename1 = jfc.getSelectedFile().getName();
 			}
-		} 
+		}
 		if (obj == imgAdd2) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
@@ -392,7 +393,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 				filename4 = jfc.getSelectedFile().getName();
 			}
 		}
-		
+
 		if (obj == writeBtn) {
 			if (!img1TextF.getText().isEmpty()) {
 				filesend fs = new filesend(img1TextF.getText());

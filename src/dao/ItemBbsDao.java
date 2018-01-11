@@ -10,14 +10,15 @@ import java.util.List;
 import db.DBClose;
 import db.DBConnection;
 import db.MySqlConnection;
+import db.OracleConnection;
 import delegator.Delegator;
 import dto.ItemBbs;
 
 public class ItemBbsDao implements ItemBbsDaoImpl{
 
-
-
-	DBConnection DBConnector = new MySqlConnection();
+	//DBConnection DBConnector = new MySqlConnection();
+	DBConnection DBConnector = new OracleConnection();
+	
 	public List<ItemBbs> allItemList() {
 
 		String sql = "SELECT * FROM ITEM_BBS WHERE STATE=0 OR STATE=1 ORDER BY CREATED_AT DESC";

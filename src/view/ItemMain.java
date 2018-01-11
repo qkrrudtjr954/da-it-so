@@ -231,16 +231,16 @@ public class ItemMain extends JFrame implements ActionListener {
 
 			JPanel thumPn1 = new JPanel();
 			thumPn1.setLayout(null);
-			
+
 			JLabel stateLabel = new JLabel();
 			stateLabel.setSize(100, 20);
 			stateLabel.setFont(new Font("stateLabel", Font.BOLD, 15));
-			
+
 			if (i % 2 == 0) { // 짝수일때(새로운 줄로 넘어갈때)
 				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
-				
-				
+
+
 				if(itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
 					ImageIcon img = new ImageIcon(smallNoImgUrl);
 					imgLa = new JLabel() {
@@ -264,19 +264,19 @@ public class ItemMain extends JFrame implements ActionListener {
 						}
 					};
 				}
-				
+
 				stateLabel.setLocation(380, 10);
 				if(itemList.get(i).getState()==0) {
 					imgLa.setBorder(new LineBorder(mainRed, 1));
 					stateLabel.setForeground(commonRedColor);
 					stateLabel.setText("진행중");
-					
+
 				} else if(itemList.get(i).getState()==1) {
 					imgLa.setBorder(new LineBorder(mainBlack, 2));
 					stateLabel.setText("완료됨");
 				}
-				
-				
+
+
 				imgLa.setBounds(0, 0, 200, 120);
 				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+ itemList.get(i).getContent()+"</html>");
 				txtLa.setBounds(200, 0, 300, 120);
@@ -288,7 +288,7 @@ public class ItemMain extends JFrame implements ActionListener {
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
-				
+
 				if(itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
 					ImageIcon img = new ImageIcon(smallNoImgUrl);
 					imgLa = new JLabel() {
@@ -314,7 +314,7 @@ public class ItemMain extends JFrame implements ActionListener {
 				}
 				stateLabel.setLocation(380, 10);
 				if(itemList.get(i).getState()==0) {
-					imgLa.setBorder(new LineBorder(mainRed, 1));		
+					imgLa.setBorder(new LineBorder(mainRed, 1));
 					stateLabel.setForeground(commonRedColor);
 					stateLabel.setText("진행중");
 				} else if(itemList.get(i).getState()==1) {

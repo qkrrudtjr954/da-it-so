@@ -53,7 +53,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
-		
+
 		if (itemDto.getImgurl1()==null || itemDto.getImgurl1().equals("")) {
 			itemDto.setImgurl1(noImgUrl);
 		}
@@ -103,7 +103,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 				delegator.mainController.Main();
 				dispose();
 			}
-			
+
 		});
 		headerPn.add(headerLogo);
 
@@ -224,7 +224,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		// titleLb
 		titleLb = new JLabel(m_itemDto.getTitle());
 
-		
+
 		if(itemDto.getState()==1) {
 			titleLb.setText(m_itemDto.getTitle()+" - 판매 완료 - ");
 		}
@@ -259,14 +259,14 @@ public class ItemDetail extends JFrame implements ActionListener {
 		subimagePn = new JPanel();
 		subimagePn.setLayout(new GridLayout(1, 4));
 		subimagePn.setBounds(0, 550, 420, 100);
-		
+
 		// subimagePn.setBackground(Color.PINK);
 
 		int compX = subimagePn.getWidth()/4;
 		int compY = subimagePn.getHeight();
-		
-		
-		
+
+
+
 		// 서브 이미지1
 		subimage1 = new JPanel() {
 			ImageIcon image1 = new ImageIcon(m_itemDto.getImgurl1());
@@ -331,11 +331,11 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		// detailtitleLb
 		detailtitleLb = new JLabel(m_itemDto.getTitle());
-		
+
 		if(itemDto.getState()==1) {
 			detailtitleLb.setText(m_itemDto.getTitle()+" - 판매 완료 - ");
 		}
-		
+
 		detailtitleLb.setBounds(10, 10, 340, 30);
 		detailtitleLb.setFont(new Font(m_itemDto.getTitle(), Font.BOLD, 20));
 		iteminfoPn.add(detailtitleLb);
@@ -408,13 +408,13 @@ public class ItemDetail extends JFrame implements ActionListener {
 		chatBtn.setBorderPainted(false);
 		chatBtn.setFocusPainted(false);
 		chatBtn.addActionListener(this);
-		
+
 		//deleteBtn
 		deleteBtn = new JButton("게시물 삭제");
 		deleteBtn.setBounds(550, 555, 165, 35);
 		deleteBtn.setOpaque(false);
 		deleteBtn.addActionListener(this);
-		
+
 		//go back to list button
 		listBtn = new JButton("목록으로 돌아가기");
 		//listBtn.setBounds(200, 10, 120, 30);
@@ -425,7 +425,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		//iteminfoPn.add(listBtn);
 		// iteminfoPn.setBounds(580, 135, 340, 400);
 
-		
+
 		// completeBtn
 		completeBtn = new JButton("완료");
 		completeBtn.setBounds(550, 620, 340, 40);
@@ -477,7 +477,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		} else if (obj == listBtn) {
 			delegator.itemBbsController.allItemList();
 			this.dispose();
-		} else if(obj == deleteBtn) {			
+		} else if(obj == deleteBtn) {
 			if(delegator.getCurrent_user() != null) {
 				System.out.println("login Success");
 				String WriteId = m_itemDto.getUser_id();
@@ -508,11 +508,11 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 				if(ViewId.equals(WriteId)) {
 					boolean completeCK = delegator.itemBbsController.setCompleteItemBbs(m_itemDto);
-					
+
 					if(completeCK) {
 						JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
 						delegator.itemBbsController.allItemList();
-						this.dispose();						
+						this.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "완료 처리할 수 없습니다.");
 					}
