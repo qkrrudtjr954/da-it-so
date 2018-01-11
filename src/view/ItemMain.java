@@ -1,4 +1,4 @@
-﻿package view;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -186,7 +186,7 @@ public class ItemMain extends JFrame implements ActionListener {
 			BufferedImage categoryImage = delegator.getImage("item/"+ categoryList.get(i).getTitle() +".png");
 			System.out.println("ability/"+ categoryList.get(i).getTitle() +".png");
 			ImageIcon categoryIcon = new ImageIcon(categoryImage);
-
+			
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryIcon.getImage(), 0, 0, null);
@@ -246,9 +246,7 @@ public class ItemMain extends JFrame implements ActionListener {
 				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
 
-
-				if (itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("userImg/null")) {
-
+				if (itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
 					ImageIcon img = new ImageIcon(smallNoImgUrl);
 					imgLa = new JLabel() {
 						@Override
@@ -320,9 +318,7 @@ public class ItemMain extends JFrame implements ActionListener {
 					};
 				}
 				stateLabel.setLocation(380, 10);
-
 				if (itemList.get(i).getState() == 0) {
-
 					imgLa.setBorder(new LineBorder(mainRed, 1));
 					stateLabel.setForeground(commonRedColor);
 					stateLabel.setText("진행중");

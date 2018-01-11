@@ -1,4 +1,4 @@
-﻿package view;
+package view;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -34,12 +34,12 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn, listBtn, deleteBtn, completeBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
-
+	
 	AbilityBbs m_abilityDto = null;
 	List<Category> m_categoryList = null;
 
 	String noImgUrl = "icon/noimage.png";
-
+	
 	public AbilityDetail(AbilityBbs abilityDto, List<Category> categoryList) {
 
 		Delegator delegator = Delegator.getInstance();
@@ -51,7 +51,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
-
+		
 		if (abilityDto.getImgurl1() == null || abilityDto.getImgurl1().equals("userImg/null")) {
 			abilityDto.setImgurl1(noImgUrl);
 		}
@@ -64,7 +64,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		if (abilityDto.getImgurl4() == null || abilityDto.getImgurl4().equals("userImg/null")) {
 			abilityDto.setImgurl4(noImgUrl);
 		}
-
+		
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		headerPn = new JPanel();
@@ -96,7 +96,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-
+		
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -191,10 +191,10 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for (int i = 0; i < categoryList.size(); i++) {
-
+			
 			BufferedImage categoryImage = delegator.getImage("ability/"+ categoryList.get(i).getTitle() +".png");
 			ImageIcon categoryIcon = new ImageIcon(categoryImage);
-
+			
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryIcon.getImage(), 0, 0, null);
@@ -244,9 +244,9 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		imagePannel.add(sellLb);
 		// itemImage
-
+		
 		BufferedImage itemImage = delegator.getImage(abilityDto.getImgurl1());
-		ImageIcon itemIcon = new ImageIcon(itemImage);
+		ImageIcon itemIcon = new ImageIcon(itemImage);		
 		itemImagePn = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(itemIcon.getImage(), 0, 0, 400, 400, null);
@@ -273,10 +273,10 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		int compX = subimagePn.getWidth()/4;
 		int compY = subimagePn.getHeight();
-
+		
 		// 서브 이미지1
 		BufferedImage subItemImg1 = delegator.getImage(abilityDto.getImgurl1());
-		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);
+		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);		
 		subimage1 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(subItemIcon1.getImage(), 0, 0, compX, compY,  null);
@@ -433,7 +433,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
 		iteminfoPn.add(explanationLb);
-
+		
 		// chatBtn
 		BufferedImage chatImage = delegator.getImage("icon/chatting.png");
 		ImageIcon chatIcon = new ImageIcon(chatImage);
@@ -443,13 +443,13 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		chatBtn.setBorderPainted(false);
 		chatBtn.setFocusPainted(false);
 		chatBtn.addActionListener(this);
-
+		
 		//deleteBtn
 		deleteBtn = new JButton("게시물 삭제");
 		deleteBtn.setBounds(550, 555, 165, 35);
 		deleteBtn.setOpaque(false);
 		deleteBtn.addActionListener(this);
-
+		
 		//go back to list button
 		listBtn = new JButton("목록으로 돌아가기");
 		//listBtn.setBounds(200, 10, 120, 30);
@@ -465,7 +465,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		completeBtn.setBounds(550, 620, 340, 40);
 		completeBtn.setOpaque(false);
 		completeBtn.addActionListener(this);
-
+		
 		detailPn.add(listBtn);
 		detailPn.add(deleteBtn);
 		detailPn.add(completeBtn);

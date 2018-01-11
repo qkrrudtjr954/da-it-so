@@ -1,4 +1,4 @@
-﻿package view;
+package view;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -85,7 +85,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
-
+	
 
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
@@ -179,7 +179,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 
 			BufferedImage categoryImage = delegator.getImage("item/"+ categoryList.get(i).getTitle() +".png");
 			ImageIcon categoryIcon = new ImageIcon(categoryImage);
-
+			
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryIcon.getImage(), 0, 0, null);
@@ -218,7 +218,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		String category[] = new String[categoryList.size()];
 
 		for (int i = 0; i < category.length; i++) {
-			category[i] = categoryList.get(i).getTitle();
+			category[i] = categoryList.get(i).getDescription();
 		}
 
 		cateCombo = new JComboBox(category);
@@ -335,7 +335,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		add(sidePn);
 		add(headerPn);
 		add(writePn);
-
+		
 		setBounds(0, 0, 1350, 750);
 		setLayout(null);
 		setVisible(true);
@@ -420,12 +420,12 @@ public class ItemWrite extends JFrame implements ActionListener {
 			int categoryIndex = cateCombo.getSelectedIndex();
 			itemDto.setCategory_id(this.m_categoryList.get(categoryIndex).getSeq());
 			itemDto.setTitle(titleTextF.getText());
-
+			
 			itemDto.setImgurl1("userImg/"+filename1);
 			itemDto.setImgurl2("userImg/"+filename2);
 			itemDto.setImgurl3("userImg/"+filename3);
 			itemDto.setImgurl4("userImg/"+filename4);
-
+			
 			if (keywordTextF.getText().equals("ex) #중고 #컴퓨터 #노트")) {
 				itemDto.setKeyword("");
 			} else {

@@ -156,7 +156,7 @@ public class Room extends JFrame {
         });
         contentPane.add(inputBtn);
 
-        setBounds(100, 100, 390, 685);
+        setBounds(100, 100, 375, 667);
         setResizable(false);
         setVisible(true);
     }

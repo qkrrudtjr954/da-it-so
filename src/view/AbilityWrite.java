@@ -1,4 +1,4 @@
-﻿package view;
+package view;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -38,7 +38,6 @@ public class AbilityWrite extends JFrame implements ActionListener {
 	private JComboBox cateCombo;
 
 	JPanel category;
-
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
@@ -180,7 +179,6 @@ public class AbilityWrite extends JFrame implements ActionListener {
 			BufferedImage categoryImage = delegator.getImage("ability/"+ categoryList.get(i).getTitle() +".png");
 			ImageIcon categoryIcon = new ImageIcon(categoryImage);
 			
-
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryIcon.getImage(), 0, 0, null);
@@ -227,7 +225,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		String category[] = new String[categoryList.size()];
 
 		for (int i = 0; i < category.length; i++) {
-			category[i] = categoryList.get(i).getTitle();
+			category[i] = categoryList.get(i).getDescription();
 		}
 
 		cateCombo = new JComboBox(category);

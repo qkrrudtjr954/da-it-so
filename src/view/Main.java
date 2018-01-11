@@ -23,22 +23,18 @@ import delegator.Delegator;
 
 public class Main extends JFrame implements ActionListener {
 
-
+	
 	private JButton loginBtn, logoutBtn, signupBtn;
 	private JButton item, ability;
 	private JLabel adminContact;
-
+	
 	public Main() {
-
-//		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-		String iconImgUrl = "c:\\icon\\";
-
 		JPanel headerPn;
-
+		
 		Delegator delegator = Delegator.getInstance();
-		BufferedImage headerlogo = delegator.getImage("headerlogo.png");
+		BufferedImage headerlogo = delegator.getImage("icon/headerlogo.png");
 
-		ImageIcon headerImage = new ImageIcon(iconImgUrl+headerlogo);
+		ImageIcon headerImage = new ImageIcon(headerlogo);
 		// header
 		JPanel headerLogo = new JPanel() {
 			// 사이즈맞게 배경삽임
@@ -51,11 +47,11 @@ public class Main extends JFrame implements ActionListener {
 
 		// mainView
 		Container contentPane = getContentPane();
-
+		
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		Color commonGrayColor = new Color(250, 250, 250);
-
+		
 		headerPn = new JPanel();
 		headerPn.setBackground(commonRedColor);
 		headerPn.setSize(1350, 60);
@@ -64,9 +60,8 @@ public class Main extends JFrame implements ActionListener {
 		// headerlogo
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerPn.add(headerLogo);
-
+		
 		if(delegator.getCurrent_user()==null) {
-
 			// loginBtn
 			loginBtn = new JButton("로그인");
 			loginBtn.setBounds(1240, 20, 100, 30);
@@ -77,7 +72,7 @@ public class Main extends JFrame implements ActionListener {
 			loginBtn.setForeground(Color.white);
 			loginBtn.addActionListener(this);
 			headerPn.add(loginBtn);
-
+			
 			// SignBtn
 			signupBtn = new JButton("회원가입");
 			signupBtn.setBounds(1180, 20, 100, 30);
@@ -87,7 +82,7 @@ public class Main extends JFrame implements ActionListener {
 			signupBtn.setBackground(commonRedColor);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
-			headerPn.add(signupBtn);
+			headerPn.add(signupBtn);			
 		}else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
@@ -98,7 +93,7 @@ public class Main extends JFrame implements ActionListener {
 			logoutBtn.setBackground(commonRedColor);
 			logoutBtn.setForeground(Color.white);
 			logoutBtn.addActionListener(this);
-			headerPn.add(logoutBtn);
+			headerPn.add(logoutBtn);			
 		}
 
 		contentPane.add(headerPn);
@@ -107,26 +102,35 @@ public class Main extends JFrame implements ActionListener {
 		JPanel main = new JPanel();
 		main.setLayout(null);
 		main.setBackground(new Color(250, 250, 250));
-		main.setBounds(0, 0, 1350, 750);
 
+		main.setBounds(0, 0, 1350, 750);
+		
 		JPanel center = new JPanel();
 		center.setLayout(null);
 		center.setBorder(new LineBorder(commonRedColor, 3));
 		center.setLocation(170, 110);
 		center.setSize(1000, 550);
-
-		item = new JButton(new ImageIcon(iconImgUrl + "item.png"));
+		
+		BufferedImage itemImage = delegator.getImage("icon/item.png");
+		ImageIcon itemIcon = new ImageIcon(itemImage);
+		item = new JButton(itemIcon);
 		item.setBounds(90, 100, 400, 350);
+        item.setBorderPainted(false);
+        item.setContentAreaFilled(false);
+        item.setFocusable(false);
 		item.addActionListener(this);
-		item.setBorderPainted(false);
 		center.add(item);
-
-		ability = new JButton(new ImageIcon(iconImgUrl + "ability.png"));
+		
+		BufferedImage abilityImage = delegator.getImage("icon/ability.png");
+		ImageIcon abilityIcon = new ImageIcon(abilityImage);
+		ability = new JButton(abilityIcon);
 		ability.setBounds(510, 100, 400, 350);
+        ability.setBorderPainted(false);
+        ability.setContentAreaFilled(false);
+        ability.setFocusable(false);
 		ability.addActionListener(this);
-		ability.setBorderPainted(false);
 		center.add(ability);
-
+		
 		adminContact = new JLabel("관리자에게 문의하기");
 		adminContact.setLayout(new FlowLayout());
 		adminContact.setLocation(600, 675);
@@ -139,19 +143,13 @@ public class Main extends JFrame implements ActionListener {
 				// TODO Auto-generated method stub
 				if(delegator.getCurrent_user() == null) {
 					JOptionPane.showMessageDialog(null, "로그인 후 이용 가능합니다.");
-					delegator.personController.Login();
-					dispose();
 				}else {
-					delegator.roomController.checkRoom("admin");
+					delegator.roomController.checkRoom("admin");					
 				}
 			}
 		});
 		contentPane.add(adminContact);
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 4dcbe09e8452b151b379abc02b73501622ad1d87
+		
 		contentPane.add(center);
 
 		setBounds(0, 0, 1350, 750);
@@ -164,7 +162,7 @@ public class Main extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Delegator delegator = Delegator.getInstance();
 		Object obj = e.getSource();
-
+		
 		if(obj == loginBtn) {
 			delegator.personController.Login();
 			this.dispose();
@@ -172,20 +170,17 @@ public class Main extends JFrame implements ActionListener {
 			delegator.personController.SignUp();
 			this.dispose();
 		}else if(obj == logoutBtn) {
-			int result = delegator.personController.Logout();
-			if (result == 0) {
-				this.dispose();
-			}
-
+			delegator.personController.Logout();
+			this.dispose();
 		}
-
+		
 		//select itemMain
 		if(obj == item) {
 			System.out.println("==itemMain select==");
 			delegator.itemBbsController.allItemList();
 			this.dispose();
 		}
-		//select AbilityMain
+		//select AbilityMain 
 		if(obj == ability){
 			System.out.println("==abilityMain select==");
 			delegator.abilityBbsController.allAbilityList();

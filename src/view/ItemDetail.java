@@ -1,4 +1,4 @@
-﻿package view;
+package view;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -39,9 +39,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 	JPanel category;
 
-
 	String noImgUrl = "icon/noimg.png";
-
 
 	ItemBbs m_itemDto = null;
 	List<Category> m_categoryList = null;
@@ -55,7 +53,6 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
-
 
 		if (itemDto.getImgurl1() == null || itemDto.getImgurl1().equals("userImg/null")) {
 			itemDto.setImgurl1(noImgUrl);
@@ -232,7 +229,6 @@ public class ItemDetail extends JFrame implements ActionListener {
 		// titleLb
 		titleLb = new JLabel(m_itemDto.getTitle());
 
-
 		if (itemDto.getState() == 1) {
 			titleLb.setText(m_itemDto.getTitle() + " - 판매 완료 - ");
 		}
@@ -280,7 +276,6 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		int compX = subimagePn.getWidth() / 4;
 		int compY = subimagePn.getHeight();
-
 
 		// 서브 이미지1
 		BufferedImage subItemImg1 = delegator.getImage(itemDto.getImgurl1());
@@ -382,7 +377,6 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		if (itemDto.getState() == 1) {
 			detailtitleLb.setText(m_itemDto.getTitle() + " - 판매 완료 - ");
-
 		}
 
 		detailtitleLb.setBounds(10, 10, 340, 30);
@@ -426,7 +420,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 				keywordLabel[i][j].setOpaque(true);
 				keywordLabel[i][j].setBackground(Color.pink);
 				keywordLabel[i][j].setHorizontalAlignment(SwingConstants.LEFT);
-				keywordLabel[i][j].setText(" #" + keyarray[k]);
+				keywordLabel[i][j].setText("#" + keyarray[k]);
 				keywordLabel[i][j].setSize(70, 30);
 				keywordLabel[i][j].setLocation((j * 80), (i * 40));
 				keywordPanel.add(keywordLabel[i][j]);
@@ -461,13 +455,13 @@ public class ItemDetail extends JFrame implements ActionListener {
 		chatBtn.setFocusPainted(false);
 		chatBtn.addActionListener(this);
 
-
+		// deleteBtn
 		deleteBtn = new JButton("게시물 삭제");
 		deleteBtn.setBounds(550, 555, 165, 35);
 		deleteBtn.setOpaque(false);
 		deleteBtn.addActionListener(this);
 
-
+		// go back to list button
 		listBtn = new JButton("목록으로 돌아가기");
 		// listBtn.setBounds(200, 10, 120, 30);
 		listBtn.setBounds(720, 555, 170, 35);
@@ -476,7 +470,6 @@ public class ItemDetail extends JFrame implements ActionListener {
 		listBtn.addActionListener(this);
 		// iteminfoPn.add(listBtn);
 		// iteminfoPn.setBounds(580, 135, 340, 400);
-
 
 		// completeBtn
 		completeBtn = new JButton("완료");
@@ -550,7 +543,6 @@ public class ItemDetail extends JFrame implements ActionListener {
 					} else {
 						JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
 					}
-				 }
 				} else {
 					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
 				}

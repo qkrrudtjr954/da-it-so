@@ -13,9 +13,7 @@ import db.OracleConnection;
 import delegator.Delegator;
 import dto.ChatDto;
 
-public class ChatDao implements ChatDaoImpl{
-	//DBConnection DBConnector = new MySqlConnection();
-	DBConnection DBConnector = new OracleConnection();
+public class ChatDao implements ChatDaoImpl {
 
 	public List<ChatDto> getChatByRoomSeq(int seq) {
 		String sql = "select * from chat where room_id=" + seq + " order by seq";
