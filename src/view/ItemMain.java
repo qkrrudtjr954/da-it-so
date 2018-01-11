@@ -181,7 +181,7 @@ public class ItemMain extends JFrame implements ActionListener {
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
 
-		categoryList.stream().forEach(System.out::println);
+		
 		for (int i = 0; i < categoryList.size(); i++) {
 			BufferedImage categoryImage = delegator.getImage("item/" + categoryList.get(i).getTitle() + ".png");
 			ImageIcon categoryIcon = new ImageIcon(categoryImage);
@@ -383,7 +383,7 @@ public class ItemMain extends JFrame implements ActionListener {
 				delegator.personController.Login();
 				this.dispose();
 			} else {
-				delegator.itemBbsController.itemWrite(personDto);
+				delegator.itemBbsController.itemWrite();
 				this.dispose();
 			}
 		} else if (obj == loginBtn) {

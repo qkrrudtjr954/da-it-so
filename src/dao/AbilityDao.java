@@ -116,6 +116,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		String ability = abilityDto.getAbility().replaceAll(" ", "");
 		ability = ability.replaceAll("#", "-key-");
 		
+		System.out.println(ability);
 		if (Delegator.getInstance().DBConnector.getClass().getName().equals("db.MySqlConnection")) {
 			sql = " insert into ability_bbs(category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, ability, content, state, created_at) "
 					+ " values( " + abilityDto.getCategory_id() + ", '" + delegator.getCurrent_user().getId() + "', '"

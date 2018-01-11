@@ -37,9 +37,7 @@ public class AbilityBbsController {
 		new AbilityMain(abilityDto, categoryList);
 	}
 
-	public void AbilityWrite(Person personDto) {
-		// getAllCategories == 0 Ability
-		// getAllCategories == 1 item
+	public void AbilityWrite() {
 		List<Category> categoryList = categoryService.getAllCategories(1);
 		new AbilityWrite(categoryList);
 	}
@@ -91,7 +89,7 @@ public class AbilityBbsController {
 		
 		if(result) {
 			returnAbility = abilityService.getItemBbsByTitleAndContent(abilityDto);
-			new AbilityDetail(abilityDto, categoryList, itemCategory);
+			new AbilityDetail(returnAbility, categoryList, itemCategory);
 		} else {
 			JOptionPane.showMessageDialog(null, "게시중 문제가 발생했습니다.");
 		}

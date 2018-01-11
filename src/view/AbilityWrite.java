@@ -421,6 +421,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 			abilityDto.setUser_id(id);
 
 			delegator.abilityBbsController.insert(abilityDto);
+			this.dispose();
 		}
 	}
 }

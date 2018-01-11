@@ -449,6 +449,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 				itemDto.setUser_id(id);
 				
 				delegator.itemBbsController.insert(itemDto);
+				this.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, "금액은 숫자만 입력 가능합니다.");
 			}

@@ -433,9 +433,12 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
 		
-		int k = 0;
+		int k = 1;
 		for (int i = 0; i < rowSize; i++) {
 			for (int j = 0; j < 3; j++) {
+				if (k == keyarray.length) {
+					break;
+				}
 
 				keywordLabel[i][j] = new JLabel();
 				keywordLabel[i][j].setOpaque(true);
@@ -447,9 +450,6 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
-				if (k == keyarray.length) {
-					break;
-				}
 			}
 		}
 		iteminfoPn.add(keywordPanel);

@@ -381,7 +381,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 				delegator.personController.Login();
 				this.dispose();
 			}else {
-				delegator.abilityBbsController.AbilityWrite(personDto);
+				delegator.abilityBbsController.AbilityWrite();
 				this.dispose();
 			}
 		}else if(obj == loginBtn) {

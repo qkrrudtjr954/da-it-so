@@ -36,9 +36,7 @@ public class ItemBbsController {
 		new ItemMain(itemdto, categoryList);
 	}
 
-	public void itemWrite(Person personDto) {
-		// getAllCategories == 0 Ability
-		// getAllCategories == 1 item
+	public void itemWrite() {
 		List<Category> categoryList = categoryService.getAllCategories(0);
 		new ItemWrite(categoryList);
 	}

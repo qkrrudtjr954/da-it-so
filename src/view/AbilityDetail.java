@@ -421,9 +421,12 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
 
-		int k = 0;
+		int k = 1;
 		for (int i = 0; i < rowSize; i++) {
 			for (int j = 0; j < 3; j++) {
+				if (k == keyarray.length) {
+					break;
+				}
 
 				keywordLabel[i][j] = new JLabel();
 				keywordLabel[i][j].setOpaque(true);
@@ -435,9 +438,6 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
-				if (k == keyarray.length) {
-					break;
-				}
 			}
 		}
 		iteminfoPn.add(keywordPanel);
@@ -571,7 +571,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 					if (completeCK) {
 						JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
-						delegator.itemBbsController.allItemList();
+						delegator.abilityBbsController.allAbilityList();
 						this.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "완료 처리할 수 없습니다.");

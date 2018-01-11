@@ -106,7 +106,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 	public List<ItemBbs> SelectItemCategories(int category_id) {
 
-		String sql = "SELECT * FROM ITEM_BBS WHERE CATEGORY_ID = "+ category_id + " ORDER BY CREATED_AT DESC";
+		String sql = "SELECT * FROM ITEM_BBS WHERE CATEGORY_ID = "+ category_id + " AND ( STATE=0 OR STATE=1 ) ORDER BY CREATED_AT DESC";
 		
 		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
