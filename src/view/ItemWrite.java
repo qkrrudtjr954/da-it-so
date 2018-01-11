@@ -357,8 +357,11 @@ public class ItemWrite extends JFrame implements ActionListener {
 			delegator.personController.SignUp();
 			this.dispose();
 		} else if(obj == logoutBtn) {
-			delegator.personController.Logout();
+		int result =delegator.personController.Logout();
+		if (result == 0) {
 			this.dispose();
+		}	
+		
 		} else if(obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.itemBbsController.searchList(searchWord);

@@ -349,11 +349,12 @@ public class ItemDetail extends JFrame implements ActionListener {
 		// keyword
 
 		String key = m_itemDto.getKeyword();
+
 		int rowSize = 0;
 		String[] keyarray;
 		keyarray = new String[rowSize * 3];
-		keyarray = key.split("-key-");
-
+		keyarray =key.split("-key-");
+      
 		if (keyarray.length % 3 == 0) {
 			rowSize = keyarray.length / 3;
 		} else {
@@ -376,7 +377,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 				keywordLabel[i][j].setOpaque(true);
 				keywordLabel[i][j].setBackground(Color.pink);
 				keywordLabel[i][j].setHorizontalAlignment(SwingConstants.LEFT);
-				keywordLabel[i][j].setText("#" + keyarray[k]);
+				keywordLabel[i][j].setText(" #" + keyarray[k]);
 				keywordLabel[i][j].setSize(70, 30);
 				keywordLabel[i][j].setLocation((j * 80), (i * 40));
 				keywordPanel.add(keywordLabel[i][j]);
@@ -468,8 +469,10 @@ public class ItemDetail extends JFrame implements ActionListener {
 			delegator.personController.SignUp();
 			this.dispose();
 		} else if (obj == logoutBtn) {
-			delegator.personController.Logout();
-			this.dispose();
+			int result =delegator.personController.Logout();
+			if (result == 0) {
+				this.dispose();
+			}
 		} else if (obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.itemBbsController.searchList(searchWord);
@@ -484,6 +487,8 @@ public class ItemDetail extends JFrame implements ActionListener {
 				String ViewId = delegator.getCurrent_user().getId();
 
 				if(ViewId.equals(WriteId)) {
+				 int result = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				 if(result == 0) {
 					boolean deleteCK = delegator.itemBbsController.setDeleteItemBbs(m_itemDto);
 					if(deleteCK) {
 						JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
@@ -492,6 +497,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 					} else {
 						JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
 					}
+				 }
 				} else {
 					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
 				}

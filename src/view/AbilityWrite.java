@@ -345,8 +345,10 @@ public class AbilityWrite extends JFrame implements ActionListener {
 			delegator.personController.SignUp();
 			this.dispose();
 		} else if (btn == logoutBtn) {
-			delegator.personController.Logout();
-			this.dispose();
+			int result =delegator.personController.Logout();
+			if (result == 0) {
+				this.dispose();
+			}	
 		} else if (btn == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.itemBbsController.searchList(searchWord);

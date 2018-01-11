@@ -90,7 +90,7 @@ public class RoomList extends JFrame implements MouseListener {
         });
         contentPane.add(exit);
 
-        setBounds(100, 100, 375, 667);
+        setBounds(100, 100, 390, 685);
         setResizable(false);
         setVisible(true);
     }

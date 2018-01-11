@@ -451,8 +451,10 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			delegator.personController.SignUp();
 			this.dispose();
 		} else if (obj == logoutBtn) {
-			delegator.personController.Logout();
-			this.dispose();
+			int result =delegator.personController.Logout();
+			if (result == 0) {
+				this.dispose();
+			}	
 		} else if (obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.abilityBbsController.searchList(searchWord);
@@ -467,7 +469,8 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 				if(ViewId.equals(WriteId)) {
 					boolean deleteCK = delegator.abilityBbsController.setDeleteAbilityBbs(m_abilityDto);
-
+					int result = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					 if(result == 0) {
 					if(deleteCK) {
 						JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
 						delegator.abilityBbsController.allAbilityList();
@@ -475,6 +478,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 					} else {
 						JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
 					}
+				 }
 				} else {
 					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
 				}
