@@ -32,6 +32,7 @@ public class Main extends JFrame implements ActionListener {
 	public Main() {
 //		String iconImgUrl = "E:\\icon\\";
 		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+		String iconImgUrl = "c:\\icon\\";
 		JPanel headerPn;
 
 		// header
@@ -142,6 +143,8 @@ public class Main extends JFrame implements ActionListener {
 			}
 		});
 		contentPane.add(adminContact);
+
+		adminContact = new JButton("관리자에게 문의하기.");
 		
 		contentPane.add(center);
 

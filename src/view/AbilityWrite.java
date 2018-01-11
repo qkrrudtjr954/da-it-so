@@ -39,6 +39,9 @@ public class AbilityWrite extends JFrame implements ActionListener {
 	JPanel category;
 	// String iconImgUrl = "E:\\icon\\";
 	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "c:\\icon\\";
+
+
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;

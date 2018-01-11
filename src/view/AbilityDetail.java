@@ -34,8 +34,8 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 
-//	 String iconImgUrl = "E:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	 String iconImgUrl = "c:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	String noImgUrl = iconImgUrl+"noimg.png";
 	
 	AbilityBbs m_abilityDto = null;
