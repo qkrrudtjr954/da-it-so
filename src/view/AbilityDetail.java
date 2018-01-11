@@ -34,10 +34,10 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 
-//	 String iconImgUrl = "E:\\icon\\";
-	String iconImgUrl = "/Users/leefrances/Desktop/icon/";
-	String noImgUrl = iconImgUrl+"noimage.png";
-
+	String iconImgUrl = "c:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String noImgUrl = iconImgUrl+"noimg.png";
+	
 	AbilityBbs m_abilityDto = null;
 	List<Category> m_categoryList = null;
 
@@ -64,7 +64,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		if (abilityDto.getImgurl4()==null || abilityDto.getImgurl4().equals("")) {
 			abilityDto.setImgurl4(noImgUrl);
 		}
-
+		
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		headerPn = new JPanel();
@@ -186,7 +186,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		for (int i = 0; i < categoryList.size(); i++) {
 			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "ability/" + categoryList.get(i).getTitle() +".png");
-
+			
 			System.out.println(iconImgUrl + categoryList.get(i).getTitle() + ".png");
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
@@ -246,7 +246,15 @@ public class AbilityDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-		itemImagePn.setBounds(10, 115, 400, 500);
+		itemImagePn.setBounds(10, 115, 400, 400);
+		itemImagePn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(abilityDto.getImgurl1());
+			}
+		});
 		imagePannel.add(itemImagePn);
 
 		// itemsub
@@ -257,7 +265,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		int compX = subimagePn.getWidth()/4;
 		int compY = subimagePn.getHeight();
-
+		
 		// 서브 이미지1
 		subimage1 = new JPanel() {
 			ImageIcon image1 = new ImageIcon(abilityDto.getImgurl1());
@@ -269,6 +277,15 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage1.setBorder(new LineBorder(commonRedColor, 2));
+		subimage1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				String img = abilityDto.getImgurl1();
+				delegator.abilityBbsController.ImageView(img);
+			}
+		});
 		subimagePn.add(subimage1);
 
 		// 서브이미지2
@@ -282,6 +299,15 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage2.setBorder(new LineBorder(commonRedColor, 2));
+		System.out.println("2");
+		subimage2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(abilityDto.getImgurl2());
+			}
+		});
 		subimagePn.add(subimage2);
 		// 서브이미지3
 		subimage3 = new JPanel() {
@@ -294,6 +320,14 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage3.setBorder(new LineBorder(commonRedColor, 2));
+		subimage3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(abilityDto.getImgurl3());
+			}
+		});
 		subimagePn.add(subimage3);
 
 		// 서브이미지4
@@ -307,6 +341,14 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage4.setBorder(new LineBorder(commonRedColor, 2));
+		subimage4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(abilityDto.getImgurl4());
+			}
+		});
 		subimagePn.add(subimage4);
 
 		imagePannel.add(subimagePn);
@@ -382,7 +424,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
 		iteminfoPn.add(explanationLb);
-
+		
 		// chatBtn
 		chatBtn = new JButton(new ImageIcon(iconImgUrl + "chatting.png"));
 		chatBtn.setBounds(550, 55, 340, 50);
@@ -390,13 +432,13 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		chatBtn.setBorderPainted(false);
 		chatBtn.setFocusPainted(false);
 		chatBtn.addActionListener(this);
-
+		
 		//deleteBtn
 		deleteBtn = new JButton("게시물 삭제");
 		deleteBtn.setBounds(550, 555, 165, 35);
 		deleteBtn.setOpaque(false);
 		deleteBtn.addActionListener(this);
-
+		
 		//go back to list button
 		listBtn = new JButton("목록으로 돌아가기");
 		//listBtn.setBounds(200, 10, 120, 30);
@@ -412,7 +454,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		completeBtn.setBounds(550, 620, 340, 40);
 		completeBtn.setOpaque(false);
 		completeBtn.addActionListener(this);
-
+		
 		detailPn.add(listBtn);
 		detailPn.add(deleteBtn);
 		detailPn.add(completeBtn);
@@ -459,7 +501,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		} else if (obj == listBtn) {
 			delegator.abilityBbsController.allAbilityList();
 			this.dispose();
-		} else if(obj == deleteBtn) {
+		} else if(obj == deleteBtn) {			
 			if(delegator.getCurrent_user() != null) {
 				System.out.println("login Success");
 				String WriteId = m_abilityDto.getUser_id();
@@ -467,11 +509,11 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 				if(ViewId.equals(WriteId)) {
 					boolean deleteCK = delegator.abilityBbsController.setDeleteAbilityBbs(m_abilityDto);
-
+					
 					if(deleteCK) {
 						JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
 						delegator.abilityBbsController.allAbilityList();
-						this.dispose();
+						this.dispose();						
 					} else {
 						JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
 					}

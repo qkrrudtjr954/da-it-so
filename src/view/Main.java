@@ -29,8 +29,10 @@ public class Main extends JFrame implements ActionListener {
 	private JLabel adminContact;
 
 	public Main() {
-//		String iconImgUrl = "E:\\icon\\";
-		String iconImgUrl = "/Users/leefrances/Desktop/icon/";
+
+//		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+		String iconImgUrl = "c:\\icon\\";
+
 		JPanel headerPn;
 
 		Delegator delegator = Delegator.getInstance();
@@ -62,12 +64,9 @@ public class Main extends JFrame implements ActionListener {
 		// headerlogo
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerPn.add(headerLogo);
-
-<<<<<<< HEAD
-=======
+		
 		Delegator delegator = Delegator.getInstance();
 
->>>>>>> qa
 		if(delegator.getCurrent_user()==null) {
 
 			// loginBtn
@@ -142,18 +141,14 @@ public class Main extends JFrame implements ActionListener {
 				// TODO Auto-generated method stub
 				if(delegator.getCurrent_user() == null) {
 					JOptionPane.showMessageDialog(null, "로그인 후 이용 가능합니다.");
+					delegator.personController.Login();
+					dispose();
 				}else {
 					delegator.roomController.checkRoom("admin");
 				}
 			}
 		});
 		contentPane.add(adminContact);
-
-<<<<<<< HEAD
-=======
-		adminContact = new JButton("관리자에게 문의하기.");
-
->>>>>>> qa
 		contentPane.add(center);
 
 		setBounds(0, 0, 1350, 750);
