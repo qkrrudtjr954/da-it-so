@@ -34,7 +34,8 @@ public class Delegator {
 
 	public DBConnection DBConnector;
 
-	private String imgUrl = "\\\\192.168.10.34\\image\\";
+	//private String imgUrl = "\\\\192.168.10.34\\image\\";
+	private String imgUrl = "\\\\127.0.0.1\\image\\";
 
 	private Delegator() {
 

@@ -20,7 +20,7 @@ public class filesend{
         BufferedReader mIn;
         
         try{
-            Socket soc = new Socket("192.168.10.34", 11111); //127.0.0.1은 루프백 아이피로 자신의 아이피를 반환해주고,
+            Socket soc = new Socket("127.0.0.1", 11111); //127.0.0.1은 루프백 아이피로 자신의 아이피를 반환해주고,
             System.out.println("Server Start!");        //11111은 서버접속 포트입니다.
             out =soc.getOutputStream();                 //서버에 바이트단위로 데이터를 보내는 스트림을 개통합니다.
             DataOutputStream dout = new DataOutputStream(out); //OutputStream을 이용해 데이터 단위로 보내는 스트림을 개통합니다.
