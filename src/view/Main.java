@@ -63,6 +63,11 @@ public class Main extends JFrame implements ActionListener {
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerPn.add(headerLogo);
 
+<<<<<<< HEAD
+=======
+		Delegator delegator = Delegator.getInstance();
+
+>>>>>>> qa
 		if(delegator.getCurrent_user()==null) {
 
 			// loginBtn
@@ -144,6 +149,11 @@ public class Main extends JFrame implements ActionListener {
 		});
 		contentPane.add(adminContact);
 
+<<<<<<< HEAD
+=======
+		adminContact = new JButton("관리자에게 문의하기.");
+
+>>>>>>> qa
 		contentPane.add(center);
 
 		setBounds(0, 0, 1350, 750);
