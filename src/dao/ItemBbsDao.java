@@ -434,6 +434,12 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		return searchList;
 	}
 
+	@Override
+	public ItemBbs getItemBbsByTitleAndContent(ItemBbs itemDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 

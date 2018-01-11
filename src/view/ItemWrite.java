@@ -443,9 +443,18 @@ public class ItemWrite extends JFrame implements ActionListener {
 				} else {
 					itemDto.setKeyword(keywordTextF.getText());
 				}
+				
 				itemDto.setPrice(Integer.parseInt(priceTextF.getText()));
 				itemDto.setContent(contentTextPn.getText());
 				itemDto.setUser_id(id);
+				
+				delegator.itemBbsController.insert(itemDto);
+				
+				
+				
+				
+				
+				
 				
 				/* delegator 에 현재 로그인된 유저 정보를 받아오도록 수정 */
 				ItemBbsService itemservice = new ItemBbsService();

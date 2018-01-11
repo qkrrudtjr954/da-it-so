@@ -84,4 +84,15 @@ public class ItemBbsController {
 	public void ImageView(String img) {
 		new ImageDetail(img);
 	}
+
+	public void insert(ItemBbs itemDto) {
+		// TODO Auto-generated method stub
+		boolean result = itemService.addItem(itemDto);
+		ItemBbs returnItem = null;
+		if(result) {
+			returnItem = itemService.getItemBbsByTitleAndContent(itemDto);
+		} else {
+			JOptionPane.showMessageDialog(null, "게시중 문제가 발생했습니다.");
+		}
+	}
 }

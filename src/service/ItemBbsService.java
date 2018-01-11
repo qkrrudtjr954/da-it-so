@@ -59,6 +59,12 @@ public class ItemBbsService implements ItemBbsServiceImpl{
 		return itemDao.DeleteItemBbs(itemDto);
 	}
 
+	@Override
+	public ItemBbs getItemBbsByTitleAndContent(ItemBbs itemDto) {
+		// TODO Auto-generated method stub
+		return itemDao.getItemBbsByTitleAndContent(itemDto);
+	}
+
 	
 	
 
