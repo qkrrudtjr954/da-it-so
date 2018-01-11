@@ -16,14 +16,12 @@ import dto.ItemBbs;
 
 public class ItemBbsDao implements ItemBbsDaoImpl{
 
-	//DBConnection DBConnector = new MySqlConnection();
-	DBConnection DBConnector = new OracleConnection();
 	
 	public List<ItemBbs> allItemList() {
 
 		String sql = "SELECT * FROM ITEM_BBS WHERE STATE=0 OR STATE=1 ORDER BY CREATED_AT DESC";
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -74,7 +72,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		String keyword = itemDto.getKeyword().replaceAll(" ", "");
 		keyword = keyword.replaceAll("#", "-key-");
 
-		if (DBConnector.getClass().getName().equals("db.MySqlConnection")) {
+		if (Delegator.getInstance().DBConnector.getClass().getName().equals("db.MySqlConnection")) {
 			sql = " insert into item_bbs(category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, keyword, content, state, created_at) "
 					+ " values( "+itemDto.getCategory_id()+", '"+delegator.getCurrent_user().getId()+"', '"+itemDto.getTitle()+"', '"
 					+ itemDto.getImgurl1() +"', '"+itemDto.getImgurl2()+"', '"+itemDto.getImgurl3()+"', '"+itemDto.getImgurl4()+"', '"+keyword+"', '"+itemDto.getContent()+"', 1, now());";
@@ -84,7 +82,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		}
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -110,7 +108,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		String sql = "SELECT * FROM ITEM_BBS WHERE CATEGORY_ID = "+ category_id;
 		
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 
 		List<ItemBbs> itemList = new ArrayList<>();
@@ -170,7 +168,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		System.out.println(">>>	ItemBbsDao .searchList() sql : " + sql);
 		//select * from item_bbs where title like %something% or content like %something% or ability like %something%;
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 
 		try {
 			ptmt = conn.prepareStatement(sql);
@@ -211,7 +209,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		String sql = " SELECT * FROM ITEM_BBS ";
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 
 		ResultSet rs = null;
@@ -254,7 +252,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 	public List<ItemBbs> getItemBbsByUserId(String user_id) {
 		String sql = " SELECT * FROM ITEM_BBS WHERE USER_ID='"+user_id+"'";
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 
 		ResultSet rs = null;
@@ -299,7 +297,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		// state가 3이면 관리자에 의한 삭제.
 		String sql = " update item_bbs set state = 3 where seq="+item.getSeq();
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 
 		int count = -1;
@@ -322,7 +320,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		// state가 3이면 관리자에 의한 삭제.
 		String sql = " update item_bbs set state = 1 where seq="+itemDto.getSeq()+" and user_id='"+itemDto.getUser_id()+"' ";
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 
 		int count = -1;
@@ -345,7 +343,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		//0=진행중 1=완료 2=삭제 3=관리자삭제
 		String sql = " UPDATE ITEM_BBS SET STATE = 2 WHERE USER_ID = '"+ itemDto.getUser_id() +"' AND SEQ = "+itemDto.getSeq();
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 		
 		System.out.println(">>>	itemBbsDao .DeleteItem() sql : " + sql);
@@ -368,7 +366,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 		// state가 3이면 관리자에 의한 삭제.
 		String sql = " update item_bbs set state = 0 where seq="+item.getSeq();
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 
 		int count = -1;
@@ -401,7 +399,7 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 
 		System.out.println(">>>	ItemBbsDao .AdminSearch() sql : " + sql);
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 
 		try {
 			ptmt = conn.prepareStatement(sql);

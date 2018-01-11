@@ -11,19 +11,16 @@ import db.DBClose;
 import db.DBConnection;
 import db.MySqlConnection;
 import db.OracleConnection;
+import delegator.Delegator;
 import dto.Category;
 
 public class CategoryDao implements CategoryDaoImpl {
-
-
-	//DBConnection DBConnector = new MySqlConnection();
-	DBConnection DBConnector = new OracleConnection();
 
 	public List<Category> getAllCategories(int state) {
 
 		String sql = "SELECT * FROM CATEGORY WHERE STATE ="+state;
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 
 		List<Category> categoryList = new ArrayList<>();

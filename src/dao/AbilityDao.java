@@ -15,15 +15,12 @@ import dto.AbilityBbs;
 import dto.Person;
 
 public class AbilityDao implements AbilityDaoImpl {
-
-	//DBConnection DBConnector = new MySqlConnection();
-	DBConnection DBConnector = new OracleConnection();
 	
 	public List<AbilityBbs> allAbilityList() {
 
 		String sql = "SELECT * FROM ABILITY_BBS WHERE STATE = 0 OR STATE = 1 ORDER BY CREATED_AT ";
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -71,7 +68,7 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		String sql = "SELECT * FROM ABILITY_BBS";
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -119,7 +116,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		String ability = abilityDto.getAbility().replaceAll(" ", "");
 		ability = ability.replaceAll("#", "-key-");
 		
-		if (DBConnector.getClass().getName().equals("db.MySqlConnection")) {
+		if (Delegator.getInstance().DBConnector.getClass().getName().equals("db.MySqlConnection")) {
 			sql = " insert into ability_bbs(category_id, user_id, title, imgurl1, imgurl2, imgurl3, imgurl4, ability, content, state, created_at) "
 					+ " values( " + abilityDto.getCategory_id() + ", '" + delegator.getCurrent_user().getId() + "', '"
 					+ abilityDto.getTitle() + "', '" + abilityDto.getImgurl1() + "', '" + abilityDto.getImgurl2()
@@ -131,7 +128,7 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		}
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -158,7 +155,7 @@ public class AbilityDao implements AbilityDaoImpl {
 	public List<AbilityBbs> searchList(String searchWord) {
 
 		List<AbilityBbs> searchlist = new ArrayList<AbilityBbs>();
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		ResultSet rs = null;
 		PreparedStatement psmt = null;
 
@@ -207,7 +204,7 @@ public class AbilityDao implements AbilityDaoImpl {
 
 		String sql = " SELECT * FROM ABILITY_BBS WHERE (USER_ID='"+user_id+"') AND (STATE=0 OR STATE=1)";
 		
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -251,7 +248,7 @@ public class AbilityDao implements AbilityDaoImpl {
 	public boolean DeleteAbilityBbsByAdmin(AbilityBbs ability) {
 		String sql = " UPDATE ITEM_BBS SET STATE = 3 WHERE SEQ= "+ability.getSeq();
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 
 		int count = -1;
@@ -273,7 +270,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		// TODO Auto-generated method stub
 		String sql = " UPDATE ABILITY_BBS SET STATE = 1 WHERE SEQ="+abilityDto.getSeq()+" and user_id='"+abilityDto.getUser_id()+"' ";
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 
 		int count = -1;
@@ -296,7 +293,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		//0=진행중 1=완료 2=삭제 3=관리자삭제
 		String sql = " UPDATE ABILITY_BBS SET STATE = 2 WHERE USER_ID = '"+ abilityDto.getUser_id() +"' AND SEQ = "+abilityDto.getSeq();
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 
 		System.out.println(">>>	AbilityBbsDao .DeleteAbilityList() sql : " + sql);
@@ -318,7 +315,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		// TODO Auto-generated method stub
 		String sql = " UPDATE ITEM_BBS SET STATE = 0 WHERE SEQ="+ability.getSeq();
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 
 		int count = -1;
@@ -347,7 +344,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		
 		System.out.println(">>> AbilityDao  .AdminSearch()  sql: " + sql);
 		
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
 		ResultSet rs = null;
 		
@@ -390,7 +387,7 @@ public class AbilityDao implements AbilityDaoImpl {
 		// TODO Auto-generated method stub
 		String sql = "SELECT * FROM ABILITY_BBS WHERE CATEGORY_ID="+category_id+" AND (STATE=0 OR STATE=1) ";
 
-		Connection conn = DBConnector.makeConnection();
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 

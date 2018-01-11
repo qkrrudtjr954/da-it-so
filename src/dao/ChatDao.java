@@ -10,17 +10,10 @@ import java.util.List;
 import db.DBConnection;
 import db.MySqlConnection;
 import db.OracleConnection;
+import delegator.Delegator;
 import dto.ChatDto;
 
-<<<<<<< HEAD
 public class ChatDao implements ChatDaoImpl {
-	// DBConnection DBConnector = new OracleConnection();
-	DBConnection DBConnector = new MySqlConnection();
-=======
-public class ChatDao implements ChatDaoImpl{
-	//DBConnection DBConnector = new MySqlConnection();
-	DBConnection DBConnector = new OracleConnection();
->>>>>>> oracle
 
 	public List<ChatDto> getChatByRoomSeq(int seq) {
 		String sql = "select * from chat where room_id=" + seq + " order by seq";
@@ -32,7 +25,7 @@ public class ChatDao implements ChatDaoImpl{
 		ResultSet rs = null;
 
 		try {
-			conn = DBConnector.makeConnection();
+			conn = Delegator.getInstance().DBConnector.makeConnection();
 			ptmt = conn.prepareStatement(sql);
 			rs = ptmt.executeQuery();
 
@@ -56,7 +49,7 @@ public class ChatDao implements ChatDaoImpl{
 	public boolean insert(ChatDto chat) {
 		String sql;
 
-		if (DBConnector.getClass().getName().equals("db.MySqlConnection")) {
+		if (Delegator.getInstance().DBConnector.getClass().getName().equals("db.MySqlConnection")) {
 			sql = " insert into chat(room_id, user_id, content, created_at) "
 					+ "values(" + chat.getRoom_id() + ", '"+ chat.getUser_id() + "', '" + chat.getContent() + "', now())";
 		} else {
@@ -70,7 +63,7 @@ public class ChatDao implements ChatDaoImpl{
 		int count = -1;
 
 		try {
-			conn = DBConnector.makeConnection();
+			conn = Delegator.getInstance().DBConnector.makeConnection();
 			ptmt = conn.prepareStatement(sql);
 			count = ptmt.executeUpdate();
 

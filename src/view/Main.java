@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,21 +28,18 @@ public class Main extends JFrame implements ActionListener {
 	private JButton item, ability;
 	private JLabel adminContact;
 	
-	JButton test;
-	
 	public Main() {
-//		String iconImgUrl = "E:\\icon\\";
-		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-		String iconImgUrl = "c:\\icon\\";
 		JPanel headerPn;
+		
+		Delegator delegator = Delegator.getInstance();
+		BufferedImage headerlogo = delegator.getImage("icon/headerlogo.png");
 
+		ImageIcon headerImage = new ImageIcon(headerlogo);
 		// header
 		JPanel headerLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
-
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
-				g.drawImage(headerimage.getImage(), 0, 0, null);
+				g.drawImage(headerImage.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -62,8 +60,6 @@ public class Main extends JFrame implements ActionListener {
 		// headerlogo
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerPn.add(headerLogo);
-
-		Delegator delegator = Delegator.getInstance();
 		
 		if(delegator.getCurrent_user()==null) {
 			// loginBtn
@@ -143,8 +139,6 @@ public class Main extends JFrame implements ActionListener {
 			}
 		});
 		contentPane.add(adminContact);
-
-		adminContact = new JButton("관리자에게 문의하기.");
 		
 		contentPane.add(center);
 
