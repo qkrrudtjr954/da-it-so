@@ -1,4 +1,4 @@
-package view;
+﻿package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -38,10 +39,9 @@ public class AbilityMain extends JFrame implements ActionListener{
 	private JTextField searchTextF;
 
 	JPanel category;
-	//imgurl
-//	String iconImgUrl = "E:\\icon\\";
-	String iconImgUrl = "/Users/leefrances/Desktop/icon/";
-	String smallNoImgUrl = iconImgUrl+"smallNoimg.png";
+
+	
+	String smallNoImgUrl = "icon/smallNoimg.png";
 
 	Color mainRed = new Color(218, 0, 0);
 	Color mainGray = new Color(250, 250, 250);
@@ -76,9 +76,10 @@ public class AbilityMain extends JFrame implements ActionListener{
 		// scrollPane.add(detailPn);
 
 		// headerlogo
-		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
+		BufferedImage headerImg = delegator.getImage("icon/headerlogo.png");
+		ImageIcon headerimage = new ImageIcon(headerImg);
 		headerLogo = new JPanel() {
-
+			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(headerimage.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -139,11 +140,13 @@ public class AbilityMain extends JFrame implements ActionListener{
 		sidePn.setLayout(null);
 		sidePn.setBackground(sideC);
 
-		ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
+	
+		BufferedImage logoImg = delegator.getImage("icon/logo.png");
+		ImageIcon logoIcon = new ImageIcon(logoImg);
 		logoPn = new JPanel() {
 
 			public void paintComponent(Graphics g) {
-				g.drawImage(image.getImage(), 0, 0, null);
+				g.drawImage(logoIcon.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -159,7 +162,9 @@ public class AbilityMain extends JFrame implements ActionListener{
 		sidePn.add(searchTextF);
 
 		// searchBtn
-		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
+		BufferedImage searchImg = delegator.getImage("icon/search.png");
+		ImageIcon searchIcon = new ImageIcon(searchImg);
+		searchBtn = new JButton(searchIcon);
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false);
 		searchBtn.setContentAreaFilled(false);
@@ -172,18 +177,27 @@ public class AbilityMain extends JFrame implements ActionListener{
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
 
+		categoryList.stream().forEach(System.out::println);
 		for(int i=0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "ability/" + categoryList.get(i).getTitle() +".png");
+			System.out.println("ability/"+ categoryList.get(i).getTitle() +".png");
+			BufferedImage categoryImage = delegator.getImage("ability/"+ categoryList.get(i).getTitle() +".png");
+			
+			ImageIcon categoryIcon;
+			if(categoryImage == null) {
+				categoryImage = delegator.getImage(smallNoImgUrl);		
+			}
+			categoryIcon = new ImageIcon(categoryImage);
+			
 
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
-					g.drawImage(categoryImage.getImage(), 0, 0, null);
+					g.drawImage(categoryIcon.getImage(), 0, 0, null);
 					setOpaque(false);
 					super.paintComponents(g);
 				}
 			};
 			category.setBorder(new LineBorder(commonRedColor, 2));
-			category.setName(categoryList.get(i).getSeq()+"");
+			category.setName(categoryList.get(i).getSeq() + "");
 			category.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {

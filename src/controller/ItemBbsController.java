@@ -14,6 +14,7 @@ import service.CategoryServiceImpl;
 import service.ItemBbsService;
 import service.ItemBbsServiceImpl;
 import view.AbilityMain;
+import view.ImageDetail;
 import view.ItemDetail;
 import view.ItemMain;
 import view.ItemWrite;
@@ -80,4 +81,7 @@ public class ItemBbsController {
 		return itemService.DeleteItemBbs(itemDto);
 	}
 
+	public void ImageView(String img) {
+		new ImageDetail(img);
+	}
 }

@@ -29,8 +29,10 @@ public class Main extends JFrame implements ActionListener {
 	private JLabel adminContact;
 
 	public Main() {
-//		String iconImgUrl = "E:\\icon\\";
-		String iconImgUrl = "/Users/leefrances/Desktop/icon/";
+
+//		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+		String iconImgUrl = "c:\\icon\\";
+
 		JPanel headerPn;
 
 		Delegator delegator = Delegator.getInstance();
@@ -62,10 +64,6 @@ public class Main extends JFrame implements ActionListener {
 		// headerlogo
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerPn.add(headerLogo);
-
-
-	
-
 
 		if(delegator.getCurrent_user()==null) {
 
@@ -141,14 +139,19 @@ public class Main extends JFrame implements ActionListener {
 				// TODO Auto-generated method stub
 				if(delegator.getCurrent_user() == null) {
 					JOptionPane.showMessageDialog(null, "로그인 후 이용 가능합니다.");
+					delegator.personController.Login();
+					dispose();
 				}else {
 					delegator.roomController.checkRoom("admin");
 				}
 			}
 		});
 		contentPane.add(adminContact);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 4dcbe09e8452b151b379abc02b73501622ad1d87
 		contentPane.add(center);
 
 		setBounds(0, 0, 1350, 750);
@@ -171,9 +174,9 @@ public class Main extends JFrame implements ActionListener {
 		}else if(obj == logoutBtn) {
 			int result = delegator.personController.Logout();
 			if (result == 0) {
-				this.dispose();	
+				this.dispose();
 			}
-			
+
 		}
 
 		//select itemMain

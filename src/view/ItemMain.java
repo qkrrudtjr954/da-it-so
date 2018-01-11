@@ -1,4 +1,4 @@
-package view;
+﻿package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -25,24 +26,21 @@ import delegator.Delegator;
 import dto.Category;
 import dto.ItemBbs;
 import dto.Person;
-import oracle.net.aso.i;
 
 public class ItemMain extends JFrame implements ActionListener {
-	//side panel
+	// side panel
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, detailPn;
 	private JButton loginBtn, logoutBtn, signupBtn, searchBtn;
 	private JTextField searchTextF;
 
-	//list panel
+	// list panel
 	private JPanel listPn, thumPn;
 	private JLabel imgLa, txtLa;
 	private JButton addBtn;
 
 	JPanel category;
 
-//	String iconImgUrl = "E:\\icon\\";
-	String iconImgUrl = "/Users/leefrances/Desktop/icon/";
-	String smallNoImgUrl = iconImgUrl+"smallNoimg.png";
+	String smallNoImgUrl = "icon/smallNoimg.png";
 
 	Color mainRed = new Color(218, 0, 0);
 	Color mainGray = new Color(250, 250, 250);
@@ -79,7 +77,9 @@ public class ItemMain extends JFrame implements ActionListener {
 		// scrollPane.add(detailPn);
 
 		// headerlogo
-		ImageIcon headerimage = new ImageIcon(iconImgUrl+"headerlogo.png");
+		// headerlogo
+		BufferedImage headerImg = delegator.getImage("icon/headerlogo.png");
+		ImageIcon headerimage = new ImageIcon(headerImg);
 		headerLogo = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -100,7 +100,7 @@ public class ItemMain extends JFrame implements ActionListener {
 		});
 		headerPn.add(headerLogo);
 
-		if(delegator.getCurrent_user()==null) {
+		if (delegator.getCurrent_user() == null) {
 			// loginBtn
 			loginBtn = new JButton("로그인");
 			loginBtn.setBounds(1240, 20, 100, 30);
@@ -122,7 +122,7 @@ public class ItemMain extends JFrame implements ActionListener {
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
 			headerPn.add(signupBtn);
-		}else {
+		} else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
 			logoutBtn.setBounds(1240, 20, 100, 30);
@@ -143,11 +143,12 @@ public class ItemMain extends JFrame implements ActionListener {
 		sidePn.setLayout(null);
 		sidePn.setBackground(sideC);
 
-		ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
+		BufferedImage logoImg = delegator.getImage("icon/logo.png");
+		ImageIcon logoIcon = new ImageIcon(logoImg);
 		logoPn = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
-				g.drawImage(image.getImage(), 0, 0, null);
+				g.drawImage(logoIcon.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -163,7 +164,9 @@ public class ItemMain extends JFrame implements ActionListener {
 		sidePn.add(searchTextF);
 
 		// searchBtn
-		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
+		BufferedImage searchImg = delegator.getImage("icon/search.png");
+		ImageIcon searchIcon = new ImageIcon(searchImg);
+		searchBtn = new JButton(searchIcon);
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		// searchBtn.setBackground();
@@ -178,18 +181,21 @@ public class ItemMain extends JFrame implements ActionListener {
 		catePn.setBounds(25, 290, 350, 350);
 		catePn.setBackground(Color.WHITE);
 
-		for(int i=0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "item/" + categoryList.get(i).getTitle() +".png");
+		for (int i = 0; i < categoryList.size(); i++) {
+
+			BufferedImage categoryImage = delegator.getImage("item/"+ categoryList.get(i).getTitle() +".png");
+			System.out.println("ability/"+ categoryList.get(i).getTitle() +".png");
+			ImageIcon categoryIcon = new ImageIcon(categoryImage);
 
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
-					g.drawImage(categoryImage.getImage(), 0, 0, null);
+					g.drawImage(categoryIcon.getImage(), 0, 0, null);
 					setOpaque(false);
 					super.paintComponents(g);
 				}
 			};
 			category.setBorder(new LineBorder(commonRedColor, 2));
-			category.setName(categoryList.get(i).getSeq()+"");
+			category.setName(categoryList.get(i).getSeq() + "");
 			category.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -197,7 +203,7 @@ public class ItemMain extends JFrame implements ActionListener {
 					int seq = Integer.parseInt(category.getName());
 
 					Delegator delegator = Delegator.getInstance();
-					delegator.itemBbsController.SelectItemCategories(seq);
+					delegator.abilityBbsController.SelectAbilityCategories(seq);
 					dispose();
 				}
 			});
@@ -241,7 +247,8 @@ public class ItemMain extends JFrame implements ActionListener {
 				thumPn1.setName(String.valueOf(i));
 
 
-				if(itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
+				if (itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("userImg/null")) {
+
 					ImageIcon img = new ImageIcon(smallNoImgUrl);
 					imgLa = new JLabel() {
 						@Override
@@ -252,7 +259,7 @@ public class ItemMain extends JFrame implements ActionListener {
 							super.paintComponents(g);
 						}
 					};
-				}else {
+				} else {
 					ImageIcon img = new ImageIcon(itemList.get(i).getImgurl1());
 					imgLa = new JLabel() {
 						@Override
@@ -266,19 +273,19 @@ public class ItemMain extends JFrame implements ActionListener {
 				}
 
 				stateLabel.setLocation(380, 10);
-				if(itemList.get(i).getState()==0) {
+				if (itemList.get(i).getState() == 0) {
 					imgLa.setBorder(new LineBorder(mainRed, 1));
 					stateLabel.setForeground(commonRedColor);
 					stateLabel.setText("진행중");
 
-				} else if(itemList.get(i).getState()==1) {
+				} else if (itemList.get(i).getState() == 1) {
 					imgLa.setBorder(new LineBorder(mainBlack, 2));
 					stateLabel.setText("완료됨");
 				}
 
-
 				imgLa.setBounds(0, 0, 200, 120);
-				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+ itemList.get(i).getContent()+"</html>");
+				txtLa = new JLabel(
+						"<html>" + itemList.get(i).getTitle() + "<br/>" + itemList.get(i).getContent() + "</html>");
 				txtLa.setBounds(200, 0, 300, 120);
 				thumPn1.add(stateLabel);
 				thumPn1.add(txtLa);
@@ -289,7 +296,7 @@ public class ItemMain extends JFrame implements ActionListener {
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
 
-				if(itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
+				if (itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
 					ImageIcon img = new ImageIcon(smallNoImgUrl);
 					imgLa = new JLabel() {
 						@Override
@@ -300,7 +307,7 @@ public class ItemMain extends JFrame implements ActionListener {
 							super.paintComponents(g);
 						}
 					};
-				}else {
+				} else {
 					ImageIcon img = new ImageIcon(itemList.get(i).getImgurl1());
 					imgLa = new JLabel() {
 						@Override
@@ -313,15 +320,18 @@ public class ItemMain extends JFrame implements ActionListener {
 					};
 				}
 				stateLabel.setLocation(380, 10);
-				if(itemList.get(i).getState()==0) {
+
+				if (itemList.get(i).getState() == 0) {
+
 					imgLa.setBorder(new LineBorder(mainRed, 1));
 					stateLabel.setForeground(commonRedColor);
 					stateLabel.setText("진행중");
-				} else if(itemList.get(i).getState()==1) {
+				} else if (itemList.get(i).getState() == 1) {
 					imgLa.setBorder(new LineBorder(mainBlack, 2));
 					stateLabel.setText("완료됨");
 				}
-				txtLa = new JLabel("<html>"+ itemList.get(i).getTitle() +"<br/>"+ itemList.get(i).getContent()+"</html>");
+				txtLa = new JLabel(
+						"<html>" + itemList.get(i).getTitle() + "<br/>" + itemList.get(i).getContent() + "</html>");
 				imgLa.setBounds(0, 0, 200, 120);
 				txtLa.setBounds(200, 0, 300, 120);
 				thumPn1.add(stateLabel);
@@ -343,10 +353,8 @@ public class ItemMain extends JFrame implements ActionListener {
 				}
 			});
 
-
 			listPn.add(thumPn1);
 		}
-
 
 		add(sidePn);
 		add(headerPn);
@@ -366,36 +374,37 @@ public class ItemMain extends JFrame implements ActionListener {
 		setVisible(true);
 
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Delegator delegator = Delegator.getInstance();
 		Object obj = e.getSource();
 		Person personDto = null;
 
-		if( obj== addBtn ) {
+		if (obj == addBtn) {
 			System.out.println("addBtn Click");
 
 			personDto = delegator.getCurrent_user();
 
-			if(personDto == null) {
+			if (personDto == null) {
 				JOptionPane.showMessageDialog(null, "로그인 해주세요.");
 				delegator.personController.Login();
 				this.dispose();
-			}else {
+			} else {
 				delegator.itemBbsController.itemWrite(personDto);
 				this.dispose();
 			}
-		}else if(obj == loginBtn) {
+		} else if (obj == loginBtn) {
 			delegator.personController.Login();
 			this.dispose();
-		}else if(obj == signupBtn) {
+		} else if (obj == signupBtn) {
 			delegator.personController.SignUp();
 			this.dispose();
 		}else if(obj == logoutBtn) {
 			int result =delegator.personController.Logout();
 			if (result == 0) {
 				this.dispose();
-			}	
+			}
 		}else if(obj == searchBtn) {
 			String searchWord = searchTextF.getText();
 			delegator.itemBbsController.searchList(searchWord);

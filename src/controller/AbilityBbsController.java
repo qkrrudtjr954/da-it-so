@@ -14,6 +14,7 @@ import service.CategoryService;
 import view.AbilityDetail;
 import view.AbilityMain;
 import view.AbilityWrite;
+import view.ImageDetail;
 import view.Main;
 
 public class AbilityBbsController {
@@ -72,5 +73,9 @@ public class AbilityBbsController {
 	public boolean setDeleteAbilityBbs(AbilityBbs abilityDto) {
 		// TODO Auto-generated method stub
 		return abilityService.DeleteAbilityBbs(abilityDto);
+	}
+	
+	public void ImageView(String img) {
+		new ImageDetail(img);
 	}
 }
