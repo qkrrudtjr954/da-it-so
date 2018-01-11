@@ -403,44 +403,48 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		
 		String key = abilityDto.getAbility();
 		int rowSize = 0;
-
-		String[] keyarray;
-		keyarray = key.split("-key-");
-
-		if (keyarray.length % 3 == 0) {
-			rowSize = keyarray.length / 3;
-		} else {
-			rowSize = keyarray.length / 3 + 1;
-		}
-
-		JPanel keywordPanel = new JPanel();
-		keywordPanel.setLocation(10, 70);
-		keywordPanel.setSize(240, 40);
-		keywordPanel.setBackground(Color.white);
-		keywordPanel.setLayout(null);
-
-		JLabel keywordLabel[][] = new JLabel[rowSize][3];
-
-		int k = 1;
-		for (int i = 0; i < rowSize; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (k == keyarray.length) {
-					break;
-				}
-
-				keywordLabel[i][j] = new JLabel();
-				keywordLabel[i][j].setOpaque(true);
-				keywordLabel[i][j].setBackground(Color.pink);
-				keywordLabel[i][j].setHorizontalAlignment(SwingConstants.LEFT);
-				keywordLabel[i][j].setText("#" + keyarray[k]);
-				keywordLabel[i][j].setSize(70, 30);
-				keywordLabel[i][j].setLocation((j * 80), (i * 40));
-
-				keywordPanel.add(keywordLabel[i][j]);
-				k++;
+		
+		if(!key.equals("")) {
+			
+			
+			String[] keyarray;
+			keyarray = key.split("-key-");
+			
+			if (keyarray.length % 3 == 0) {
+				rowSize = keyarray.length / 3;
+			} else {
+				rowSize = keyarray.length / 3 + 1;
 			}
+			
+			JPanel keywordPanel = new JPanel();
+			keywordPanel.setLocation(10, 70);
+			keywordPanel.setSize(240, 40);
+			keywordPanel.setBackground(Color.white);
+			keywordPanel.setLayout(null);
+			
+			JLabel keywordLabel[][] = new JLabel[rowSize][3];
+			
+			int k = 1;
+			for (int i = 0; i < rowSize; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (k == keyarray.length) {
+						break;
+					}
+					
+					keywordLabel[i][j] = new JLabel();
+					keywordLabel[i][j].setOpaque(true);
+					keywordLabel[i][j].setBackground(Color.pink);
+					keywordLabel[i][j].setHorizontalAlignment(SwingConstants.LEFT);
+					keywordLabel[i][j].setText("#" + keyarray[k]);
+					keywordLabel[i][j].setSize(70, 30);
+					keywordLabel[i][j].setLocation((j * 80), (i * 40));
+					
+					keywordPanel.add(keywordLabel[i][j]);
+					k++;
+				}
+			}
+			iteminfoPn.add(keywordPanel);
 		}
-		iteminfoPn.add(keywordPanel);
 
 		// category
 		cateLb = new JLabel("카테고리 : " + abilityCategory.getDescription());

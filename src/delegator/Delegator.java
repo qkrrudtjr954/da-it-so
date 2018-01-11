@@ -47,7 +47,8 @@ public class Delegator {
 		mainController = new MainController();
 		adminController = new AdminController();
 
-		DBConnector = new OracleConnection();
+//		DBConnector = new OracleConnection();
+		DBConnector = new MySqlConnection();
 	}
 
 	public static Delegator getInstance() {

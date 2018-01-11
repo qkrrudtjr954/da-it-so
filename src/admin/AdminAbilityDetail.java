@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -37,6 +38,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 
 	Person person = null;
 	AbilityBbs ability = null;
+	String noImgUrl = "icon/noimg.png";
 
 	public AdminAbilityDetail(AbilityBbs ability, Person person) {
 
@@ -119,9 +121,6 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 			headerPn.add(logoutBtn);
 		}
 
-		headerPn.add(logoutBtn);
-		headerPn.add(loginBtn);
-		headerPn.add(signupBtn);
 
 		// 1050
 		// sidePn
@@ -220,70 +219,136 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 		sellLb.setOpaque(false);
 
 		imagePannel.add(sellLb);
-		// itemImage
-		itemImagePn = new JPanel() {
-			ImageIcon itemImage = new ImageIcon(ability.getImgurl1());
+		
+		BufferedImage itemImage = delegator.getImage(ability.getImgurl1());
+		if (itemImage == null) {
+			itemImage = delegator.getImage(noImgUrl);
+		}
+		ImageIcon itemIcon = new ImageIcon(itemImage);
 
+		itemImagePn = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(itemImage.getImage(), 0, 0, null);
+				g.drawImage(itemIcon.getImage(), 0, 0, 400, 400, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
-		itemImagePn.setBounds(10, 115, 400, 500);
+		itemImagePn.setBounds(10, 115, 400, 400);
+		itemImagePn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(ability.getImgurl1());
+			}
+		});
 		imagePannel.add(itemImagePn);
 
 		// itemsub
 		subimagePn = new JPanel();
-		subimagePn.setLayout(new GridLayout(1, 4, 10, 5));
-		subimagePn.setBounds(10, 530, 400, 90);
+		subimagePn.setLayout(new GridLayout(1, 4));
+		subimagePn.setBounds(0, 550, 420, 100);
 		// subimagePn.setBackground(Color.PINK);
 
-		// 서브 이미지1
-		subimage1 = new JPanel() {
-			ImageIcon image1 = new ImageIcon(ability.getImgurl1());
+		int compX = subimagePn.getWidth() / 4;
+		int compY = subimagePn.getHeight();
 
+		// 서브 이미지1
+		BufferedImage subItemImg1 = delegator.getImage(ability.getImgurl1());
+		if (subItemImg1 == null) {
+			subItemImg1 = delegator.getImage(noImgUrl);
+		}
+		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);
+		subimage1 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(image1.getImage(), 0, 0, null);
+				g.drawImage(subItemIcon1.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
+		subimage1.setBorder(new LineBorder(commonRedColor, 2));
+		subimage1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				String img = ability.getImgurl1();
+				delegator.abilityBbsController.ImageView(img);
+			}
+		});
 		subimagePn.add(subimage1);
 
 		// 서브이미지2
+		BufferedImage subItemImg2 = delegator.getImage(ability.getImgurl2());
+		if (subItemImg2 == null) {
+			subItemImg2 = delegator.getImage(noImgUrl);
+		}
+		ImageIcon subItemIcon2 = new ImageIcon(subItemImg2);
 		subimage2 = new JPanel() {
-			ImageIcon image2 = new ImageIcon(ability.getImgurl2());
-
 			public void paintComponent(Graphics g) {
-				g.drawImage(image2.getImage(), 0, 0, null);
+				g.drawImage(subItemIcon2.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
+		subimage2.setBorder(new LineBorder(commonRedColor, 2));
+		
+		subimage2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(ability.getImgurl2());
+			}
+		});
 		subimagePn.add(subimage2);
 		// 서브이미지3
-		subimage3 = new JPanel() {
-			ImageIcon image3 = new ImageIcon(ability.getImgurl3());
 
+		BufferedImage subItemImg3 = delegator.getImage(ability.getImgurl3());
+		if (subItemImg3 == null) {
+			subItemImg3 = delegator.getImage(noImgUrl);
+		}
+		ImageIcon subItemIcon3 = new ImageIcon(subItemImg3);
+		subimage3 = new JPanel() {
 			public void paintComponent(Graphics g) {
-				g.drawImage(image3.getImage(), 0, 0, null);
+				g.drawImage(subItemIcon3.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
+		subimage3.setBorder(new LineBorder(commonRedColor, 2));
+		subimage3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(ability.getImgurl3());
+			}
+		});
 		subimagePn.add(subimage3);
 
 		// 서브이미지4
+		BufferedImage subItemImg4 = delegator.getImage(ability.getImgurl4());
+		if (subItemImg4 == null) {
+			subItemImg4 = delegator.getImage(noImgUrl);
+		}
+		ImageIcon subItemIcon4 = new ImageIcon(subItemImg4);
 		subimage4 = new JPanel() {
-			ImageIcon image4 = new ImageIcon(ability.getImgurl4());
-
 			public void paintComponent(Graphics g) {
-				g.drawImage(image4.getImage(), 0, 0, null);
+				g.drawImage(subItemIcon4.getImage(), 0, 0, compX, compY, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
+		subimage4.setBorder(new LineBorder(commonRedColor, 2));
+		subimage4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(ability.getImgurl4());
+			}
+		});
 		subimagePn.add(subimage4);
 
 		imagePannel.add(subimagePn);
@@ -293,7 +358,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 
 		iteminfoPn = new JPanel();
 		iteminfoPn.setLayout(null);
-		iteminfoPn.setBounds(580, 135, 340, 400);
+		iteminfoPn.setBounds(580, 100, 340, 400);
 		iteminfoPn.setBackground(Color.white);
 		iteminfoPn.setBorder(new LineBorder(Color.red, 2));
 
@@ -364,7 +429,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 
 		// chatBtn
 		backBtn = new JButton("뒤로 가기");
-		backBtn.setBounds(630, 540, 240, 35);
+		backBtn.setBounds(630, 505, 240, 35);
 		backBtn.setBorder(new LineBorder(commonRedColor));
 		backBtn.addActionListener(this);
 		detailPn.add(backBtn);
@@ -373,7 +438,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 
 		JLabel state = new JLabel();
 		state.setFont(new Font("state", Font.BOLD, 15));
-		state.setBounds(580, 100, 200, 15);
+		state.setBounds(580, 40, 200, 15);
 		detailPn.add(state);
 
 		if (ability.getState() == 0) {
@@ -381,13 +446,13 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 			state.setText("진행중");
 
 			completeBtn = new JButton("완료 상태로 변경");
-			completeBtn.setBounds(630, 585, 240, 35);
+			completeBtn.setBounds(630, 550, 240, 35);
 			completeBtn.setBorder(new LineBorder(commonRedColor));
 			completeBtn.addActionListener(this);
 			detailPn.add(completeBtn);
 
 			delBtn = new JButton("관리자 권한 삭제");
-			delBtn.setBounds(630, 630, 240, 35);
+			delBtn.setBounds(630, 595, 240, 35);
 			delBtn.setBorder(new LineBorder(commonRedColor));
 			delBtn.addActionListener(this);
 			detailPn.add(delBtn);
@@ -396,13 +461,13 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 			state.setText("완료됨 ");
 
 			continueBtn = new JButton("진행 상태로 변경");
-			continueBtn.setBounds(630, 585, 240, 35);
+			continueBtn.setBounds(630, 550, 240, 35);
 			continueBtn.setBorder(new LineBorder(commonRedColor));
 			continueBtn.addActionListener(this);
 			detailPn.add(continueBtn);
 
 			delBtn = new JButton("관리자 권한 삭제");
-			delBtn.setBounds(630, 630, 240, 35);
+			delBtn.setBounds(630, 595, 240, 35);
 			delBtn.setBorder(new LineBorder(commonRedColor));
 			delBtn.addActionListener(this);
 			detailPn.add(delBtn);
@@ -411,7 +476,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 			state.setText("삭제됨 ");
 
 			continueBtn = new JButton("진행 상태로 변경");
-			continueBtn.setBounds(630, 585, 240, 35);
+			continueBtn.setBounds(630, 550, 240, 35);
 			continueBtn.setBorder(new LineBorder(commonRedColor));
 			continueBtn.addActionListener(this);
 			detailPn.add(continueBtn);
@@ -421,7 +486,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 			state.setText("관리자에 의해 삭제됨 ");
 
 			continueBtn = new JButton("진행 상태로 변경");
-			continueBtn.setBounds(630, 630, 240, 35);
+			continueBtn.setBounds(630, 550, 240, 35);
 			continueBtn.setBorder(new LineBorder(commonRedColor));
 			continueBtn.addActionListener(this);
 			detailPn.add(continueBtn);

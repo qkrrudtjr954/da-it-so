@@ -217,6 +217,7 @@ public class AdminAbilityList extends JFrame implements ActionListener {
 					
 					Delegator delegator = Delegator.getInstance();
 					delegator.adminController.AdminAbilityDetail(abilityList.get(index));
+					dispose();
 				}
 			});
 			itemPanel.setLayout(null);

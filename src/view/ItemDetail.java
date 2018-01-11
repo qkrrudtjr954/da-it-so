@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -28,8 +27,6 @@ import javax.swing.border.LineBorder;
 import delegator.Delegator;
 import dto.Category;
 import dto.ItemBbs;
-import dto.Person;
-import service.ItemBbsService;
 
 public class ItemDetail extends JFrame implements ActionListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, catePn, imagePannel, iteminfoPn, itemImagePn, subimagePn,
@@ -416,21 +413,28 @@ public class ItemDetail extends JFrame implements ActionListener {
 		String key = m_itemDto.getKeyword();
 		int rowSize = 0;
 
-		String[] keyarray;
-		keyarray = key.split("-key-");
-
-		if (keyarray.length % 3 == 0) {
-			rowSize = keyarray.length / 3;
-		} else {
-			rowSize = keyarray.length / 3 + 1;
+		String[] keyarray = null;
+		
+		if(!key.equals("")) {
+			keyarray = key.split("-key-");
+			if (keyarray.length % 3 == 0) {
+				rowSize = keyarray.length / 3;
+			} else {
+				rowSize = keyarray.length / 3 + 1;
+			}
+			
+			
+		}else {
+			keyarray = new String[2];
+			keyarray[0] =  "물품";
+			keyarray[1] =  "판매";
 		}
-
 		JPanel keywordPanel = new JPanel();
 		keywordPanel.setLocation(10, 70);
 		keywordPanel.setSize(240, 40);
 		keywordPanel.setBackground(Color.white);
 		keywordPanel.setLayout(null);
-
+		
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
 		
 		int k = 1;
@@ -439,7 +443,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 				if (k == keyarray.length) {
 					break;
 				}
-
+				
 				keywordLabel[i][j] = new JLabel();
 				keywordLabel[i][j].setOpaque(true);
 				keywordLabel[i][j].setBackground(Color.pink);
@@ -447,12 +451,13 @@ public class ItemDetail extends JFrame implements ActionListener {
 				keywordLabel[i][j].setText("#" + keyarray[k]);
 				keywordLabel[i][j].setSize(70, 30);
 				keywordLabel[i][j].setLocation((j * 80), (i * 40));
-
+				
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
 			}
 		}
 		iteminfoPn.add(keywordPanel);
+
 
 		// categori
 		cateLb = new JLabel("카테고리 : " + itemCategory.getDescription());

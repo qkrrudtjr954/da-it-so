@@ -218,6 +218,7 @@ public class AdminItemList extends JFrame implements ActionListener {
 					
 					Delegator delegator = Delegator.getInstance();
 					delegator.adminController.AdminItemDetail(itemList.get(index));
+					dispose();
 				}
 			});
 			
