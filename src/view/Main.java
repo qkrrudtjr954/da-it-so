@@ -23,14 +23,18 @@ import delegator.Delegator;
 
 public class Main extends JFrame implements ActionListener {
 
-	
+
 	private JButton loginBtn, logoutBtn, signupBtn;
 	private JButton item, ability;
 	private JLabel adminContact;
-	
+
 	public Main() {
+
+//		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+		String iconImgUrl = "c:\\icon\\";
+
 		JPanel headerPn;
-		
+
 		Delegator delegator = Delegator.getInstance();
 		BufferedImage headerlogo = delegator.getImage("icon/headerlogo.png");
 
@@ -47,11 +51,11 @@ public class Main extends JFrame implements ActionListener {
 
 		// mainView
 		Container contentPane = getContentPane();
-		
+
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		Color commonGrayColor = new Color(250, 250, 250);
-		
+
 		headerPn = new JPanel();
 		headerPn.setBackground(commonRedColor);
 		headerPn.setSize(1350, 60);
@@ -61,7 +65,10 @@ public class Main extends JFrame implements ActionListener {
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerPn.add(headerLogo);
 		
+		Delegator delegator = Delegator.getInstance();
+
 		if(delegator.getCurrent_user()==null) {
+
 			// loginBtn
 			loginBtn = new JButton("로그인");
 			loginBtn.setBounds(1240, 20, 100, 30);
@@ -72,7 +79,7 @@ public class Main extends JFrame implements ActionListener {
 			loginBtn.setForeground(Color.white);
 			loginBtn.addActionListener(this);
 			headerPn.add(loginBtn);
-			
+
 			// SignBtn
 			signupBtn = new JButton("회원가입");
 			signupBtn.setBounds(1180, 20, 100, 30);
@@ -82,7 +89,7 @@ public class Main extends JFrame implements ActionListener {
 			signupBtn.setBackground(commonRedColor);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
-			headerPn.add(signupBtn);			
+			headerPn.add(signupBtn);
 		}else {
 			// logoutBtn
 			logoutBtn = new JButton("로그아웃");
@@ -93,7 +100,7 @@ public class Main extends JFrame implements ActionListener {
 			logoutBtn.setBackground(commonRedColor);
 			logoutBtn.setForeground(Color.white);
 			logoutBtn.addActionListener(this);
-			headerPn.add(logoutBtn);			
+			headerPn.add(logoutBtn);
 		}
 
 		contentPane.add(headerPn);
@@ -102,25 +109,26 @@ public class Main extends JFrame implements ActionListener {
 		JPanel main = new JPanel();
 		main.setLayout(null);
 		main.setBackground(new Color(250, 250, 250));
-
 		main.setBounds(0, 0, 1350, 750);
-		
+
 		JPanel center = new JPanel();
 		center.setLayout(null);
 		center.setBorder(new LineBorder(commonRedColor, 3));
 		center.setLocation(170, 110);
 		center.setSize(1000, 550);
-		
-		item = new JButton("item");
+
+		item = new JButton(new ImageIcon(iconImgUrl + "item.png"));
 		item.setBounds(90, 100, 400, 350);
 		item.addActionListener(this);
+		item.setBorderPainted(false);
 		center.add(item);
-		
-		ability = new JButton("ability");
+
+		ability = new JButton(new ImageIcon(iconImgUrl + "ability.png"));
 		ability.setBounds(510, 100, 400, 350);
 		ability.addActionListener(this);
+		ability.setBorderPainted(false);
 		center.add(ability);
-		
+
 		adminContact = new JLabel("관리자에게 문의하기");
 		adminContact.setLayout(new FlowLayout());
 		adminContact.setLocation(600, 675);
@@ -133,13 +141,14 @@ public class Main extends JFrame implements ActionListener {
 				// TODO Auto-generated method stub
 				if(delegator.getCurrent_user() == null) {
 					JOptionPane.showMessageDialog(null, "로그인 후 이용 가능합니다.");
+					delegator.personController.Login();
+					dispose();
 				}else {
-					delegator.roomController.checkRoom("admin");					
+					delegator.roomController.checkRoom("admin");
 				}
 			}
 		});
 		contentPane.add(adminContact);
-		
 		contentPane.add(center);
 
 		setBounds(0, 0, 1350, 750);
@@ -152,7 +161,7 @@ public class Main extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Delegator delegator = Delegator.getInstance();
 		Object obj = e.getSource();
-		
+
 		if(obj == loginBtn) {
 			delegator.personController.Login();
 			this.dispose();
@@ -163,14 +172,14 @@ public class Main extends JFrame implements ActionListener {
 			delegator.personController.Logout();
 			this.dispose();
 		}
-		
+
 		//select itemMain
 		if(obj == item) {
 			System.out.println("==itemMain select==");
 			delegator.itemBbsController.allItemList();
 			this.dispose();
 		}
-		//select AbilityMain 
+		//select AbilityMain
 		if(obj == ability){
 			System.out.println("==abilityMain select==");
 			delegator.abilityBbsController.allAbilityList();

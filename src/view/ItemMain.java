@@ -1,4 +1,4 @@
-package view;
+﻿package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -246,7 +246,9 @@ public class ItemMain extends JFrame implements ActionListener {
 				thumPn1.setBounds(460, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
 
-				if (itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("")) {
+
+				if (itemList.get(i).getImgurl1() == null || itemList.get(i).getImgurl1().equals("userImg/null")) {
+
 					ImageIcon img = new ImageIcon(smallNoImgUrl);
 					imgLa = new JLabel() {
 						@Override
@@ -318,7 +320,9 @@ public class ItemMain extends JFrame implements ActionListener {
 					};
 				}
 				stateLabel.setLocation(380, 10);
+
 				if (itemList.get(i).getState() == 0) {
+
 					imgLa.setBorder(new LineBorder(mainRed, 1));
 					stateLabel.setForeground(commonRedColor);
 					stateLabel.setText("진행중");

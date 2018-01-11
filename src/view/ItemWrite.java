@@ -1,4 +1,4 @@
-package view;
+﻿package view;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -218,7 +218,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		String category[] = new String[categoryList.size()];
 
 		for (int i = 0; i < category.length; i++) {
-			category[i] = categoryList.get(i).getDescription();
+			category[i] = categoryList.get(i).getTitle();
 		}
 
 		cateCombo = new JComboBox(category);
