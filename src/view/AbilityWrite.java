@@ -37,7 +37,9 @@ public class AbilityWrite extends JFrame implements ActionListener {
 	private JComboBox cateCombo;
 
 	JPanel category;
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	// String iconImgUrl = "E:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "/Users/leefrances/Desktop/icon/";
 
 
 
@@ -175,7 +177,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for (int i = 0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl + "ability/" + categoryList.get(i).getTitle() + ".png");
+			ImageIcon categoryImage = new ImageIcon(iconImgUrl + "ability/" + categoryList.get(i).getDescription() + ".png");
 
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
@@ -223,7 +225,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		String category[] = new String[categoryList.size()];
 
 		for (int i = 0; i < category.length; i++) {
-			category[i] = categoryList.get(i).getDescription();
+			category[i] = categoryList.get(i).getTitle();
 		}
 
 		cateCombo = new JComboBox(category);
@@ -300,7 +302,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		JLabel infoLabel = new JLabel("보유 능력을 등록해주세요.");
 		infoLabel.setBounds(220, 380, 300, 20);
 		writePn.add(infoLabel);
-		
+
 		abilityTextF = new JTextField();
 		abilityTextF.setBounds(210, 350, 300, 30);
 		abilityTextF.setText("ex) #javascript #css #java");

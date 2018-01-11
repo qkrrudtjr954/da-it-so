@@ -39,8 +39,8 @@ public class ItemWrite extends JFrame implements ActionListener {
 
 	JPanel category;
 
-	String iconImgUrl = "c:\\icon\\";
-//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+//	String iconImgUrl = "E:\\icon\\";
+	String iconImgUrl = "/Users/leefrances/Desktop/icon/";
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
@@ -179,7 +179,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for(int i=0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "item/" + categoryList.get(i).getTitle() +".png");
+			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "item/" + categoryList.get(i).getDescription() +".png");
 
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
@@ -219,7 +219,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		String category[] = new String[categoryList.size()];
 
 		for (int i = 0; i < category.length; i++) {
-			category[i] = categoryList.get(i).getDescription();
+			category[i] = categoryList.get(i).getTitle();
 		}
 
 		cateCombo = new JComboBox(category);
@@ -301,7 +301,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		keywLb = new JLabel("키워드");
 		keywLb.setBounds(100, 350, 100, 30);
 		writePn.add(keywLb);
-		
+
 		JLabel infoLabel = new JLabel("검색 가능한 키워드를 등록해주세요.");
 		infoLabel.setBounds(220, 380, 300, 20);
 		writePn.add(infoLabel);
@@ -346,7 +346,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		Delegator delegator = Delegator.getInstance();
 
 		Object obj = e.getSource();
-		
+
 		if (obj == listBtn) {
 			delegator.itemBbsController.allItemList();
 			this.dispose();
@@ -364,14 +364,14 @@ public class ItemWrite extends JFrame implements ActionListener {
 			delegator.itemBbsController.searchList(searchWord);
 			this.dispose();
 		}
-		
+
 		if (obj == imgAdd1) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
 				img1TextF.setText(jfc.getSelectedFile().toString());
 				filename1 = jfc.getSelectedFile().getName();
 			}
-		} 
+		}
 		if (obj == imgAdd2) {
 			if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				// showopendialog 열기 창을 열고 확인 버튼을 눌렀는지 확인
@@ -393,7 +393,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 				filename4 = jfc.getSelectedFile().getName();
 			}
 		}
-		
+
 		if (obj == writeBtn) {
 			if (!img1TextF.getText().isEmpty()) {
 				filesend fs = new filesend(img1TextF.getText());

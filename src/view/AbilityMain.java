@@ -39,8 +39,8 @@ public class AbilityMain extends JFrame implements ActionListener{
 
 	JPanel category;
 	//imgurl
-	String iconImgUrl = "C:\\icon\\";
-//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+//	String iconImgUrl = "E:\\icon\\";
+	String iconImgUrl = "/Users/leefrances/Desktop/icon/";
 	String smallNoImgUrl = iconImgUrl+"smallNoimg.png";
 
 	Color mainRed = new Color(218, 0, 0);
@@ -174,7 +174,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 
 		for(int i=0; i < categoryList.size(); i++) {
 			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "ability/" + categoryList.get(i).getTitle() +".png");
-			
+
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
 					g.drawImage(categoryImage.getImage(), 0, 0, null);
@@ -230,7 +230,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 
 			JPanel thumPn2 = new JPanel();
 			thumPn2.setLayout(null);
-			
+
 			JLabel stateLabel = new JLabel();
 			stateLabel.setSize(100, 20);
 			stateLabel.setFont(new Font("stateLabel", Font.BOLD, 15));
@@ -265,10 +265,10 @@ public class AbilityMain extends JFrame implements ActionListener{
 				txtLa = new JLabel("<html>"+ abilityList.get(i).getTitle() +"<br/>"+
 								abilityList.get(i).getContent()+"</html>");
 				imgLa.setBounds(0, 0, 200, 120);
-				
+
 				stateLabel.setLocation(380, 10);
 				if(abilityList.get(i).getState()==0) {
-					imgLa.setBorder(new LineBorder(mainRed, 1));		
+					imgLa.setBorder(new LineBorder(mainRed, 1));
 					stateLabel.setForeground(commonRedColor);
 					stateLabel.setText("진행중");
 				} else if(abilityList.get(i).getState()==1) {
@@ -283,7 +283,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 			} else {
 				thumPn1.setBounds(15, (170 * j) + 50, 440, 120);
 				thumPn1.setName(String.valueOf(i));
-				
+
 				if(abilityList.get(i).getImgurl1() == null || abilityList.get(i).getImgurl1().equals("")) {
 					ImageIcon img = new ImageIcon(smallNoImgUrl);
 					imgLa = new JLabel() {
@@ -307,10 +307,10 @@ public class AbilityMain extends JFrame implements ActionListener{
 						}
 					};
 				}
-				
+
 				txtLa = new JLabel("<html>"+ abilityList.get(i).getTitle() +"<br/>"+
 						abilityList.get(i).getContent()+"</html>");
-				
+
 				stateLabel.setLocation(380, 10);
 				if(abilityList.get(i).getState()==0) {
 					imgLa.setBorder(new LineBorder(mainRed, 1));
@@ -320,7 +320,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 					imgLa.setBorder(new LineBorder(mainBlack, 2));
 					stateLabel.setText("완료됨");
 				}
-				
+
 				imgLa.setBounds(0, 0, 200, 120);
 				txtLa.setBounds(200, 0, 300, 120);
 				thumPn1.add(stateLabel);
