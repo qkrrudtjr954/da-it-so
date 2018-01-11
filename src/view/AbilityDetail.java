@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -33,14 +34,12 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	private JButton loginBtn, logoutBtn, signupBtn, MypageBtn, searchBtn, talkBtn, chatBtn, listBtn, deleteBtn, completeBtn;
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
-
-	 String iconImgUrl = "c:\\icon\\";
-//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-	String noImgUrl = iconImgUrl+"noimg.png";
 	
 	AbilityBbs m_abilityDto = null;
 	List<Category> m_categoryList = null;
 
+	String noImgUrl = "icon/noimage.png";
+	
 	public AbilityDetail(AbilityBbs abilityDto, List<Category> categoryList) {
 
 		Delegator delegator = Delegator.getInstance();
@@ -52,16 +51,17 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		cn.setBounds(0, 0, 1350, 750);
 		cn.setBackground(Color.white);
 
-		if (abilityDto.getImgurl1()==null || abilityDto.getImgurl1().equals("")) {
+		
+		if (abilityDto.getImgurl1() == null || abilityDto.getImgurl1().equals("userImg/null")) {
 			abilityDto.setImgurl1(noImgUrl);
 		}
-		if (abilityDto.getImgurl2()==null || abilityDto.getImgurl2().equals("")) {
+		if (abilityDto.getImgurl2() == null || abilityDto.getImgurl2().equals("userImg/null")) {
 			abilityDto.setImgurl2(noImgUrl);
 		}
-		if (abilityDto.getImgurl3()==null || abilityDto.getImgurl3().equals("")) {
+		if (abilityDto.getImgurl3() == null || abilityDto.getImgurl3().equals("userImg/null")) {
 			abilityDto.setImgurl3(noImgUrl);
 		}
-		if (abilityDto.getImgurl4()==null || abilityDto.getImgurl4().equals("")) {
+		if (abilityDto.getImgurl4() == null || abilityDto.getImgurl4().equals("userImg/null")) {
 			abilityDto.setImgurl4(noImgUrl);
 		}
 		
@@ -84,8 +84,10 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		scrollPane.setBackground(Color.black);
 		// scrollPane.add(detailPn);
 
+
 		// headerlogo
-		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
+		BufferedImage headerImg = delegator.getImage("icon/headerlogo.png");
+		ImageIcon headerimage = new ImageIcon(headerImg);
 		headerLogo = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -94,6 +96,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
+		
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -148,11 +151,12 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		sidePn.setLayout(null);
 		sidePn.setBackground(sideC);
 
-		ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
+		BufferedImage logoImg = delegator.getImage("icon/logo.png");
+		ImageIcon logoIcon = new ImageIcon(logoImg);
 		logoPn = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
-				g.drawImage(image.getImage(), 0, 0, null);
+				g.drawImage(logoIcon.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -168,7 +172,9 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		sidePn.add(searchTextF);
 
 		// searchBtn
-		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
+		BufferedImage searchImg = delegator.getImage("icon/search.png");
+		ImageIcon searchIcon = new ImageIcon(searchImg);
+		searchBtn = new JButton(searchIcon);
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		searchBtn.addActionListener(this);
@@ -185,12 +191,13 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for (int i = 0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl+ "ability/" + categoryList.get(i).getTitle() +".png");
 			
-			System.out.println(iconImgUrl + categoryList.get(i).getTitle() + ".png");
+			BufferedImage categoryImage = delegator.getImage("ability/"+ categoryList.get(i).getTitle() +".png");
+			ImageIcon categoryIcon = new ImageIcon(categoryImage);
+			
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
-					g.drawImage(categoryImage.getImage(), 0, 0, null);
+					g.drawImage(categoryIcon.getImage(), 0, 0, null);
 					setOpaque(false);
 					super.paintComponents(g);
 				}
@@ -237,11 +244,12 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		imagePannel.add(sellLb);
 		// itemImage
+		
+		BufferedImage itemImage = delegator.getImage(abilityDto.getImgurl1());
+		ImageIcon itemIcon = new ImageIcon(itemImage);		
 		itemImagePn = new JPanel() {
-			ImageIcon itemImage = new ImageIcon(abilityDto.getImgurl1());
-
 			public void paintComponent(Graphics g) {
-				g.drawImage(itemImage.getImage(), 0, 0, 400, 400, null);
+				g.drawImage(itemIcon.getImage(), 0, 0, 400, 400, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -259,11 +267,11 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		int compY = subimagePn.getHeight();
 		
 		// 서브 이미지1
+		BufferedImage subItemImg1 = delegator.getImage(abilityDto.getImgurl1());
+		ImageIcon subItemIcon1 = new ImageIcon(subItemImg1);		
 		subimage1 = new JPanel() {
-			ImageIcon image1 = new ImageIcon(abilityDto.getImgurl1());
-
 			public void paintComponent(Graphics g) {
-				g.drawImage(image1.getImage(), 0, 0, compX, compY,  null);
+				g.drawImage(subItemIcon1.getImage(), 0, 0, compX, compY,  null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -272,11 +280,11 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		subimagePn.add(subimage1);
 
 		// 서브이미지2
+		BufferedImage subItemImg2 = delegator.getImage(abilityDto.getImgurl2());
+		ImageIcon subItemIcon2 = new ImageIcon(subItemImg2);		
 		subimage2 = new JPanel() {
-			ImageIcon image2 = new ImageIcon(abilityDto.getImgurl2());
-
 			public void paintComponent(Graphics g) {
-				g.drawImage(image2.getImage(), 0, 0, compX, compY, null);
+				g.drawImage(subItemIcon2.getImage(), 0, 0, compX, compY,  null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -284,11 +292,12 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		subimage2.setBorder(new LineBorder(commonRedColor, 2));
 		subimagePn.add(subimage2);
 		// 서브이미지3
+		
+		BufferedImage subItemImg3 = delegator.getImage(abilityDto.getImgurl3());
+		ImageIcon subItemIcon3 = new ImageIcon(subItemImg3);		
 		subimage3 = new JPanel() {
-			ImageIcon image3 = new ImageIcon(abilityDto.getImgurl3());
-
 			public void paintComponent(Graphics g) {
-				g.drawImage(image3.getImage(), 0, 0, compX, compY, null);
+				g.drawImage(subItemIcon3.getImage(), 0, 0, compX, compY,  null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -297,11 +306,11 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		subimagePn.add(subimage3);
 
 		// 서브이미지4
+		BufferedImage subItemImg4 = delegator.getImage(abilityDto.getImgurl4());
+		ImageIcon subItemIcon4 = new ImageIcon(subItemImg4);		
 		subimage4 = new JPanel() {
-			ImageIcon image4 = new ImageIcon(abilityDto.getImgurl4());
-
 			public void paintComponent(Graphics g) {
-				g.drawImage(image4.getImage(), 0, 0, compX, compY, null);
+				g.drawImage(subItemIcon4.getImage(), 0, 0, compX, compY,  null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -384,7 +393,9 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		iteminfoPn.add(explanationLb);
 		
 		// chatBtn
-		chatBtn = new JButton(new ImageIcon(iconImgUrl + "chatting.png"));
+		BufferedImage chatImage = delegator.getImage("icon/chatting.png");
+		ImageIcon chatIcon = new ImageIcon(chatImage);
+		chatBtn = new JButton(chatIcon);
 		chatBtn.setBounds(550, 55, 340, 50);
 		chatBtn.setOpaque(false);
 		chatBtn.setBorderPainted(false);

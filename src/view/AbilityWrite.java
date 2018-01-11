@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -37,9 +38,6 @@ public class AbilityWrite extends JFrame implements ActionListener {
 	private JComboBox cateCombo;
 
 	JPanel category;
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-
-
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
@@ -54,10 +52,10 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		Delegator delegator = Delegator.getInstance();
 		this.categoryList = categoryList;
 
-		// header
+		// headerlogo
+		BufferedImage headerImg = delegator.getImage("icon/headerlogo.png");
+		ImageIcon headerimage = new ImageIcon(headerImg);
 		headerLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
-
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(headerimage.getImage(), 0, 0, null);
@@ -67,12 +65,12 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		};
 
 		// logo
+		BufferedImage logoImg = delegator.getImage("icon/logo.png");
+		ImageIcon logoIcon = new ImageIcon(logoImg);
 		logoPn = new JPanel() {
-			ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
-
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
-				g.drawImage(image.getImage(), 0, 0, null);
+				g.drawImage(logoIcon.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -161,7 +159,10 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		sidePn.add(searchTextF);
 
 		// searchBtn
-		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
+		// searchBtn
+		BufferedImage searchImg = delegator.getImage("icon/search.png");
+		ImageIcon searchIcon = new ImageIcon(searchImg);
+		searchBtn = new JButton(searchIcon);
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		searchBtn.setContentAreaFilled(false);// 내용영역 채우기x
@@ -175,11 +176,12 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		catePn.setBackground(Color.WHITE);
 
 		for (int i = 0; i < categoryList.size(); i++) {
-			ImageIcon categoryImage = new ImageIcon(iconImgUrl + "ability/" + categoryList.get(i).getTitle() + ".png");
-
+			BufferedImage categoryImage = delegator.getImage("ability/"+ categoryList.get(i).getTitle() +".png");
+			ImageIcon categoryIcon = new ImageIcon(categoryImage);
+			
 			JPanel category = new JPanel() {
 				public void paintComponent(Graphics g) {
-					g.drawImage(categoryImage.getImage(), 0, 0, null);
+					g.drawImage(categoryIcon.getImage(), 0, 0, null);
 					setOpaque(false);
 					super.paintComponents(g);
 				}
@@ -300,7 +302,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 		JLabel infoLabel = new JLabel("보유 능력을 등록해주세요.");
 		infoLabel.setBounds(220, 380, 300, 20);
 		writePn.add(infoLabel);
-		
+
 		abilityTextF = new JTextField();
 		abilityTextF.setBounds(210, 350, 300, 30);
 		abilityTextF.setText("ex) #javascript #css #java");
@@ -401,13 +403,15 @@ public class AbilityWrite extends JFrame implements ActionListener {
 			int categoryIndex = cateCombo.getSelectedIndex();
 			abilityDto.setCategory_id(categoryList.get(categoryIndex).getSeq());
 			abilityDto.setTitle(titleTextF.getText());
-			abilityDto.setImgurl1(img1TextF.getText());
-			abilityDto.setImgurl2(img2TextF.getText());
-			abilityDto.setImgurl3(img3TextF.getText());
-			abilityDto.setImgurl4(img4TextF.getText());
-			if(abilityTextF.getText().equals("ex) #javascript #css #java")) {
+			
+			abilityDto.setImgurl1("userImg/"+filename1);
+			abilityDto.setImgurl2("userImg/"+filename2);
+			abilityDto.setImgurl3("userImg/"+filename3);
+			abilityDto.setImgurl4("userImg/"+filename4);
+			
+			if (abilityTextF.getText().equals("ex) #javascript #css #java")) {
 				abilityDto.setAbility("");
-			}else {
+			} else {
 				abilityDto.setAbility(abilityTextF.getText());
 			}
 			abilityDto.setContent(contentTextPn.getText());
