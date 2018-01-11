@@ -419,10 +419,10 @@ public class ItemWrite extends JFrame implements ActionListener {
 					filesend fs = new filesend(img2TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename2);
 				}
 				if (!img3TextF.getText().isEmpty()) {
-					filesend fs = new filesend(img3TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename2);
+					filesend fs = new filesend(img3TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename3);
 				}
 				if (!img4TextF.getText().isEmpty()) {
-					filesend fs = new filesend(img4TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename2);
+					filesend fs = new filesend(img4TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename4);
 				}
 				
 				ItemBbs itemDto = new ItemBbs();
