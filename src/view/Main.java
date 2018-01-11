@@ -120,7 +120,7 @@ public class Main extends JFrame implements ActionListener {
 		ability.addActionListener(this);
 		center.add(ability);
 		
-		adminContact = new JButton("관리자에게 문의하기.")
+		adminContact = new JButton("관리자에게 문의하기.");
 		
 		contentPane.add(center);
 

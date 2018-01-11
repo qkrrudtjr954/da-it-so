@@ -39,12 +39,11 @@ public class ItemWrite extends JFrame implements ActionListener {
 
 	JPanel category;
 
-//	String iconImgUrl = "E:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "c:\\icon\\";
+//	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 
 	private JFileChooser jfc = new JFileChooser();
 	private String filename1, filename2, filename3, filename4;
-	private JLabel SidecategoryPn[][];
 
 	List<Category> m_categoryList = null;
 
@@ -337,9 +336,6 @@ public class ItemWrite extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton btn = (JButton) e.getSource();
-		
-		
 		System.out.println("==>" + e.getActionCommand());
 		Delegator delegator = Delegator.getInstance();
 
