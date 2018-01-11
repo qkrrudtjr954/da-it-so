@@ -46,7 +46,7 @@ public class Delegator {
 		roomController = new RoomController();
 		mainController = new MainController();
 		adminController = new AdminController();
-		
+
 		DBConnector = new OracleConnection();
 	}
 
