@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import dto.AbilityBbs;
 import dto.Category;
+import dto.ItemBbs;
 import dto.Person;
 import service.AbilityService;
 import service.AbilityServiceImpl;
@@ -15,6 +16,7 @@ import view.AbilityDetail;
 import view.AbilityMain;
 import view.AbilityWrite;
 import view.ImageDetail;
+import view.ItemDetail;
 import view.Main;
 
 public class AbilityBbsController {
@@ -78,5 +80,21 @@ public class AbilityBbsController {
 	
 	public void ImageView(String img) {
 		new ImageDetail(img);
+	}
+
+	public void insert(AbilityBbs abilityDto) {
+		// TODO Auto-generated method stub
+		List<Category> categoryList = categoryService.getAllCategories(1);
+		Category itemCategory = categoryService.getCategory(abilityDto.getCategory_id());
+		boolean result = abilityService.addAbility(abilityDto);
+		AbilityBbs returnAbility = null;
+		
+		if(result) {
+			returnAbility = abilityService.getItemBbsByTitleAndContent(abilityDto);
+			new AbilityDetail(abilityDto, categoryList, itemCategory);
+		} else {
+			JOptionPane.showMessageDialog(null, "게시중 문제가 발생했습니다.");
+		}
+		
 	}
 }

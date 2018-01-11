@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,9 +34,6 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 	private JButton completeBtn, continueBtn, chatBtn;
-
-	// String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-	String iconImgUrl = "E:\\icon/";
 
 	Person person = null;
 	AbilityBbs ability = null;
@@ -69,8 +67,10 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 		scrollPane.setBackground(Color.black);
 		// scrollPane.add(detailPn);
 
+		Delegator delegator = Delegator.getInstance();
 		// headerlogo
-		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
+		BufferedImage headerImg = delegator.getImage("icon/headerlogo.png");
+		ImageIcon headerimage = new ImageIcon(headerImg);
 		headerLogo = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -83,7 +83,6 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 		headerLogo.addMouseListener(this);
 		headerPn.add(headerLogo);
 		
-		Delegator delegator = Delegator.getInstance();
 
 		if (delegator.getCurrent_user() == null) {
 			// loginBtn
@@ -132,17 +131,18 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 		sidePn.setLayout(null);
 		sidePn.setBackground(sideC);
 
-		ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
+		BufferedImage logoImg = delegator.getImage("icon/logo.png");
+		ImageIcon logoIcon = new ImageIcon(logoImg);
 		logoPn = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
-				g.drawImage(image.getImage(), 0, 0, null);
+				g.drawImage(logoIcon.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
 		logoPn.setBounds(40, 30, 300, 66);
-
+		
 		sidePn.add(logoPn);
 
 		// SearchText
@@ -152,7 +152,9 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 		sidePn.add(searchTextF);
 
 		// searchBtn
-		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
+		BufferedImage searchImg = delegator.getImage("icon/search.png");
+		ImageIcon searchIcon = new ImageIcon(searchImg);
+		searchBtn = new JButton(searchIcon);
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		searchBtn.addActionListener((ActionEvent e)->{
@@ -304,13 +306,10 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 		// Ability
 
 		String key = ability.getAbility();
-		System.out.println("key값 : " + key);
 		int rowSize = 0;
+
 		String[] keyarray;
-		keyarray = new String[rowSize * 3];
 		keyarray = key.split("-key-");
-		System.out.println("keyarray:" + keyarray[0]);
-		System.out.println("keyarraylength :" + keyarray.length);
 
 		if (keyarray.length % 3 == 0) {
 			rowSize = keyarray.length / 3;
@@ -320,7 +319,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 
 		JPanel keywordPanel = new JPanel();
 		keywordPanel.setLocation(10, 70);
-		keywordPanel.setSize(240, 30 * rowSize);
+		keywordPanel.setSize(240, 40);
 		keywordPanel.setBackground(Color.white);
 		keywordPanel.setLayout(null);
 
@@ -328,7 +327,7 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 
 		int k = 0;
 		for (int i = 0; i < rowSize; i++) {
-			for (int j = 0; j < keyarray.length; j++) {
+			for (int j = 0; j < 3; j++) {
 
 				keywordLabel[i][j] = new JLabel();
 				keywordLabel[i][j].setOpaque(true);
@@ -337,9 +336,12 @@ public class AdminAbilityDetail extends JFrame implements ActionListener, MouseL
 				keywordLabel[i][j].setText("#" + keyarray[k]);
 				keywordLabel[i][j].setSize(70, 30);
 				keywordLabel[i][j].setLocation((j * 80), (i * 40));
-				System.out.println(keywordLabel[i][j].getBounds());
+
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
+				if (k == keyarray.length) {
+					break;
+				}
 			}
 		}
 

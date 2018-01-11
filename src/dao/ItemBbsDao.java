@@ -437,7 +437,39 @@ public class ItemBbsDao implements ItemBbsDaoImpl{
 	@Override
 	public ItemBbs getItemBbsByTitleAndContent(ItemBbs itemDto) {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = " SELECT * FROM ITEM_BBS WHERE TITLE='"+itemDto.getTitle()+"' AND CONTENT ='"+itemDto.getContent()+"'";
+		
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		ResultSet rs = null;
+		
+		ItemBbs item = null;
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+			
+			if(rs.next()) {
+				item = new ItemBbs();
+				
+				item.setSeq(rs.getInt("seq"));
+				item.setCategory_id(rs.getInt("category_id"));
+				item.setContent(rs.getString("content"));
+				item.setCreated_at(rs.getString("created_at"));
+				item.setImgurl1(rs.getString("imgurl1"));
+				item.setImgurl2(rs.getString("imgurl2"));
+				item.setImgurl3(rs.getString("imgurl3"));
+				item.setImgurl4(rs.getString("imgurl4"));
+				item.setKeyword(rs.getString("keyword"));
+				item.setPrice(rs.getInt("price"));
+				item.setState(rs.getInt("state"));
+				item.setTitle(rs.getString("title"));
+				item.setUser_id(rs.getString("user_id"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return item;
 	}
 
 

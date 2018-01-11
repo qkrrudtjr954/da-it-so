@@ -87,12 +87,17 @@ public class ItemBbsController {
 
 	public void insert(ItemBbs itemDto) {
 		// TODO Auto-generated method stub
+		List<Category> categoryList = categoryService.getAllCategories(0);
+		Category itemCategory = categoryService.getCategory(itemDto.getCategory_id());
 		boolean result = itemService.addItem(itemDto);
 		ItemBbs returnItem = null;
+		
 		if(result) {
 			returnItem = itemService.getItemBbsByTitleAndContent(itemDto);
+			new ItemDetail(returnItem, categoryList, itemCategory);
 		} else {
 			JOptionPane.showMessageDialog(null, "게시중 문제가 발생했습니다.");
 		}
+		
 	}
 }

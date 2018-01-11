@@ -420,20 +420,7 @@ public class AbilityWrite extends JFrame implements ActionListener {
 			abilityDto.setContent(contentTextPn.getText());
 			abilityDto.setUser_id(id);
 
-			/* delegator 에 현재 로그인된 유저 정보를 받아오도록 수정 */
-			AbilityService abilityService = new AbilityService();
-
-			// Person personDto = delegator.getCurrent_user();
-
-			boolean addAbilityCK = abilityService.addAbility(abilityDto);
-			System.out.println("addAbilityCK" + addAbilityCK);
-			if (addAbilityCK) {
-				delegator.abilityBbsController.AbilityDetail(abilityDto);
-				this.dispose();
-			} else {
-				JOptionPane.showMessageDialog(null, "글작성 실패");
-			}
-
+			delegator.abilityBbsController.insert(abilityDto);
 		}
 	}
 }

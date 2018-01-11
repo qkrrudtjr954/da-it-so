@@ -33,7 +33,7 @@ public class Main extends JFrame implements ActionListener {
 		
 		Delegator delegator = Delegator.getInstance();
 		BufferedImage headerlogo = delegator.getImage("icon/headerlogo.png");
-
+	
 		ImageIcon headerImage = new ImageIcon(headerlogo);
 		// header
 		JPanel headerLogo = new JPanel() {

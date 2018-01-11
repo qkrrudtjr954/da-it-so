@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -73,8 +74,11 @@ public class AdminUserDetail extends JFrame implements ActionListener {
 		scrollPane.setBounds(400, 60, 1100, 900);
 		scrollPane.setBackground(Color.black);
 
+		Delegator delegator = Delegator.getInstance();
+		
 		// headerlogo
-		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
+		BufferedImage headerImg = delegator.getImage("icon/headerlogo.png");
+		ImageIcon headerimage = new ImageIcon(headerImg);
 		headerLogo = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -83,18 +87,28 @@ public class AdminUserDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-		headerLogo.setBounds(15, 25, 71, 15);
 		headerLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
 				Delegator delegator = Delegator.getInstance();
 				delegator.mainController.Main();
+				dispose();
 			}
+
 		});
 		headerPn.add(headerLogo);
 		
-		Delegator delegator = Delegator.getInstance();
+		BufferedImage logoImg = delegator.getImage("icon/logo.png");
+		ImageIcon logoIcon = new ImageIcon(logoImg);
+		JPanel logoPn = new JPanel() {
+
+			public void paintComponent(Graphics g) {
+				g.drawImage(logoIcon.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponents(g);
+			}
+		};
 		
 		if(delegator.getCurrent_user()==null) {
 			// loginBtn

@@ -7,6 +7,9 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,9 +33,6 @@ public class AdminMain extends JFrame implements ActionListener {
 
 	JButton itemListBtn, abilityListBtn, userListBtn, chatBtn;
 
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-	// String iconImgUrl = "E:\\icon/";
-
 	public AdminMain() {
 
 		Container contentPane = getContentPane();
@@ -40,10 +40,12 @@ public class AdminMain extends JFrame implements ActionListener {
 		contentPane.setBounds(0, 0, 1680, 1050);
 		contentPane.setBackground(Color.white);
 
+		Delegator delegator = Delegator.getInstance();
+		
 		// header
+		BufferedImage headerImg = delegator.getImage("icon/headerlogo.png");
+		ImageIcon headerimage = new ImageIcon(headerImg);
 		headerLogo = new JPanel() {
-			ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
-
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
 				g.drawImage(headerimage.getImage(), 0, 0, null);
@@ -51,19 +53,29 @@ public class AdminMain extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
+		headerLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.mainController.Main();
+				dispose();
+			}
+
+		});
 
 		// logo
+		BufferedImage logoImg = delegator.getImage("icon/logo.png");
+		ImageIcon logoIcon = new ImageIcon(logoImg);
 		JPanel logoPn = new JPanel() {
-			ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
 
-			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
-				g.drawImage(image.getImage(), 0, 0, null);
+				g.drawImage(logoIcon.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
 		};
-
+		
 		// Header
 		Color commonRedColor = new Color(218, 0, 0);
 		JPanel headerPn = new JPanel();
@@ -75,7 +87,6 @@ public class AdminMain extends JFrame implements ActionListener {
 		headerLogo.setBounds(15, 25, 71, 15);
 		headerPn.add(headerLogo);
 
-		Delegator delegator = Delegator.getInstance();
 
 		if (delegator.getCurrent_user() == null) {
 			// loginBtn

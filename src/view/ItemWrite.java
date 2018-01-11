@@ -449,25 +449,6 @@ public class ItemWrite extends JFrame implements ActionListener {
 				itemDto.setUser_id(id);
 				
 				delegator.itemBbsController.insert(itemDto);
-				
-				
-				
-				
-				
-				
-				
-				/* delegator 에 현재 로그인된 유저 정보를 받아오도록 수정 */
-				ItemBbsService itemservice = new ItemBbsService();
-				
-				boolean addItemCK = itemservice.addItem(itemDto);
-				
-				if (addItemCK) {
-					delegator.itemBbsController.itemDetail(itemDto);
-					this.dispose();
-				} else {
-					JOptionPane.showMessageDialog(null, "글작성 실패");
-					return;
-				}
 			} else {
 				JOptionPane.showMessageDialog(null, "금액은 숫자만 입력 가능합니다.");
 			}

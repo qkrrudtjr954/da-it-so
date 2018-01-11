@@ -34,7 +34,7 @@ public class Delegator {
 
 	public DBConnection DBConnector;
 
-	private String imgUrl = "\\\\192.168.10.34\\image\\";
+	private String imgUrl = "/Users/parker/Desktop/image/";
 
 	private Delegator() {
 
@@ -70,7 +70,6 @@ public class Delegator {
 		try {
 			img = ImageIO.read(new File(imgUrl + filename));
 		} catch (IOException e) {
-
 		}
 
 		return img;

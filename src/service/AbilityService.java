@@ -65,5 +65,11 @@ public class AbilityService implements AbilityServiceImpl {
 		// TODO Auto-generated method stub
 		return abilityDao.DeleteAbilityBbs(abilityDto);
 	}
+
+	@Override
+	public AbilityBbs getItemBbsByTitleAndContent(AbilityBbs abilityDto) {
+		// TODO Auto-generated method stub
+		return abilityDao.getItemBbsByTitleAndContent(abilityDto);
+	}
 	
 }

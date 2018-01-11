@@ -8,8 +8,10 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,7 +27,7 @@ import delegator.Delegator;
 import dto.ItemBbs;
 import dto.Person;
 
-public class AdminItemDetail extends JFrame implements ActionListener, MouseListener {
+public class AdminItemDetail extends JFrame implements ActionListener {
 	private JPanel headerPn, headerLogo, sidePn, logoPn, imagePannel, iteminfoPn, itemImagePn, subimagePn, detailPn,
 			subimage1, subimage2, subimage3, subimage4, keywordPanel;
 	private JButton loginBtn, logoutBtn, signupBtn, searchBtn, backBtn, delBtn;
@@ -33,9 +35,6 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, priceLb, keywardLb, cateLb, explanationLb;
 	private JButton completeBtn, continueBtn, chatBtn;
-
-	// String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-	String iconImgUrl = "E:\\icon/";
 
 	Person person = null;
 	ItemBbs item = null;
@@ -68,8 +67,11 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 		scrollPane.setBounds(400, 60, 1100, 900);
 		scrollPane.setBackground(Color.black);
 
+		Delegator delegator = Delegator.getInstance();
+		
 		// headerlogo
-		ImageIcon headerimage = new ImageIcon(iconImgUrl + "headerlogo.png");
+		BufferedImage headerImg = delegator.getImage("icon/headerlogo.png");
+		ImageIcon headerimage = new ImageIcon(headerImg);
 		headerLogo = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
@@ -79,10 +81,18 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 			}
 		};
 		headerLogo.setBounds(15, 25, 71, 15);
-		headerLogo.addMouseListener(this);
+		headerLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.mainController.Main();
+				dispose();
+			}
+
+		});
 		headerPn.add(headerLogo);
 
-		Delegator delegator = Delegator.getInstance();
 
 		if (delegator.getCurrent_user() == null) {
 			// loginBtn
@@ -127,11 +137,12 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 		sidePn.setLayout(null);
 		sidePn.setBackground(sideC);
 
-		ImageIcon image = new ImageIcon(iconImgUrl + "logo.png");
+		BufferedImage logoImg = delegator.getImage("icon/logo.png");
+		ImageIcon logoIcon = new ImageIcon(logoImg);
 		logoPn = new JPanel() {
 			// 사이즈맞게 배경삽임
 			public void paintComponent(Graphics g) {
-				g.drawImage(image.getImage(), 0, 0, null);
+				g.drawImage(logoIcon.getImage(), 0, 0, null);
 				setOpaque(false);
 				super.paintComponents(g);
 			}
@@ -147,7 +158,9 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 		sidePn.add(searchTextF);
 
 		// searchBtn
-		searchBtn = new JButton(new ImageIcon(iconImgUrl + "search.png"));
+		BufferedImage searchImg = delegator.getImage("icon/search.png");
+		ImageIcon searchIcon = new ImageIcon(searchImg);
+		searchBtn = new JButton(searchIcon);
 		searchBtn.setBounds(300, 160, 40, 40);
 		searchBtn.setOpaque(false); // 투명하게
 		searchBtn.addActionListener((ActionEvent e)->{
@@ -474,40 +487,5 @@ public class AdminItemDetail extends JFrame implements ActionListener, MouseList
 		} else if(btn == chatBtn) {
 			delegator.roomController.RoomList();
 		}
-		
-		
-		
-		//completeBtn, continueBtn, undoBtn;
-
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 }
