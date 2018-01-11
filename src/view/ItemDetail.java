@@ -253,7 +253,15 @@ public class ItemDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-		itemImagePn.setBounds(10, 115, 400, 500);
+		itemImagePn.setBounds(10, 115, 400, 400);
+		itemImagePn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.itemBbsController.ImageView(itemDto.getImgurl1());
+			}
+		});
 		imagePannel.add(itemImagePn);
 
 		// itemsub
@@ -279,6 +287,14 @@ public class ItemDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage1.setBorder(new LineBorder(commonRedColor, 2));
+		subimage1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.itemBbsController.ImageView(itemDto.getImgurl1());
+			}
+		});
 		subimagePn.add(subimage1);
 
 		// 서브이미지2
@@ -292,6 +308,14 @@ public class ItemDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage2.setBorder(new LineBorder(commonRedColor, 2));
+		subimage2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.itemBbsController.ImageView(itemDto.getImgurl2());
+			}
+		});
 		subimagePn.add(subimage2);
 		// 서브이미지3
 		subimage3 = new JPanel() {
@@ -304,6 +328,14 @@ public class ItemDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage3.setBorder(new LineBorder(commonRedColor, 2));
+		subimage3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(itemDto.getImgurl3());
+			}
+		});
 		subimagePn.add(subimage3);
 
 		// 서브이미지4
@@ -317,6 +349,14 @@ public class ItemDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage4.setBorder(new LineBorder(commonRedColor, 2));
+		subimage4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.itemBbsController.ImageView(itemDto.getImgurl4());
+			}
+		});
 		subimagePn.add(subimage4);
 
 		imagePannel.add(subimagePn);

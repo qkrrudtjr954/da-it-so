@@ -31,7 +31,7 @@ public class Main extends JFrame implements ActionListener {
 	
 	public Main() {
 //		String iconImgUrl = "E:\\icon\\";
-		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+//		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 		String iconImgUrl = "c:\\icon\\";
 		JPanel headerPn;
 
@@ -137,14 +137,14 @@ public class Main extends JFrame implements ActionListener {
 				// TODO Auto-generated method stub
 				if(delegator.getCurrent_user() == null) {
 					JOptionPane.showMessageDialog(null, "로그인 후 이용 가능합니다.");
+					delegator.personController.Login();
+					dispose();
 				}else {
 					delegator.roomController.checkRoom("admin");					
 				}
 			}
 		});
 		contentPane.add(adminContact);
-
-		adminContact = new JButton("관리자에게 문의하기.");
 		
 		contentPane.add(center);
 

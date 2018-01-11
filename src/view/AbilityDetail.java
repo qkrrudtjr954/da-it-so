@@ -34,7 +34,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 	private JTextField searchTextF;
 	private JLabel titleLb, sellLb, detailtitleLb, cateLb, explanationLb;
 
-	 String iconImgUrl = "c:\\icon\\";
+	String iconImgUrl = "c:\\icon\\";
 //	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
 	String noImgUrl = iconImgUrl+"noimg.png";
 	
@@ -246,7 +246,15 @@ public class AbilityDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-		itemImagePn.setBounds(10, 115, 400, 500);
+		itemImagePn.setBounds(10, 115, 400, 400);
+		itemImagePn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(abilityDto.getImgurl1());
+			}
+		});
 		imagePannel.add(itemImagePn);
 
 		// itemsub
@@ -269,6 +277,15 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage1.setBorder(new LineBorder(commonRedColor, 2));
+		subimage1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				String img = abilityDto.getImgurl1();
+				delegator.abilityBbsController.ImageView(img);
+			}
+		});
 		subimagePn.add(subimage1);
 
 		// 서브이미지2
@@ -282,6 +299,15 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage2.setBorder(new LineBorder(commonRedColor, 2));
+		System.out.println("2");
+		subimage2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(abilityDto.getImgurl2());
+			}
+		});
 		subimagePn.add(subimage2);
 		// 서브이미지3
 		subimage3 = new JPanel() {
@@ -294,6 +320,14 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage3.setBorder(new LineBorder(commonRedColor, 2));
+		subimage3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(abilityDto.getImgurl3());
+			}
+		});
 		subimagePn.add(subimage3);
 
 		// 서브이미지4
@@ -307,6 +341,14 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			}
 		};
 		subimage4.setBorder(new LineBorder(commonRedColor, 2));
+		subimage4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Delegator delegator = Delegator.getInstance();
+				delegator.abilityBbsController.ImageView(abilityDto.getImgurl4());
+			}
+		});
 		subimagePn.add(subimage4);
 
 		imagePannel.add(subimagePn);
