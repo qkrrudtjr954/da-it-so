@@ -38,8 +38,8 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 	JPanel category;
 
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
-	String noImgUrl = iconImgUrl+"noimg.png";
+	String iconImgUrl = "/Users/leefrances/Desktop/icon/";
+	String noImgUrl = iconImgUrl+"noimage.png";
 
 	ItemBbs m_itemDto = null;
 	List<Category> m_categoryList = null;

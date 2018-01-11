@@ -40,7 +40,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 	JPanel category;
 	//imgurl
 //	String iconImgUrl = "E:\\icon\\";
-	String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+	String iconImgUrl = "/Users/leefrances/Desktop/icon/";
 	String smallNoImgUrl = iconImgUrl+"smallNoimg.png";
 
 	Color mainRed = new Color(218, 0, 0);

@@ -31,7 +31,7 @@ public class Main extends JFrame implements ActionListener {
 	
 	public Main() {
 //		String iconImgUrl = "E:\\icon\\";
-		String iconImgUrl = "/Users/parker/Desktop/img/icon/";
+		String iconImgUrl = "/Users/leefrances/Desktop/icon/";
 		JPanel headerPn;
 
 		// header
@@ -65,6 +65,7 @@ public class Main extends JFrame implements ActionListener {
 		Delegator delegator = Delegator.getInstance();
 		
 		if(delegator.getCurrent_user()==null) {
+			
 			// loginBtn
 			loginBtn = new JButton("로그인");
 			loginBtn.setBounds(1240, 20, 100, 30);
@@ -105,7 +106,6 @@ public class Main extends JFrame implements ActionListener {
 		JPanel main = new JPanel();
 		main.setLayout(null);
 		main.setBackground(new Color(250, 250, 250));
-
 		main.setBounds(0, 0, 1350, 750);
 		
 		JPanel center = new JPanel();
@@ -114,14 +114,16 @@ public class Main extends JFrame implements ActionListener {
 		center.setLocation(170, 110);
 		center.setSize(1000, 550);
 		
-		item = new JButton("item");
+		item = new JButton(new ImageIcon(iconImgUrl + "item.png"));
 		item.setBounds(90, 100, 400, 350);
 		item.addActionListener(this);
+		item.setBorderPainted(false);
 		center.add(item);
 		
-		ability = new JButton("ability");
+		ability = new JButton(new ImageIcon(iconImgUrl + "ability.png"));
 		ability.setBounds(510, 100, 400, 350);
 		ability.addActionListener(this);
+		ability.setBorderPainted(false);
 		center.add(ability);
 		
 		adminContact = new JLabel("관리자에게 문의하기");
