@@ -413,16 +413,16 @@ public class ItemWrite extends JFrame implements ActionListener {
 			if(checkPrice()) {
 				
 				if (!img1TextF.getText().isEmpty()) {
-					filesend fs = new filesend(img1TextF.getText());
+					filesend fs = new filesend(img1TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename1);
 				}
 				if (!img2TextF.getText().isEmpty()) {
-					filesend fs = new filesend(img2TextF.getText());
+					filesend fs = new filesend(img2TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename2);
 				}
 				if (!img3TextF.getText().isEmpty()) {
-					filesend fs = new filesend(img3TextF.getText());
+					filesend fs = new filesend(img3TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename2);
 				}
 				if (!img4TextF.getText().isEmpty()) {
-					filesend fs = new filesend(img4TextF.getText());
+					filesend fs = new filesend(img4TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename2);
 				}
 				
 				ItemBbs itemDto = new ItemBbs();
@@ -433,10 +433,10 @@ public class ItemWrite extends JFrame implements ActionListener {
 				itemDto.setCategory_id(this.m_categoryList.get(categoryIndex).getSeq());
 				itemDto.setTitle(titleTextF.getText());
 				
-				itemDto.setImgurl1("userImg/"+filename1);
-				itemDto.setImgurl2("userImg/"+filename2);
-				itemDto.setImgurl3("userImg/"+filename3);
-				itemDto.setImgurl4("userImg/"+filename4);
+				itemDto.setImgurl1("userImg/"+delegator.getCurrent_user().getId()+"/"+filename1);
+				itemDto.setImgurl2("userImg/"+delegator.getCurrent_user().getId()+"/"+filename2);
+				itemDto.setImgurl3("userImg/"+delegator.getCurrent_user().getId()+"/"+filename3);
+				itemDto.setImgurl4("userImg/"+delegator.getCurrent_user().getId()+"/"+filename4);
 				
 				if (keywordTextF.getText().equals("ex) #중고 #컴퓨터 #노트")) {
 					itemDto.setKeyword("");

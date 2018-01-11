@@ -388,16 +388,16 @@ public class AbilityWrite extends JFrame implements ActionListener {
 
 		if (e.getActionCommand().equals("등록")) {
 			if (!img1TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img1TextF.getText());
+				filesend fs = new filesend(img1TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename1);
 			}
 			if (!img2TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img2TextF.getText());
+				filesend fs = new filesend(img2TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename2);
 			}
 			if (!img3TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img3TextF.getText());
+				filesend fs = new filesend(img3TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename2);
 			}
 			if (!img4TextF.getText().isEmpty()) {
-				filesend fs = new filesend(img4TextF.getText());
+				filesend fs = new filesend(img4TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename2);
 			}
 
 			AbilityBbs abilityDto = new AbilityBbs();
@@ -407,10 +407,10 @@ public class AbilityWrite extends JFrame implements ActionListener {
 			abilityDto.setCategory_id(categoryList.get(categoryIndex).getSeq());
 			abilityDto.setTitle(titleTextF.getText());
 			
-			abilityDto.setImgurl1("userImg/"+filename1);
-			abilityDto.setImgurl2("userImg/"+filename2);
-			abilityDto.setImgurl3("userImg/"+filename3);
-			abilityDto.setImgurl4("userImg/"+filename4);
+			abilityDto.setImgurl1("userImg/"+delegator.getCurrent_user().getId()+"/"+filename1);
+			abilityDto.setImgurl2("userImg/"+delegator.getCurrent_user().getId()+"/"+filename2);
+			abilityDto.setImgurl3("userImg/"+delegator.getCurrent_user().getId()+"/"+filename3);
+			abilityDto.setImgurl4("userImg/"+delegator.getCurrent_user().getId()+"/"+filename4);
 			
 			if (abilityTextF.getText().equals("ex) #javascript #css #java")) {
 				abilityDto.setAbility("");
