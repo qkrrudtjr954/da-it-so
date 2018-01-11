@@ -396,7 +396,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 		int rowSize = 0;
 		String[] keyarray;
 		keyarray = new String[rowSize * 3];
-		keyarray =key.split("-key-");
+		keyarray = key.split("-key-");
 
 		if (keyarray.length % 3 == 0) {
 			rowSize = keyarray.length / 3;
@@ -513,7 +513,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			delegator.personController.SignUp();
 			this.dispose();
 		} else if (obj == logoutBtn) {
-			int result =delegator.personController.Logout();
+			int result = delegator.personController.Logout();
 			if (result == 0) {
 				this.dispose();
 			}
@@ -532,50 +532,52 @@ public class ItemDetail extends JFrame implements ActionListener {
 				String WriteId = m_itemDto.getUser_id();
 				String ViewId = delegator.getCurrent_user().getId();
 
-				if(ViewId.equals(WriteId)) {
-				 int result = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				 if(result == 0) {
-					boolean deleteCK = delegator.itemBbsController.setDeleteItemBbs(m_itemDto);
-					if (deleteCK) {
-						JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
-						delegator.itemBbsController.allItemList();
-						this.dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
-				}
-			} else {
-				JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
-				delegator.personController.Login();
-				this.dispose();
-			}
-		} else if (obj == completeBtn) {
-			if (delegator.getCurrent_user() != null) {
-				System.out.println("login Success");
-				String WriteId = m_itemDto.getUser_id();
-				String ViewId = delegator.getCurrent_user().getId();
-
 				if (ViewId.equals(WriteId)) {
-					boolean completeCK = delegator.itemBbsController.setCompleteItemBbs(m_itemDto);
-
-					if (completeCK) {
-						JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
-						delegator.itemBbsController.allItemList();
-						this.dispose();
+					int result = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "", JOptionPane.YES_NO_OPTION,
+							JOptionPane.WARNING_MESSAGE);
+					if (result == 0) {
+						boolean deleteCK = delegator.itemBbsController.setDeleteItemBbs(m_itemDto);
+						if (deleteCK) {
+							JOptionPane.showMessageDialog(null, "글이 삭제 되었습니다.");
+							delegator.itemBbsController.allItemList();
+							this.dispose();
+						} else {
+							JOptionPane.showMessageDialog(null, "삭제가 정상적으로 이루어지지 않았습니다.");
+						}
 					} else {
-						JOptionPane.showMessageDialog(null, "완료 처리할 수 없습니다.");
+						JOptionPane.showMessageDialog(null, "작성자만이 게시글을 삭제할 수 있습니다.");
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "작성자만이 완료 할 수 있습니다.");
+					JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
+					delegator.personController.Login();
+					this.dispose();
 				}
-			} else {
-				JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
-				delegator.personController.Login();
-				this.dispose();
-			}
-		}
+			} else if (obj == completeBtn) {
+				if (delegator.getCurrent_user() != null) {
+					System.out.println("login Success");
+					String WriteId = m_itemDto.getUser_id();
+					String ViewId = delegator.getCurrent_user().getId();
 
+					if (ViewId.equals(WriteId)) {
+						boolean completeCK = delegator.itemBbsController.setCompleteItemBbs(m_itemDto);
+
+						if (completeCK) {
+							JOptionPane.showMessageDialog(null, "완료 처리 되었습니다.");
+							delegator.itemBbsController.allItemList();
+							this.dispose();
+						} else {
+							JOptionPane.showMessageDialog(null, "완료 처리할 수 없습니다.");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "작성자만이 완료 할 수 있습니다.");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "로그인이 필요합니다.");
+					delegator.personController.Login();
+					this.dispose();
+				}
+			}
+
+		}
 	}
 }
