@@ -420,8 +420,21 @@ public class AbilityWrite extends JFrame implements ActionListener {
 			abilityDto.setContent(contentTextPn.getText());
 			abilityDto.setUser_id(id);
 
-			delegator.abilityBbsController.insert(abilityDto);
-			this.dispose();
+			if(abilityDto.getTitle().equals("")) {
+				JOptionPane.showMessageDialog(null, "제목을 입력해주세요.");
+			}else if(abilityDto.getContent().equals("")){
+				JOptionPane.showMessageDialog(null, "내용을 입력해주세요.");
+			}else {
+				boolean result = delegator.abilityBbsController.insert(abilityDto);
+				if(result) {
+					JOptionPane.showMessageDialog(null, "게시글이 등록 됐습니다.");
+					delegator.abilityBbsController.AbilityDetail(abilityDto);
+					this.dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "게시글이 등록할 수 없습니다.");
+				}				
+			}
+			
 		}
 	}
 }

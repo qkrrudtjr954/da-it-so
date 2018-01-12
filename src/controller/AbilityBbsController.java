@@ -49,6 +49,9 @@ public class AbilityBbsController {
 	}
 
 	public void AbilityDetail(AbilityBbs abilityDto) {
+		if(abilityDto.getSeq()==0) {
+			abilityDto = abilityService.getAbilityByTilteAndContent(abilityDto);
+		}
 		List<Category> categoryList = categoryService.getAllCategories(1);
 		Category abilityCategory = categoryService.getCategory(abilityDto.getCategory_id());
 		new AbilityDetail(abilityDto, categoryList, abilityCategory);
@@ -80,19 +83,20 @@ public class AbilityBbsController {
 		new ImageDetail(img);
 	}
 
-	public void insert(AbilityBbs abilityDto) {
+	public boolean insert(AbilityBbs abilityDto) {
 		// TODO Auto-generated method stub
-		List<Category> categoryList = categoryService.getAllCategories(1);
-		Category itemCategory = categoryService.getCategory(abilityDto.getCategory_id());
 		boolean result = abilityService.addAbility(abilityDto);
-		AbilityBbs returnAbility = null;
 		
 		if(result) {
-			returnAbility = abilityService.getItemBbsByTitleAndContent(abilityDto);
-			new AbilityDetail(returnAbility, categoryList, itemCategory);
+			return true;
 		} else {
-			JOptionPane.showMessageDialog(null, "게시중 문제가 발생했습니다.");
+			return false;
 		}
 		
+	}
+
+	public AbilityBbs getAbilityByTilteAndContent(AbilityBbs abilityDto) {
+		// TODO Auto-generated method stub
+		return abilityService.getAbilityByTilteAndContent(abilityDto);
 	}
 }

@@ -472,4 +472,46 @@ public class AbilityDao implements AbilityDaoImpl {
 		
 	}
 
+	@Override
+	public AbilityBbs getAbilityByTilteAndContent(AbilityBbs abilityDto) {
+		// TODO Auto-generated method stub
+		String sql = " select * from where title='"+abilityDto.getTitle()+"' and content='"+abilityDto.getContent()+"'";
+		
+		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
+		PreparedStatement ptmt = null;
+		ResultSet rs = null;
+		
+		AbilityBbs ability = null;
+		
+		try {
+			ptmt = conn.prepareStatement(sql);
+			rs = ptmt.executeQuery();
+			
+			if(rs.next()) {
+				ability = new AbilityBbs();
+				
+				ability.setSeq(Integer.parseInt(rs.getString("SEQ")));
+				ability.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
+				ability.setTitle(rs.getString("TITLE"));
+				
+				ability.setImgurl1(rs.getString("IMGURL1"));
+				ability.setImgurl2(rs.getString("IMGURL2"));
+				ability.setImgurl3(rs.getString("IMGURL3"));
+				ability.setImgurl4(rs.getString("IMGURL4"));
+				ability.setAbility(rs.getString("ABILITY"));
+				ability.setContent(rs.getString("CONTENT"));
+				ability.setState(Integer.parseInt(rs.getString("STATE")));
+				ability.setCreated_at(rs.getString("CREATED_AT"));
+				ability.setUser_id(rs.getString("USER_ID"));	
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return ability;
+	}
+
 }

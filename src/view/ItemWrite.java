@@ -26,6 +26,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import delegator.Delegator;
+import dto.AbilityBbs;
 import dto.Category;
 import dto.ItemBbs;
 import service.ItemBbsService;
@@ -410,8 +411,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 		}
 
 		if (obj == writeBtn) {
-			if(checkPrice()) {
-				
+			if(checkPrice() && !priceTextF.getText().equals("")) {
 				if (!img1TextF.getText().isEmpty()) {
 					filesend fs = new filesend(img1TextF.getText(), delegator.getCurrent_user().getId()+"-fileSecretKey0917-"+filename1);
 				}
@@ -448,11 +448,25 @@ public class ItemWrite extends JFrame implements ActionListener {
 				itemDto.setContent(contentTextPn.getText());
 				itemDto.setUser_id(id);
 				
-				delegator.itemBbsController.insert(itemDto);
-				this.dispose();
+				
+				if(itemDto.getTitle().equals("")) {
+					JOptionPane.showMessageDialog(null, "제목을 입력해주세요.");
+				}else if(itemDto.getContent().equals("")){
+					JOptionPane.showMessageDialog(null, "내용을 입력해주세요.");
+				}else {
+					boolean result = delegator.itemBbsController.insert(itemDto);
+					if(result) {
+						JOptionPane.showMessageDialog(null, "게시글이 등록 됐습니다.");
+						delegator.itemBbsController.itemDetail(itemDto);
+						this.dispose();
+					}else {
+						JOptionPane.showMessageDialog(null, "게시글이 등록할 수 없습니다.");
+					}
+				}
 			} else {
 				JOptionPane.showMessageDialog(null, "금액은 숫자만 입력 가능합니다.");
 			}
+			
 
 		}
 
