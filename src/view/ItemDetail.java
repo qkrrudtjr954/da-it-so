@@ -125,6 +125,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			loginBtn.setBackground(commonRedColor);
 			loginBtn.setForeground(Color.white);
 			loginBtn.addActionListener(this);
+			loginBtn.setContentAreaFilled(false);
 			headerPn.add(loginBtn);
 
 			// SignBtn
@@ -137,6 +138,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			signupBtn.setContentAreaFilled(false);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
+			signupBtn.setContentAreaFilled(false);
 			headerPn.add(signupBtn);
 		} else {
 			// logoutBtn
@@ -149,6 +151,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			logoutBtn.setContentAreaFilled(false);
 			logoutBtn.setForeground(Color.white);
 			logoutBtn.addActionListener(this);
+			logoutBtn.setContentAreaFilled(false);
 			headerPn.add(logoutBtn);
 		}
 

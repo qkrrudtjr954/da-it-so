@@ -107,6 +107,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 			loginBtn.setBackground(mainRed);
 			loginBtn.setForeground(Color.white);
 			loginBtn.addActionListener(this);
+			loginBtn.setContentAreaFilled(false);
 			headerPn.add(loginBtn);
 
 			// SignBtn
@@ -118,6 +119,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 			signupBtn.setBackground(mainRed);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
+			signupBtn.setContentAreaFilled(false);
 			headerPn.add(signupBtn);
 		}else {
 			// logoutBtn
@@ -129,6 +131,7 @@ public class AbilityMain extends JFrame implements ActionListener{
 			logoutBtn.setBackground(mainRed);
 			logoutBtn.setForeground(Color.white);
 			logoutBtn.addActionListener(this);
+			logoutBtn.setContentAreaFilled(false);
 			headerPn.add(logoutBtn);
 		}
 

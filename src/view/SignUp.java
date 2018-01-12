@@ -85,6 +85,7 @@ public class SignUp extends JFrame implements ActionListener {
 			loginBtn.setBackground(commonRedColor);
 			loginBtn.setForeground(Color.white);
 			loginBtn.addActionListener(this);
+			loginBtn.setContentAreaFilled(false);
 			headerPn.add(loginBtn);
 		} else {
 			// logoutBtn
@@ -95,6 +96,7 @@ public class SignUp extends JFrame implements ActionListener {
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
 			logoutBtn.setBackground(commonRedColor);
 			logoutBtn.setForeground(Color.white);
+			logoutBtn.setContentAreaFilled(false);
 			headerPn.add(logoutBtn);
 		}
 

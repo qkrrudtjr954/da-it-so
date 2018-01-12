@@ -142,6 +142,7 @@ public class Login extends JFrame implements ActionListener {
 		signInBtn.setBounds(720, 220, 100, 135);
 		signInBtn.setBorder(new LineBorder(commonRedColor, 2));
 		signInBtn.addActionListener(this);
+		signInBtn.setContentAreaFilled(false);
 		login.add(signInBtn);
 
 		main.add(login);

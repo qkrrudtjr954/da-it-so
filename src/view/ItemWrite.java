@@ -117,6 +117,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 			loginBtn.setBackground(commonRedColor);
 			loginBtn.setForeground(Color.white);
 			loginBtn.addActionListener(this);
+			loginBtn.setContentAreaFilled(false);
 			headerPn.add(loginBtn);
 
 			// SignBtn
@@ -128,6 +129,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 			signupBtn.setBackground(commonRedColor);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
+			signupBtn.setContentAreaFilled(false);
 			headerPn.add(signupBtn);
 		} else {
 			// logoutBtn
@@ -139,6 +141,7 @@ public class ItemWrite extends JFrame implements ActionListener {
 			logoutBtn.setBackground(commonRedColor);
 			logoutBtn.setForeground(Color.white);
 			logoutBtn.addActionListener(this);
+			logoutBtn.setContentAreaFilled(false);
 			headerPn.add(logoutBtn);
 		}
 

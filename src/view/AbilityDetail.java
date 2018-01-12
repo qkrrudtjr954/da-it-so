@@ -125,6 +125,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
 			loginBtn.setBackground(commonRedColor);
 			loginBtn.setForeground(Color.white);
+			loginBtn.setContentAreaFilled(false);
 			loginBtn.addActionListener(this);
 			headerPn.add(loginBtn);
 
@@ -136,6 +137,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
 			signupBtn.setBackground(commonRedColor);
 			signupBtn.setForeground(Color.white);
+			signupBtn.setContentAreaFilled(false);
 			signupBtn.addActionListener(this);
 			headerPn.add(signupBtn);
 		} else {
@@ -147,6 +149,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
 			logoutBtn.setBackground(commonRedColor);
 			logoutBtn.setForeground(Color.white);
+			logoutBtn.setContentAreaFilled(false);
 			logoutBtn.addActionListener(this);
 			headerPn.add(logoutBtn);
 		}
@@ -475,13 +478,13 @@ public class AbilityDetail extends JFrame implements ActionListener {
 
 		// category
 		cateLb = new JLabel("카테고리 : " + abilityCategory.getDescription());
-		cateLb.setBounds(10, 100, 200, 30);
+		cateLb.setBounds(10, 110, 200, 30);
 		cateLb.setForeground(textColor);
 		iteminfoPn.add(cateLb);
 
 		// item explanation
 		explanationLb = new JLabel("제품 설명 : ");
-		explanationLb.setBounds(10, 150, 300, 20);
+		explanationLb.setBounds(10, 160, 300, 20);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
 		explanationLb.setForeground(textColor);
 		iteminfoPn.add(explanationLb);
@@ -489,7 +492,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		//detailExplanationLb
 		detailExplanationLb = new JLabel();
 		detailExplanationLb.setText("<html><p>"+abilityDto.getContent()+"</p></html>");
-		detailExplanationLb.setBounds(10, 180, 300, 200);
+		detailExplanationLb.setBounds(10, 190, 300, 200);
 	//	detailExplanationLb.setOpaque(true);
 		//detailExplanationLb.setBackground(Color.white);
 		detailExplanationLb.setForeground(new Color(120, 110, 110));
@@ -533,7 +536,7 @@ public class AbilityDetail extends JFrame implements ActionListener {
 		// iteminfoPn.setBounds(580, 135, 340, 400);
 
 		// completeBtn
-		BufferedImage completeImage = delegator.getImage("icon/complete.png");
+		BufferedImage completeImage = delegator.getImage("icon/complete2.png");
 		ImageIcon completeIcon = new ImageIcon(completeImage);
 		completeBtn = new JButton(completeIcon);
 		completeBtn.setBounds(550, 590, 340, 40);
