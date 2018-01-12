@@ -34,7 +34,7 @@ public class Delegator {
 
 	public DBConnection DBConnector;
 
-	private String imgUrl = "/Users/parker/Desktop/image/";
+	private String imgUrl = "c:\\image\\";
 
 	private Delegator() {
 
@@ -47,8 +47,8 @@ public class Delegator {
 		mainController = new MainController();
 		adminController = new AdminController();
 
-//		DBConnector = new OracleConnection();
-		DBConnector = new MySqlConnection();
+		DBConnector = new OracleConnection();
+//		DBConnector = new MySqlConnection();
 	}
 
 	public static Delegator getInstance() {

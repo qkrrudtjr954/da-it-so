@@ -415,7 +415,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 		String[] keyarray = null;
 		
-		if(!key.equals("")) {
+		if(key != null) {
 			keyarray = key.split("-key-");
 			if (keyarray.length % 3 == 0) {
 				rowSize = keyarray.length / 3;
@@ -429,6 +429,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			keyarray[0] =  "물품";
 			keyarray[1] =  "판매";
 		}
+		
 		JPanel keywordPanel = new JPanel();
 		keywordPanel.setLocation(10, 70);
 		keywordPanel.setSize(240, 40);
