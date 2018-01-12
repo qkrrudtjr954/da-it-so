@@ -67,12 +67,6 @@ public class AbilityService implements AbilityServiceImpl {
 	}
 
 	@Override
-	public AbilityBbs getItemBbsByTitleAndContent(AbilityBbs abilityDto) {
-		// TODO Auto-generated method stub
-		return abilityDao.getItemBbsByTitleAndContent(abilityDto);
-	}
-
-	@Override
 	public AbilityBbs getAbilityByTilteAndContent(AbilityBbs abilityDto) {
 		// TODO Auto-generated method stub
 		return abilityDao.getAbilityByTilteAndContent(abilityDto);

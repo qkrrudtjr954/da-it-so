@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -33,11 +35,13 @@ public class ItemDetail extends JFrame implements ActionListener {
 			detailPn, subimage1, subimage2, subimage3, subimage4;
 	private JButton logoutBtn, signupBtn, searchBtn, loginBtn, chatBtn, listBtn, deleteBtn, completeBtn, continueBtn;
 	private JTextField searchTextF;
-	private JLabel titleLb, sellLb, detailtitleLb, priceLb, cateLb, explanationLb;
+	private JLabel titleLb, sellLb, detailtitleLb, priceLb, cateLb, explanationLb,detailExplanationLb;
 
 	JPanel category;
 
 	String noImgUrl = "icon/noimg.png";
+	Color textColor = new Color(68, 62, 62); 
+	Color lineColor = new Color(255, 145, 152);
 
 	ItemBbs m_itemDto = null;
 	List<Category> m_categoryList = null;
@@ -116,6 +120,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			loginBtn.setBounds(1240, 20, 100, 30);
 			loginBtn.setOpaque(false); // 투명하게
 			loginBtn.setBorderPainted(false);// 외곽선 없애줌
+			loginBtn.setContentAreaFilled(false);
 			loginBtn.setFont(new Font("로그인", Font.BOLD, 12));
 			loginBtn.setBackground(commonRedColor);
 			loginBtn.setForeground(Color.white);
@@ -129,6 +134,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			signupBtn.setBorderPainted(false);// 외곽선 없애줌
 			signupBtn.setFont(new Font("회원가입", Font.BOLD, 12));
 			signupBtn.setBackground(commonRedColor);
+			signupBtn.setContentAreaFilled(false);
 			signupBtn.setForeground(Color.white);
 			signupBtn.addActionListener(this);
 			headerPn.add(signupBtn);
@@ -140,6 +146,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 			logoutBtn.setBorderPainted(false);// 외곽선 없애줌
 			logoutBtn.setFont(new Font("로그아웃", Font.BOLD, 12));
 			logoutBtn.setBackground(commonRedColor);
+			logoutBtn.setContentAreaFilled(false);
 			logoutBtn.setForeground(Color.white);
 			logoutBtn.addActionListener(this);
 			headerPn.add(logoutBtn);
@@ -203,7 +210,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 					super.paintComponents(g);
 				}
 			};
-			category.setBorder(new LineBorder(commonRedColor, 2));
+			category.setBorder(new LineBorder(commonRedColor, 1));
 			category.setName(categoryList.get(i).getSeq() + "");
 			category.addMouseListener(new MouseAdapter() {
 				@Override
@@ -224,9 +231,9 @@ public class ItemDetail extends JFrame implements ActionListener {
 		// sidePn.setBounds(0, 60, 400, 1000);
 		// imagePannel
 		imagePannel = new JPanel();
-		imagePannel.setBounds(70, 20, 420, 650);
+		imagePannel.setBounds(70, 0, 420, 650);
 		imagePannel.setLayout(null);
-		imagePannel.setBorder(new LineBorder(Color.red, 2));
+		imagePannel.setBorder(new LineBorder(lineColor, 1));
 		imagePannel.setBackground(Color.white);
 		// titleLb
 		titleLb = new JLabel(m_itemDto.getTitle());
@@ -295,7 +302,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-		subimage1.setBorder(new LineBorder(commonRedColor, 2));
+		subimage1.setBorder(new LineBorder(lineColor, 1));
 		subimage1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -320,7 +327,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-		subimage2.setBorder(new LineBorder(commonRedColor, 2));
+		subimage2.setBorder(new LineBorder(lineColor, 1));
 		System.out.println("2");
 		subimage2.addMouseListener(new MouseAdapter() {
 			@Override
@@ -345,7 +352,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-		subimage3.setBorder(new LineBorder(commonRedColor, 2));
+		subimage3.setBorder(new LineBorder(lineColor, 1));
 		subimage3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -369,7 +376,7 @@ public class ItemDetail extends JFrame implements ActionListener {
 				super.paintComponents(g);
 			}
 		};
-		subimage4.setBorder(new LineBorder(commonRedColor, 2));
+		subimage4.setBorder(new LineBorder(lineColor, 1));
 		subimage4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -384,15 +391,24 @@ public class ItemDetail extends JFrame implements ActionListener {
 		detailPn.add(imagePannel);
 
 		// itemdetailPn
-
-		iteminfoPn = new JPanel();
+		BufferedImage detailPnImg = delegator.getImage("icon/detailPn.png");
+		ImageIcon detailPnimage = new ImageIcon(detailPnImg);
+		iteminfoPn = new JPanel() {
+		 public void paintComponent(Graphics g) {
+			 g.drawImage(detailPnimage.getImage(),0, 0, null);
+			 setOpaque(false);
+			 super.paintComponent(g);
+		 }
+			
+		};
 		iteminfoPn.setLayout(null);
 		iteminfoPn.setBounds(550, 135, 340, 400);
 		iteminfoPn.setBackground(Color.white);
-		iteminfoPn.setBorder(new LineBorder(Color.red, 2));
+		//iteminfoPn.setBorder(new LineBorder(commonRedColor, 1));
 
 		// detailtitleLb
 		detailtitleLb = new JLabel(m_itemDto.getTitle());
+		detailtitleLb.setForeground(textColor);
 
 		if (itemDto.getState() == 1) {
 			detailtitleLb.setText(m_itemDto.getTitle() + " - 판매 완료 - ");
@@ -403,13 +419,19 @@ public class ItemDetail extends JFrame implements ActionListener {
 		iteminfoPn.add(detailtitleLb);
 
 		// detailprice
-		priceLb = new JLabel(m_itemDto.getPrice() + " 원");
-		priceLb.setBounds(10, 40, 340, 30);
-		priceLb.setFont(new Font(m_itemDto.getPrice() + " 원", Font.BOLD, 15));
+		NumberFormat nf = NumberFormat.getCurrencyInstance();
+		 double price = m_itemDto.getPrice();
+		nf.format(price);
+	
+		priceLb = new JLabel(nf.format(price)+"원 ");
+		priceLb.setBounds(10, 45, 340, 30);
+		priceLb.setForeground(textColor);
+		priceLb.setFont(new Font(nf.format(price)+" 원", Font.BOLD, 15));
 		iteminfoPn.add(priceLb);
 
 		// keyword
 
+		
 		String key = m_itemDto.getKeyword();
 		int rowSize = 0;
 
@@ -430,10 +452,20 @@ public class ItemDetail extends JFrame implements ActionListener {
 			keyarray[1] =  "판매";
 		}
 		
-		JPanel keywordPanel = new JPanel();
-		keywordPanel.setLocation(10, 70);
+			BufferedImage keywordPnImg = delegator.getImage("icon/detailPn.png");
+			ImageIcon keywordPnimage = new ImageIcon(detailPnImg);
+			JPanel keywordPanel = new JPanel() {
+			 public void paintComponent(Graphics g) {
+				 g.drawImage(keywordPnimage.getImage(),0, 0, null);
+				 setOpaque(false);
+				 super.paintComponent(g);
+			 }
+				
+			};
+	
+		keywordPanel.setLocation(10, 90);
 		keywordPanel.setSize(240, 40);
-		keywordPanel.setBackground(Color.white);
+		keywordPanel.setBackground(Color.red);
 		keywordPanel.setLayout(null);
 		
 		JLabel keywordLabel[][] = new JLabel[rowSize][3];
@@ -447,11 +479,15 @@ public class ItemDetail extends JFrame implements ActionListener {
 				
 				keywordLabel[i][j] = new JLabel();
 				keywordLabel[i][j].setOpaque(true);
-				keywordLabel[i][j].setBackground(Color.pink);
+				keywordLabel[i][j].setBackground(new Color(255, 145, 152));
+				keywordLabel[i][j].setForeground(Color.WHITE);
 				keywordLabel[i][j].setHorizontalAlignment(SwingConstants.LEFT);
 				keywordLabel[i][j].setText("#" + keyarray[k]);
+				keywordLabel[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 				keywordLabel[i][j].setSize(70, 30);
+				
 				keywordLabel[i][j].setLocation((j * 80), (i * 40));
+				
 				
 				keywordPanel.add(keywordLabel[i][j]);
 				k++;
@@ -461,50 +497,84 @@ public class ItemDetail extends JFrame implements ActionListener {
 
 
 		// categori
-		cateLb = new JLabel("카테고리 : " + itemCategory.getDescription());
-		cateLb.setBounds(10, 100, 200, 30);
-		cateLb.setOpaque(true);
-		cateLb.setBackground(Color.white);
+		cateLb = new JLabel("카테고리 :  " + itemCategory.getDescription());
+		cateLb.setBounds(10, 130, 200, 30);
+		cateLb.setForeground(textColor);
+		
+		
 		iteminfoPn.add(cateLb);
 
 		// item explanation
-		explanationLb = new JLabel("제품 설명 : " + m_itemDto.getContent());
-		explanationLb.setBounds(10, 150, 300, 10 * m_itemDto.getContent().length());
-		explanationLb.setOpaque(true);
-		explanationLb.setBackground(Color.white);
+		
+		//BufferedImage explanationLb1 = delegator.getImage("icon/detailPn.png");
+		//ImageIcon explanationLbimg = new ImageIcon(explanationLb1);
+	//	explanationLb = new JLabel("제품 설명 ",explanationLbimg,JLabel.LEFT);
+		explanationLb = new JLabel("제품 설명 ");
+		//explanationLb.setOpaque(false);
+		explanationLb.setBounds(10, 180, 100,20);
+		explanationLb.setForeground(textColor);
+		//explanationLb.setOpaque(true);
+		//explanationLb.setBackground(Color.white);
 		explanationLb.setVerticalAlignment(SwingConstants.TOP);
 		iteminfoPn.add(explanationLb);
+
+		//detailExplanationLb
+		detailExplanationLb = new JLabel();
+		detailExplanationLb.setText("<html><p>"+m_itemDto.getContent()+"</p></html>");
+		detailExplanationLb.setBounds(10, 210, 300, 200);
+	//	detailExplanationLb.setOpaque(true);
+		//detailExplanationLb.setBackground(Color.white);
+		detailExplanationLb.setForeground(new Color(120, 110, 110));
+		detailExplanationLb.setVerticalAlignment(SwingConstants.TOP);
+		iteminfoPn.add(detailExplanationLb);
 
 		// chatBtn
 		BufferedImage chatImage = delegator.getImage("icon/chatting.png");
 		ImageIcon chatIcon = new ImageIcon(chatImage);
 		chatBtn = new JButton(chatIcon);
-		chatBtn.setBounds(550, 55, 340, 50);
+		chatBtn.setBounds(545, 55, 350, 60);
 		chatBtn.setOpaque(false);
 		chatBtn.setBorderPainted(false);
 		chatBtn.setFocusPainted(false);
+		chatBtn.setContentAreaFilled(false);
 		chatBtn.addActionListener(this);
+	
 
 		// deleteBtn
-		deleteBtn = new JButton("게시물 삭제");
-		deleteBtn.setBounds(550, 555, 165, 35);
+		BufferedImage deleteImage = delegator.getImage("icon/delete.png");
+		ImageIcon deleteIcon = new ImageIcon(deleteImage);
+		deleteBtn = new JButton(deleteIcon);
+		deleteBtn.setBounds(545, 555, 165, 35);
 		deleteBtn.setOpaque(false);
+		deleteBtn.setBorderPainted(false);// 외곽선 없애줌
+		deleteBtn.setContentAreaFilled(false);
+		deleteBtn.setFocusPainted(false);
 		deleteBtn.addActionListener(this);
 
 		// go back to list button
-		listBtn = new JButton("목록으로 돌아가기");
+		BufferedImage backImage = delegator.getImage("icon/back.png");
+		ImageIcon backIcon = new ImageIcon(backImage);
+		listBtn = new JButton(backIcon);
 		// listBtn.setBounds(200, 10, 120, 30);
-		listBtn.setBounds(720, 555, 170, 35);
+		listBtn.setBounds(728, 555, 170, 35);
 		listBtn.setOpaque(false);
 		listBtn.setForeground(commonRedColor);
+		listBtn.setBorderPainted(false);// 외곽선 없애줌
+		listBtn.setContentAreaFilled(false);
+		listBtn.setFocusPainted(false);
 		listBtn.addActionListener(this);
 		// iteminfoPn.add(listBtn);
 		// iteminfoPn.setBounds(580, 135, 340, 400);
 
 		// completeBtn
-		completeBtn = new JButton("완료");
-		completeBtn.setBounds(550, 620, 340, 40);
+		BufferedImage completeImage = delegator.getImage("icon/complete.png");
+		ImageIcon completeIcon = new ImageIcon(completeImage);
+		completeBtn = new JButton(completeIcon);
+		completeBtn.setBounds(550, 590, 340, 40);
 		completeBtn.setOpaque(false);
+		completeBtn.setBorderPainted(false);// 외곽선 없애줌
+		completeBtn.setContentAreaFilled(false);
+		completeBtn.setFocusPainted(false);
 		completeBtn.addActionListener(this);
 
 		detailPn.add(completeBtn);

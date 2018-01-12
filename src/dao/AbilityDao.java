@@ -432,50 +432,9 @@ public class AbilityDao implements AbilityDaoImpl {
 	}
 
 	@Override
-	public AbilityBbs getItemBbsByTitleAndContent(AbilityBbs ability) {
-		// TODO Auto-generated method stub
-		String sql = " SELECT * FROM ABILITY_BBS WHERE TITLE='"+ability.getTitle()+"' AND CONTENT='"+ability.getContent()+"'";
-		
-		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
-		PreparedStatement ptmt = null;
-		ResultSet rs = null;
-		
-		AbilityBbs abilityDto = null;
-		
-		try {
-			ptmt = conn.prepareStatement(sql);
-			rs = ptmt.executeQuery();
-			
-			if(rs.next()) {
-				abilityDto = new AbilityBbs();
-				
-				abilityDto.setSeq(Integer.parseInt(rs.getString("SEQ")));
-				abilityDto.setCategory_id(Integer.parseInt(rs.getString("CATEGORY_ID")));
-				abilityDto.setTitle(rs.getString("TITLE"));
-				
-				abilityDto.setImgurl1(rs.getString("IMGURL1"));
-				abilityDto.setImgurl2(rs.getString("IMGURL2"));
-				abilityDto.setImgurl3(rs.getString("IMGURL3"));
-				abilityDto.setImgurl4(rs.getString("IMGURL4"));
-				abilityDto.setAbility(rs.getString("ABILITY"));
-				abilityDto.setContent(rs.getString("CONTENT"));
-				abilityDto.setState(Integer.parseInt(rs.getString("STATE")));
-				abilityDto.setCreated_at(rs.getString("CREATED_AT"));
-				abilityDto.setUser_id(rs.getString("USER_ID"));				
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return abilityDto;
-		
-	}
-
-	@Override
 	public AbilityBbs getAbilityByTilteAndContent(AbilityBbs abilityDto) {
 		// TODO Auto-generated method stub
-		String sql = " select * from where title='"+abilityDto.getTitle()+"' and content='"+abilityDto.getContent()+"'";
+		String sql = " select * from ability_bbs where title='"+abilityDto.getTitle()+"' and content='"+abilityDto.getContent()+"'";
 		
 		Connection conn = Delegator.getInstance().DBConnector.makeConnection();
 		PreparedStatement ptmt = null;
