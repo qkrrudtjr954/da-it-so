@@ -24,9 +24,8 @@ Communicatable electronic commerce app made with java swign and oracle, mySQL.
 
 ## Flow Chart
 
-![flow chart](https://i.imgur.com/JDuEej5.png | width=350)
-![flow chart2](https://i.imgur.com/p7dDMCF.png | width=350)
-
+<img src="https://i.imgur.com/JDuEej5.png" alt="flow chart" width="350"/>
+<img src="https://i.imgur.com/p7dDMCF.png" alt="flow chart2" width="350"/>
 
 ## Story Board
 
